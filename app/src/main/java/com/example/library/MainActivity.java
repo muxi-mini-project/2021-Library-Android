@@ -10,7 +10,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
 
-        //
+<<<<<<< .merge_file_a15524
+        /
+=======
+        ///
+>>>>>>> .merge_file_a16988
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
