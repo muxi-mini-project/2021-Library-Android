@@ -8,6 +8,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+<<<<<<< HEAD
+=======
+        android:theme="@style/Theme.AppCompat.NoActionBar">
+>>>>>>> 00870263b8a66c4277fedd9db9d0d356bed8c468
         android:theme="@style/Theme.Library">
         <activity android:name=".MainActivity">
             <intent-filter>

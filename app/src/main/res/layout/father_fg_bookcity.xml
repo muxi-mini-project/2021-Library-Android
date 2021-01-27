@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@color/usual_green"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/linearLayout5"
+            android:background="@drawable/search_background_city"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:layout_centerInParent="true"
+            tools:layout_editor_absoluteX="54dp"
+            tools:layout_editor_absoluteY="10dp">
+
+            <ImageView
+                android:id="@+id/search_book_city"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:paddingLeft="10dp"
+                android:src="@drawable/search_book_city"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/book_city_edit_text"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:paddingLeft="55dp"
+                android:hint="搜索..."
+                android:textColorHint="#8F9786"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+
+    <TableLayout
+        android:id="@+id/table_layout_city"
+        style="@style/Tablayout_style"
+        android:layout_width="match_parent"
+        android:layout_height="70dp" />
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/view_pager"
+        android:background="@color/usual_yellow"
+        android:layout_width="match_parent"
+        android:layout_height="500dp" />
+
+</LinearLayout>

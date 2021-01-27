@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Library</string>
+<<<<<<< HEAD
+=======
+    <string name="search">搜索</string>
+    <string name="book_cities">书城</string>
+    <string name="digests">书摘</string>
+    <string name="my">我的</string>
+>>>>>>> 00870263b8a66c4277fedd9db9d0d356bed8c468
 </resources>

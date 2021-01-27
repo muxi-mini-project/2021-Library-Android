@@ -2,6 +2,7 @@ package com.example.library;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+<<<<<<< HEAD
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -95,3 +96,20 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
 
 
     }}
+=======
+import android.os.Bundle;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+
+
+        ////text here..
+
+
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+    }
+}
+>>>>>>> 00870263b8a66c4277fedd9db9d0d356bed8c468
