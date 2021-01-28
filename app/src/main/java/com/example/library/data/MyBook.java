@@ -1,4 +1,6 @@
-package com.example.library;
+package com.example.library.data;
+
+import com.example.library.data.Book;
 
 public class MyBook extends Book {
     public boolean mIsMine;

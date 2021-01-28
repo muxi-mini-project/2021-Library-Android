@@ -1,4 +1,4 @@
-package com.example.library;
+package com.example.library.data;
 
 public class User {
     public String mUserName ;
