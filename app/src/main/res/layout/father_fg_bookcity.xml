@@ -10,7 +10,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:background="@color/usual_green"
+        android:background="@color/basic_green"
         android:orientation="horizontal">
 
         <RelativeLayout
@@ -55,7 +55,7 @@
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager"
-        android:background="@color/usual_yellow"
+        android:background="@color/yellow"
         android:layout_width="match_parent"
         android:layout_height="500dp" />
 
