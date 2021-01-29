@@ -5,23 +5,12 @@
     android:id="@+id/activity_bottom_guide"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".RegisterActivity">
 
-    <RelativeLayout
-        android:id="@+id/top_item"
-        android:layout_width="1080pt"
-        android:layout_height="100dp"
-        android:background="@android:color/white">
-
-        <EditText
-            android:id="@+id/search_item"
-            android:layout_width="781.46pt"
-            android:layout_height="110.99pt"
-            android:background="@drawable/it_search"
-            android:hint="@string/search"
-            android:textColorHint="@android:color/black"/>
-
-    </RelativeLayout>
+    <FrameLayout
+        android:id="@+id/father_fg_container"
+        android:layout_width="match_parent"
+        android:layout_height="600dp"/>
 
     <RadioGroup
         android:id="@+id/bottom_button"
