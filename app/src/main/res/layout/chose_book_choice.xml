@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <item android:id="@+id/history"
+        android:title="历史"/>
+    <item android:id="@+id/literature"
+        android:title="文学"/>
+    <item android:id="@+id/poetry"
+        android:title="诗歌"/>
+    <item android:id="@+id/add_style"
+        android:title="添加"/>
+    <item android:id="@+id/edit_style"
+        android:title="编辑"/>
+</menu>
