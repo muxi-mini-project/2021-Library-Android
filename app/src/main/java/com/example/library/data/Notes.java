@@ -1,4 +1,4 @@
-package com.example.library;
+package com.example.library.data;
 
 import java.util.Date;
 

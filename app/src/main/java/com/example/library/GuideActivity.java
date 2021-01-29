@@ -28,7 +28,7 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        fragmentManager = getFragmentManager();//这一步有问题！！！！！！！！！！！！！！！！！！！
+        fragmentManager = getSupportFragmentManager();//这一步有问题！！！！！！！！！！！！！！！！！！！
         txt_book_city.performClick();//模拟点击状态
         bindView();
     }
