@@ -5,7 +5,7 @@
     android:id="@+id/activity_bottom_guide"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".GuideActivity">
 
     <RelativeLayout
         android:id="@+id/top_item"
@@ -23,7 +23,7 @@
 
     </RelativeLayout>
 
-    <RadioGroup
+    <LinearLayout
         android:id="@+id/bottom_button"
         android:layout_width="1080pt"
         android:layout_height="130dp"
@@ -31,9 +31,10 @@
         android:layout_alignParentBottom="true"
         android:background="@android:color/holo_green_light">
 
-        <RadioButton
+        <TextView
+            android:id="@+id/txt_book_city"
             android:layout_width="0dp"
-            android:layout_height="56dp"
+            android:layout_height="100dp"
             android:layout_weight="1"
             android:background="@drawable/book_city_bg"
             android:drawablePadding="3dp"
@@ -44,9 +45,10 @@
             android:textColor="@drawable/book_city_text"
             android:textSize="16sp"/>
 
-        <RadioButton
+        <TextView
+            android:id="@+id/txt_digest"
             android:layout_width="0dp"
-            android:layout_height="56dp"
+            android:layout_height="100dp"
             android:layout_weight="1"
             android:background="@drawable/digest_bg"
             android:drawablePadding="3dp"
@@ -57,9 +59,10 @@
             android:textColor="@drawable/digest_text"
             android:textSize="16sp"/>
 
-        <RadioButton
+        <TextView
+            android:id="@+id/txt_mine"
             android:layout_width="0dp"
-            android:layout_height="56dp"
+            android:layout_height="100dp"
             android:layout_weight="1"
             android:background="@drawable/mine_bg"
             android:drawablePadding="3dp"
@@ -71,7 +74,7 @@
             android:textSize="16sp"/>
 
 
-    </RadioGroup>
+    </LinearLayout>
 
     <View
         android:id="@+id/view2"
@@ -81,6 +84,7 @@
         android:layout_above="@id/bottom_button"/>
 
     <FrameLayout
+        android:id="@+id/fg_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/bottom_button"
