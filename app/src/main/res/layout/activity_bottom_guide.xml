@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_bottom_guide"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegisterActivity">
+
+    <FrameLayout
+        android:id="@+id/father_fg_container"
+        android:layout_width="match_parent"
+        android:layout_height="600dp"/>
+
+    <LinearLayout
+        android:id="@+id/bottom_button"
+        android:layout_width="1080pt"
+        android:layout_height="130dp"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/holo_green_light">
+
+        <TextView
+            android:id="@+id/txt_book_city"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_weight="1"
+            android:background="@drawable/book_city_bg"
+            android:drawablePadding="3dp"
+            android:drawableTop="@drawable/book_city_pic"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="@string/book_cities"
+            android:textColor="@drawable/book_city_text"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/txt_digest"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_weight="1"
+            android:background="@drawable/digest_bg"
+            android:drawablePadding="3dp"
+            android:drawableTop="@drawable/digest_pic"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="@string/digests"
+            android:textColor="@drawable/digest_text"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/txt_mine"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_weight="1"
+            android:background="@drawable/mine_bg"
+            android:drawablePadding="3dp"
+            android:drawableTop="@drawable/mine_pic"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="@string/my"
+            android:textColor="@drawable/mine_text"
+            android:textSize="16sp"/>
+
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="match_parent"
+        android:layout_height="1pt"
+        android:background="@color/black"
+        android:layout_above="@id/bottom_button"/>
+
+    <FrameLayout
+        android:id="@+id/fg_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottom_button"
+        android:layout_below="@id/view2"
+        android:background="@android:color/holo_red_light"/>
+
+
+
+</RelativeLayout>

@@ -1,18 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+<<<<<<< HEAD
+    tools:context=".GuideActivity">
+=======
+    android:orientation="vertical"
+    android:background="@drawable/loadingbackground"
+    android:gravity="center_horizontal"
+    tools:context=".RegisterActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="330dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="150dp"
+        android:hint="请输入您的账号"
+        android:textColorHint="#C08D4E"
+        android:gravity="center"
+        android:background="@drawable/username_edit_view"
+        />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="330dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="30dp"
+        android:hint="请输入您的密码"
+        android:textColorHint="#C08D4E"
+        android:gravity="center"
+        android:background="@drawable/username_edit_view"
+        android:inputType="textPassword"
+        />
+    <Button
+        android:id="@+id/loading"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="50dp"
+        android:text="登录"
+        android:textColor="@color/black"
+        android:background="@drawable/resign_button"
+        android:onClick="onClick"
+        />
+
+    <Button
+        android:id="@+id/resign"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:text="注册"
+        android:textColor="@color/black"
+        android:background="@drawable/resign_button"
+        />
+>>>>>>> 8513041e5edb2c5bd1e7505099436d06742f52ad
+
+</LinearLayout>
+
