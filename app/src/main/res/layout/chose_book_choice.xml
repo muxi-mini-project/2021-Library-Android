@@ -12,5 +12,5 @@
     <item android:id="@+id/add_style"
         android:title="添加"/>
     <item android:id="@+id/edit_style"
-        android:title="编辑"/>
+        android:title="z 编辑"/>
 </menu>

@@ -21,7 +21,11 @@ public class RegisterActivity extends AppCompatActivity  implements View.OnClick
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_register);
+
+        setContentView(R.layout.register);
+
         //对控件初始化
         initView();
         //创建一个动态进度条

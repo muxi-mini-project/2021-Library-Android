@@ -15,7 +15,10 @@ public class chose_book_extract extends AppCompatActivity implements View.OnClic
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_register);
+
+        setContentView(R.layout.register);
       chose=(Button)findViewById(R.id.chose);
       chose.setOnClickListener(this);
     }
