@@ -1,7 +1,6 @@
 package com.example.library;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
@@ -27,7 +26,7 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_register);
         fragmentManager = getSupportFragmentManager();//这一步有问题！！！！！！！！！！！！！！！！！！！
         txt_book_city.performClick();//模拟点击状态
         bindView();
