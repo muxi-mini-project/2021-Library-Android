@@ -34,20 +34,11 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-<<<<<<< HEAD
-
     implementation 'com.android.support:support-annotations:28.0.0'
 
-    //implementation 'com.android.support:support-v4:28.0.0'
-    /*implementation 'com.android.support:recycleview-v7:24.1.1'*/
-
-=======
-<<<<<<< HEAD
-=======
     implementation 'com.android.support:support-v4:28.0.0'
-    implementation 'com.android.support:recycleview-v7:24.1.1'
->>>>>>> c419647bcad8258c6ab4e1e1f4f712cd9b4c45b4
->>>>>>> b232b2f6ad1558f26934ea5f168b44fef1f5f9ec
+    /*implementation 'com.android.support:recycleview-v7:24.1.1'*///hx:gradle表示无法接受
+
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
@@ -55,8 +46,8 @@ dependencies {
     //implementation 'android.recyclerview:recyclerview:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.2.0-beta01'
     //noinspection GradleCompatible
-    implementation 'com.android.support:design:28.0.0'//hx
-    implementation 'com.google.android.material:material:1.2.0-alpha03'//hx
+    implementation 'com.android.support:design:28.0.0'//hx:tableLayout
+    implementation 'com.google.android.material:material:1.2.0-alpha06'//hx
 
     implementation "androidx.core:core-ktx:+"
 

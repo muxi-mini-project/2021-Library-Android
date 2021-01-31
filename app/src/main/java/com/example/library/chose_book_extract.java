@@ -27,9 +27,9 @@ public class chose_book_extract extends AppCompatActivity implements View.OnClic
         //获取菜单填充器
         MenuInflater inflater = popup.getMenuInflater();
         //填充菜单
-        inflater.inflate(R.menu.main, popup.getMenu());
+       // inflater.inflate(R.menu.main, popup.getMenu());
         //绑定菜单项的点击事件
-        popup.setOnMenuItemClickListener(this);
+        //popup.setOnMenuItemClickListener(this);
         //显示(这一行代码不要忘记了)
         popup.show();
     }
