@@ -30,7 +30,7 @@ import java.util.List;
 public class BookCityFragment extends Fragment {
     //暂时考虑子类会用到，用public
     public EditText mEditText;
-    public TabLayout mTableLayout;
+    TabLayout mTableLayout;
     public ViewPager mViewPager;
     public MyAdapter adapter;
     private List<String> titles;//推荐/分类/排行
@@ -58,7 +58,7 @@ public class BookCityFragment extends Fragment {
         titles = new ArrayList<>();
         titles.add("推荐");
         titles.add("分类");
-        titles.add("数组");
+        titles.add("排行");
 
         init();
 

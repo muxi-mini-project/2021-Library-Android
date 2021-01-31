@@ -5,9 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-<<<<<<< HEAD
-    tools:context=".GuideActivity">
-=======
     android:orientation="vertical"
     android:background="@drawable/loadingbackground"
     android:gravity="center_horizontal"
@@ -55,7 +52,6 @@
         android:textColor="@color/black"
         android:background="@drawable/resign_button"
         />
->>>>>>> 8513041e5edb2c5bd1e7505099436d06742f52ad
 
 </LinearLayout>
 
