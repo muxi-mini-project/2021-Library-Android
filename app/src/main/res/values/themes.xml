@@ -23,7 +23,7 @@
 
 
     <style name="Tablayout_style" parent="Base.Widget.Design.TabLayout">
-        <item name="tabBackground">@color/white</item>
+        <item name="tabBackground">#000000</item>
         <item name="tabIndicatorColor">@color/basic_green</item>
         <item name="tabIndicatorHeight">2dp</item>
         <item name="tabSelectedTextColor">@color/basic_green</item>
