@@ -5,9 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-<<<<<<< HEAD
-    tools:context=".GuideActivity">
-=======
+
     android:orientation="vertical"
     android:background="@drawable/loadingbackground"
     android:gravity="center_horizontal"

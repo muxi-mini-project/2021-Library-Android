@@ -29,6 +29,7 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         fragmentManager = getSupportFragmentManager();//这一步有问题！！！！！！！！！！！！！！！！！！！
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         txt_book_city.performClick();//模拟点击状态
         bindView();
     }
@@ -60,20 +61,46 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        FragmentTransaction fTransaction = fragmentManager.beginTransaction();
-        hideAllFragment(fTransaction);
+        fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        hideAllFragment(fragmentTransaction);
         switch (v.getId()){
             case R.id.txt_book_city:setSelect();
-            txt_book_city.setSelected(true);
-            if(fragment1 == null){
-                fragment1 = new TextFG("书城");
-            }
-            else
-            {
-                fTransaction.show(fragment1);
-            }
+                txt_book_city.setSelected(true);
+                if(fragment1 == null){
+                    fragment1 = new TextFG("书城");
+                    fragmentTransaction.add(R.id.fg_content,fragment1);
+                }
+                else
+                {
+                    fragmentTransaction.show(fragment1);
+                }
                 break;
+            case R.id.txt_digest:setSelect();
+                txt_digest.setSelected(true);
+                if(fragment2 == null){
+                    fragment2 = new TextFG("书摘");
+                    fragmentTransaction.add(R.id.fg_content,fragment2);
+                }
+                else
+                {
+                    fragmentTransaction.show(fragment2);
+                }
+                break;
+            case R.id.txt_mine:setSelect();
+                txt_mine.setSelected(true);
+                if(fragment3 == null){
+                    fragment3 = new TextFG("我的");
+                    fragmentTransaction.add(R.id.fg_content,fragment3);
+                }
+                else
+                {
+                    fragmentTransaction.show(fragment3);
+                }
+                break;
+
         }
+        fragmentTransaction.commit();
 
     }
 
