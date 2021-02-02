@@ -5,5 +5,6 @@
     <string name="book_cities">书城</string>
     <string name="digests">书摘</string>
     <string name="my">我的</string>
+    <string name="switch_detail">关于开关</string>
 
 </resources>
