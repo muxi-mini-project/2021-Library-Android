@@ -87,7 +87,6 @@ public class RegisterActivity extends AppCompatActivity  implements View.OnClick
                 break;
         }
     }
-
     //对用户的输入进行非空判断
     private boolean submit(User user) {
         if (TextUtils.isEmpty(user.username) || TextUtils.isEmpty(user.password)) {
@@ -96,7 +95,6 @@ public class RegisterActivity extends AppCompatActivity  implements View.OnClick
         } else {
             return true;
         }
-
-
-    }}
+    }
+}
 
