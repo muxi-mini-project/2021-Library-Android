@@ -8,6 +8,7 @@ public class Notes {
     public UUID mNoteId;
     public String mNoteTitle;
     public String mNoteContent;
+    public String mCMContent;
     public String mNoteWriter;
     public Date mNoteDate;
 
@@ -22,6 +23,14 @@ public class Notes {
         mNoteContent = noteContent;
         mNoteDate = new Date();
 
+    }
+
+    public String getCMContent() {
+        return mCMContent;
+    }
+
+    public void setCMContent(String CMContent) {
+        mCMContent = CMContent;
     }
 
     public Notes(String noteTitle, String noteContent, Date noteDate) {

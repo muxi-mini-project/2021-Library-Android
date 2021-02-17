@@ -18,6 +18,7 @@ public class NotesLab {
            notes.setNoteTitle("title #" + i);
            notes.setNoteContent(" I write note" + i);
            notes.setNoteWriter(" Ms." + i);
+           notes.setCMContent("I think book" + i + "is good.");
            mNotes.add(notes);
         }
     }

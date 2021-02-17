@@ -19,7 +19,9 @@
         </activity>
 
         <activity android:name=".BookDetailPagerActivity">
+        </activity>
 
+        <activity android:name=".OthersNoteActivity">
         </activity>
     </application>
 

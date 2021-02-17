@@ -1,6 +1,7 @@
 package com.example.library.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.library.OthersNoteActivity;
 import com.example.library.R;
 import com.example.library.data.Book;
 import com.example.library.data.BookLab;
@@ -85,6 +87,7 @@ public class BookDetailsFragment extends Fragment {
         updateUI();
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setFocusable(false);
 
         return v;
     }
@@ -99,14 +102,16 @@ public class BookDetailsFragment extends Fragment {
     }
 
 /*holder*/
-    public class NoteHolder extends RecyclerView.ViewHolder{
+    public class NoteHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private ImageView mNoteImageView;
         private TextView mNoteName;
         private TextView mNoteDate;
         private TextView mNote;
+        private Notes notes;
 
         public NoteHolder(LayoutInflater inflater,ViewGroup parent) {
             super(inflater.inflate(R.layout.book_notes_list,parent,false));
+            itemView.setOnClickListener(this);
 
             mImageView = (ImageView)itemView.findViewById(R.id.book_detail_note_pic);
             mNoteName = (TextView)itemView.findViewById(R.id.book_detail_name);
@@ -114,10 +119,16 @@ public class BookDetailsFragment extends Fragment {
             mNote = (TextView)itemView.findViewById(R.id.book_detail_note_content);
         }
 
-        public void bind(Notes notes){
+        public void bind(Notes mNotes){
+            notes = mNotes;
             mNoteName.setText(notes.getNoteWriter());
             mNote.setText(notes.getNoteContent());
             mNoteDate.setText(notes.getNoteDate());
+        }
+
+        public void onClick(View view){
+            Intent intent = OthersNoteActivity.newIntent(getContext(),notes.getNoteId());
+            startActivity(intent);
         }
 
     }
