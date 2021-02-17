@@ -9,13 +9,18 @@ import android.widget.PopupMenu;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.library.R;
+
 public class chose_book_extract extends AppCompatActivity implements View.OnClickListener {
     private Button chose;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_register);
+
+        setContentView(R.layout.register);
       chose=(Button)findViewById(R.id.chose);
       chose.setOnClickListener(this);
     }

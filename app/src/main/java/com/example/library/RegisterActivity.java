@@ -21,7 +21,11 @@ public class RegisterActivity extends AppCompatActivity  implements View.OnClick
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_register);
+
+        setContentView(R.layout.register);
+
         //对控件初始化
         initView();
         //创建一个动态进度条
@@ -83,7 +87,6 @@ public class RegisterActivity extends AppCompatActivity  implements View.OnClick
                 break;
         }
     }
-
     //对用户的输入进行非空判断
     private boolean submit(User user) {
         if (TextUtils.isEmpty(user.username) || TextUtils.isEmpty(user.password)) {
@@ -92,7 +95,6 @@ public class RegisterActivity extends AppCompatActivity  implements View.OnClick
         } else {
             return true;
         }
-
-
-    }}
+    }
+}
 
