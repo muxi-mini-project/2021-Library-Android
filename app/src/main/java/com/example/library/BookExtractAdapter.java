@@ -50,5 +50,10 @@ public class BookExtractAdapter extends RecyclerView.Adapter<BookExtractAdapter.
         holder.context.setText(fruit.getContextId());
         holder.date.setText(fruit.getDateId());
     }
+//hx增加以下方法，是否这样？
+    @Override
+    public int getItemCount() {
+        return mBook_extract.size();
+    }
 
 }

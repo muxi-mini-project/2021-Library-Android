@@ -26,11 +26,7 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
-<<<<<<< Updated upstream
         setContentView(R.layout.activity_register);
-=======
-        setContentView(R.layout.register);
->>>>>>> Stashed changes
         fragmentManager = getSupportFragmentManager();//这一步有问题！！！！！！！！！！！！！！！！！！！
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         txt_book_city.performClick();//模拟点击状态

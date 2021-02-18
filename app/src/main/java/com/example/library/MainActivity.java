@@ -20,7 +20,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.text);//activity的布局
 
 
-        setContentView(R.layout.register);//activity的布局
+       //hx暂时注释
+        //setContentView(R.layout.register);//activity的布局
 
 
     /*启用父fragment*/
