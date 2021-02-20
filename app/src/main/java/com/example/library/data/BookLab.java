@@ -23,6 +23,14 @@ public class BookLab {
             book.setIntroduction("I am book" + i);
             mBooks.add(book);
         }
+
+        for(int j = 0; j<100; j++){
+            MyBook myBook = new MyBook();
+            myBook.setBookTitle("MyBook #"+j);
+            myBook.setBookWriter("writer"+j);
+            myBook.setIntroduction("I am mybook" +j);
+            mMyBooks.add(myBook);
+        }
     }
 
     //创建单例
@@ -43,6 +51,18 @@ public class BookLab {
         for (Book book:mBooks){
             if (book.getId().equals(id)){
                 return book;
+            }
+        }
+        return null;
+    }
+
+    public List<MyBook> getmMyBooks(){
+        return mMyBooks;
+    }
+    public MyBook getMyBook(UUID Id) {
+        for (MyBook myBook : mMyBooks) {
+            if (myBook.getId().equals(Id)) {
+                return myBook;
             }
         }
         return null;
