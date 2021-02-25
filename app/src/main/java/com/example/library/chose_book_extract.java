@@ -4,40 +4,98 @@ package com.example.library;
 import android.os.Bundle;
 import android.view.MenuInflater;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.library.R;
 
-public class chose_book_extract extends AppCompatActivity implements View.OnClickListener {
-    private Button chose;
+import java.nio.file.WatchEvent;
+import java.util.ArrayList;
+import java.util.List;
+
+import kotlin.reflect.KParameter;
+
+public class chose_book_extract extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+    private Spinner mChose;
+    private Button mEdit;
+    private Button mAdd;
+    private TextView mBook_extract;
+    private EditText mBook_search;
+    private ImageView mImage_search;
+    private List<String> list = new ArrayList<String>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.book_zhai);
+        list.add("历史");
+        list.add("文学");
+        list.add("诗歌");
+        list.add("添加");
+        list.add("编辑");
+        SpinnerAdapter adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, list);
+        mChose.setAdapter(adapter);
+        mChose.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+        public void onItemSelected(AdapterView<?> arg0, View arg1,
+                                   int arg2, long arg3) {
+            mBook_extract.setText((Integer) adapter.getItem(arg2));
+        }
 
-        setContentView(R.layout.activity_register);
+        @Override
+        public void onNothingSelected(AdapterView<?> arg0) {
+         mBook_extract.setText("全部书摘");
+        }
+    });
+        initView();
+        bindView();
+    }
 
-        setContentView(R.layout.register);
-      chose=(Button)findViewById(R.id.chose);
-      chose.setOnClickListener(this);
+    private void bindView() {
+        mChose=(Spinner)findViewById(R.id.chose);
+        mChose.setOnItemSelectedListener(this);
+    }
+
+    private void initView() {
+        mAdd=(Button)findViewById(R.id.add);
+        mBook_extract=(TextView)findViewById(R.id.book_extract);
+        mBook_search=(EditText) findViewById(R.id.book_search);
+        mImage_search=(ImageView)findViewById(R.id.image_search);
+        mEdit=(Button)findViewById(R.id.edit);
+        mAdd.setOnClickListener((View.OnClickListener) this);
+        mEdit.setOnClickListener((View.OnClickListener) this);
+
     }
 
     @Override
-    public void onClick(View choes_book_choice) {
-        //创建弹出式菜单对象（最低版本11）
-        PopupMenu popup = new PopupMenu(this,choes_book_choice);//第二个参数是绑定的那个view
-        //获取菜单填充器
-        MenuInflater inflater = popup.getMenuInflater();
-        //填充菜单
-       // inflater.inflate(R.menu.main, popup.getMenu());
-        //绑定菜单项的点击事件
-        //popup.setOnMenuItemClickListener(this);
-        //显示(这一行代码不要忘记了)
-        popup.show();
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
     }
 
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    //@Override
+   // public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+      //  mBook_extract
+    //}
+
+    //@Override
+    //public void onNothingSelected(AdapterView<?> parent) {
+
+    //}
 }

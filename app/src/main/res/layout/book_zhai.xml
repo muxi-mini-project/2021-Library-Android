@@ -26,14 +26,14 @@
             android:gravity="center"
             android:textColor="@color/deep_green"
             />
-        <Button
+        <Spinner
             android:id="@+id/chose"
             android:layout_width="20dp"
             android:layout_height="70dp"
             android:background="@drawable/ic_baseline_arrow_drop_down_24"
-            android:gravity="center"
-            android:layout_marginTop="5dp"
-            android:onClick="chose_book_extract"
+           android:layout_marginTop="4dp"
+            android:entries="@array/book_kinds"
+            android:spinnerMode="dropdown"
             />
 
         <Button
