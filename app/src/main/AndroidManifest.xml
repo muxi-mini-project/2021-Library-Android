@@ -11,12 +11,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.Light.NoActionBar">
 
-<<<<<<< HEAD
         <activity android:name=".activity.MainActivity">
-=======
-        <activity android:name=".bookextract">
 
->>>>>>> e52af6e53bc6587ff1303b91b1497fdf194768bf
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

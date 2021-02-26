@@ -14,8 +14,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.library.R;
 import com.example.library.fragment.BookCityFragment;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SortFragment extends BookCityFragment {
     private RecyclerView mRecyclerView;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -33,7 +37,7 @@ public class SortFragment extends BookCityFragment {
     }
 
 /*adapter and holder*/
-    class GridAdapter extends RecyclerView.Adapter<GridAdapter.Holder>{
+class GridAdapter extends RecyclerView.Adapter<GridAdapter.Holder>{
 
     @NonNull
     @Override
@@ -44,13 +48,20 @@ public class SortFragment extends BookCityFragment {
 
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
-        //holder.mTextView1.setText("Sort " + position);
+        List<String> nameList = new ArrayList<>();
+        nameList.add("现实");//add方法在方法体外无法使用
+        nameList.add("科幻");
+        nameList.add("艺术");
+        nameList.add("文学");
+        nameList.add("武侠");
+        //String[] nameList = new String[]{"现实","科幻","艺术","文学","武侠"};
         holder.mTextView2.setText("共" + position + "本");
+        holder.mTextView1.setText(nameList.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return 20;
+        return 5;
     }
 
     /*holder*/
