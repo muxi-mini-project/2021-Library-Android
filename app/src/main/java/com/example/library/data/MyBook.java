@@ -13,9 +13,6 @@ public class MyBook extends Book {
         nId = UUID.randomUUID();
     }
 
-    public MyBook(String bookTitle, String bookWriter, String introduction) {
-        super(bookTitle, bookWriter, introduction);
-    }
 
     public boolean isMine() {
         return mIsMine;

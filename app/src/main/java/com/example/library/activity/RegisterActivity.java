@@ -1,4 +1,4 @@
-package com.example.library;
+package com.example.library.activity;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -10,6 +10,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.library.R;
+import com.example.library.User;
 
 public class RegisterActivity extends AppCompatActivity  implements View.OnClickListener{
     private EditText mUsername;

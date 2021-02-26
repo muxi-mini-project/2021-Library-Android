@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.library.BookDetailPagerActivity;
+import com.example.library.activity.BookDetailPagerActivity;
 import com.example.library.R;
 import com.example.library.data.Book;
 import com.example.library.data.BookLab;
@@ -74,9 +74,9 @@ public class RankFragment extends BookCityFragment {
 
         public void bind(Book book){
             mBook = book;
-            mTTTextView.setText(mBook.getBookTitle());
-            mWTTextView.setText(mBook.getBookWriter());
-            mInTextView.setText(mBook.getIntroduction());
+            mTTTextView.setText(mBook.getBook_name());
+            mWTTextView.setText(mBook.getBook_author());
+            mInTextView.setText(mBook.getBook_information());
         }
 
         public void onClick(View view) {

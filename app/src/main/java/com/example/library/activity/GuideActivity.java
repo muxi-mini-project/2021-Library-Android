@@ -1,4 +1,4 @@
-package com.example.library;
+package com.example.library.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
@@ -9,6 +9,9 @@ import android.view.View;
 import android.view.Window;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+
+import com.example.library.R;
+import com.example.library.TextFG;
 
 public class GuideActivity extends AppCompatActivity implements View.OnClickListener {
 

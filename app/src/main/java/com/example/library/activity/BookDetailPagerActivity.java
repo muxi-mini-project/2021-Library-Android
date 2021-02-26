@@ -1,16 +1,16 @@
-package com.example.library;
+package com.example.library.activity;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.library.R;
 import com.example.library.data.Book;
 import com.example.library.data.BookLab;
 import com.example.library.fragment.BookDetailsFragment;

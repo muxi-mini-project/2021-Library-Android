@@ -1,4 +1,4 @@
-package com.example.library;
+package com.example.library.activity;
 
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.example.library.R;
 import com.example.library.fragment.BookCityFragment;
 
 public class MainActivity extends AppCompatActivity {

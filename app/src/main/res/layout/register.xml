@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:background="@drawable/loadingbackground"
     android:gravity="center_horizontal"
-    tools:context=".RegisterActivity">
+    tools:context=".activity.RegisterActivity">
 
     <EditText
         android:id="@+id/username"

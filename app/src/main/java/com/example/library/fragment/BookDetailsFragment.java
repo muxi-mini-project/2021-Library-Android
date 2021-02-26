@@ -1,6 +1,5 @@
 package com.example.library.fragment;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,7 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.library.OthersNoteActivity;
+import com.example.library.activity.OthersNoteActivity;
 import com.example.library.R;
 import com.example.library.data.Book;
 import com.example.library.data.BookLab;
@@ -68,15 +66,15 @@ public class BookDetailsFragment extends Fragment {
         mXQTextView = (TextView)v.findViewById(R.id.book_detail);
         //书名
         mSMTextView = (TextView)v.findViewById(R.id.book_detail_title);
-        mSMTextView.setText(mBook.getBookTitle());
+        mSMTextView.setText(mBook.getBook_name());
         //作者
         mZZTextView = (TextView)v.findViewById(R.id.book_detail_writer);
-        mZZTextView.setText(mBook.getBookWriter());
+        mZZTextView.setText(mBook.getBook_author());
         //简介
         mJJTextView = (TextView)v.findViewById(R.id.book_detail_intro);
         //简介详情
         mJJ2TextView = (TextView)v.findViewById(R.id.book_detail_intro2);
-        mJJ2TextView.setText(mBook.getIntroduction());
+        mJJ2TextView.setText(mBook.getBook_information());
         //添加书架
         mButton1 = (Button)v.findViewById(R.id.book_detail_shelf);
         //添加书摘
@@ -113,10 +111,10 @@ public class BookDetailsFragment extends Fragment {
             super(inflater.inflate(R.layout.book_notes_list,parent,false));
             itemView.setOnClickListener(this);
 
-            mImageView = (ImageView)itemView.findViewById(R.id.book_detail_note_pic);
-            mNoteName = (TextView)itemView.findViewById(R.id.book_detail_name);
-            mNoteDate = (TextView)itemView.findViewById(R.id.book_detail_date);
-            mNote = (TextView)itemView.findViewById(R.id.book_detail_note_content);
+            mImageView = (ImageView)itemView.findViewById(R.id.comment_logo);
+            mNoteName = (TextView)itemView.findViewById(R.id.comment_name);
+            mNoteDate = (TextView)itemView.findViewById(R.id.comment_date);
+            mNote = (TextView)itemView.findViewById(R.id.comment_content);
         }
 
         public void bind(Notes mNotes){

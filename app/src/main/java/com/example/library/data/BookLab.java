@@ -18,17 +18,17 @@ public class BookLab {
         //生成临时数据组
         for (int i = 0; i < 100; i++){
             Book book = new Book();
-            book.setBookTitle("Book #" + i);
-            book.setBookWriter("writer" + i);
-            book.setIntroduction("I am book" + i);
+            book.setBook_name("Book #" + i);
+            book.setBook_author("writer" + i);
+            book.setBook_information("I am book" + i);
             mBooks.add(book);
         }
 
         for(int j = 0; j<100; j++){
             MyBook myBook = new MyBook();
-            myBook.setBookTitle("MyBook #"+j);
-            myBook.setBookWriter("writer"+j);
-            myBook.setIntroduction("I am mybook" +j);
+            myBook.setBook_name("MyBook #"+j);
+            myBook.setBook_author("writer"+j);
+            myBook.setBook_information("I am mybook" +j);
             mMyBooks.add(myBook);
         }
     }
