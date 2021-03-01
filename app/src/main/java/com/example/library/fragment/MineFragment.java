@@ -42,7 +42,7 @@ public class MineFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.activity_mine_qyh, container, false);
+        View v = inflater.inflate(R.layout.fragment_mine_qyh, container, false);
 
         context = getContext();
         mImageButton_tou = (ImageButton) v.findViewById(R.id.tou_xiang);
