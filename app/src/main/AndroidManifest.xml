@@ -11,8 +11,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.Light.NoActionBar">
 
-        <activity android:name=".activity.GuideActivity">
-
+        <activity android:name=".activity.GuideActivity"
+            android:windowSoftInputMode = "stateAlwaysHidden|adjustPan">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
