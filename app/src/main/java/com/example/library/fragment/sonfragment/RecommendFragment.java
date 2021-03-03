@@ -43,8 +43,6 @@ public class RecommendFragment extends BookCityFragment {
                 .findViewById(R.id.son_fg_recycler_view);
         updateUI();
         mRMRecyclerView.setLayoutManager(new LinearLayoutManager(getParentFragment().getActivity()));
-        Log.d(TAG,"RecyclerView is created here?");
-
 
         return view;
     }
@@ -125,8 +123,4 @@ public class RecommendFragment extends BookCityFragment {
          }
  }
 
-    @Override
-    public void onPause(){
-        super.onPause();
-    }
 }

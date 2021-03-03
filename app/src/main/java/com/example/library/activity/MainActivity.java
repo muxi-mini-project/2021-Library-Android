@@ -17,10 +17,7 @@ public class MainActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.text);//activity的布局
-
-
        //hx暂时注释
         //setContentView(R.layout.register);//activity的布局
 

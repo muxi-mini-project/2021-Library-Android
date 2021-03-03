@@ -20,7 +20,6 @@ public class chose_book_extract extends AppCompatActivity implements View.OnClic
 
         setContentView(R.layout.activity_register);
 
-        setContentView(R.layout.register);
       chose=(Button)findViewById(R.id.chose);
       chose.setOnClickListener(this);
     }

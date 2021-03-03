@@ -1,6 +1,7 @@
 package com.example.library.activity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.text.TextUtils;
@@ -24,10 +25,7 @@ public class RegisterActivity extends AppCompatActivity  implements View.OnClick
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_register);
-
-        setContentView(R.layout.register);
 
         //对控件初始化
         initView();
@@ -71,6 +69,7 @@ public class RegisterActivity extends AppCompatActivity  implements View.OnClick
                                     @Override
                                     public void run() {
                                         Toast.makeText(RegisterActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(RegisterActivity.this,MainActivity.class));
                                     }
                                 });
                             } else {

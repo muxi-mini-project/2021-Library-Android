@@ -6,6 +6,8 @@ import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.TableLayout;
 
@@ -29,7 +31,8 @@ import java.util.List;
 
 public class BookCityFragment extends Fragment {
     //暂时考虑子类会用到，用public
-    public EditText mEditText;
+    public AutoCompleteTextView mEditText;
+    private ArrayAdapter<String> mArrayAdapter;
     TabLayout mTableLayout;
     public ViewPager mViewPager;
     public MyAdapter adapter;
@@ -46,7 +49,7 @@ public class BookCityFragment extends Fragment {
                              Bundle savedInstanceState){
         View v = inflater.inflate(R.layout.father_fg_bookcity,container,false);
         //实例化组件
-        mEditText = (EditText)v.findViewById(R.id.book_city_edit_text);
+        mEditText = (AutoCompleteTextView) v.findViewById(R.id.book_city_edit_text);
         mTableLayout = v.findViewById(R.id.table_layout_city);
         mViewPager = (ViewPager) v.findViewById(R.id.view_pager);
         //初始化子fragment并组成数组
@@ -61,11 +64,30 @@ public class BookCityFragment extends Fragment {
         titles.add("排行");
 
         init();
+        mArrayAdapter = new ArrayAdapter<>(getActivity(),
+                android.R.layout.simple_list_item_1,getDataSource());
+        mEditText.setAdapter(mArrayAdapter);
+        mEditText.setThreshold(1);//设置输入几个字符后开始出现提示 默认是2
 
         return v;
     }
 
-    //关联tableLayout和
+/*手工设置一个list数组作为数据源*/
+    public List<String> getDataSource(){
+        List<String> list = new ArrayList<>();
+        list.add("pingfande");
+        list.add("pingfanderensheng");
+        list.add("平凡的父亲");
+        return list;
+    }
+
+    /*@Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.main,menu);
+        return true;
+    }*/
+
+    //关联tableLayout和adapter
     private void init(){
         adapter = new MyAdapter(getChildFragmentManager());
         mViewPager.setAdapter(adapter);
