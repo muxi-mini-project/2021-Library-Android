@@ -17,6 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.library.R;
 
@@ -32,8 +34,8 @@ public class chose_book_extract extends AppCompatActivity implements AdapterView
     private Button mAdd;
     private TextView mBook_extract;
     private EditText mBook_search;
-    private ImageView mImage_search;
     private List<String> list = new ArrayList<String>();
+
 
 
     @Override
@@ -43,8 +45,6 @@ public class chose_book_extract extends AppCompatActivity implements AdapterView
         list.add("历史");
         list.add("文学");
         list.add("诗歌");
-        list.add("添加");
-        list.add("编辑");
         SpinnerAdapter adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, list);
         mChose.setAdapter(adapter);
@@ -66,13 +66,13 @@ public class chose_book_extract extends AppCompatActivity implements AdapterView
     private void bindView() {
         mChose=(Spinner)findViewById(R.id.chose);
         mChose.setOnItemSelectedListener(this);
+
     }
 
     private void initView() {
         mAdd=(Button)findViewById(R.id.add);
         mBook_extract=(TextView)findViewById(R.id.book_extract);
         mBook_search=(EditText) findViewById(R.id.book_search);
-        mImage_search=(ImageView)findViewById(R.id.image_search);
         mEdit=(Button)findViewById(R.id.edit);
         mAdd.setOnClickListener((View.OnClickListener) this);
         mEdit.setOnClickListener((View.OnClickListener) this);
