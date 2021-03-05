@@ -1,6 +1,7 @@
 package com.example.library.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.library.R;
+import com.example.library.activity.SetDetailActivity;
 import com.example.library.data.BookLab;
 import com.example.library.data.MyBook;
 import com.example.library.data.MyNotes;
@@ -57,6 +59,14 @@ public class MineFragment extends Fragment {
         name = (TextView) v.findViewById(R.id.Name);
         zuoyouming = (TextView) v.findViewById(R.id.zuoyou);
         set = (TextView) v.findViewById(R.id.shezhi);
+
+        set.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity().getApplicationContext(), SetDetailActivity.class);
+                startActivity(i);
+            }
+        });
         manager = (TextView) v.findViewById(R.id.manager);
 
         /*RecycleView部分*/
