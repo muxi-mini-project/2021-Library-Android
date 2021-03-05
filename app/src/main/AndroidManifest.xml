@@ -10,7 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.Light.NoActionBar">
-
+        <activity android:name=".activity.SetDetailActivity"></activity>
         <activity android:name=".activity.GuideActivity"
             android:windowSoftInputMode = "stateAlwaysHidden|adjustPan">
 
