@@ -11,11 +11,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class edit_item<DeleteCallback> extends edit implements View.OnClickListener,DeleteCallback{
-    //private RecyclerView mBook_kind_recyclerview;
+    private RecyclerView mBook_kind_recyclerview;
     private TextView mBook_name;
     private Button mDelete;
     ArrayList<String>data=new ArrayList<String>();
-    //int count;
+    int count;
     private MessageAdapter mAdapter;
 
     @Override
@@ -27,7 +27,7 @@ public class edit_item<DeleteCallback> extends edit implements View.OnClickListe
 
     private void onitView() {
         mBook_name=(TextView)findViewById(R.id.book_name);
-        mDelete=(Button)findViewById(R.id.delete);
+       mDelete=(Button)findViewById(R.id.delete);
         mAdapter=new MessageAdapter(this);
         mAdapter.setData(data);
         mAdapter.setDeketeCallback(this);
@@ -36,7 +36,7 @@ public class edit_item<DeleteCallback> extends edit implements View.OnClickListe
     }
 
 
-    public void delete(View view) {
+   public void delete(View view) {
         
 
     }

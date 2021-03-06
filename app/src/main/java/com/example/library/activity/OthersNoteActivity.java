@@ -21,7 +21,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.library.BookService;
 import com.example.library.R;
 import com.example.library.data.CommentData;
 import com.example.library.data.CommentDetail;
@@ -32,16 +31,8 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.gson.Gson;
 
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.List;
 import java.util.UUID;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class OthersNoteActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String EXTRA_NOTE_ID = "com.example.Library.note_id";

@@ -20,8 +20,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.BookDetailPagerActivity"></activity>
+        <activity android:name=".edit"></activity>
         <activity android:name=".activity.OthersNoteActivity"></activity>
+        <activity android:name=".bookextract"></activity>
+
     </application>
 
 </manifest>

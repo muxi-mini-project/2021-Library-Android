@@ -45,7 +45,7 @@ public class edit extends AppCompatActivity implements View.OnClickListener {
     }
 
     public void back_extract(View view){
-        startActivity(new Intent(edit.this,bookextract.class));
+        startActivityFromFragment(new Intent(edit.this,bookextract.class));
     }
 
     public void finish(View view) {
