@@ -1,26 +1,20 @@
 package com.example.library.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.EditText;
-import android.widget.TableLayout;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
-import androidx.viewpager2.adapter.FragmentStateAdapter;
-import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.library.R;
+import com.example.library.Search.SearchActivity;
 import com.example.library.fragment.sonfragment.RankFragment;
 import com.example.library.fragment.sonfragment.RecommendFragment;
 import com.example.library.fragment.sonfragment.SortFragment;
@@ -31,7 +25,7 @@ import java.util.List;
 
 public class BookCityFragment extends Fragment {
     //暂时考虑子类会用到，用public
-    public AutoCompleteTextView mEditText;
+    public TextView mEditText;
     private ArrayAdapter<String> mArrayAdapter;
     TabLayout mTableLayout;
     public ViewPager mViewPager;
@@ -49,9 +43,15 @@ public class BookCityFragment extends Fragment {
                              Bundle savedInstanceState){
         View v = inflater.inflate(R.layout.father_fg_bookcity,container,false);
         //实例化组件
-        mEditText = (AutoCompleteTextView) v.findViewById(R.id.book_city_edit_text);
+        mEditText = (TextView) v.findViewById(R.id.book_city_edit_text);
         mTableLayout = v.findViewById(R.id.table_layout_city);
         mViewPager = (ViewPager) v.findViewById(R.id.view_pager);
+        mEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), SearchActivity.class));
+            }
+        });
         //初始化子fragment并组成数组
         mFragments = new ArrayList<>();
         mFragments.add(new RecommendFragment());
@@ -64,10 +64,10 @@ public class BookCityFragment extends Fragment {
         titles.add("排行");
 
         init();
-        mArrayAdapter = new ArrayAdapter<>(getActivity(),
+        /*mArrayAdapter = new ArrayAdapter<>(getActivity(),
                 android.R.layout.simple_list_item_1,getDataSource());
         mEditText.setAdapter(mArrayAdapter);
-        mEditText.setThreshold(1);//设置输入几个字符后开始出现提示 默认是2
+        mEditText.setThreshold(1);//设置输入几个字符后开始出现提示 默认是2*/
 
         return v;
     }

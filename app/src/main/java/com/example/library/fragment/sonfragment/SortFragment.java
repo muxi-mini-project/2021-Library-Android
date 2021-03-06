@@ -23,7 +23,7 @@ import java.util.List;
 public class SortFragment extends BookCityFragment {
     private java.lang.String TAG = "SortFragment";
     private RecyclerView mRecyclerView;
-    private List<java.lang.String> nameList = new ArrayList<java.lang.String>();
+    private List<String> nameList = new ArrayList<java.lang.String>();
     private int currentNumber;
 
     @Override
@@ -43,16 +43,11 @@ public class SortFragment extends BookCityFragment {
 
     private void initData(){
         //为解决list列表只存有最后一个值的暂时解决办法
-        String name1 = "现实";
-        nameList.add(name1);
-        String name2 = "科幻";
-        nameList.add(name2);
-        String name3 = "艺术";
-        nameList.add(name3);
-        String name4 = "文学";
-        nameList.add(name4);
-        String name5 = "武侠";
-        nameList.add(name5);
+        nameList.add("现实");
+        nameList.add("科幻");
+        nameList.add("艺术");
+        nameList.add("文学");
+        nameList.add("武侠");
     }
 
 /*adapter and holder*/

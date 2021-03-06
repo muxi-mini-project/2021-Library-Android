@@ -31,13 +31,15 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <AutoCompleteTextView
+            <EditText
                 android:id="@+id/book_city_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@null"
                 android:hint="搜索..."
                 android:paddingLeft="55dp"
+                android:paddingTop="2dp"
+                android:textSize="25sp"
                 android:textColorHint="#8F9786"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -56,8 +58,8 @@
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager"
-        android:background="@color/yellow"
         android:layout_width="match_parent"
-        android:layout_height="600dp" />
+        android:layout_height="600dp"
+        android:background="@color/yellow" />
 
 </LinearLayout>
