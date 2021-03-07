@@ -1,12 +1,9 @@
 package com.example.library.Search;
 
 import android.content.Context;
-import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,7 +16,7 @@ public abstract class CommonAdapter<T> extends RecyclerView.Adapter<BaseViewHold
     protected int layoutId;
     private BaseViewHolder.OnItemClickListener itemClickListener;
 
-    public CommonAdapter(Context context,int layoutId){
+    public CommonAdapter(Context context, List<String> resultData, int layoutId){
         this.mContext = context;
         this.layoutId = layoutId;
     }

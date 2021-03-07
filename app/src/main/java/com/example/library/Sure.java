@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class sure extends AppCompatActivity implements View.OnClickListener {
+public class Sure extends AppCompatActivity implements View.OnClickListener {
     private Button mSureofregister;
     private Button mBack;
     private EditText mResigter_username;

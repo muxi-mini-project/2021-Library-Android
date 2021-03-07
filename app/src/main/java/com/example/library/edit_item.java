@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class edit_item<DeleteCallback> extends edit implements View.OnClickListener,DeleteCallback{
+public class edit_item<DeleteCallback> extends edit implements View.OnClickListener{
     private RecyclerView mBook_kind_recyclerview;
     private TextView mBook_name;
     private Button mDelete;

@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.library.R;
+import com.example.library.sure;
 import com.example.library.User;
 
 public class RegisterActivity extends AppCompatActivity  implements View.OnClickListener{
@@ -41,6 +42,8 @@ public class RegisterActivity extends AppCompatActivity  implements View.OnClick
     }
     @Override
     public void onClick(View v) {
+        Intent intent=new Intent(RegisterActivity.this,GuideActivity.class);
+        startActivity(intent);
         switch (v.getId()) {
             case R.id.loading:
                 final String username = mUsername.getText().toString().trim();
@@ -96,6 +99,11 @@ public class RegisterActivity extends AppCompatActivity  implements View.OnClick
         } else {
             return true;
         }
+    }
+
+    public void register(View view) {
+        Intent intent=new Intent(RegisterActivity.this, sure.class);
+        startActivity(intent);
     }
 }
 

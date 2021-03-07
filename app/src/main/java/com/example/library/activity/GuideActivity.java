@@ -1,7 +1,6 @@
 package com.example.library.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.View;
@@ -11,11 +10,9 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.example.library.R;
-import com.example.library.TextFG;
 import com.example.library.fragment.BookCityFragment;
-import com.example.library.fragment.BookDetailsFragment;
 import com.example.library.fragment.MineFragment;
-import com.example.library.fragment.chose_book_extract;
+import com.example.library.fragment.ChoseBookExtract;
 
 public class GuideActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -27,7 +24,7 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
 
     /*底部导航栏对应的Fragment*/
     private BookCityFragment fragment1;
-    private chose_book_extract fragment2;
+    private ChoseBookExtract fragment2;
     private MineFragment fragment3;
 
 
@@ -86,7 +83,7 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
             case R.id.txt_digest:
                 txt_digest.setSelected(true);
                 if(fragment2 == null){
-                    fragment2 = new chose_book_extract();
+                    fragment2 = new ChoseBookExtract();
                     fragmentTransaction.add(R.id.fragment,fragment2);
                 }
                 else

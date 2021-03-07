@@ -20,7 +20,7 @@ import com.example.library.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class chose_book_extract extends Fragment {
+public class ChoseBookExtract extends Fragment {
     private Spinner mChose;
     private Button mEdit;
     private Button mAdd;
@@ -39,7 +39,10 @@ public class chose_book_extract extends Fragment {
         list.add("历史");
         list.add("文学");
         list.add("诗歌");
-        SpinnerAdapter adapter = new ArrayAdapter<String>(this.getContext(),
+
+
+
+        SpinnerAdapter adapter = new ArrayAdapter<String>(getContext(),
                 android.R.layout.simple_spinner_item, list);
 
         mChose.setAdapter(adapter);

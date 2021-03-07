@@ -10,23 +10,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.Light.NoActionBar">
-        <activity android:name=".activity.GuideActivity"
+        <activity android:name=".activity.GuideActivity"/>
+        <activity android:name=".activity.SetDetailActivity"/>
+        <activity android:name=".activity.RegisterActivity"
             android:windowSoftInputMode = "stateAlwaysHidden|adjustPan">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.SetDetailActivity"></activity>
-        <activity android:name=".activity.MainActivity"></activity>
-        <activity android:name=".Search.SearchActivity"></activity>
-        <activity android:name=".activity.EachSortActivity"></activity>
-        <activity android:name=".activity.BookDetailPagerActivity"></activity>
-        <activity android:name=".edit"></activity>
-        <activity android:name=".activity.OthersNoteActivity"></activity>
-        <activity android:name=".bookextract"></activity>
+        <activity android:name=".activity.MainActivity"/>
+        <activity android:name=".Search.SearchActivity"/>
+        <activity android:name=".activity.EachSortActivity"/>
+        <activity android:name=".activity.BookDetailPagerActivity"/>
+        <activity android:name=".edit"/>
+        <activity android:name=".activity.OthersNoteActivity"/>
+
 
     </application>
 
