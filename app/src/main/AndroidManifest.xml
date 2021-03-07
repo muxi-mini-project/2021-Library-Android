@@ -10,7 +10,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.Light.NoActionBar">
-
         <activity android:name=".activity.GuideActivity"
             android:windowSoftInputMode = "stateAlwaysHidden|adjustPan">
 
@@ -20,6 +19,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity.SetDetailActivity"></activity>
+        <activity android:name=".activity.MainActivity"></activity>
         <activity android:name=".Search.SearchActivity"></activity>
         <activity android:name=".activity.EachSortActivity"></activity>
         <activity android:name=".activity.BookDetailPagerActivity"></activity>
