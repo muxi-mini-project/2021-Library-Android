@@ -24,7 +24,10 @@
         <activity android:name=".Search.SearchActivity"></activity>
         <activity android:name=".activity.EachSortActivity"></activity>
         <activity android:name=".activity.BookDetailPagerActivity"></activity>
+        <activity android:name=".edit"></activity>
         <activity android:name=".activity.OthersNoteActivity"></activity>
+        <activity android:name=".bookextract"></activity>
+
     </application>
 
 </manifest>

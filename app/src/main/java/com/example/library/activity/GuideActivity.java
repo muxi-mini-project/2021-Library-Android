@@ -15,6 +15,7 @@ import com.example.library.TextFG;
 import com.example.library.fragment.BookCityFragment;
 import com.example.library.fragment.BookDetailsFragment;
 import com.example.library.fragment.MineFragment;
+import com.example.library.fragment.chose_book_extract;
 
 public class GuideActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -26,7 +27,7 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
 
     /*底部导航栏对应的Fragment*/
     private BookCityFragment fragment1;
-    private BookDetailsFragment fragment2;
+    private chose_book_extract fragment2;
     private MineFragment fragment3;
 
 
@@ -85,7 +86,7 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
             case R.id.txt_digest:
                 txt_digest.setSelected(true);
                 if(fragment2 == null){
-                    fragment2 = new BookDetailsFragment();
+                    fragment2 = new chose_book_extract();
                     fragmentTransaction.add(R.id.fragment,fragment2);
                 }
                 else
