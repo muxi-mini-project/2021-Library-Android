@@ -71,12 +71,12 @@ public class chose_book_extract extends Fragment {
  }
 
 
-    @Override
+   // @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
     }
 
-    @Override
+    //@Override
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
@@ -92,5 +92,3 @@ public class chose_book_extract extends Fragment {
     //}
 }
 
-    }
-}
