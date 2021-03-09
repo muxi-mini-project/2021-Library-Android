@@ -1,6 +1,7 @@
-package com.example.library;
+package com.example.library.activity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.text.TextUtils;
@@ -10,6 +11,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.library.R;
+import com.example.library.sure;
+import com.example.library.User;
 
 public class RegisterActivity extends AppCompatActivity  implements View.OnClickListener{
     private EditText mUsername;
@@ -21,7 +26,7 @@ public class RegisterActivity extends AppCompatActivity  implements View.OnClick
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_register);
         //对控件初始化
         initView();
         //创建一个动态进度条
@@ -37,6 +42,8 @@ public class RegisterActivity extends AppCompatActivity  implements View.OnClick
     }
     @Override
     public void onClick(View v) {
+        Intent intent=new Intent(RegisterActivity.this,GuideActivity.class);
+        startActivity(intent);
         switch (v.getId()) {
             case R.id.loading:
                 final String username = mUsername.getText().toString().trim();
@@ -64,6 +71,7 @@ public class RegisterActivity extends AppCompatActivity  implements View.OnClick
                                     @Override
                                     public void run() {
                                         Toast.makeText(RegisterActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(RegisterActivity.this,MainActivity.class));
                                     }
                                 });
                             } else {
@@ -83,7 +91,6 @@ public class RegisterActivity extends AppCompatActivity  implements View.OnClick
                 break;
         }
     }
-
     //对用户的输入进行非空判断
     private boolean submit(User user) {
         if (TextUtils.isEmpty(user.username) || TextUtils.isEmpty(user.password)) {
@@ -92,7 +99,11 @@ public class RegisterActivity extends AppCompatActivity  implements View.OnClick
         } else {
             return true;
         }
+    }
 
-
-    }}
+    public void register(View view) {
+        Intent intent=new Intent(RegisterActivity.this, sure.class);
+        startActivity(intent);
+    }
+}
 

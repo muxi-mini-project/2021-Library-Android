@@ -5,5 +5,18 @@
     <string name="book_cities">书城</string>
     <string name="digests">书摘</string>
     <string name="my">我的</string>
-
+    <string name="note_content">昨天，东北中北部以及长江以南一带仍有降水，其中黑龙江中东部、吉林东部、山东半岛东部等地出现小到中雪或雨夹雪，黑龙江佳木斯、山东威海等局地降水量5～12毫米；南方降水整体较弱，以小雨为主，湖南南部、江西中部、福建西部部分地区出现中雨。
+今明天全国雨雪范围缩减，但西南地区、东北地区降水持续。中央气象台预计，今天黑龙江东部和西北部、吉林东部、青藏高原东部等地的部分地区有小到中雪或雨夹雪，四川中西部、贵州西部、云南大部等地的部分地区有小雨或阵雨；明天内蒙古东北部、黑龙江北部、西藏东部、青海南部、川西高原北部等地的部分地区有小到中雪或雨夹雪，四川中西部、贵州西部、云南大部、台湾岛等地的部分地区有小到中雨。</string>
+    <string name="switch_detail">关于开关</string>
+    <string name="mine_hint1">昵称</string>
+    <string name="mine_hint2">这个人很懒什么都没留下</string>
+    <string name="shu_jia">我的书架</string>
+    <string-array name="book_kinds">
+        <item></item>
+        <item>历史</item>
+        <item>文学</item>
+        <item>诗歌</item>
+        <item>添加</item>
+        <item>编辑</item>
+    </string-array>
 </resources>

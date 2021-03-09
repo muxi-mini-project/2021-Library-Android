@@ -1,8 +1,6 @@
-package com.example.library;
+package com.example.library.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +8,12 @@ import android.view.View;
 import android.view.Window;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+
+import com.example.library.R;
+import com.example.library.fragment.BookCityFragment;
+import com.example.library.fragment.MineFragment;
+import com.example.library.fragment.ChoseBookExtract;
+import com.example.library.fragment.mineFragment;
 
 public class GuideActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -20,18 +24,18 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
     private FrameLayout fg_content;//中间的fragment部分的视图
 
     /*底部导航栏对应的Fragment*/
-    private TextFG fragment1, fragment2, fragment3;//后续分别对应 书城，书摘，我的
-    private FragmentManager fragmentManager;
+    private BookCityFragment fragment1;
+    private ChoseBookExtract fragment2;
+    private mineFragment fragment3;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        fragmentManager = getSupportFragmentManager();//这一步有问题！！！！！！！！！！！！！！！！！！！
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        txt_book_city.performClick();//模拟点击状态
+        setContentView(R.layout.activity_bottom_guide);//此处为绿色原版
         bindView();
+        txt_book_city.performClick();
     }
 
 
@@ -61,37 +65,38 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         hideAllFragment(fragmentTransaction);
+        setSelect();
         switch (v.getId()){
-            case R.id.txt_book_city:setSelect();
+            case R.id.txt_book_city:
                 txt_book_city.setSelected(true);
                 if(fragment1 == null){
-                    fragment1 = new TextFG("书城");
-                    fragmentTransaction.add(R.id.fg_content,fragment1);
+                    fragment1 = new BookCityFragment();
+                    fragmentTransaction.add(R.id.fragment,fragment1);
                 }
                 else
                 {
                     fragmentTransaction.show(fragment1);
                 }
                 break;
-            case R.id.txt_digest:setSelect();
+            case R.id.txt_digest:
                 txt_digest.setSelected(true);
                 if(fragment2 == null){
-                    fragment2 = new TextFG("书摘");
-                    fragmentTransaction.add(R.id.fg_content,fragment2);
+                    fragment2 = new ChoseBookExtract();
+                    fragmentTransaction.add(R.id.fragment,fragment2);
                 }
                 else
                 {
                     fragmentTransaction.show(fragment2);
                 }
                 break;
-            case R.id.txt_mine:setSelect();
+            case R.id.txt_mine:
                 txt_mine.setSelected(true);
                 if(fragment3 == null){
-                    fragment3 = new TextFG("我的");
-                    fragmentTransaction.add(R.id.fg_content,fragment3);
+                    fragment3 = new mineFragment();
+                    fragmentTransaction.add(R.id.fragment,fragment3);
                 }
                 else
                 {
