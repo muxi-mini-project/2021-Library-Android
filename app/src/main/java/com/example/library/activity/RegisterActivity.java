@@ -71,7 +71,7 @@ public class RegisterActivity extends AppCompatActivity  implements View.OnClick
                                     @Override
                                     public void run() {
                                         Toast.makeText(RegisterActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
-                                        startActivity(new Intent(RegisterActivity.this,MainActivity.class));
+                                        startActivity(new Intent(RegisterActivity.this,GuideActivity.class));
                                     }
                                 });
                             } else {
@@ -101,9 +101,5 @@ public class RegisterActivity extends AppCompatActivity  implements View.OnClick
         }
     }
 
-    public void register(View view) {
-        Intent intent=new Intent(RegisterActivity.this, sure.class);
-        startActivity(intent);
-    }
 }
 

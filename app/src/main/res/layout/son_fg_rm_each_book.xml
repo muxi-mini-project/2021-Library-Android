@@ -9,35 +9,43 @@
     android:background="@color/white">
 
     <LinearLayout
+        android:padding="10dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="105dp"
-        android:background="@color/yellow">
-
-        <ImageView
-            android:id="@+id/rm_book_pic"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:paddingTop="5dp"
-            android:paddingLeft="15dp"
-            android:src="@drawable/default_head_picture_square" />
+        android:layout_height="wrap_content"
+        android:background="#EAEBED">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="308dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/book_city_bg">
+
+            <ImageView
+                android:id="@+id/rm_book_pic"
+                android:layout_width="92dp"
+                android:layout_height="98dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="10dp"
+                android:paddingLeft="15dp"
+                android:paddingTop="5dp"
+                android:src="@drawable/default_head_picture_square"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/rm_book_title"
                 android:layout_width="100dp"
                 android:layout_height="31dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="14dp"
                 android:text="书名"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textColor="@color/deep_green"
-                app:layout_constraintStart_toStartOf="parent"
+                android:textColor="#497568"
+                app:layout_constraintStart_toEndOf="@+id/rm_book_pic"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -45,32 +53,30 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="19dp"
-                android:layout_marginEnd="140dp"
-                android:layout_marginRight="140dp"
+                android:layout_marginEnd="100dp"
+                android:layout_marginRight="100dp"
                 android:text="作者"
-                android:textColor="@color/deep_green"
+                android:textColor="#497568"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/rm_book_intro"
-                android:layout_width="290dp"
-                android:layout_height="53dp"
-                android:layout_marginStart="6dp"
-                android:layout_marginLeft="6dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginBottom="8dp"
+                android:layout_width="271dp"
+                android:layout_height="52dp"
+                android:layout_marginStart="11dp"
+                android:layout_marginLeft="11dp"
+                android:layout_marginEnd="14dp"
+                android:layout_marginRight="14dp"
+                android:layout_marginBottom="16dp"
                 android:background="@drawable/rm_list_intro_bg"
                 android:text="简介"
-                android:textColor="@color/deep_green"
+                android:textColor="#497568"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
+                app:layout_constraintStart_toEndOf="@+id/rm_book_pic" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
 
     </LinearLayout>
 

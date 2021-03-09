@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -24,7 +25,7 @@ public class SearchView extends LinearLayout implements View.OnClickListener{
     //输入框
     private EditText etInput;
     //搜索按钮
-    private Button btSearch;
+    private ImageView imSearch;
     //上下文对象
     private Context mContext;
     //弹出列表
@@ -60,9 +61,10 @@ public class SearchView extends LinearLayout implements View.OnClickListener{
     }
 
     private void initViews() {
-        etInput = (EditText) findViewById(R.id.search_et_input);
-        btSearch = (Button) findViewById(R.id.search_btn_back);
+        etInput = (EditText) findViewById(R.id.book_city_edit_text);
+        imSearch = (ImageView) findViewById(R.id.search_book_city);
         mListView = (ListView) findViewById(R.id.search_lv_tips);
+        mListView.setFocusable(false);
     /*弹出选择列表后。lv每一项设置监听器*/
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -78,8 +80,6 @@ public class SearchView extends LinearLayout implements View.OnClickListener{
                 notifyStartSearching(text);
             }
         });
-    /*button*/
-        btSearch.setOnClickListener((OnClickListener) this);
     /*editText。干啥的？？？*/
         etInput.addTextChangedListener(new EditChangedListener());
         etInput.setOnClickListener((OnClickListener) this);
@@ -150,11 +150,8 @@ public class SearchView extends LinearLayout implements View.OnClickListener{
     @Override
     public void onClick(View v){
         switch (v.getId()){
-            case R.id.search_et_input:
+            case R.id.book_city_edit_text:
                 mListView.setVisibility(VISIBLE);
-                break;
-            case R.id.search_btn_back:
-                ((Activity) mContext).finish();
                 break;
         }
     }

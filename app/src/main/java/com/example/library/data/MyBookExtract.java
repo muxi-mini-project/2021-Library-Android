@@ -54,8 +54,4 @@ public class MyBookExtract {
     public void setBookextract_name(String bookextract_name) {
         this.bookextract_name = bookextract_name;
     }
-
-    public void getId() {
-       // return Id;
-    }
 }

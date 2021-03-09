@@ -14,11 +14,11 @@ public class BookExtractLab {
     private List<BookExtracter> mBookExtracters;
     private List<MyBookExtract> mMyBookExtracts;
 
-    private BookExtractLab(Context context){
-       mBookExtracters=new ArrayList<>();
+    private BookExtractLab(Context context) {
+        mBookExtracters = new ArrayList<>();
         mMyBookExtracts = new ArrayList<>();
         //生成临时数据组
-        for (int i = 0; i < 100; i++){
+        for (int i = 0; i < 100; i++) {
             BookExtracter bookExtracter = new BookExtracter();
             bookExtracter.setBookextract_name("BookExtract #" + i);
             bookExtracter.setBookextract_author("writer" + i);
@@ -26,11 +26,11 @@ public class BookExtractLab {
             mBookExtracters.add(bookExtracter);
         }
 
-        for(int j = 0; j<100; j++){
+        for (int j = 0; j < 100; j++) {
             MyBookExtract myBookExtract = new MyBookExtract();
-            myBookExtract.setBookextract_name("MyBook #"+j);
-            myBookExtract.setBookextract_author("writer"+j);
-            myBookExtract.setBookextract_information("I am mybookextract" +j);
+            myBookExtract.setBookextract_name("MyBook #" + j);
+            myBookExtract.setBookextract_author("writer" + j);
+            myBookExtract.setBookextract_information("I am mybookextract" + j);
             mMyBookExtracts.add(myBookExtract);
         }
     }
@@ -44,28 +44,31 @@ public class BookExtractLab {
     }
 
     //得到数组
-    public List<BookExtracter> getBookExtracters(){
+    public List<BookExtracter> getBookExtracters() {
         return mBookExtracters;
     }
 
     //暂时测试书城的书，无我的书
-    public BookExtracter getBookextract(UUID id){
-        for (BookExtracter bookExtracter:mBookExtracters){
-            if (bookExtracter.getId().equals(id)){
+    public BookExtracter getBookextract(UUID id) {
+        for (BookExtracter bookExtracter : mBookExtracters) {
+            if (bookExtracter.getId().equals(id)) {
                 return bookExtracter;
             }
         }
         return null;
     }
 
-    public List<MyBookExtract> getmMyBookextracts(){
+    public List<MyBookExtract> getmMyBookextracts() {
         return mMyBookExtracts;
     }
-    public void getMyBook(UUID Id) {
+
+    public MyBookExtract getMyBook(UUID Id) {
         for (MyBookExtract myBookExtract : mMyBookExtracts) {
-             if (myBookExtract.getId().equals(Id)) {
-            return myBookExtract;
-              }
-        return null;}
+            if (myBookExtract.getBookextract_id().equals(Id)) {
+                return myBookExtract;
+            }
+        }
+        return null;
     }
+}
 

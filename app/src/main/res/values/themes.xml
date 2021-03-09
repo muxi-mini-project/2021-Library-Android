@@ -23,10 +23,10 @@
 
 
     <style name="Tablayout_style" parent="Base.Widget.Design.TabLayout">
-        <item name="tabIndicatorColor">@color/basic_green</item>
+        <item name="tabIndicatorColor">#475C61</item>
         <item name="tabIndicatorHeight">2dp</item>
-        <item name="tabSelectedTextColor">@color/basic_green</item>
-        <item name="android:textSize">100sp</item>
-        <item name="android:textColor">@color/black</item>
+        <item name="tabSelectedTextColor">#475C61</item>
+        <item name="android:textSize">70dp</item>
+        <item name="android:textColor">#475C61</item>
     </style>
 </resources>

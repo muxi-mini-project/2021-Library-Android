@@ -21,32 +21,34 @@
         android:layout_height="100dp"
         android:orientation="horizontal"
         android:layout_alignParentBottom="true"
-        android:background="#AAC95D">
+        android:background="#B2CBCF">
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="100dp"
             android:orientation="vertical">
-            <TextView
+
+            <ImageView
                 android:id="@+id/txt_book_city"
-                android:layout_width="100dp"
-                android:layout_height="80dp"
-                android:background="@drawable/book_city_bg"
-                android:drawablePadding="20dp"
-                android:gravity="center"
-                android:padding="5dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="40dp"
+                android:background="@drawable/book_city2"
                 android:text="@string/book_cities"
                 android:textColor="@drawable/book_city_text"
                 android:textSize="16sp"
                 app:drawableTopCompat="@drawable/book_city_pic" />
+
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="25dp"
+                android:layout_marginLeft="15dp"
                 android:text="@string/book_cities"
                 android:textSize="16sp"
                 android:gravity="center_horizontal"
-                android:textColor="#005726"/>
+                android:textColor="#497568"/>
 
         </LinearLayout>
         <LinearLayout
@@ -77,14 +79,13 @@
             android:layout_height="100dp"
             android:layout_weight="1"
             android:orientation="vertical">
-            <TextView
+            <ImageView
                 android:id="@+id/txt_mine"
-                android:layout_height="80dp"
-                android:layout_width="100dp"
-                android:background="@drawable/mine_bg"
-                android:drawablePadding="3dp"
-                android:gravity="center"
-                android:padding="5dp"
+                android:layout_height="50dp"
+                android:layout_width="50dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/mine2"
                 android:text="@string/my"
                 android:textColor="@android:color/holo_purple"
                 android:textSize="16sp"
@@ -92,26 +93,19 @@
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="20dp"
-                android:gravity="center_horizontal"
+                android:layout_marginLeft="60dp"
                 android:text="@string/my"
                 android:textSize="16sp"
-                android:textColor="@color/black"/>
+                android:textColor="#497568"/>
         </LinearLayout>
     </LinearLayout>
 
-    <View
-        android:id="@+id/view2"
-        android:layout_width="match_parent"
-        android:layout_height="1pt"
-        android:background="@color/black"
-        android:layout_above="@id/bottom_button"/>
 
     <FrameLayout
         android:id="@+id/fg_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/bottom_button"
-        android:layout_below="@id/view2" />
+        android:layout_above="@id/bottom_button" />
 
 
 
