@@ -1,58 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="#eee"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:background="@color/basic_green"
+    <RelativeLayout
+        android:id="@+id/city_search_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="80dp"
+        android:background="#B2CBCF"
         android:orientation="horizontal">
 
-        <FrameLayout
-            android:layout_width="326dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/linearLayout5"
+            android:background="@drawable/search_background_city"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:layout_centerInParent="true">
 
             <EditText
-                android:id="@+id/search_et_input"
+                android:id="@+id/book_city_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:layout_margin="20dp"
-                android:background="@drawable/rm_list_intro_bg"
-                android:drawablePadding="5dp"
-                android:hint="请输入关键字"
-                android:imeOptions="actionSearch"
-                android:inputType="text"
-                android:textSize="17sp" />
+                android:background="@null"
+                android:hint="搜索..."
+                android:paddingLeft="55dp"
+                android:paddingTop="2dp"
+                android:textColorHint="#8F9786"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/search_iv_delete"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right|center_vertical"
-                android:layout_marginRight="20dp"
-                android:visibility="gone" />
-        </FrameLayout>
+                android:id="@+id/search_book_city"
+                android:layout_width="47dp"
+                android:layout_height="42dp"
+                android:paddingLeft="10dp"
+                android:src="@drawable/search_book_city"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/book_city_edit_text" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <Button
-            android:id="@+id/search_btn_back"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            android:layout_gravity="center_vertical"
-            android:layout_width="70dp"
-            android:layout_height="40dp"
-            android:text="搜索"
-            android:textSize="20sp"
-            android:textColor="@color/deep_green"
-            android:background="@color/yellow"/>
-    </LinearLayout>
+    </RelativeLayout>
+
 
     <ListView
+        android:layout_below="@+id/city_search_layout"
         android:visibility="gone"
         android:id="@+id/search_lv_tips"
         android:background="@drawable/lv_search_list"
@@ -62,4 +58,4 @@
         android:layout_width="match_parent"
         android:layout_height="200dp">
     </ListView>
-</LinearLayout>
+</RelativeLayout>

@@ -112,6 +112,11 @@ public class SearchViewer extends LinearLayout implements View.OnClickListener {
         this.mAutoCompleteAdapter = adapter;
     }
 
+    @Override
+    public void onClick(View v) {
+
+    }
+
     private class EditChangedListener implements TextWatcher {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
@@ -145,7 +150,7 @@ public class SearchViewer extends LinearLayout implements View.OnClickListener {
         }
     }
 
-    @Override
+   /* @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.search_et_input:
@@ -159,7 +164,7 @@ public class SearchViewer extends LinearLayout implements View.OnClickListener {
                 ((Activity) mContext).finish();
                 break;
         }
-    }
+    }*/
 
     /**
      * search view回调方法

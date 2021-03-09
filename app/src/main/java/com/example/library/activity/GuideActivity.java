@@ -7,6 +7,7 @@ import android.view.View;
 
 import android.view.Window;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.library.R;
@@ -18,9 +19,9 @@ import com.example.library.fragment.mineFragment;
 public class GuideActivity extends AppCompatActivity implements View.OnClickListener {
 
     /*底部导航栏的文字部分*/
-    private TextView txt_book_city;//书城的文字
+    private ImageView txt_book_city;//书城的文字
     private TextView txt_digest;//书摘的文字
-    private TextView txt_mine;//我的的文字
+    private ImageView txt_mine;//我的的文字
     private FrameLayout fg_content;//中间的fragment部分的视图
 
     /*底部导航栏对应的Fragment*/
@@ -41,9 +42,9 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
 
 /*将实例事件与ui视图绑定*/
     private void bindView() {
-        txt_book_city = (TextView) findViewById(R.id.txt_book_city);
+        txt_book_city = (ImageView) findViewById(R.id.txt_book_city);
         txt_digest = (TextView) findViewById(R.id.txt_digest);
-        txt_mine = (TextView) findViewById(R.id.txt_mine);
+        txt_mine = (ImageView) findViewById(R.id.txt_mine);
         fg_content = (FrameLayout) findViewById(R.id.fg_content);
 
         /*设置监听器,使其变为可点击事件*/

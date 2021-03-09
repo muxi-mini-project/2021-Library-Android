@@ -168,6 +168,7 @@ public class OthersNoteActivity extends AppCompatActivity implements View.OnClic
         //rv_comment = (RecyclerView) findViewById(R.id.rv_comment);
         textView6 = (TextView) findViewById(R.id.textView6);
         expandableListView = findViewById(R.id.expandable_comment);
+        expandableListView.setFocusable(false);
         bt_comment = (TextView) findViewById(R.id.detail_page_do_comment);
         bt_comment.setOnClickListener(this);
         mCommentList = generateTestData();
