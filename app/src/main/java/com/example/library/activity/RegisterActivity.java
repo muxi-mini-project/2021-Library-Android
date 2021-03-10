@@ -42,8 +42,6 @@ public class RegisterActivity extends AppCompatActivity  implements View.OnClick
     }
     @Override
     public void onClick(View v) {
-        Intent intent=new Intent(RegisterActivity.this,GuideActivity.class);
-        startActivity(intent);
         switch (v.getId()) {
             case R.id.loading:
                 final String username = mUsername.getText().toString().trim();
