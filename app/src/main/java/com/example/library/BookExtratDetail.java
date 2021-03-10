@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class BookExtratDetail extends AppCompatActivity implements View.OnClickListener {
 
     private Button mBack_book_extract;
-    private
+    //private
 
 
     protected void onCreate(Bundle savedInstanceState) {

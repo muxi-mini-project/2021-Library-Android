@@ -48,6 +48,7 @@ public class ChoseBookExtract extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.book_zhai, container, false);
 
+        mChose=(Spinner)view.findViewById(R.id.chose);
         context = getContext();
         list.add("历史");
         list.add("文学");
@@ -72,7 +73,6 @@ public class ChoseBookExtract extends Fragment {
         });
 
         //书摘的RecyclerView
-
         mRecyclerView=(RecyclerView)view.findViewById(R.id.book_kind_recyclerview);
         mRecyclerView.setHasFixedSize(ture);
         mLayoutManager=new LinearLayoutManager(context);
@@ -88,14 +88,26 @@ public class ChoseBookExtract extends Fragment {
     }
     public void onViewCreated(View view,Bundle savedInstanceState) {
         super.onViewCreated(view,savedInstanceState);
-        mChose=(Spinner)view.findViewById(R.id.chose);
-        mChose.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
+       // mChose=(Spinner)view.findViewById(R.id.chose);
+       // mChose.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
         mAdd=(Button)view.findViewById(R.id.add);
         mBook_extract=(TextView)view.findViewById(R.id.book_extract);
         mBook_search=(EditText) view.findViewById(R.id.book_search);
         mEdit=(Button)view.findViewById(R.id.edit);
-        mAdd.setOnClickListener((View.OnClickListener) this);
-        mEdit.setOnClickListener((View.OnClickListener) this);
+        mAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        mEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
 
     }
 
