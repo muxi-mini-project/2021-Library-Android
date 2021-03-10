@@ -34,7 +34,8 @@ public class ChoseBookExtract extends Fragment {
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.book_zhai, container, false);
+        View view = inflater.inflate(R.layout.book_zhai, container, false);
+
         Context context = getContext();
         list.add("历史");
         list.add("文学");
@@ -58,20 +59,20 @@ public class ChoseBookExtract extends Fragment {
             }
         });
 
-        return v;
+        return view;
     }
- public void onViewCreated(View view,Bundle savedInstanceState) {
+    public void onViewCreated(View view,Bundle savedInstanceState) {
         super.onViewCreated(view,savedInstanceState);
-     mChose=(Spinner)view.findViewById(R.id.chose);
-     mChose.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
-     mAdd=(Button)view.findViewById(R.id.add);
-     mBook_extract=(TextView)view.findViewById(R.id.book_extract);
-     mBook_search=(EditText) view.findViewById(R.id.book_search);
-     mEdit=(Button)view.findViewById(R.id.edit);
-     mAdd.setOnClickListener((View.OnClickListener) this);
-     mEdit.setOnClickListener((View.OnClickListener) this);
+        mChose=(Spinner)view.findViewById(R.id.chose);
+        mChose.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
+        mAdd=(Button)view.findViewById(R.id.add);
+        mBook_extract=(TextView)view.findViewById(R.id.book_extract);
+        mBook_search=(EditText) view.findViewById(R.id.book_search);
+        mEdit=(Button)view.findViewById(R.id.edit);
+        mAdd.setOnClickListener((View.OnClickListener) this);
+        mEdit.setOnClickListener((View.OnClickListener) this);
 
- }
+    }
 
 
    // @Override
