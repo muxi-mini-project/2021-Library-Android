@@ -1,5 +1,6 @@
 package com.example.library;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,11 +11,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.library.data.MyBookExtract;
+
 import java.util.List;
 
 public class BookExtractAdapter extends RecyclerView.Adapter<BookExtractAdapter.ViewHolder> {
 
     private List<book_extract> mBook_extract;
+
+    public BookExtractAdapter(List<MyBookExtract> myBookExtracts, Context context) {
+    }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView bookname;

@@ -14,8 +14,14 @@ import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.library.BookExtractAdapter;
 import com.example.library.R;
+import com.example.library.Search.BaseViewHolder;
+import com.example.library.data.BookExtractLab;
+import com.example.library.data.MyBookExtract;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,8 +32,13 @@ public class ChoseBookExtract extends Fragment {
     private Button mAdd;
     private TextView mBook_extract;
     private EditText mBook_search;
+    private Context context;
+    private RecyclerView mRecyclerView;
     private List<String> list = new ArrayList<String>();
     private ArrayAdapter<String> SpinnerAdapter ;
+    private boolean ture;
+    private LinearLayoutManager mLayoutManager;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +48,7 @@ public class ChoseBookExtract extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.book_zhai, container, false);
 
-        Context context = getContext();
+        context = getContext();
         list.add("历史");
         list.add("文学");
         list.add("诗歌");
@@ -60,7 +71,20 @@ public class ChoseBookExtract extends Fragment {
             }
         });
 
+        //书摘的RecyclerView
+
+        mRecyclerView=(RecyclerView)view.findViewById(R.id.book_kind_recyclerview);
+        mRecyclerView.setHasFixedSize(ture);
+        mLayoutManager=new LinearLayoutManager(context);
+        mLayoutManager.setOrientation(RecyclerView.VERTICAL);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        BookExtractLab bookExtractLab=BookExtractLab.get(context);
+        List<MyBookExtract>myBookExtracts=bookExtractLab.getmMyBookextracts();
+        mRecyclerView.setAdapter(new BookExtractAdapter(myBookExtracts,context));
+
+
         return view;
+
     }
     public void onViewCreated(View view,Bundle savedInstanceState) {
         super.onViewCreated(view,savedInstanceState);

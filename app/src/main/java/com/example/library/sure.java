@@ -24,7 +24,7 @@ public class Sure extends AppCompatActivity implements View.OnClickListener {
     private String userNameValue,passwordValue;
 
 
-//ftg
+//
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
