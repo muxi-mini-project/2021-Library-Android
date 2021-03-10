@@ -30,7 +30,7 @@ public class NewuserManager {
     private SQLiteDatabase mSQLiteDatabase = null;
     private DataBaseManagementHelper mDatabaseHelper = null;
 
-    public NewuserManager(sure sure) {
+    public NewuserManager(Sure sure) {
 
     }
 
@@ -40,7 +40,7 @@ public class NewuserManager {
     public void closeDataBase() {
     }
 
-    public boolean insertUserData(UserData mUser) {
+    public boolean insertUserData(NewuserData mUser) {
         return false;
     }
 
