@@ -1,5 +1,6 @@
 package com.example.library;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,8 +31,8 @@ public class BookExtractAdapter extends RecyclerView.Adapter<BookExtractAdapter.
 
     }
 
-    public BookExtractAdapter(List<book_extract> book_extractList) {
-        mBook_extract = book_extractList;
+    public BookExtractAdapter(List<book_extract> book_extractList, Context context) {
+        //mBook_extract = book_extractList;
     }
 
     @Override
@@ -45,10 +46,10 @@ public class BookExtractAdapter extends RecyclerView.Adapter<BookExtractAdapter.
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        book_extract fruit = mBook_extract.get(position);
-        holder.bookname.setText(fruit.getBookname());
-        holder.context.setText(fruit.getContextId());
-        holder.date.setText(fruit.getDateId());
+        book_extract extract = mBook_extract.get(position);
+        holder.bookname.setText(extract.getBookname());
+        holder.context.setText(extract.getContextId());
+        holder.date.setText(extract.getDateId());
     }
 //hx增加以下方法，是否这样？
     @Override

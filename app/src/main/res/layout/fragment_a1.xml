@@ -10,7 +10,7 @@
         android:id="@+id/linearLayout4"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
-        android:background="@color/yellow"
+        android:background="@color/new_blue"
         android:orientation="horizontal"
         app:layout_constraintEnd_toStartOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,7 +24,7 @@
             android:textSize="24sp"
             android:gravity="center_vertical"
             android:textColor="@color/white"
-            android:background="@color/yellow"
+            android:background="@color/new_blue"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.942"
@@ -46,11 +46,11 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_gravity="center"
-            android:background="@color/yellow"
+            android:background="@color/new_blue"
             android:gravity="center"
             android:padding="5dp"
             android:text="点击反馈"
-            android:textColor="@color/basic_green"
+            android:textColor="@drawable/mine_text"
             android:textSize="24sp" />
     </LinearLayout>
 

@@ -51,6 +51,18 @@
            android:background="@drawable/search"
            />
 
+       <EditText
+           android:id="@+id/password_again"
+           android:layout_width="350dp"
+           android:layout_height="70dp"
+           android:layout_marginTop="40dp"
+           android:hint="请确认您的密码"
+           android:gravity="center"
+           android:layout_gravity="center"
+           android:background="@drawable/search"
+           />
+
+
        <Button
            android:id="@+id/sureofregister"
            android:layout_width="350dp"

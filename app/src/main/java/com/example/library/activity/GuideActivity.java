@@ -8,25 +8,31 @@ import android.view.View;
 import android.view.Window;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.library.R;
 import com.example.library.fragment.BookCityFragment;
 import com.example.library.fragment.ChoseBookExtract;
-import com.example.library.fragment.mineFragment;
+import com.example.library.fragment.MineFragment;
+
 
 public class GuideActivity extends AppCompatActivity implements View.OnClickListener {
 
     /*底部导航栏的文字部分*/
-    private ImageView txt_book_city;//书城的文字
-    private TextView txt_digest;//书摘的文字
-    private ImageView txt_mine;//我的的文字
+    private ImageView book_city;//书城
+    private ImageView digest;//书摘
+    private ImageView mine;//我的
+
+    private LinearLayout linearLayout1;
+    private LinearLayout linearLayout2;
+    private LinearLayout linearLayout3;
     private FrameLayout fg_content;//中间的fragment部分的视图
 
     /*底部导航栏对应的Fragment*/
     private BookCityFragment fragment1;
     private ChoseBookExtract fragment2;
-    private mineFragment fragment3;
+    private MineFragment fragment3;
 
 
     @Override
@@ -35,33 +41,34 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bottom_guide);//此处为绿色原版
         bindView();
-        txt_book_city.performClick();
+        linearLayout1.performClick();
     }
 
 
 /*将实例事件与ui视图绑定*/
     private void bindView() {
-        txt_book_city = (ImageView) findViewById(R.id.txt_book_city);
-        txt_digest = (TextView) findViewById(R.id.txt_digest);
-        txt_mine = (ImageView) findViewById(R.id.txt_mine);
+        book_city = (ImageView) findViewById(R.id.txt_book_city);
+        digest = (ImageView) findViewById(R.id.txt_digest);
+        mine = (ImageView) findViewById(R.id.txt_mine);
         fg_content = (FrameLayout) findViewById(R.id.fg_content);
 
+        linearLayout1 = (LinearLayout) findViewById(R.id.booK_city_all);
+        linearLayout2 = (LinearLayout) findViewById(R.id.digest_all);
+        linearLayout3 = (LinearLayout) findViewById(R.id.mine_all);
+
         /*设置监听器,使其变为可点击事件*/
-        txt_book_city.setOnClickListener(this);
-        txt_digest.setOnClickListener(this);
-        txt_mine.setOnClickListener(this);
+        linearLayout1.setOnClickListener(this);
+        linearLayout2.setOnClickListener(this);
+        linearLayout3.setOnClickListener(this);
 
     }
 
     /*重置文本点击状态*/
     private void setSelect(){
-        txt_book_city.setSelected(false);
-        txt_digest.setSelected(false);
-        txt_mine.setSelected(false);
+        linearLayout1.setSelected(false);
+        linearLayout2.setSelected(false);
+        linearLayout3.setSelected(false);
     }
-
-
-
 
     @Override
     public void onClick(View v) {
@@ -70,8 +77,8 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
         hideAllFragment(fragmentTransaction);
         setSelect();
         switch (v.getId()){
-            case R.id.txt_book_city:
-                txt_book_city.setSelected(true);
+            case R.id.booK_city_all:
+                linearLayout1.setSelected(true);
                 if(fragment1 == null){
                     fragment1 = new BookCityFragment();
                     fragmentTransaction.add(R.id.fragment,fragment1);
@@ -81,8 +88,8 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
                     fragmentTransaction.show(fragment1);
                 }
                 break;
-            case R.id.txt_digest:
-                txt_digest.setSelected(true);
+            case R.id.digest_all:
+                linearLayout2.setSelected(true);
                 if(fragment2 == null){
                     fragment2 = new ChoseBookExtract();
                     fragmentTransaction.add(R.id.fragment,fragment2);
@@ -92,10 +99,10 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
                     fragmentTransaction.show(fragment2);
                 }
                 break;
-            case R.id.txt_mine:
-                txt_mine.setSelected(true);
+            case R.id.mine_all:
+                linearLayout3.setSelected(true);
                 if(fragment3 == null){
-                    fragment3 = new mineFragment();
+                    fragment3 = new MineFragment();
                     fragmentTransaction.add(R.id.fragment,fragment3);
                 }
                 else

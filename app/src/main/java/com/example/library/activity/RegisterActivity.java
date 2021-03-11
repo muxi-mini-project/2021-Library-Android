@@ -13,7 +13,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.library.R;
-import com.example.library.sure;
+import com.example.library.Sure;
 import com.example.library.User;
 
 public class RegisterActivity extends AppCompatActivity  implements View.OnClickListener{
@@ -34,8 +34,8 @@ public class RegisterActivity extends AppCompatActivity  implements View.OnClick
         mResign.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent a=new Intent(RegisterActivity.this,sure.class);
-                 startActivity(a);
+                Intent intent=new Intent(RegisterActivity.this, Sure.class);
+                startActivity(intent);
             }
         });
     }
@@ -45,6 +45,7 @@ public class RegisterActivity extends AppCompatActivity  implements View.OnClick
         mLoading = (Button) findViewById(R.id.loading);
         mResign = (Button) findViewById(R.id.resign);
         mLoading.setOnClickListener(this);
+
     }
     @Override
     public void onClick(View v) {
