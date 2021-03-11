@@ -26,6 +26,9 @@
         <activity android:name=".activity.BookDetailPagerActivity"/>
         <activity android:name=".edit"/>
         <activity android:name=".activity.OthersNoteActivity"/>
+        <activity android:name=".Sure"/>
+        <activity android:name=".Searcher.SearcherMain"/>
+
 
 
     </application>

@@ -60,7 +60,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal"
-        android:background="@color/basic_green">
+        android:background="@color/new_blue">
         <TextView
             android:id="@+id/mine_textView3"
             android:layout_width="0dp"
@@ -81,7 +81,7 @@
             android:layout_weight="1"
             android:text="我的发布"
             android:gravity="center"
-            android:textColor="@color/cardview_light_background"
+            android:textColor="@color/white"
             android:textSize="20sp"/>
     </LinearLayout>
     <FrameLayout

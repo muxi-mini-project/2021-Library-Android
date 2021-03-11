@@ -1,6 +1,5 @@
 package com.example.library.Searcher;
 
-import android.app.Activity;
 import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -37,8 +36,12 @@ public class SearchViewer extends LinearLayout implements View.OnClickListener {
      // 搜索回调接口
     private SearchViewListener mListener;
 
+  //  public SearchView(Context context) {
+   //     super(context);
+  //  }
 
-      //设置搜索回调接口
+
+    //设置搜索回调接口
       //@param listener 监听者
     public void setSearchViewListener(SearchViewListener listener) {
         mListener = listener;
