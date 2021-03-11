@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.library.data.BookExtracter;
 import com.example.library.data.MyBookExtract;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public class BookExtractAdapter extends RecyclerView.Adapter<BookExtractAdapter.
 
     public BookExtractAdapter(List<MyBookExtract> myBookExtracts, Context context) {
     }
+
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView bookname;
@@ -51,10 +53,10 @@ public class BookExtractAdapter extends RecyclerView.Adapter<BookExtractAdapter.
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        book_extract fruit = mBook_extract.get(position);
-        holder.bookname.setText(fruit.getBookname());
-        holder.context.setText(fruit.getContextId());
-        holder.date.setText(fruit.getDateId());
+        book_extract extract = mBook_extract.get(position);
+        holder.bookname.setText(extract.getBookname());
+        holder.context.setText(extract.getContextId());
+        holder.date.setText(extract.getDateId());
     }
 //hx增加以下方法，是否这样？
     @Override

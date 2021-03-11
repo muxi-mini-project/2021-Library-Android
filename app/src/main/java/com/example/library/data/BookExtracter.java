@@ -61,5 +61,6 @@ public class BookExtracter {
     public void setClick_sum(Integer click_sum) {
         this.click_sum = click_sum;
     }
+
 }
 

@@ -70,5 +70,9 @@ public class BookExtractLab {
         }
             return null;
     }
+
+    public List<BookExtracter> getBooks() {
+        return mBookExtracters;
+    }
 }
 
