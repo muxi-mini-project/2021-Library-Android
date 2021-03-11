@@ -1,5 +1,6 @@
 package com.example.library;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +14,7 @@ public class bookextract extends AppCompatActivity {
     private List<book_extract> mBook_extractList = new ArrayList<>();
     private Object book_extract;
     private RecyclerView recyclerView;
+    //private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +23,7 @@ public class bookextract extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.book_extract_recyclerview);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        BookExtractAdapter adapter = new BookExtractAdapter(mBook_extractList);
+        BookExtractAdapter adapter=new BookExtractAdapter(mBook_extractList);
         recyclerView.setAdapter(adapter);
     }
 
