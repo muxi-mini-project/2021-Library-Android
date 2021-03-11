@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.library">
-    <uses-permission android:name="android.permission.INTERNET"/>
-
 
     <application
         android:allowBackup="true"
@@ -10,16 +8,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.Light.NoActionBar">
-        <activity android:name=".activity.GuideActivity"/>
-        <activity android:name=".activity.SetDetailActivity"/>
-        <activity android:name=".activity.RegisterActivity"
-            android:windowSoftInputMode = "stateAlwaysHidden|adjustPan">
+        <activity android:name=".activity.MybookActivity"></activity>
+        <activity android:name=".activity.GuideActivity" />
+        <activity android:name=".activity.SetDetailActivity" />
+        <activity
+            android:name=".activity.RegisterActivity"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+<<<<<<< Updated upstream
         <activity android:name=".activity.MainActivity"/>
         <activity android:name=".Search.SearchActivity"/>
         <activity android:name=".activity.EachSortActivity"/>
@@ -31,6 +32,18 @@
 
 
 
+=======
+        <activity android:name=".activity.MainActivity" />
+        <activity android:name=".Search.SearchActivity" />
+        <activity android:name=".activity.EachSortActivity" />
+        <activity android:name=".activity.BookDetailPagerActivity" />
+        <activity android:name=".edit" />
+        <activity android:name=".activity.OthersNoteActivity" />
+        <activity android:name=".Sure" />
+        <activity android:name=".Searcher.SearcherMain" />
+>>>>>>> Stashed changes
     </application>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>
