@@ -2,7 +2,8 @@ package com.example.library.data;
 
 import java.util.UUID;
 
-public class Book {
+public class
+Book {
     /**
      * book_author : string
      * book_id : string
