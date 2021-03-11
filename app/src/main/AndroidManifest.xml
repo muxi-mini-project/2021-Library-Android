@@ -8,7 +8,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.Light.NoActionBar">
-        <activity android:name=".activity.MybookActivity"></activity>
+        <activity android:name=".activity.MybookActivity"/>
         <activity android:name=".activity.GuideActivity" />
         <activity android:name=".activity.SetDetailActivity" />
         <activity
@@ -20,7 +20,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<<<<<<< Updated upstream
         <activity android:name=".activity.MainActivity"/>
         <activity android:name=".Search.SearchActivity"/>
         <activity android:name=".activity.EachSortActivity"/>
@@ -29,19 +28,6 @@
         <activity android:name=".activity.OthersNoteActivity"/>
         <activity android:name=".Sure"/>
         <activity android:name=".Searcher.SearcherMain"/>
-
-
-
-=======
-        <activity android:name=".activity.MainActivity" />
-        <activity android:name=".Search.SearchActivity" />
-        <activity android:name=".activity.EachSortActivity" />
-        <activity android:name=".activity.BookDetailPagerActivity" />
-        <activity android:name=".edit" />
-        <activity android:name=".activity.OthersNoteActivity" />
-        <activity android:name=".Sure" />
-        <activity android:name=".Searcher.SearcherMain" />
->>>>>>> Stashed changes
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />

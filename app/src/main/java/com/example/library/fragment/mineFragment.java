@@ -1,20 +1,20 @@
 package com.example.library.fragment;
 
-        import android.os.Bundle;
-        import android.view.LayoutInflater;
-        import android.view.View;
-        import android.view.ViewGroup;
-        import android.widget.TextView;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
-        import androidx.fragment.app.Fragment;
-        import androidx.fragment.app.FragmentTransaction;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
-        import com.example.library.R;
-        import com.example.library.RoundImageView;
-        import com.example.library.fragment.minefragment.mineFragment1;
-        import com.example.library.fragment.minefragment.mineFragment2;
+import com.example.library.R;
+import com.example.library.RoundImageView;
+import com.example.library.fragment.minefragment.mineFragment1;
+import com.example.library.fragment.minefragment.mineFragment2;
 
-public class mineFragment extends Fragment implements View.OnClickListener {
+public class mineFragment extends Fragment {
 
     private TextView textView1;
     private TextView textView2;
@@ -61,45 +61,45 @@ public class mineFragment extends Fragment implements View.OnClickListener {
             }
         });
 
-        textView3.setOnClickListener(this);
-        textView4.setOnClickListener(this);
+        textView3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+                hideAllFragment(fragmentTransaction);
+                setSelect();
+                textView3.setSelected(true);
+                if (fragment1 == null) {
+                    fragment1 = new mineFragment1();
+                    fragmentTransaction.add(R.id.fragment, fragment1);
+                } else {
+                    fragmentTransaction.show(fragment1);
+                }
+                fragmentTransaction.commit();
+            }
+        });
+        textView4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+                hideAllFragment(fragmentTransaction);
+                setSelect();
+                textView4.setSelected(true);
+                if (fragment2 == null) {
+                    fragment2 = new mineFragment2();
+                    fragmentTransaction.add(R.id.fragment, fragment2);
+                } else {
+                    fragmentTransaction.show(fragment2);
+                }
+                fragmentTransaction.commit();
+            }
+        });
 
         textView3.performClick();
 
         return v;
     }
 
-    @Override
-    public void onClick(View v) {
-        FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
-        hideAllFragment(fragmentTransaction);
-        setSelect();
-        switch (v.getId()){
-            case R.id.textView3:
-                textView3.setSelected(true);
-                if(fragment1 == null){
-                    fragment1 = new mineFragment1();
-                    fragmentTransaction.add(R.id.fragment,fragment1);
-                }
-                else
-                {
-                    fragmentTransaction.show(fragment1);
-                }
-                break;
-            case R.id.textView4:
-                textView4.setSelected(true);
-                if(fragment2 == null){
-                    fragment2 = new mineFragment2();
-                    fragmentTransaction.add(R.id.fragment,fragment2);
-                }
-                else
-                {
-                    fragmentTransaction.show(fragment2);
-                }
-                break;
-        }
-        fragmentTransaction.commit();
-    }
+
     private void hideAllFragment(FragmentTransaction fragmentTransaction) {
         if (fragment1 != null) {
             fragmentTransaction.hide(fragment1);
@@ -110,7 +110,7 @@ public class mineFragment extends Fragment implements View.OnClickListener {
     }
 
     /*重置文本点击状态*/
-    private void setSelect(){
+    private void setSelect() {
         textView3.setSelected(false);
         textView4.setSelected(false);
     }

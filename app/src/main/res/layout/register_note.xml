@@ -60,10 +60,9 @@
            android:hint="请确认您的密码"
            android:gravity="center"
            android:layout_gravity="center"
-<<<<<<< Updated upstream
+
            android:inputType="textPassword"
-=======
->>>>>>> Stashed changes
+
            android:background="@drawable/search"
            />
 

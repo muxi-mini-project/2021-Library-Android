@@ -15,7 +15,7 @@ import com.example.library.R;
 import com.example.library.fragment.BookCityFragment;
 import com.example.library.fragment.MineFragment;
 import com.example.library.fragment.ChoseBookExtract;
-
+import com.example.library.fragment.mineFragment;
 
 
 public class GuideActivity extends AppCompatActivity implements View.OnClickListener {
@@ -33,7 +33,7 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
     /*底部导航栏对应的Fragment*/
     private BookCityFragment fragment1;
     private ChoseBookExtract fragment2;
-    private MineFragment fragment3;
+    private mineFragment fragment3;
 
 
     @Override
@@ -103,7 +103,7 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
             case R.id.mine_all:
                 linearLayout3.setSelected(true);
                 if(fragment3 == null){
-                    fragment3 = new MineFragment();
+                    fragment3 = new mineFragment();
                     fragmentTransaction.add(R.id.fragment,fragment3);
                 }
                 else
