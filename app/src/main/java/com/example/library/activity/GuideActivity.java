@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.example.library.R;
 import com.example.library.fragment.BookCityFragment;
-import com.example.library.fragment.MineFragment;
 import com.example.library.fragment.ChoseBookExtract;
 import com.example.library.fragment.mineFragment;
 

@@ -9,7 +9,7 @@ import java.util.UUID;
 //模仿CrimeLab创建BookLab数组单例。暂定
 public class BookLab {
     public static BookLab sBookLab;
-    private List<Book> mBooks;
+    private List<DataBean> mBooks;
     private List<MyBook> mMyBooks;
 
     private BookLab(Context context){
@@ -17,7 +17,7 @@ public class BookLab {
         mMyBooks = new ArrayList<>();
         //生成临时数据组
         for (int i = 0; i < 100; i++){
-            Book book = new Book();
+            DataBean book = new DataBean();
             book.setBook_name("Book #" + i);
             book.setBook_author("writer" + i);
             book.setBook_information("I am book" + i);
@@ -42,13 +42,13 @@ public class BookLab {
     }
 
     //得到数组
-    public List<Book> getBooks(){
+    public List<DataBean> getBooks(){
         return mBooks;
     }
 
     //暂时测试书城的书，无我的书
-    public Book getBook(UUID id){
-        for (Book book:mBooks){
+    public DataBean getBook(UUID id){
+        for (DataBean book:mBooks){
             if (book.getId().equals(id)){
                 return book;
             }

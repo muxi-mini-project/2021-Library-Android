@@ -1,10 +1,8 @@
 package com.example.library.data;
 
-import com.example.library.data.Book;
-
 import java.util.UUID;
 
-public class MyBook extends Book {
+public class MyBook extends DataBean {
     public boolean mIsMine;
 
     private UUID nId;

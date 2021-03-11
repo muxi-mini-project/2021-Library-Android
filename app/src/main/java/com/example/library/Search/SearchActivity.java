@@ -1,23 +1,20 @@
 package com.example.library.Search;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.view.Window;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.library.R;
 import com.example.library.activity.BookDetailPagerActivity;
-import com.example.library.data.Book;
+import com.example.library.data.BookData;
+import com.example.library.data.DataBean;
 import com.example.library.data.BookLab;
+import com.example.library.fragment.sonfragment.RecommendFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +40,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView.Sear
     private List<String> autoCompleteData;
     //结果数据
     private List<String> resultData;
-    private List<Book> bookData;
+    private List<BookData.DataBean> bookData;
     //默认提示框显示项个数
     private static int DEFAULT_HINT_SIZE = 4;
     //提示框显示项个数
@@ -86,8 +83,9 @@ public class SearchActivity extends AppCompatActivity implements SearchView.Sear
     }
 
     private void getBookData() {
-        BookLab bookLab = BookLab.get(this);
-        bookData = bookLab.getBooks();
+        //BookLab bookLab = BookLab.get(this);
+        //bookData = bookLab.getBooks();
+        bookData = RecommendFragment.data;
         nameList = new ArrayList<>();
         for (int j = 0 ; j < bookData.size();j++){
             nameList.add(bookData.get(j).getBook_name());
@@ -159,18 +157,18 @@ public class SearchActivity extends AppCompatActivity implements SearchView.Sear
             //更新搜索数据
             resultAdapter.notifyDataSetChanged();
         }*/
-        UUID id = null;
+        int id = 1;
         for ( int j = 0; j < nameList.size(); j++){
             if (text.equals(nameList.get(j))){
-                 id = bookData.get(j).getId();
+                 id = bookData.get(j).getBook_id();
             }
         }
-        if (id != null){
+        if (id != 1){
             Intent intent = BookDetailPagerActivity.newIntent(this, id);
             startActivity(intent);
-            Log.e(TAG,"text is ~~~~~~" + text +"~~~~~·" + "intent is " + intent.toString());
-            Toast.makeText(this, "完成搜素", Toast.LENGTH_SHORT).show();
-        }else {
+            Log.e(TAG,"text is ~~~~~~" + text +"~~~~~" + "intent is " + intent.toString());
+            Toast.makeText(this, "完成搜suo", Toast.LENGTH_SHORT).show();
+            }else {
             Toast.makeText(this, "不在搜索范围内", Toast.LENGTH_SHORT).show();
         }
     }

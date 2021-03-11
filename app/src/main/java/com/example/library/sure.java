@@ -1,6 +1,7 @@
 package com.example.library;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -9,6 +10,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.library.activity.RegisterActivity;
 
 public class sure extends AppCompatActivity implements View.OnClickListener {
     private Button mSureofregister;
@@ -23,6 +26,14 @@ public class sure extends AppCompatActivity implements View.OnClickListener {
         setContentView(R.layout.register_note);
         //对控件初始化
         initView();
+        mBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Toast.makeText(sure.this,"返回",Toast.LENGTH_SHORT);
+                Intent b=new Intent(sure.this, RegisterActivity.class);
+                startActivity(b);
+            }
+        });
     }
 
     private void initView() {
@@ -31,7 +42,7 @@ public class sure extends AppCompatActivity implements View.OnClickListener {
         mResigter_username=(EditText) findViewById(R.id.register_username);
         mSureofregister = (Button) findViewById(R.id.sureofregister);
         mSureofregister.setOnClickListener(this);
-        mBack.setOnClickListener(this);
+
     }
 
     @Override

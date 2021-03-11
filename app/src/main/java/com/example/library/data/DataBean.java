@@ -2,7 +2,7 @@ package com.example.library.data;
 
 import java.util.UUID;
 
-public class Book {
+public class DataBean {
     /**
      * book_author : string
      * book_id : string
@@ -21,7 +21,7 @@ public class Book {
     private String class_id;
     private Integer click_sum;
 
-    public Book(){
+    public DataBean(){
         this.Id = UUID.randomUUID();
     }
 

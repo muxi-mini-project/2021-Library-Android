@@ -31,6 +31,13 @@ public class RegisterActivity extends AppCompatActivity  implements View.OnClick
         initView();
         //创建一个动态进度条
         mProgressDialog = new ProgressDialog(this);
+        mResign.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent a=new Intent(RegisterActivity.this,sure.class);
+                 startActivity(a);
+            }
+        });
     }
     private void initView() {
         mUsername = (EditText) findViewById(R.id.username);
@@ -38,7 +45,6 @@ public class RegisterActivity extends AppCompatActivity  implements View.OnClick
         mLoading = (Button) findViewById(R.id.loading);
         mResign = (Button) findViewById(R.id.resign);
         mLoading.setOnClickListener(this);
-        mResign.setOnClickListener(this);
     }
     @Override
     public void onClick(View v) {

@@ -16,17 +16,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.library.activity.OthersNoteActivity;
 import com.example.library.R;
-import com.example.library.data.Book;
-import com.example.library.data.BookLab;
+import com.example.library.data.BookData;
 import com.example.library.data.Notes;
 import com.example.library.data.NotesLab;
+import com.example.library.fragment.sonfragment.RecommendFragment;
 
 import java.util.List;
-import java.util.UUID;
 
 public class BookDetailsFragment extends Fragment {
     private static final String ARG_BOOK_ID = "book_id";
-    private Book mBook;
+    private BookData.DataBean mBook;
     private NoteAdapter mNoteAdapter;
 
     //以下名字组件前为中文名缩写。例如JJ为简介，JJ2为简介框
@@ -41,7 +40,7 @@ public class BookDetailsFragment extends Fragment {
     private RecyclerView mRecyclerView;
 
 /*接收列表的数据并创建fragment，封装成方法*/
-    public static BookDetailsFragment newInstance(UUID bookId){
+    public static BookDetailsFragment newInstance(int bookId){
         Bundle args = new Bundle();
         args.putSerializable(ARG_BOOK_ID,bookId);
 
@@ -53,9 +52,9 @@ public class BookDetailsFragment extends Fragment {
     public void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
 /*获取列表的数据,即获得id，得到指定的book对象*/
-        UUID bookId = (UUID) getArguments().getSerializable(ARG_BOOK_ID);
-        mBook = BookLab.get(getActivity()).getBook(bookId);
-
+        int bookId = (int) getArguments().getSerializable(ARG_BOOK_ID);
+        //mBook = BookLab.get(getActivity()).getBook(bookId);
+        mBook = new BookData().getBook(bookId,RecommendFragment.data);
     }
 
 /*创建视图*/
@@ -69,7 +68,7 @@ public class BookDetailsFragment extends Fragment {
         mSMTextView.setText(mBook.getBook_name());
         //作者
         mZZTextView = (TextView)v.findViewById(R.id.book_detail_writer);
-        mZZTextView.setText(mBook.getBook_author());
+        mZZTextView.setText(mBook.getBook_auther());
         //简介
         mJJTextView = (TextView)v.findViewById(R.id.book_detail_intro);
         //简介详情

@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/white">
 
     <LinearLayout
@@ -16,11 +16,12 @@
         android:background="#EAEBED">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/book_city_bg">
 
             <ImageView
+                app:layout_constraintHorizontal_weight="1"
                 android:id="@+id/rm_book_pic"
                 android:layout_width="92dp"
                 android:layout_height="98dp"
@@ -36,6 +37,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                app:layout_constraintHorizontal_weight="2"
                 android:id="@+id/rm_book_title"
                 android:layout_width="100dp"
                 android:layout_height="31dp"
@@ -52,29 +54,33 @@
                 android:id="@+id/rm_book_writer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="19dp"
+                android:layout_marginStart="80dp"
+                android:layout_marginLeft="80dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="100dp"
                 android:layout_marginRight="100dp"
                 android:text="作者"
                 android:textColor="#497568"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/rm_book_title"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/rm_book_intro"
-                android:layout_width="271dp"
-                android:layout_height="52dp"
-                android:layout_marginStart="11dp"
-                android:layout_marginLeft="11dp"
-                android:layout_marginEnd="14dp"
-                android:layout_marginRight="14dp"
+                android:layout_width="275dp"
+                android:layout_height="44dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/rm_list_intro_bg"
                 android:text="简介"
                 android:textColor="#497568"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/rm_book_pic" />
+                app:layout_constraintStart_toEndOf="@+id/rm_book_pic"
+                app:layout_constraintWidth_percent="0.5" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

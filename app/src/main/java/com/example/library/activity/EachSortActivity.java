@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,8 +15,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.library.R;
-import com.example.library.data.Book;
-import com.example.library.data.BookLab;
+import com.example.library.data.BookData;
+import com.example.library.fragment.sonfragment.RecommendFragment;
 
 import java.util.List;
 
@@ -25,6 +26,7 @@ public class EachSortActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private SortAdapter mAdapter;
     private java.lang.String SortName;
+    private static int itemPosition;
 
     public static Intent SortIntent(Context context, List<String> data, int position){
         Intent intent = new Intent(context,EachSortActivity.class);
@@ -47,18 +49,18 @@ public class EachSortActivity extends AppCompatActivity {
     }
 
     public void updateUI(){
-        BookLab bookLab = BookLab.get(this);
-        List<Book> books = bookLab.getBooks();
+        //BookLab bookLab = BookLab.get(this);
+        //List<Book> books = bookLab.getBooks();
 
-        mAdapter = new SortAdapter(books);
+        mAdapter = new SortAdapter(RecommendFragment.data);
         mRecyclerView.setAdapter(mAdapter);
     }
 }
 
 class SortAdapter extends RecyclerView.Adapter<SortAdapter.SortHolder> {
-    private List<Book> mBooks;
+    private List<BookData.DataBean> mBooks;
 
-    protected SortAdapter(List<Book> books) {
+    protected SortAdapter(List<BookData.DataBean> books) {
         this.mBooks = books;
     }
 
@@ -71,7 +73,7 @@ class SortAdapter extends RecyclerView.Adapter<SortAdapter.SortHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull SortHolder holder, int position) {
-        Book book = mBooks.get(position);
+        BookData.DataBean book = mBooks.get(position);
         holder.bind(book);
     }
 
@@ -80,28 +82,39 @@ class SortAdapter extends RecyclerView.Adapter<SortAdapter.SortHolder> {
         return mBooks.size();
     }
 
-     class SortHolder extends RecyclerView.ViewHolder {
+     class SortHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         private final ImageView mImageView;
         private final TextView mTTTextView;
         private final TextView mWTTextView;
         private final TextView mInTextView;
-        private Book mBook;
+        private BookData.DataBean mBook;
+        private Context context;
 
         public SortHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.son_fg_rm_each_book, parent, false));
+            itemView.setOnClickListener(this);
+            context = itemView.getContext();
+
             mImageView = (ImageView) itemView.findViewById(R.id.rm_book_pic);
             mTTTextView = (TextView) itemView.findViewById(R.id.rm_book_title);
             mWTTextView = (TextView) itemView.findViewById(R.id.rm_book_writer);
             mInTextView = (TextView) itemView.findViewById(R.id.rm_book_intro);
         }
 
-        public void bind(Book book) {
+        public void bind(BookData.DataBean book) {
             mBook = book;
             //mImageView.setImageResource(R.id.rm_book_pic);
             mTTTextView.setText(mBook.getBook_name());
-            mWTTextView.setText(mBook.getBook_author());
+            mWTTextView.setText(mBook.getBook_auther());
             mInTextView.setText(mBook.getBook_information());
         }
+
+         @Override
+         public void onClick(View view){
+             Intent intent = BookDetailPagerActivity.newIntent(context,mBook.getBook_id());
+             //itemPosition = getBindingAdapterPosition();
+             itemView.getContext().startActivity(intent);
+         }
     }
 }

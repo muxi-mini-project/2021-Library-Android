@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/yellow">
+    android:background="@color/new_hint">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:orientation="horizontal"
@@ -14,8 +14,8 @@
 
         <ImageView
             android:id="@+id/comment_logo"
-            android:layout_width="74dp"
-            android:layout_height="66dp"
+            android:layout_width="62dp"
+            android:layout_height="59dp"
             android:layout_marginStart="15dp"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="10dp"
@@ -30,11 +30,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:paddingLeft="0dp"
             android:text="昵称"
-            android:textColor="@color/deep_green"
-            android:textSize="25sp"
+            android:textColor="@color/deep_blue"
+            android:textSize="18sp"
             app:layout_constraintStart_toEndOf="@+id/comment_logo"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -46,8 +46,8 @@
             android:layout_marginLeft="16dp"
             android:layout_marginBottom="8dp"
             android:text="2021.1.30"
-            android:textColor="@color/basic_green"
-            android:textSize="16sp"
+            android:textColor="#93977D"
+            android:textSize="13sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/comment_logo" />
 
@@ -60,21 +60,19 @@
 
         <TextView
             android:id="@+id/comment_content"
-            android:layout_width="392dp"
-            android:layout_height="76dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="9dp"
-            android:layout_marginRight="9dp"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginRight="15dp"
             android:layout_marginBottom="10dp"
+            android:background="@drawable/rm_list_intro_bg"
             android:text="这个是书摘"
             android:textColor="#A6000000"
-            android:background="@drawable/rm_list_intro_bg"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

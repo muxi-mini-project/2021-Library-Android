@@ -14,7 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.library.activity.BookDetailPagerActivity;
 import com.example.library.R;
-import com.example.library.data.Book;
+import com.example.library.data.DataBean;
+import com.example.library.data.BookData;
 import com.example.library.data.BookLab;
 import com.example.library.fragment.BookCityFragment;
 
@@ -47,9 +48,9 @@ public class RankFragment extends BookCityFragment {
 
     private void updateUI(){
         BookLab bookLab = BookLab.get(getParentFragment().getActivity());
-        List<Book> books = bookLab.getBooks();
+        List<DataBean> books = bookLab.getBooks();
 
-        mAdapter = new BookAdapter2(books);
+        mAdapter = new BookAdapter2(RecommendFragment.data);
         mRankRecyclerView.setAdapter(mAdapter);
     }
 
@@ -59,7 +60,7 @@ public class RankFragment extends BookCityFragment {
         private TextView mTTTextView;
         private TextView mWTTextView;
         private TextView mInTextView;
-        public Book mBook;
+        public BookData.DataBean mBook;
 
         public BookHolder2(LayoutInflater inflater, ViewGroup parent){
             super(inflater.inflate(R.layout.son_fg_rm_each_book,null,false));
@@ -72,15 +73,15 @@ public class RankFragment extends BookCityFragment {
         }
 
 
-        public void bind(Book book){
+        public void bind(BookData.DataBean book){
             mBook = book;
             mTTTextView.setText(mBook.getBook_name());
-            mWTTextView.setText(mBook.getBook_author());
+            mWTTextView.setText(mBook.getBook_auther());
             mInTextView.setText(mBook.getBook_information());
         }
 
         public void onClick(View view) {
-            Intent intent = BookDetailPagerActivity.newIntent(getActivity(), mBook.getId());
+            Intent intent = BookDetailPagerActivity.newIntent(getActivity(), mBook.getBook_id());
             itemPosition =getBindingAdapterPosition();
             startActivity(intent);
         }
@@ -88,9 +89,9 @@ public class RankFragment extends BookCityFragment {
 
 
     private class BookAdapter2 extends RecyclerView.Adapter<BookHolder2> {
-        private List<Book> mBooks;
+        private List<BookData.DataBean> mBooks;
 
-        public BookAdapter2(List<Book> books) {
+        public BookAdapter2(List<BookData.DataBean> books) {
             mBooks = books;
         }
 
@@ -104,7 +105,7 @@ public class RankFragment extends BookCityFragment {
 
         @Override
         public void onBindViewHolder(@NonNull BookHolder2 holder, int position) {
-            Book book = mBooks.get(position);
+            BookData.DataBean book = mBooks.get(position);
             holder.bind(book);
         }
 

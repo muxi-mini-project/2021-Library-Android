@@ -53,7 +53,7 @@
         android:text="注册"
         android:textColor="@color/black"
         android:background="@drawable/resign_button"
-        android:onClick="register"
+
         />
 
 

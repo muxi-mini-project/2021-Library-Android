@@ -1,6 +1,5 @@
 package com.example.library.fragment.sonfragment;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,18 +13,25 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.library.Search.BaseViewHolder;
-import com.example.library.Search.CommonAdapter;
+import com.example.library.BookService;
 import com.example.library.R;
 import com.example.library.activity.BookDetailPagerActivity;
-import com.example.library.data.Book;
-import com.example.library.data.BookLab;
+import com.example.library.data.BookData;
 import com.example.library.fragment.BookCityFragment;
 
+import java.net.HttpURLConnection;
+import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RecommendFragment extends BookCityFragment {
     private static final String TAG = "RF";
+    public static List<BookData.DataBean> data = new ArrayList<>();
     private RecyclerView mRMRecyclerView;
     private BookAdapter mAdapter;
     private static int itemPosition;
@@ -46,17 +52,48 @@ public class RecommendFragment extends BookCityFragment {
                 .findViewById(R.id.son_fg_recycler_view);
         updateUI();
         mRMRecyclerView.setLayoutManager(new LinearLayoutManager(getParentFragment().getActivity()));
-
+        getRequest();
         return view;
+    }
+
+    private void getRequest(){
+        //创建Retrofit对象
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://124.71.184.107:10086/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        //创建网络请求接口的实例
+        BookService mApi = retrofit.create(BookService.class);
+        //对发送请求进行封装---<发送请求>
+        Call<BookData> bookDataCall = mApi.getCall();//所需参数
+        //发送网络请求（异步）
+        bookDataCall.enqueue(new Callback<BookData>() {
+            //请求成功时回调
+            @Override
+            public void onResponse(Call<BookData> call, Response<BookData> response) {
+                Log.d(TAG,"onResponse>>>>>" + response.code());
+                if (response.code() == HttpURLConnection.HTTP_OK){
+                    Log.d(TAG,"Json>>>>>" + response.body().toString());
+                    data = response.body().getData();
+                    Log.d(TAG,"data--------------" + data.toString());
+                }
+            }
+
+            //请求失败时回调
+            @Override
+            public void onFailure(Call<BookData> call, Throwable t) {
+
+            }
+        });
     }
 
 /*关联Adapter和RV*/
     private void updateUI(){
 
-        BookLab bookLab = BookLab.get(getParentFragment().getActivity());
-        List<Book> books = bookLab.getBooks();
+        //BookLab bookLab = BookLab.get(getParentFragment().getActivity());
+        //List<Book> books = bookLab.getBooks();
 
-        mAdapter = new BookAdapter(books);
+        mAdapter = new BookAdapter(data);
         mRMRecyclerView.setAdapter(mAdapter);
     }
 
@@ -88,7 +125,7 @@ public class RecommendFragment extends BookCityFragment {
      private TextView mTTTextView;
      private TextView mWTTextView;
      private TextView mInTextView;
-     public Book mBook;
+     public BookData.DataBean mBook;
 
      public BookHolder(LayoutInflater inflater, ViewGroup parent){
             super(inflater.inflate(R.layout.son_fg_rm_each_book,null,false));
@@ -101,27 +138,27 @@ public class RecommendFragment extends BookCityFragment {
      }
 
         //@SuppressLint("ResourceType")
-        public void bind(Book book){
+        public void bind(BookData.DataBean book){
             mBook = book;
             //mImageView.setImageResource(R.id.rm_book_pic);
             mTTTextView.setText(mBook.getBook_name());
-            mWTTextView.setText(mBook.getBook_author());
+            mWTTextView.setText(mBook.getBook_auther());
             mInTextView.setText(mBook.getBook_information());
         }
 
         //点击事件。别忘了接口
         @Override
         public void onClick(View view){
-            Intent intent = BookDetailPagerActivity.newIntent(getActivity(),mBook.getId());
+            Intent intent = BookDetailPagerActivity.newIntent(getActivity(),mBook.getBook_id());
             itemPosition = getBindingAdapterPosition();
             startActivity(intent);
         }
     }
 
     private class BookAdapter extends RecyclerView.Adapter<BookHolder>{
-        private List<Book> mBooks;
+        private List<BookData.DataBean> mBooks;
 
-        public BookAdapter(List<Book> books){
+        public BookAdapter(List<BookData.DataBean> books){
             mBooks = books;
         }
 
@@ -134,7 +171,7 @@ public class RecommendFragment extends BookCityFragment {
 
          @Override
          public void onBindViewHolder(@NonNull BookHolder holder, int position) {
-            Book book = mBooks.get(position);
+            BookData.DataBean book = mBooks.get(position);
             holder.bind(book);
          }
 
@@ -142,6 +179,6 @@ public class RecommendFragment extends BookCityFragment {
          public int getItemCount() {
              return mBooks.size();
          }
- }
+    }
 
 }
