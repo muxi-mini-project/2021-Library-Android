@@ -14,10 +14,13 @@ import com.example.library.data.MyBookExtract;
 import java.util.List;
 
 public class BookExtractAdapter extends RecyclerView.Adapter<BookExtractAdapter.ViewHolder> {
-
     private List<MyBookExtract> mBook_extract;
 
     public BookExtractAdapter(List<book_extract> book_extractList) {
+    }
+
+    public BookExtractAdapter(List<MyBookExtract> myBookExtracts, Context context) {
+
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

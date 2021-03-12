@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.library">
-    <uses-permission android:name="android.permission.INTERNET"/>
-
 
     <application
         android:allowBackup="true"
@@ -10,9 +8,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.Light.NoActionBar">
-        <activity android:name=".activity.SetDetailActivity"/>
-        <activity android:name=".activity.GuideActivity"
-            android:windowSoftInputMode = "stateAlwaysHidden|adjustPan">
+
+        <activity android:name=".activity.MybookActivity"></activity>
+        <activity android:name=".activity.GuideActivity" />
+        <activity android:name=".activity.SetDetailActivity" />
+        <activity
+            android:name=".activity.RegisterActivity"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,8 +30,8 @@
         <activity android:name=".Sure"/>
         <activity android:name=".Searcher.SearcherMain"/>
 
-
-
     </application>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

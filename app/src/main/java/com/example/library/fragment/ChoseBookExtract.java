@@ -25,6 +25,7 @@ import com.example.library.data.BookExtracter;
 import com.example.library.data.MyBookExtract;
 import com.example.library.fragment.sonfragment.RankFragment;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,11 +35,14 @@ public class ChoseBookExtract extends Fragment {
     private Button mAdd;
     private TextView mBook_extract;
     private EditText mBook_search;
+    private Context context;
+    private RecyclerView mRecyclerView;
     private List<String> list = new ArrayList<String>();
    // public static List<BookExtracter.> data = new ArrayList<>();
     private ArrayAdapter<String> SpinnerAdapter ;
-    private BookExtract mAdapter;
-    private RecyclerView mRecyclerView;
+    //private BookExtract mAdapter;
+    //private RecyclerView mRecyclerView;
+    private boolean ture;
     private LinearLayoutManager mLayoutManager;
 
     @Override
@@ -50,6 +54,8 @@ public class ChoseBookExtract extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.book_zhai, container, false);
         mChose=(Spinner)view.findViewById(R.id.chose);
+        context = getContext();
+
         list.add("小说");
         list.add("历史");
         list.add("文学");
@@ -74,18 +80,19 @@ public class ChoseBookExtract extends Fragment {
 
         //书摘的RecyclerView
         mRecyclerView=(RecyclerView)view.findViewById(R.id.book_kind_recyclerview);
+        mRecyclerView.setHasFixedSize(ture);
+        mLayoutManager=new LinearLayoutManager(context);
+        mLayoutManager.setOrientation(RecyclerView.VERTICAL);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        BookExtractLab bookExtractLab=BookExtractLab.get(context);
+        List<MyBookExtract>myBookExtracts=bookExtractLab.getmMyBookextracts();
+        mRecyclerView.setAdapter(new BookExtractAdapter(myBookExtracts,context));
         upDate();
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        //mRecyclerView.setHasFixedSize(true);
-       // mLayoutManager=new LinearLayoutManager(context);
-       // mLayoutManager.setOrientation(RecyclerView.VERTICAL);
-       // mRecyclerView.setLayoutManager(mLayoutManager);
-       // BookExtractLab bookExtractLab=BookExtractLab.get(context);
-        // mRecyclerView.setAdapter(new BookExtractAdapter(myBookExtracts,context));
 
 
         return view;
+
     }
 
     private void upDate() {

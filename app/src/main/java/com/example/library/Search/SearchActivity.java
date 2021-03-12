@@ -12,13 +12,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.library.R;
 import com.example.library.activity.BookDetailPagerActivity;
 import com.example.library.data.BookData;
-import com.example.library.data.DataBean;
-import com.example.library.data.BookLab;
 import com.example.library.fragment.sonfragment.RecommendFragment;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class SearchActivity extends AppCompatActivity implements SearchView.SearchViewListener {
     private static final String TAG = "SearchActivity";

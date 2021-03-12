@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.library.activity.BookDetailPagerActivity;
 import com.example.library.R;
-import com.example.library.data.DataBean;
 import com.example.library.data.BookData;
 import com.example.library.data.BookLab;
 import com.example.library.fragment.BookCityFragment;

@@ -17,6 +17,7 @@ import com.example.library.fragment.ChoseBookExtract;
 import com.example.library.fragment.MineFragment;
 
 
+
 public class GuideActivity extends AppCompatActivity implements View.OnClickListener {
 
     /*底部导航栏的文字部分*/

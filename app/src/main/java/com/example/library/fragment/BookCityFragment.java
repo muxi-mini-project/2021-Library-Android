@@ -17,7 +17,6 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.library.R;
 import com.example.library.Search.SearchAdapter;
 import com.example.library.Search.SearchView;
-import com.example.library.data.DataBean;
 import com.example.library.data.BookLab;
 import com.example.library.fragment.sonfragment.RankFragment;
 import com.example.library.fragment.sonfragment.RecommendFragment;

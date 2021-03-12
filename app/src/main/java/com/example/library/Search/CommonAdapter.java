@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class CommonAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
+public abstract class   CommonAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
     protected Context mContext;
     protected List<T> dataList = new ArrayList<>();
     protected int layoutId;
@@ -32,8 +32,8 @@ public abstract class CommonAdapter<T> extends RecyclerView.Adapter<BaseViewHold
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (itemClickListener != null){
-                    itemClickListener.onItemClick(dataList.get(position),position);
+                if (itemClickListener != null) {
+                    itemClickListener.onItemClick(dataList.get(position), position);
                 }
             }
         });
