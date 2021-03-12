@@ -5,6 +5,7 @@ import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,7 @@ import android.widget.TextView;
 import com.example.library.R;
 
 public class SearchView extends LinearLayout implements View.OnClickListener{
+    private static final String TAG = "SearchView";
     //输入框
     private EditText etInput;
     //搜索按钮
@@ -64,7 +66,6 @@ public class SearchView extends LinearLayout implements View.OnClickListener{
         etInput = (EditText) findViewById(R.id.book_city_edit_text);
         imSearch = (ImageView) findViewById(R.id.search_book_city);
         mListView = (ListView) findViewById(R.id.search_lv_tips);
-        mListView.setFocusable(false);
     /*弹出选择列表后。lv每一项设置监听器*/
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -98,7 +99,9 @@ public class SearchView extends LinearLayout implements View.OnClickListener{
     private void notifyStartSearching(String text){
         if (mListener != null){
             mListener.onSearch(etInput.getText().toString());
+            Log.e(TAG,"mListener ---------" + mListener.toString());
         }
+        Log.e(TAG,"text is >>>>>>>>>" + text +"~~~~~~~~");
         //隐藏软键盘
         InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(0,InputMethodManager.HIDE_NOT_ALWAYS);

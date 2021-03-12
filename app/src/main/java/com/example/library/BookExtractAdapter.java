@@ -5,10 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.library.data.MyBookExtract;
@@ -16,10 +14,13 @@ import com.example.library.data.MyBookExtract;
 import java.util.List;
 
 public class BookExtractAdapter extends RecyclerView.Adapter<BookExtractAdapter.ViewHolder> {
+    private List<MyBookExtract> mBook_extract;
 
-    private List<book_extract> mBook_extract;
+    public BookExtractAdapter(List<book_extract> book_extractList) {
+    }
 
     public BookExtractAdapter(List<MyBookExtract> myBookExtracts, Context context) {
+
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
@@ -36,9 +37,9 @@ public class BookExtractAdapter extends RecyclerView.Adapter<BookExtractAdapter.
 
     }
 
-    public BookExtractAdapter(List<book_extract> book_extractList) {
+    /*public BookExtractAdapter(List<MyBookExtract> book_extractList, Context context) {
         mBook_extract = book_extractList;
-    }
+    }*/
 
     @Override
 
@@ -51,10 +52,10 @@ public class BookExtractAdapter extends RecyclerView.Adapter<BookExtractAdapter.
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        book_extract fruit = mBook_extract.get(position);
-        holder.bookname.setText(fruit.getBookname());
-        holder.context.setText(fruit.getContextId());
-        holder.date.setText(fruit.getDateId());
+       // book_extract extract=mBook_extract.get(position);
+        //holder.bookname.setText(extract.getBookname());
+       // holder.context.setText(extract.getContextId());
+      //  holder.date.setText(extract.getDateId());
     }
 //hx增加以下方法，是否这样？
     @Override

@@ -1,10 +1,8 @@
 package com.example.library.data;
 
-import com.example.library.data.Book;
-
 import java.util.UUID;
 
-public class MyBook extends Book {
+public class MyBook extends BookData.DataBean {
     public boolean mIsMine;
 
     private UUID nId;
@@ -20,5 +18,8 @@ public class MyBook extends Book {
 
     public void setMine(boolean mine) {
         mIsMine = mine;
+    }
+
+    public void setBook_name(String s) {
     }
 }

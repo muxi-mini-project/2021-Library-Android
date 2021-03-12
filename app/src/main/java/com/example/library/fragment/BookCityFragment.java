@@ -1,12 +1,10 @@
 package com.example.library.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,7 +17,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.library.R;
 import com.example.library.Search.SearchAdapter;
 import com.example.library.Search.SearchView;
-import com.example.library.data.Book;
+import com.example.library.data.BookData;
 import com.example.library.data.BookLab;
 import com.example.library.fragment.sonfragment.RankFragment;
 import com.example.library.fragment.sonfragment.RecommendFragment;
@@ -155,7 +153,7 @@ public class BookCityFragment extends Fragment implements SearchView.SearchViewL
 
     private void getBookData() {
         BookLab bookLab = BookLab.get(getActivity());
-        List<Book> bookData = bookLab.getBooks();
+        List<BookData.DataBean> bookData = bookLab.getBooks();
         nameList = new ArrayList<>();
         for (int j = 0 ; j < bookData.size();j++){
             nameList.add(bookData.get(j).getBook_name());
