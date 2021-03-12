@@ -96,12 +96,12 @@ public class ChoseBookExtract extends Fragment {
         mChose.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> arg0, View arg1,
                                        int arg2, long arg3) {
-                mBook_extract.setText((String) adapter.getItem(arg2));
+                mBook_search.setText((String) adapter.getItem(arg2));
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
-                mBook_extract.setText("全部书摘");
+                mBook_search.setText("全部书摘");
             }
         });
 
@@ -166,7 +166,7 @@ public class ChoseBookExtract extends Fragment {
         private class BookExtractAdapter extends RecyclerView.Adapter<BookExtractHolder> {
             private List<BookExtracter> mBookExtracters;
 
-            public BookExtractAdapter(List<book_extract> book_extractList) {
+           public BookExtractAdapter(List<book_extract> book_extractList) {
                 mBook_extract = book_extractList;
             }
 
@@ -179,7 +179,7 @@ public class ChoseBookExtract extends Fragment {
 
             @Override
             public void onBindViewHolder(@NonNull BookExtractHolder holder, int position) {
-                BookExtracter bookExtracter = (BookExtracter) mBookExtracter.get(position);
+                BookExtracter bookExtracter = (BookExtracter) mBookExtracters.get(position);
                 holder.bind(bookExtracter);
             }
 
