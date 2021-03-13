@@ -1,6 +1,7 @@
 package com.example.library.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +20,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.library.AboutSwitch;
 import com.example.library.BookExtractAdapter;
+import com.example.library.BookextractList;
 import com.example.library.R;
 import com.example.library.Search.BaseViewHolder;
 import com.example.library.book_extract;
@@ -27,6 +30,7 @@ import com.example.library.data.Book;
 import com.example.library.data.BookExtractLab;
 import com.example.library.data.BookExtracter;
 import com.example.library.data.MyBookExtract;
+import com.example.library.edit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +39,8 @@ public class ChoseBookExtract extends Fragment {
     private Spinner mChose;
     private Button mEdit;
     private Button mAdd;
-    private List<book_extract> mBook_extract;
+    private List<book_extract> mBook_extract_list;
+    private TextView mBook_extract;
     private EditText mBook_search;
     private Context context;
     private RecyclerView mRecyclerView;
@@ -44,7 +49,7 @@ public class ChoseBookExtract extends Fragment {
     private boolean ture;
     private LinearLayoutManager mLayoutManager;
     private BookExtractAdapter mAdapter;
-    private List<book_extract> book_extractList;
+   //private List<book_extract> book_extractList;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,20 +62,22 @@ public class ChoseBookExtract extends Fragment {
         // mChose=(Spinner)view.findViewById(R.id.chose);
         // mChose.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
         mAdd = (Button) view.findViewById(R.id.add);
-        //mBook_extract =
+        mBook_extract =(TextView)view.findViewById(R.id.book_extract);
         mBook_search = (EditText) view.findViewById(R.id.book_search);
         mEdit = (Button) view.findViewById(R.id.edit);
         mAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent add=new Intent(ChoseBookExtract.this.getActivity(), edit.class);
+                startActivity(add);
             }
         });
 
         mEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent add=new Intent(ChoseBookExtract.this.getActivity(), edit.class);
+                startActivity(add);
             }
         });
 
@@ -96,25 +103,26 @@ public class ChoseBookExtract extends Fragment {
         mChose.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> arg0, View arg1,
                                        int arg2, long arg3) {
-                mBook_search.setText((String) adapter.getItem(arg2));
+                mBook_extract.setText((String) adapter.getItem(arg2));
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
-                mBook_search.setText("全部书摘");
+                mBook_extract.setText("全部书摘");
             }
         });
 
         //书摘的RecyclerView
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.book_kind_recyclerview);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.book_extract_recyclerview);
+       // mRecyclerView.setHasFixedSize(ture);
+        mLayoutManager=new LinearLayoutManager(context);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mLayoutManager.setOrientation(RecyclerView.VERTICAL);
+        mRecyclerView.setAdapter(mAdapter);
         updateUI();
-        //mRecyclerView.setHasFixedSize(ture);
-        //mLayoutManager=new LinearLayoutManager(context);
-        // mLayoutManager.setOrientation(RecyclerView.VERTICAL);
-        //  mRecyclerView.setLayoutManager(mLayoutManager);
-        // BookExtractLab bookExtractLab=BookExtractLab.get(context);
+       //  BookExtractLab bookExtractLab=BookExtractLab.get(context);
         //List<MyBookExtract>myBookExtracts=bookExtractLab.getmMyBookextracts();
-        //mRecyclerView.setAdapter(new BookExtractAdapter(myBookExtracts,context));
+       // mRecyclerView.setAdapter(new BookExtractAdapter(myBookExtracts,context));
 
 
         return view;
@@ -122,11 +130,10 @@ public class ChoseBookExtract extends Fragment {
     }
 
     private void updateUI() {
-        BookExtractLab bookExtractLab = BookExtractLab.get(getParentFragment().getActivity());
-        List<BookExtracter> bookExtracters = bookExtractLab.getBooks();
-        mAdapter = new BookExtractAdapter(book_extractList);
+        BookExtractLab bookExtractLab = BookExtractLab.get(getActivity());
+        List<BookExtracter> bookExtracters = bookExtractLab.getBookExtracters();
+        mAdapter = new BookExtractAdapter(bookExtracters);
         mRecyclerView.setAdapter(mAdapter);
-
     }
 
     private class BookExtractHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -135,7 +142,7 @@ public class ChoseBookExtract extends Fragment {
         private Button mLock;
         private Button mBook_extract_context;
         private TextView mDate;
-        private BookExtracter mBookExtracter;
+        private BookextractList mBookExtracter;
 
         public BookExtractHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.book_extract_item, null, false));
@@ -146,16 +153,21 @@ public class ChoseBookExtract extends Fragment {
             mDate = (TextView) itemView.findViewById(R.id.date);
             mLock = (Button) itemView.findViewById(R.id.lock);
             mBook_extract_context = (Button) itemView.findViewById(R.id.book_extract_context);
+           mLock.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View v) {
+                  //点击决定是否公共
 
+               }
+           });
 
         }
 
-        public void bind(BookExtracter bookExtracter) {
-            mBookExtracter = bookExtracter;
-            //mImageView.setImageResource(R.id.rm_book_pic);
-            mBook_extract_name.setText(mBookExtracter.getBookextract_name());
-            mBook_extract_context.setText(mBookExtracter.getBookextract_information());
-            //mInTextView.setText(mBook.getBook_information());
+        public void bind(BookextractList bookextract) {
+            mBookExtracter = bookextract;
+            mBook_extract_name.setText(mBookExtracter.getBook_extract_name());
+            mBook_extract_context.setText(mBookExtracter.getBook_extract_context());
+            mDate.setText(mBookExtracter.getBook_extract_date());
         }
 
         @Override
@@ -164,29 +176,29 @@ public class ChoseBookExtract extends Fragment {
         }
 
         private class BookExtractAdapter extends RecyclerView.Adapter<BookExtractHolder> {
-            private List<BookExtracter> mBookExtracters;
+            private List<BookextractList> mBookExtracter;
 
-           public BookExtractAdapter(List<book_extract> book_extractList) {
-                mBook_extract = book_extractList;
+           public BookExtractAdapter(List<BookextractList> book_extractList) {
+                mBookExtracter = book_extractList;
             }
 
             @Override
             public BookExtractHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                LayoutInflater layoutInflater = LayoutInflater.from(getParentFragment().getActivity());
+                LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
 
-                return new BookExtractHolder(layoutInflater, parent);
+                return new BookExtractHolder(layoutInflater,parent);
             }
 
             @Override
             public void onBindViewHolder(@NonNull BookExtractHolder holder, int position) {
-                BookExtracter bookExtracter = (BookExtracter) mBookExtracters.get(position);
+                BookextractList bookExtracter =  mBookExtracter.get(position);
                 holder.bind(bookExtracter);
             }
 
 
             @Override
             public int getItemCount() {
-                return mBookExtracters.size();
+                return mBookExtracter.size();
             }
         }
 

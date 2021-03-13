@@ -12,7 +12,7 @@
         android:theme="@style/Theme.Design.Light.NoActionBar">
         <activity android:name=".activity.GuideActivity"/>
         <activity android:name=".activity.SetDetailActivity"/>
-        <activity android:name=".BookExtratDetail"
+        <activity android:name=".activity.RegisterActivity"
             android:windowSoftInputMode = "stateAlwaysHidden|adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

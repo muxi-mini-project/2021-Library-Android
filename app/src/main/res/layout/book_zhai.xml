@@ -118,7 +118,7 @@
  <androidx.recyclerview.widget.RecyclerView
      android:id="@+id/book_extract_recyclerview"
      android:layout_width="match_parent"
-    android:layout_height="10000dp"
+    android:layout_height="700dp"
      android:background="@color/new_hint"
     >
  </androidx.recyclerview.widget.RecyclerView>
