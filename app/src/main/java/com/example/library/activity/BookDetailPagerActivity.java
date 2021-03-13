@@ -11,20 +11,19 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.library.R;
-import com.example.library.data.Book;
-import com.example.library.data.BookLab;
+import com.example.library.data.BookData;
 import com.example.library.fragment.BookDetailsFragment;
+import com.example.library.fragment.sonfragment.RecommendFragment;
 
 import java.util.List;
-import java.util.UUID;
 
 public class BookDetailPagerActivity extends AppCompatActivity {
     private static final String EXTRA_BOOK_ID = "com.example.Library.book_id" ;
     private ViewPager mViewPager;
-    private List<Book> mBooks;
+    private List<BookData.DataBean> mBooks;
 
 /*获取列表项的数据包装成intent*/
-    public static Intent newIntent(Context packageContext, UUID bookId){
+    public static Intent newIntent(Context packageContext, int bookId){
         Intent intent = new Intent(packageContext,BookDetailPagerActivity.class);
         intent.putExtra(EXTRA_BOOK_ID,bookId);
         return intent;
@@ -34,18 +33,19 @@ public class BookDetailPagerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ac_book_detail_pager);
     //获取当前id来设置ViewPager的当前页
-        final UUID bookId = (UUID) getIntent()
+        final int bookId = (int) getIntent()
                 .getSerializableExtra(EXTRA_BOOK_ID);
 
-        mBooks = BookLab.get(this).getBooks();
+        mBooks = RecommendFragment.data;
+
         mViewPager = (ViewPager)findViewById(R.id.ac_book_detail_view_pager);
         FragmentManager fm = getSupportFragmentManager();
         mViewPager.setAdapter(new FragmentStatePagerAdapter(fm) {
 
             @Override
             public Fragment getItem(int position) {
-                Book book = mBooks.get(position);
-                return BookDetailsFragment.newInstance(book.getId());
+                BookData.DataBean book = mBooks.get(position);
+                return BookDetailsFragment.newInstance(book.getBook_id());
             }
 
             @Override
@@ -56,7 +56,7 @@ public class BookDetailPagerActivity extends AppCompatActivity {
 
         //设置初始分页显示项
         for (int i = 0; i < mBooks.size(); i++){
-            if (mBooks.get(i).getId().equals(bookId)){
+            if (mBooks.get(i).getBook_id().equals(bookId)){
                 mViewPager.setCurrentItem(i);
                 break;
             }

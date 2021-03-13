@@ -26,14 +26,22 @@ import com.example.library.BookextractList;
 import com.example.library.R;
 import com.example.library.Search.BaseViewHolder;
 import com.example.library.book_extract;
-import com.example.library.data.Book;
+//import com.example.library.data.Book;
 import com.example.library.data.BookExtractLab;
 import com.example.library.data.BookExtracter;
 import com.example.library.data.MyBookExtract;
 import com.example.library.edit;
+import com.example.library.data.BookData;
+import com.example.library.data.BookExtractLab;
+import com.example.library.data.BookExtracter;
+import com.example.library.data.MyBookExtract;
+import com.example.library.fragment.sonfragment.RankFragment;
+
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.http.HEAD;
 
 public class ChoseBookExtract extends Fragment {
     private Spinner mChose;
@@ -46,6 +54,11 @@ public class ChoseBookExtract extends Fragment {
     private RecyclerView mRecyclerView;
     private List<String> list = new ArrayList<String>();
     private ArrayAdapter<String> SpinnerAdapter;
+
+   // public static List<BookExtracter.> data = new ArrayList<>();
+  //  private ArrayAdapter<String> SpinnerAdapter ;
+    //private BookExtract mAdapter;
+    //private RecyclerView mRecyclerView;
     private boolean ture;
     private LinearLayoutManager mLayoutManager;
     private BookExtractAdapter mAdapter;
@@ -57,42 +70,20 @@ public class ChoseBookExtract extends Fragment {
 
     }
 
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        // mChose=(Spinner)view.findViewById(R.id.chose);
-        // mChose.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
-        mAdd = (Button) view.findViewById(R.id.add);
-        mBook_extract =(TextView)view.findViewById(R.id.book_extract);
-        mBook_search = (EditText) view.findViewById(R.id.book_search);
-        mEdit = (Button) view.findViewById(R.id.edit);
-        mAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent add=new Intent(ChoseBookExtract.this.getActivity(), edit.class);
-                startActivity(add);
-            }
-        });
-
-        mEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent add=new Intent(ChoseBookExtract.this.getActivity(), edit.class);
-                startActivity(add);
-            }
-        });
-
-
-    }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.book_zhai, container, false);
 
         mChose = (Spinner) view.findViewById(R.id.chose);
+        mChose=(Spinner)view.findViewById(R.id.chose);
         context = getContext();
+
+        list.add("小说");
         list.add("历史");
         list.add("文学");
         list.add("诗歌");
         list.add("科幻");
+
         list.add("小说");
 
 
@@ -113,30 +104,68 @@ public class ChoseBookExtract extends Fragment {
         });
 
         //书摘的RecyclerView
+
         mRecyclerView = (RecyclerView) view.findViewById(R.id.book_extract_recyclerview);
        // mRecyclerView.setHasFixedSize(ture);
+
+        mRecyclerView=(RecyclerView)view.findViewById(R.id.book_kind_recyclerview);
+        mRecyclerView.setHasFixedSize(ture);
         mLayoutManager=new LinearLayoutManager(context);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mLayoutManager.setOrientation(RecyclerView.VERTICAL);
         mRecyclerView.setAdapter(mAdapter);
-        updateUI();
+        //updateUI();
        //  BookExtractLab bookExtractLab=BookExtractLab.get(context);
         //List<MyBookExtract>myBookExtracts=bookExtractLab.getmMyBookextracts();
        // mRecyclerView.setAdapter(new BookExtractAdapter(myBookExtracts,context));
+
+        BookExtractLab bookExtractLab=BookExtractLab.get(context);
+        List<MyBookExtract>myBookExtracts=bookExtractLab.getmMyBookextracts();
+        mRecyclerView.setAdapter(new BookExtractAdapter(myBookExtracts,context));
+        upDate();
+
+
 
 
         return view;
 
     }
 
-    private void updateUI() {
-        BookExtractLab bookExtractLab = BookExtractLab.get(getActivity());
-        List<BookExtracter> bookExtracters = bookExtractLab.getBookExtracters();
-        mAdapter = new BookExtractAdapter(bookExtracters);
-        mRecyclerView.setAdapter(mAdapter);
+
+    private void upDate() {
+        BookExtractLab bookExtractLab=BookExtractLab.get(getActivity());
+        List<BookExtracter> bookExtracters=bookExtractLab.getBookExtracters();
+        //mAdapter=new BookExtract(ChoseBookExtract.data);
     }
 
-    private class BookExtractHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public void onViewCreated(View view,Bundle savedInstanceState) {
+        super.onViewCreated(view,savedInstanceState);
+        //mChose.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
+        mAdd=(Button)view.findViewById(R.id.add);
+        mBook_extract=(TextView)view.findViewById(R.id.book_extract);
+        mBook_search=(EditText) view.findViewById(R.id.book_search);
+        mEdit=(Button)view.findViewById(R.id.edit);
+        mAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        mEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+
+//    private void updateUI() {
+//        BookExtractLab bookExtractLab = BookExtractLab.get(getActivity());
+//        List<BookExtracter> bookExtracters = bookExtractLab.getBookExtracters();
+//        mAdapter = new BookExtractAdapter(bookExtracters);
+//        mRecyclerView.setAdapter(mAdapter);
+//    }
+        class BookExtractHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView mBook_extract_name;
         private Button mLock;
@@ -175,7 +204,7 @@ public class ChoseBookExtract extends Fragment {
 
         }
 
-        private class BookExtractAdapter extends RecyclerView.Adapter<BookExtractHolder> {
+        class BookExtractAdapter extends RecyclerView.Adapter<BookExtractHolder> {
             private List<BookextractList> mBookExtracter;
 
            public BookExtractAdapter(List<BookextractList> book_extractList) {
@@ -196,6 +225,7 @@ public class ChoseBookExtract extends Fragment {
             }
 
 
+
             @Override
             public int getItemCount() {
                 return mBookExtracter.size();
@@ -210,6 +240,13 @@ public class ChoseBookExtract extends Fragment {
         //@Override
         public void onNothingSelected(AdapterView<?> parent) {
 
+
+    //@Override
+    // public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+    //  mBook_extract
+    //}
+
+
         }
 
         //@Override
@@ -222,5 +259,6 @@ public class ChoseBookExtract extends Fragment {
 
         //}
     }
+}
 }
 

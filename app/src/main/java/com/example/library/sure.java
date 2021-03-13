@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.library.activity.RegisterActivity;
 
+
 public class Sure extends AppCompatActivity implements View.OnClickListener {
     private Button mSureofregister;
     private Button mBack;
@@ -24,7 +25,7 @@ public class Sure extends AppCompatActivity implements View.OnClickListener {
     private String userNameValue,passwordValue;
 
 
-//
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -45,10 +46,10 @@ public class Sure extends AppCompatActivity implements View.OnClickListener {
         boolean choseAutoLogin =login_sp.getBoolean("mAutologinCheck", false);
         //如果上次选了记住密码，那进入登录页面也自动勾选记住密码，并填上用户名和密码
         //if(choseRemember){
-            //mResigter_username.setText(name);
-           // mResigter_password.setText(pwd);
-            //mSureofregister.setChecked(true);
-       // }
+        //mResigter_username.setText(name);
+        // mResigter_password.setText(pwd);
+        //mSureofregister.setChecked(true);
+        // }
         if (mNewuserManager == null) {
             mNewuserManager = new NewuserManager(this);
             mNewuserManager.openDataBase();                              //建立本地数据库
@@ -60,8 +61,8 @@ public class Sure extends AppCompatActivity implements View.OnClickListener {
                         register_check();
                         break;
                     //case R.id.register_btn_cancel:                     //取消按钮的监听事件,由注册界面返回登录界面
-                        //Intent intent_Register_to_Login = new Intent(Register.this,Login.class) ;    //切换User Activity至Login Activity
-                        //startActivity(intent_Register_to_Login);
+                    //Intent intent_Register_to_Login = new Intent(Register.this,Login.class) ;    //切换User Activity至Login Activity
+                    //startActivity(intent_Register_to_Login);
                 }
             }
         };
@@ -84,7 +85,7 @@ public class Sure extends AppCompatActivity implements View.OnClickListener {
                 Toast.makeText(this, getString(R.string.different),Toast.LENGTH_SHORT).show();
                 return ;
             } else {
-               NewuserData mUser = new NewuserData(userName, userPwd);
+                NewuserData mUser = new NewuserData(userName, userPwd);
                 mNewuserManager.openDataBase();
                 boolean flag = mNewuserManager.insertUserData(mUser); //新建用户信息
                 if (flag == false) {
@@ -154,29 +155,29 @@ public class Sure extends AppCompatActivity implements View.OnClickListener {
 
     // @Override
     //public void onClick(View v) {
-       // switch (v.getId()) {
-           // case R.id.sureofregister:
-               // final String newusername = mResigter_username.getText().toString().trim();
-               // final String newpassword = mResigter_password.getText().toString().trim();
-               // Newuser newuser = new Newuser();
-               // newuser.newusername = newusername;
-               // newuser.newpassword = newpassword;
-                //boolean newuserInfo = submit(newuser);
-               // if (newuserInfo) {
-               //  Toast.makeText(this,"注册成功",Toast.LENGTH_SHORT);
-              //  }else{
-              //      Toast.makeText(this,"账户密码不能为空",Toast.LENGTH_SHORT);
-             //   }
-       // }
+    // switch (v.getId()) {
+    // case R.id.sureofregister:
+    // final String newusername = mResigter_username.getText().toString().trim();
+    // final String newpassword = mResigter_password.getText().toString().trim();
+    // Newuser newuser = new Newuser();
+    // newuser.newusername = newusername;
+    // newuser.newpassword = newpassword;
+    //boolean newuserInfo = submit(newuser);
+    // if (newuserInfo) {
+    //  Toast.makeText(this,"注册成功",Toast.LENGTH_SHORT);
+    //  }else{
+    //      Toast.makeText(this,"账户密码不能为空",Toast.LENGTH_SHORT);
+    //   }
+    // }
 
-  //  }
+    //  }
 
-   // private boolean submit(Newuser newuser) {
-     //   if (TextUtils.isEmpty(newuser.newusername) || TextUtils.isEmpty(newuser.newpassword)) {
-         //   Toast.makeText(this, "账户密码不能为空", Toast.LENGTH_SHORT).show();
-        //    return false;
-      //  } else {
-       //     return true;
-       // }
-   // }
+    // private boolean submit(Newuser newuser) {
+    //   if (TextUtils.isEmpty(newuser.newusername) || TextUtils.isEmpty(newuser.newpassword)) {
+    //   Toast.makeText(this, "账户密码不能为空", Toast.LENGTH_SHORT).show();
+    //    return false;
+    //  } else {
+    //     return true;
+    // }
+    // }
 }
