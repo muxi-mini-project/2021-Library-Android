@@ -30,6 +30,8 @@
         <activity android:name=".Sure"/>
         <activity android:name=".Searcher.SearcherMain"/>
         <activity android:name=".AboutSwitch"/>
+        <activity android:name=".BookExtratDetail"/>
+
 
     </application>
 

@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.UUID;
 
 //模仿CrimeLab创建BookLab数组单例。暂定
-public class BookLab {
+public class BookLab{
     public static BookLab sBookLab;
-    private List<DataBean> mBooks;
+    private List<BookData.DataBean> mBooks;
     private List<MyBook> mMyBooks;
 
     private BookLab(Context context){
@@ -17,9 +17,9 @@ public class BookLab {
         mMyBooks = new ArrayList<>();
         //生成临时数据组
         for (int i = 0; i < 100; i++){
-            DataBean book = new DataBean();
+            BookData.DataBean book = new BookData.DataBean();
             book.setBook_name("Book #" + i);
-            book.setBook_author("writer" + i);
+            book.setBook_auther("writer" + i);
             book.setBook_information("I am book" + i);
             mBooks.add(book);
         }
@@ -27,7 +27,7 @@ public class BookLab {
         for(int j = 0; j<100; j++){
             MyBook myBook = new MyBook();
             myBook.setBook_name("MyBook #"+j);
-            myBook.setBook_author("writer"+j);
+            myBook.setBook_auther("writer"+j);
             myBook.setBook_information("I am mybook" +j);
             mMyBooks.add(myBook);
         }
@@ -42,14 +42,14 @@ public class BookLab {
     }
 
     //得到数组
-    public List<DataBean> getBooks(){
+    public List<BookData.DataBean> getBooks(){
         return mBooks;
     }
 
     //暂时测试书城的书，无我的书
-    public DataBean getBook(UUID id){
-        for (DataBean book:mBooks){
-            if (book.getId().equals(id)){
+    public BookData.DataBean getBook(UUID id){
+        for (BookData.DataBean book:mBooks){
+            if (book.getBook_id().equals(id)){
                 return book;
             }
         }
@@ -61,7 +61,7 @@ public class BookLab {
     }
     public MyBook getMyBook(UUID Id) {
         for (MyBook myBook : mMyBooks) {
-            if (myBook.getId().equals(Id)) {
+            if (myBook.getBook_id().equals(Id)) {
                 return myBook;
             }
         }

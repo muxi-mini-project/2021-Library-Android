@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.library.activity.RegisterActivity;
 
-
 public class Sure extends AppCompatActivity implements View.OnClickListener {
     private Button mSureofregister;
     private Button mBack;
@@ -20,10 +19,10 @@ public class Sure extends AppCompatActivity implements View.OnClickListener {
     private EditText mResigter_password;
     private EditText mPassword_again;
     private NewuserManager mNewuserManager;
+    //将少量简单类型数据保存在本地，如：用户设置
     private SharedPreferences login_sp;
     //private CheckBox mRememberCheck;
     private String userNameValue,passwordValue;
-
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +31,15 @@ public class Sure extends AppCompatActivity implements View.OnClickListener {
         setContentView(R.layout.register_note);
         //对控件初始化
         initView();
+        /*mSureofregister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.
+            }
+        });*/
+
+
+
         mBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -39,6 +47,7 @@ public class Sure extends AppCompatActivity implements View.OnClickListener {
                 startActivity(c);
             }
         });
+        //使用Activity类的getSharedPreferences方法获得SharedPreferences对象；
         login_sp = getSharedPreferences("userInfo", 0);
         String name=login_sp.getString("USER_NAME", "");
         String pwd =login_sp.getString("PASSWORD", "");
@@ -54,38 +63,67 @@ public class Sure extends AppCompatActivity implements View.OnClickListener {
             mNewuserManager = new NewuserManager(this);
             mNewuserManager.openDataBase();                              //建立本地数据库
         }
-        View.OnClickListener m_register_Listener = new View.OnClickListener() {    //不同按钮按下的监听事件选择
+        /*View.OnClickListener mSureofregister = new View.OnClickListener() {    //不同按钮按下的监听事件选择
             public void onClick(View v) {
                 switch (v.getId()) {
                     case R.id.sureofregister:                       //确认按钮的监听事件
                         register_check();
                         break;
                     //case R.id.register_btn_cancel:                     //取消按钮的监听事件,由注册界面返回登录界面
-                    //Intent intent_Register_to_Login = new Intent(Register.this,Login.class) ;    //切换User Activity至Login Activity
-                    //startActivity(intent_Register_to_Login);
+                        //Intent intent_Register_to_Login = new Intent(Register.this,Login.class) ;    //切换User Activity至Login Activity
+                        //tActivity(intent_Register_to_Login);
                 }
             }
-        };
+        };*/
+        mSureofregister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                register_check();
+            }
+        });
+
+
+    }
+    private void initView() {
+        mBack = (Button) findViewById(R.id.back);
+        mResigter_password=(EditText)findViewById(R.id.register_password);
+        mResigter_username=(EditText) findViewById(R.id.register_username);
+        mPassword_again=(EditText)findViewById(R.id.password_again);
+        mSureofregister = (Button) findViewById(R.id.sureofregister);
+
+
+    }
+    //判断用户名和密码不能为空
+    private boolean isUserNameAndPwdValid() {
+        if (mResigter_username.getText().toString().trim().equals("")) {
+            Toast.makeText(this, getString(R.string.resigter_empty),
+                    Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (mResigter_password.getText().toString().trim().equals("")) {
+            Toast.makeText(this, getString(R.string.resigiter_empty),
+                    Toast.LENGTH_SHORT).show();
+            return false;
+        }else{
+        return true;}
     }
 
     private void register_check() {
         if (isUserNameAndPwdValid()) {
             String userName = mResigter_username.getText().toString().trim();
             String userPwd = mResigter_password.getText().toString().trim();
-            //String userPwdCheck = mPwdCheck.getText().toString().trim();
+            String userPwdCheck = mPassword_again.getText().toString().trim();
             //检查用户是否存在
             int count=mNewuserManager.findUserByName(userName);
             //用户已经存在时返回，给出提示文字
             if(count>0){
                 Toast.makeText(this, getString(R.string.name_already_exist),Toast.LENGTH_SHORT).show();
-                return ;
             }
-
-            if(userPwd.equals(userPwd)==false){     //两次密码输入不一样
+            if(userPwd.equals(userPwd)==false){
+                //两次密码输入不一样
                 Toast.makeText(this, getString(R.string.different),Toast.LENGTH_SHORT).show();
-                return ;
             } else {
                 NewuserData mUser = new NewuserData(userName, userPwd);
+                //打开连接并创建数据库
                 mNewuserManager.openDataBase();
                 boolean flag = mNewuserManager.insertUserData(mUser); //新建用户信息
                 if (flag == false) {
@@ -101,18 +139,7 @@ public class Sure extends AppCompatActivity implements View.OnClickListener {
 
     }
 
-    private boolean isUserNameAndPwdValid() {
-        if (mResigter_username.getText().toString().trim().equals("")) {
-            Toast.makeText(this, getString(R.string.resigter_empty),
-                    Toast.LENGTH_SHORT).show();
-            return false;
-        } else if (mResigter_password.getText().toString().trim().equals("")) {
-            Toast.makeText(this, getString(R.string.resigiter_empty),
-                    Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        return true;
-    }
+
     @Override
     protected void onResume() {
         if (mNewuserManager == null) {
@@ -135,18 +162,7 @@ public class Sure extends AppCompatActivity implements View.OnClickListener {
     }
 
 
-    // private void register_check() {
-    //}
 
-    private void initView() {
-        mBack = (Button) findViewById(R.id.back);
-        mResigter_password=(EditText)findViewById(R.id.register_password);
-        mResigter_username=(EditText) findViewById(R.id.register_username);
-        mPassword_again=(EditText)findViewById(R.id.password_again);
-        mSureofregister = (Button) findViewById(R.id.sureofregister);
-        mSureofregister.setOnClickListener(this);
-        mBack.setOnClickListener(this);
-    }
 
     @Override
     public void onClick(View v) {
@@ -181,3 +197,5 @@ public class Sure extends AppCompatActivity implements View.OnClickListener {
     // }
     // }
 }
+
+

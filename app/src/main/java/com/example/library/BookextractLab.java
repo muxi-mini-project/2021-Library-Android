@@ -1,8 +1,12 @@
 package com.example.library;
 
+import android.content.Context;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
-public class BookextractList {
+public class BookextractLab {
 
     private UUID Id;
     private String book_extract_name;
@@ -11,7 +15,7 @@ public class BookextractList {
     private String book_extract_date;
     private Integer click_sum;
 
-    public BookextractList(){
+    public BookextractLab(Context context){
         this.Id = UUID.randomUUID();
     }
 

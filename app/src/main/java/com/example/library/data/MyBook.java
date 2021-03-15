@@ -2,7 +2,7 @@ package com.example.library.data;
 
 import java.util.UUID;
 
-public class MyBook extends DataBean {
+public class MyBook extends BookData.DataBean {
     public boolean mIsMine;
 
     private UUID nId;
