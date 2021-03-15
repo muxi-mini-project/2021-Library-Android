@@ -16,7 +16,7 @@
         android:orientation="horizontal"
         >
         <TextView
-            android:id="@+id/book_extract"
+            android:id="@+id/book_extract_name"
             android:layout_marginLeft="30dp"
             android:layout_width="180dp"
             android:layout_height="70dp"

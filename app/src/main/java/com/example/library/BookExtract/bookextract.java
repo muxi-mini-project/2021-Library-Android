@@ -1,17 +1,19 @@
-package com.example.library;
+package com.example.library.BookExtract;
 
-import android.content.Context;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.library.R;
+import com.example.library.data.BookExtracter;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class bookextract extends AppCompatActivity {
-    private List<book_extract> mBook_extractList = new ArrayList<>();
+    private List<BookExtracter> mBook_extractList = new ArrayList<>();
     private Object book_extract;
     private RecyclerView recyclerView;
     //private Context context;

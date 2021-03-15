@@ -11,7 +11,7 @@ import retrofit2.http.Query;
 
 public interface BookService {
     //@GET注解：采用Get方法发送网络请求
-    @GET("library")
+    @GET("library/")
     Call<BookData> getCall();
     //getCall（） = 接受 网络请求数据的方法
     //其中返回类型为Call<*>,*是接收数据的类

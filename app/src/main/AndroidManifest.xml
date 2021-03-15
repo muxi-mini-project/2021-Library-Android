@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.library">
+
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Design.Light.NoActionBar">
+        android:theme="@style/Theme.Design.Light.NoActionBar"
+        android:usesCleartextTraffic="true">
 
         <activity android:name=".activity.MybookActivity"></activity>
-        <activity android:name=".activity.GuideActivity" />
         <activity android:name=".activity.SetDetailActivity" />
         <activity
-            android:name=".activity.RegisterActivity"
+            android:name=".activity.GuideActivity"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,11 +30,13 @@
         <activity android:name=".activity.BookDetailPagerActivity"/>
         <activity android:name=".edit"/>
         <activity android:name=".activity.OthersNoteActivity"/>
-        <activity android:name=".Sure"/>
         <activity android:name=".Searcher.SearcherMain"/>
 
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+
 
 </manifest>

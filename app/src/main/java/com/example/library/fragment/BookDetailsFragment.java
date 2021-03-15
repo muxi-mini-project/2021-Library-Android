@@ -2,6 +2,7 @@ package com.example.library.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,23 +15,27 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.library.activity.OthersNoteActivity;
 import com.example.library.R;
 import com.example.library.data.BookData;
 import com.example.library.data.Notes;
 import com.example.library.data.NotesLab;
 import com.example.library.fragment.sonfragment.RecommendFragment;
+import com.example.library.view.CircleImageView;
 
 import java.util.List;
+import java.util.Objects;
 
 public class BookDetailsFragment extends Fragment {
     private static final String ARG_BOOK_ID = "book_id";
+    private static final String TAG = "BookDetailsFragment";
     private BookData.DataBean mBook;
     private NoteAdapter mNoteAdapter;
 
     //以下名字组件前为中文名缩写。例如JJ为简介，JJ2为简介框
     private TextView mXQTextView;
-    private ImageView mImageView;
+    private ImageView mImageView,bookImageView;
     private TextView mSMTextView;
     private TextView mZZTextView;
     private TextView mJJTextView;
@@ -63,6 +68,10 @@ public class BookDetailsFragment extends Fragment {
         View v = inflater.inflate(R.layout.fg_book_detail,container,false);
         //详情
         mXQTextView = (TextView)v.findViewById(R.id.book_detail);
+        //书的图片
+        bookImageView = (ImageView)v.findViewById(R.id.book_detail_pic);
+        Glide.with(Objects.requireNonNull(getActivity())).load(mBook.getBook_picture()).into(bookImageView);
+        Log.d(TAG,"the single pic is>>>>" + mBook.getBook_picture());
         //书名
         mSMTextView = (TextView)v.findViewById(R.id.book_detail_title);
         mSMTextView.setText(mBook.getBook_name());
@@ -100,7 +109,7 @@ public class BookDetailsFragment extends Fragment {
 
 /*holder*/
     public class NoteHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        private ImageView mNoteImageView;
+        private com.example.library.view.CircleImageView mNoteImageView;
         private TextView mNoteName;
         private TextView mNoteDate;
         private TextView mNote;
@@ -110,7 +119,7 @@ public class BookDetailsFragment extends Fragment {
             super(inflater.inflate(R.layout.book_notes_list,parent,false));
             itemView.setOnClickListener(this);
 
-            mImageView = (ImageView)itemView.findViewById(R.id.comment_logo);
+            mNoteImageView = (CircleImageView)itemView.findViewById(R.id.comment_logo);
             mNoteName = (TextView)itemView.findViewById(R.id.comment_name);
             mNoteDate = (TextView)itemView.findViewById(R.id.comment_date);
             mNote = (TextView)itemView.findViewById(R.id.comment_content);
@@ -157,21 +166,4 @@ public class BookDetailsFragment extends Fragment {
     }
 }
 
-/*禁止RV滑动
-    public class CustomLinearLayoutManager extends LinearLayoutManager {
-        private boolean isScrollEnabled = false;
-
-        public CustomLinearLayoutManager(Context context) {
-            super(context);
-        }
-
-        public void setScrollEnabled(boolean flag) {
-            this.isScrollEnabled = flag;
-        }
-
-        @Override
-        public boolean canScrollVertically() {
-            return isScrollEnabled && super.canScrollVertically();
-        }
-    }*/
 }

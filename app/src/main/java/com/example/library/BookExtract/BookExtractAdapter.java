@@ -1,4 +1,4 @@
-package com.example.library;
+package com.example.library.BookExtract;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.library.R;
+import com.example.library.data.BookExtracter;
 import com.example.library.data.MyBookExtract;
 
 import java.util.List;
@@ -16,12 +18,15 @@ import java.util.List;
 public class BookExtractAdapter extends RecyclerView.Adapter<BookExtractAdapter.ViewHolder> {
     private List<MyBookExtract> mBook_extract;
 
-    public BookExtractAdapter(List<book_extract> book_extractList) {
+    //public BookExtractAdapter(List<book_extract> book_extractList) {
+    //}
+
+    public BookExtractAdapter(List<BookExtracter> bookExtracters) {
     }
 
-    public BookExtractAdapter(List<MyBookExtract> myBookExtracts, Context context) {
+    //public BookExtractAdapter(List<MyBookExtract> myBookExtracts, Context context) {
 
-    }
+   // }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView bookname;

@@ -30,9 +30,9 @@ public class NewuserManager {
     private SQLiteDatabase mSQLiteDatabase = null;
     private DataBaseManagementHelper mDatabaseHelper = null;
 
-    public NewuserManager(Sure sure) {
+   // public NewuserManager(Sure sure) {
 
-    }
+    //}
 
     public void openDataBase() {
     }

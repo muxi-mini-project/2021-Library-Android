@@ -48,7 +48,7 @@ public class BookExtractLab {
         return mBookExtracters;
     }
 
-    //暂时测试书城的书，无我的书
+
     public BookExtracter getBookextract(UUID id) {
         for (BookExtracter bookExtracter : mBookExtracters) {
             if (bookExtracter.getId().equals(id)) {
@@ -70,5 +70,6 @@ public class BookExtractLab {
         }
             return null;
     }
+
 }
 
