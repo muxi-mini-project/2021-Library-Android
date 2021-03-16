@@ -140,7 +140,7 @@ public class MineFragment extends Fragment {
 
             public void bind(MyBook myBook) {
 
-                textView.setText(myBook.getBook_id());
+                textView.setText(myBook.getBookTitle());
             }
 
         }

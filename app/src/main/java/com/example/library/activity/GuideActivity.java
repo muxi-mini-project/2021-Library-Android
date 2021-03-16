@@ -85,7 +85,7 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
                 linearLayout1.setSelected(true);
                 if(fragment1 == null){
                     fragment1 = new BookCityFragment();
-                    fragmentTransaction.add(R.id.fragment,fragment1);
+                    fragmentTransaction.add(R.id.guide_fragment,fragment1);
                 }
                 else
                 {
@@ -96,7 +96,7 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
                 linearLayout2.setSelected(true);
                 if(fragment2 == null){
                     fragment2 = new ChoseBookExtract();
-                    fragmentTransaction.add(R.id.fragment,fragment2);
+                    fragmentTransaction.add(R.id.guide_fragment,fragment2);
                 }
                 else
                 {
@@ -107,7 +107,7 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
                 linearLayout3.setSelected(true);
                 if(fragment3 == null){
                     fragment3 = new mineFragment();
-                    fragmentTransaction.add(R.id.fragment,fragment3);
+                    fragmentTransaction.add(R.id.guide_fragment,fragment3);
                 }
                 else
                 {

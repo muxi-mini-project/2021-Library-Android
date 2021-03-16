@@ -26,9 +26,9 @@ public class BookLab {
 
         for(int j = 0; j<100; j++){
             MyBook myBook = new MyBook();
-            myBook.setBook_name("MyBook #"+j);
-            myBook.setBook_auther("writer"+j);
-            myBook.setBook_information("I am mybook" +j);
+            myBook.setBookTitle("MyBook #"+j);
+            myBook.setBookWriter("writer"+j);
+            myBook.setIntroduction("I am mybook" +j);
             mMyBooks.add(myBook);
         }
     }
@@ -61,7 +61,7 @@ public class BookLab {
     }
     public MyBook getMyBook(UUID Id) {
         for (MyBook myBook : mMyBooks) {
-            if (myBook.getBook_id().equals(Id)) {
+            if (myBook.getId().equals(Id)) {
                 return myBook;
             }
         }

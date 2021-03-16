@@ -8,7 +8,9 @@ import android.content.Context;
         import android.widget.ImageButton;
         import android.widget.LinearLayout;
         import android.widget.TextView;
-        import androidx.fragment.app.Fragment;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.Fragment;
         import androidx.recyclerview.widget.LinearLayoutManager;
         import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,6 +26,7 @@ public class mineFragment1 extends Fragment {
     private TextView textView2;
     private Context context;
     private LinearLayoutManager linearLayoutManager;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -104,8 +107,7 @@ public class mineFragment1 extends Fragment {
             }
 
             public void bind(MyBook myBook) {
-
-                textView.setText(myBook.getBook_name());
+                textView.setText(myBook.getBookTitle());
             }
 
         }

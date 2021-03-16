@@ -13,7 +13,7 @@
         <TextView
             android:id="@+id/my_book_title"
             android:layout_width="0dp"
-            android:layout_weight="4"
+            android:layout_weight="5"
             android:text="我的收藏"
             android:layout_marginTop="5dp"
             android:textColor="@color/basic_green"
@@ -21,18 +21,16 @@
             android:gravity="center"
             android:layout_height="60dp"/>
         <TextView
-            android:id="@+id/my_book_manager"
+            android:id="@+id/my_book_change"
             android:layout_width="0dp"
-            android:layout_height="60dp"
             android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:textSize="25sp"
+            android:layout_height="60dp"
+            android:text="编辑"
             android:textColor="@color/basic_green"
-            android:text="编辑"/>
+            android:textSize="25sp"/>
     </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/my_book_recyclerview"
+        android:id="@+id/my_book_recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-
 </LinearLayout>
