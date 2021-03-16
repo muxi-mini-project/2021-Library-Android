@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class BookextractLab {
+public class BookExtract {
 
     private UUID Id;
     private String book_extract_name;
@@ -15,7 +15,7 @@ public class BookextractLab {
     private String book_extract_date;
     private Integer click_sum;
 
-    public BookextractLab(Context context){
+    public BookExtract(Context context){
         this.Id = UUID.randomUUID();
     }
 

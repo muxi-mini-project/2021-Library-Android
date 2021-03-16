@@ -1,7 +1,6 @@
 package com.example.library.fragment;
 
 import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,14 +16,13 @@ import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.library.BookExtractAdapter;
 import com.example.library.BookExtratDetail;
-import com.example.library.BookextractLab;
+import com.example.library.BookExtract;
 import com.example.library.R;
 //import com.example.library.data.Book;
 import com.example.library.data.BookExtractLab;
@@ -47,6 +45,8 @@ public class ChoseBookExtract extends Fragment {
     private ArrayAdapter<String> SpinnerAdapter;
     private boolean ture;
     private FragmentManager getSupportFragment;
+    List<BookExtract> mBook_extract_list=new ArrayList<>();
+
 
     //private List<book_extract> book_extractList;
 
@@ -87,11 +87,12 @@ public class ChoseBookExtract extends Fragment {
 
         //书摘的RecyclerView
         mRecyclerView = (RecyclerView) view.findViewById(R.id.book_extract_recyclerview);
-        LinearLayoutManager mLayoutManager=new LinearLayoutManager(context);
+        LinearLayoutManager mLayoutManager=new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mLayoutManager.setOrientation(RecyclerView.VERTICAL);
-        List<BookextractLab> mBook_extract_list=new ArrayList<>();
-        mAdapter = new BookExtractAdapter(mBook_extract_list);
+        //获取数组
+        mBook_extract_list = BookExtractLab.get(getActivity()).getBookExtracters();
+        mAdapter = new BookExtractAdapter(getActivity(),mBook_extract_list);
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.setOnRecyclerViewItemClickListener(new BookExtractAdapter.OnRecyclerViewItemClickListener() {
             @Override

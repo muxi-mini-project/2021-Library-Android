@@ -24,7 +24,7 @@ public class edit extends AppCompatActivity implements View.OnClickListener {
      private Button mAdd_look;
      private RecyclerView mBook_kind_recyclerview;
      private EditAdpapter mEditAdpapter;
-     private Context context;
+     //private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,10 +64,10 @@ public class edit extends AppCompatActivity implements View.OnClickListener {
         list.add("文学");
         list.add("诗歌");
         list.add("科幻");
-        LinearLayoutManager mLayoutManager= new LinearLayoutManager(context);
+        LinearLayoutManager mLayoutManager= new LinearLayoutManager(this);
         mBook_kind_recyclerview.setLayoutManager(mLayoutManager);
         mLayoutManager.setOrientation(RecyclerView.VERTICAL);
-        mEditAdpapter=new EditAdpapter(context,list);
+        mEditAdpapter=new EditAdpapter(this,list);
         mBook_kind_recyclerview.setAdapter(mEditAdpapter);
 
     }

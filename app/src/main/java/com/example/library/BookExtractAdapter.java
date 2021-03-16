@@ -1,7 +1,6 @@
 package com.example.library;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,21 +10,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.library.fragment.ChoseBookExtract;
-
-import java.text.BreakIterator;
 import java.util.ArrayList;
 import java.util.List;
 
 public class BookExtractAdapter extends RecyclerView.Adapter<BookExtractAdapter.ViewHolder> {
     public Context context;
     //防止空指针异常
-    private List<BookextractLab> mBook_extract_list=new ArrayList<>();
+    private List<BookExtract> mBook_extract_list=new ArrayList<>();
     private OnRecyclerViewItemClickListener mOnRecyclerViewItemClickListener;
-
-    public BookExtractAdapter(List<BookextractLab> mBook_extract_list) {
-        this.mBook_extract_list=mBook_extract_list;
-    }
 
     public interface OnRecyclerViewItemClickListener{
         void onItemClicked(View view,int position);
@@ -34,18 +26,17 @@ public class BookExtractAdapter extends RecyclerView.Adapter<BookExtractAdapter.
         this.mOnRecyclerViewItemClickListener=clickListener;
     }
 
-    public BookExtractAdapter(Context context,List<BookextractLab> mBook_extract_list) {
+    public BookExtractAdapter(Context context,List<BookExtract> mBook_extract_list) {
         this.context=context;
-        //this.mBook_extract_list=mBook_extract_list;
+        this.mBook_extract_list=mBook_extract_list;
     }
-
 
      public static class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView bookname;
         Button context;
         TextView date;
-        BookextractLab mBookextractLab;
+        BookExtract mBookextractLab;
 
          public ViewHolder(@NonNull View view,final OnRecyclerViewItemClickListener onRecyclerViewItemClickListener) {
              super(view);
@@ -78,7 +69,7 @@ public class BookExtractAdapter extends RecyclerView.Adapter<BookExtractAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         //创建前面实体类对象
-        BookextractLab extract = mBook_extract_list.get(position);
+        BookExtract extract = mBook_extract_list.get(position);
         //将具体的值赋予子控件
         holder.bookname.setText(extract.getBook_extract_name());
         holder.context.setText(extract.getBook_extract_context());
