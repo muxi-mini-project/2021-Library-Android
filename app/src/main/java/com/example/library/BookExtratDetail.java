@@ -1,5 +1,7 @@
 package com.example.library;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.library.activity.ChoseBookExtractActivity;
 import com.example.library.fragment.ChoseBookExtract;
 
 public class BookExtratDetail extends AppCompatActivity implements View.OnClickListener {
@@ -22,6 +25,7 @@ public class BookExtratDetail extends AppCompatActivity implements View.OnClickL
     private EditText mChapter_context;
     private EditText mIdea;
     private Button mFinish1;
+    private Context mContext;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,16 +35,18 @@ public class BookExtratDetail extends AppCompatActivity implements View.OnClickL
         mBack_book_extract.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(BookExtratDetail.this,ChoseBookExtract.class);
-                startActivity(intent);
+                //Intent intent=new Intent(BookExtratDetail.this,ChoseBookExtractActivity.class);
+                //startActivity(intent);
+                ((Activity) mContext).finish();
             }
         });
         mFinish1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(BookExtratDetail.this,"已完成",Toast.LENGTH_SHORT);
-                Intent intent=new Intent(BookExtratDetail.this, ChoseBookExtract.class);
-                startActivity(intent);
+                //Intent intent=new Intent(BookExtratDetail.this, ChoseBookExtractActivity.class);
+                //startActivity(intent);
+                ((Activity) mContext).finish();
             }
         });
         mSwitch_detail.setOnClickListener(new View.OnClickListener() {

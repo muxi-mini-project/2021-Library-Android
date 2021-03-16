@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.library.activity.ChoseBookExtractActivity;
 import com.example.library.fragment.ChoseBookExtract;
 
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ public class edit extends AppCompatActivity implements View.OnClickListener {
         mBack_book_extract.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent se=new Intent(edit.this, ChoseBookExtract.class);
+                Intent se=new Intent(edit.this, ChoseBookExtractActivity.class);
                 startActivity(se);
             }
         });
@@ -43,7 +44,7 @@ public class edit extends AppCompatActivity implements View.OnClickListener {
         mFinish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent sf=new Intent(edit.this, ChoseBookExtract.class);
+                Intent sf=new Intent(edit.this, ChoseBookExtractActivity.class);
                 startActivity(sf);
             }
         });
