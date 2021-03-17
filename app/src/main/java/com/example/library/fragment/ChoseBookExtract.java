@@ -1,5 +1,6 @@
 package com.example.library.fragment;
 
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,15 +14,16 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+
 import com.example.library.BookExtract.BookExtractAdapter;
 import com.example.library.BookExtract.BookExtratDetail;
-import com.example.library.BookExtract.BookextractLab;
+import com.example.library.BookExtract.BookExtract;
 import com.example.library.R;
 //import com.example.library.data.Book;
 import com.example.library.data.BookExtractLab;
@@ -35,15 +37,16 @@ public class ChoseBookExtract extends Fragment {
     private Spinner mChose;
     private Button mEdit;
     private Button mAdd;
-    public static List<BookextractLab> mBook_extract_list = new ArrayList<>();
+    public static List<BookExtract> mBook_extract_list = new ArrayList<>();
     private BookExtractAdapter mAdapter;
     private TextView mBook_extract;
     private EditText mBook_search;
-    private Context context;
     private RecyclerView mRecyclerView;
-    private List<String> list = new ArrayList<String>();
+    private Context context;
+    private static ArrayList<String> list=new ArrayList<>();
     private ArrayAdapter<String> SpinnerAdapter;
     private boolean ture;
+
     private LinearLayoutManager mLayoutManager;
 
     public ChoseBookExtract(LayoutInflater layoutInflater, ViewGroup parent) {
@@ -52,7 +55,10 @@ public class ChoseBookExtract extends Fragment {
     public ChoseBookExtract() {
 
     }
-    //private List<book_extract> book_extractList;
+
+    private FragmentManager getSupportFragment;
+
+//private List<book_extract> book_extractList;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -94,9 +100,22 @@ public class ChoseBookExtract extends Fragment {
         mLayoutManager = new LinearLayoutManager(context);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mLayoutManager.setOrientation(RecyclerView.VERTICAL);
-        mAdapter = new BookExtractAdapter(mBook_extract_list);
+        mAdapter = new BookExtractAdapter(getActivity(),mBook_extract_list);
         mRecyclerView.setAdapter(mAdapter);
         BookExtractLab bookExtractLab = BookExtractLab.get(context);
+        LinearLayoutManager mLayoutManager=new LinearLayoutManager(context);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mLayoutManager.setOrientation(RecyclerView.VERTICAL);
+        mRecyclerView.setAdapter(mAdapter);
+        mAdapter.setOnRecyclerViewItemClickListener(new BookExtractAdapter.OnRecyclerViewItemClickListener() {
+            @Override
+            public void onItemClicked(View view, int position) {
+                Toast.makeText(getContext(),"查看"+position,Toast.LENGTH_SHORT);
+            }
+        });
+
+        //mRecyclerView.setHasFixedSize(ture);
+        //BookExtractLab bookExtractLab = BookExtractLab.get(context);
         return view;
 
     }
@@ -110,9 +129,8 @@ public class ChoseBookExtract extends Fragment {
         mAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent ab=new Intent(getActivity(), edit.class);
+                Intent ab=new Intent(getActivity(), BookExtratDetail.class);
                 startActivity(ab);
-
             }
         });
         mEdit.setOnClickListener(new View.OnClickListener() {
@@ -124,105 +142,6 @@ public class ChoseBookExtract extends Fragment {
             }
         });
     }
-
-    public class BookExtractHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
-        TextView mBook_extract_name;
-        Button mLock;
-        Button mBook_extract_context;
-        TextView mDate;
-        BookextractLab mBookExtracter;
-        Context mContext;
-        com.example.library.fragment.ChoseBookExtract.BookExtractAdapter mAdapter;
-
-
-        public BookExtractHolder(LayoutInflater inflater, ViewGroup parent) {
-            super(inflater.inflate(R.layout.book_extract_item, null, false));
-            //View itemView = null;
-            itemView.setOnClickListener(this);
-            //构造就实例化组件
-            mBook_extract_name = (TextView) itemView.findViewById(R.id.book_extract_name);
-            mDate = (TextView) itemView.findViewById(R.id.date);
-            mLock = (Button) itemView.findViewById(R.id.lock);
-            mBook_extract_context = (Button) itemView.findViewById(R.id.book_extract_context);
-            mLock.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //点击决定是否公共
-
-                }
-            });
-            mBook_extract_context.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent ac=new Intent(getActivity(), BookExtratDetail.class);
-                    startActivity(ac);
-                }
-            });
-
-        }
-// public void bind(BookextractLab bookextract) {
-//mBookExtracter = bookextract;
-// mBook_extract_name.setText(mBookExtracter.getBook_extract_name());
-// mBook_extract_context.setText(mBookExtracter.getBook_extract_context());
-// mDate.setText(mBookExtracter.getBook_extract_date());
-// }
-        @Override
-        public void onClick(View v) {
-        }
-
-        public class BookExtractAdapter extends RecyclerView.Adapter<com.example.library.fragment.ChoseBookExtract.ViewHolder> {
-            private List<BookextractLab> mBook_extract = new ArrayList<>();
-
-            public BookExtractAdapter(List<BookextractLab> mBook_extract_list) {
-
-            }
-
-            public class ViewHolder extends RecyclerView.ViewHolder {
-                TextView bookname;
-                Button context;
-                TextView date;
-                View bxview;
-
-                public ViewHolder(View view) {
-                    super(view);
-                    bxview = view;
-                    bookname = (TextView) view.findViewById(R.id.book_extract_name);
-                    context = (Button) view.findViewById(R.id.book_extract_context);
-                    date = (TextView) view.findViewById(R.id.date);
-                }
-
-            }
-
-            public BookExtractAdapter(List<BookextractLab> book_extractList, Context context) {
-                //列表的赋值
-                mBook_extract = book_extractList;
-            }
-
-            @Override
-
-            public com.example.library.fragment.ChoseBookExtract.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.book_extract_item, parent, false);
-                com.example.library.fragment.ChoseBookExtract.ViewHolder holder = new com.example.library.fragment.ChoseBookExtract.ViewHolder(view);
-                return holder;
-            }
-
-            @Override
-            public void onBindViewHolder(@NonNull ChoseBookExtract.ViewHolder holder, int position) {
-                //创建前面实体类对象
-                BookextractLab extract = mBook_extract.get(position);
-                //将具体的值赋予子控件
-                holder.context.setText(extract.getBook_extract_context());
-                holder.date.setText(extract.getBook_extract_date());
-            }
-
-            @Override
-            public int getItemCount() {
-                return 0;
-            }
-
-        }
-
         // @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
@@ -234,49 +153,6 @@ public class ChoseBookExtract extends Fragment {
 
         }
     }
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView bookname;
-        Button context;
-        TextView date;
-        View bxview;
 
-        public ViewHolder(View view) {
-            super(view);
-            bxview = view;
-            bookname = (TextView) view.findViewById(R.id.book_extract_name);
-            context = (Button) view.findViewById(R.id.book_extract_context);
-            date = (TextView) view.findViewById(R.id.date);
-        }
 
-    }
 
-    public class BookExtractAdapter extends RecyclerView.Adapter<com.example.library.fragment.ChoseBookExtract.ViewHolder> {
-        private List<BookextractLab> mBook_extract = new ArrayList<>();
-
-        public BookExtractAdapter(List<BookextractLab> mBook_extract_list) {
-
-        }
-
-        @NonNull
-        @Override
-        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.book_extract_item, parent, false);
-            com.example.library.fragment.ChoseBookExtract.ViewHolder holder = new com.example.library.fragment.ChoseBookExtract.ViewHolder(view);
-            return holder;
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull com.example.library.fragment.ChoseBookExtract.ViewHolder holder, int position) {
-            //创建前面实体类对象
-            BookextractLab extract = mBook_extract.get(position);
-            //将具体的值赋予子控件
-            holder.context.setText(extract.getBook_extract_context());
-            holder.date.setText(extract.getBook_extract_date());
-        }
-
-        @Override
-        public int getItemCount() {
-            return mBook_extract.size();
-        }
-    }
-}

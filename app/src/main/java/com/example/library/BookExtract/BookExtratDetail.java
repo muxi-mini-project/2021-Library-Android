@@ -30,14 +30,14 @@ public class BookExtratDetail extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.book_extract_detail);
-         initView();
-         mBack_book_extract.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View v) {
-                 Intent intent=new Intent(BookExtratDetail.this, ChoseBookExtract.class);
-                 startActivity(intent);
-             }
-         });
+        initView();
+        mBack_book_extract.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(BookExtratDetail.this,ChoseBookExtract.class);
+                startActivity(intent);
+            }
+        });
         mFinish1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
