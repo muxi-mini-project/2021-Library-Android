@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.example.library.view.CircleImageView
+        <com.example.library.RoundImageView
             android:id="@+id/comment_logo"
             app:civ_border_color="#FF0015"
             app:civ_border_width="2dp"

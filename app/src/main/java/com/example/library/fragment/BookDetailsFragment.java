@@ -16,22 +16,33 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.library.BookService;
+import com.example.library.RoundImageView;
 import com.example.library.activity.OthersNoteActivity;
 import com.example.library.R;
 import com.example.library.data.BookData;
 import com.example.library.data.Notes;
 import com.example.library.data.NotesLab;
+import com.example.library.data.OthersDigestData;
 import com.example.library.fragment.sonfragment.RecommendFragment;
 import com.example.library.view.CircleImageView;
 
+import java.net.HttpURLConnection;
 import java.util.List;
 import java.util.Objects;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class BookDetailsFragment extends Fragment {
     private static final String ARG_BOOK_ID = "book_id";
     private static final String TAG = "BookDetailsFragment";
     private BookData.DataBean mBook;
     private NoteAdapter mNoteAdapter;
+    private OthersDigestData digestData;
 
     //以下名字组件前为中文名缩写。例如JJ为简介，JJ2为简介框
     private TextView mXQTextView;
@@ -98,6 +109,31 @@ public class BookDetailsFragment extends Fragment {
         return v;
     }
 
+    private void getRequest(){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://39.102.42.156:10086/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        BookService api = retrofit.create(BookService.class);
+        Call<OthersDigestData> digestDataCall = api.getCall2("1");
+
+        digestDataCall.enqueue(new Callback<OthersDigestData>() {
+            @Override
+            public void onResponse(Call<OthersDigestData> call, Response<OthersDigestData> response) {
+                Log.d(TAG,"onResponse>>>>>" + response.code());
+                if (response.code() == HttpURLConnection.HTTP_OK){
+                    Log.d(TAG,"Json>>>>>" + response.body().toString());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<OthersDigestData> call, Throwable t) {
+
+            }
+        });
+    }
+
 /*关联RV和adapter*/
     private void updateUI(){
         NotesLab notesLab = NotesLab.get(getActivity());
@@ -109,7 +145,7 @@ public class BookDetailsFragment extends Fragment {
 
 /*holder*/
     public class NoteHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        private com.example.library.view.CircleImageView mNoteImageView;
+        private RoundImageView mNoteImageView;
         private TextView mNoteName;
         private TextView mNoteDate;
         private TextView mNote;
@@ -119,7 +155,7 @@ public class BookDetailsFragment extends Fragment {
             super(inflater.inflate(R.layout.book_notes_list,parent,false));
             itemView.setOnClickListener(this);
 
-            mNoteImageView = (CircleImageView)itemView.findViewById(R.id.comment_logo);
+            mNoteImageView = (RoundImageView) itemView.findViewById(R.id.comment_logo);
             mNoteName = (TextView)itemView.findViewById(R.id.comment_name);
             mNoteDate = (TextView)itemView.findViewById(R.id.comment_date);
             mNote = (TextView)itemView.findViewById(R.id.comment_content);

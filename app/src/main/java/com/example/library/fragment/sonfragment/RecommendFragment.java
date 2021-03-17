@@ -73,7 +73,7 @@ public class RecommendFragment extends BookCityFragment {
         //发送网络请求（异步）
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://124.71.184.107:10086/")
+                .baseUrl("http://39.102.42.156:10086")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

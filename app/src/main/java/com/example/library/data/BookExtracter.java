@@ -62,8 +62,5 @@ public class BookExtracter {
         this.click_sum = click_sum;
     }
 
-  //  public int get(int position) {
-   //     return position;
-  //  }
 }
 
