@@ -15,14 +15,12 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import com.example.library.BookExtract.BookExtract;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.library.BookExtractAdapter;
-import com.example.library.BookExtratDetail;
-import com.example.library.BookExtract;
+import com.example.library.BookExtract.BookExtractAdapter;
+import com.example.library.BookExtract.BookExtratDetail;
 import com.example.library.R;
 //import com.example.library.data.Book;
 import com.example.library.data.BookExtractLab;
@@ -36,6 +34,7 @@ public class ChoseBookExtract extends Fragment {
     private Spinner mChose;
     private Button mEdit;
     private Button mAdd;
+    public static List<BookExtract> mBook_extract_list = new ArrayList<>();
     private BookExtractAdapter mAdapter;
     private TextView mBook_extract;
     private EditText mBook_search;
@@ -44,10 +43,8 @@ public class ChoseBookExtract extends Fragment {
     private static ArrayList<String> list=new ArrayList<>();
     private ArrayAdapter<String> SpinnerAdapter;
     private boolean ture;
+    private LinearLayoutManager mLayoutManager;
     private FragmentManager getSupportFragment;
-    List<BookExtract> mBook_extract_list=new ArrayList<>();
-
-
     //private List<book_extract> book_extractList;
 
     @Override
@@ -55,7 +52,6 @@ public class ChoseBookExtract extends Fragment {
         super.onCreate(savedInstanceState);
 
     }
-
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.book_zhai, container, false);
@@ -87,13 +83,22 @@ public class ChoseBookExtract extends Fragment {
 
         //书摘的RecyclerView
         mRecyclerView = (RecyclerView) view.findViewById(R.id.book_extract_recyclerview);
-        LinearLayoutManager mLayoutManager=new LinearLayoutManager(getActivity());
+
+        mRecyclerView.setHasFixedSize(ture);
+       // mLayoutManager = new LinearLayoutManager(context);
+        //mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mLayoutManager.setOrientation(RecyclerView.VERTICAL);
+        mAdapter = new BookExtractAdapter(getActivity(),mBook_extract_list);
+        mRecyclerView.setAdapter(mAdapter);
+        BookExtractLab bookExtractLab = BookExtractLab.get(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mLayoutManager.setOrientation(RecyclerView.VERTICAL);
+       // =====
+        LinearLayoutManager mLayoutManager=new LinearLayoutManager(getActivity());
+        mRecyclerView.setLayoutManager(mLayoutManager);
         //获取数组
         mBook_extract_list = BookExtractLab.get(getActivity()).getBookExtracters();
         mAdapter = new BookExtractAdapter(getActivity(),mBook_extract_list);
-        mRecyclerView.setAdapter(mAdapter);
         mAdapter.setOnRecyclerViewItemClickListener(new BookExtractAdapter.OnRecyclerViewItemClickListener() {
             @Override
             public void onRecyclerViewItemClicked(int position) {
@@ -118,7 +123,6 @@ public class ChoseBookExtract extends Fragment {
             public void onClick(View v) {
                 Intent ab=new Intent(getActivity(), BookExtratDetail.class);
                 startActivity(ab);
-
             }
         });
         mEdit.setOnClickListener(new View.OnClickListener() {
@@ -130,8 +134,17 @@ public class ChoseBookExtract extends Fragment {
             }
         });
     }
+        // @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-}
+        }
+
+        //@Override
+        public void onNothingSelected(AdapterView<?> parent) {
+
+
+        }
+    }
 
 
 

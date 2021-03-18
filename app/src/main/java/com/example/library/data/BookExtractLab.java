@@ -2,9 +2,7 @@ package com.example.library.data;
 
 
 import android.content.Context;
-
-import com.example.library.BookExtract;
-
+import com.example.library.BookExtract.BookExtract;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -48,7 +46,4 @@ public class BookExtractLab {
         }
         return null;
     }
-    }
-
-
-
+}

@@ -2,6 +2,7 @@ package com.example.library.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,23 +15,39 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.example.library.BookService;
+import com.example.library.RoundImageView;
 import com.example.library.activity.OthersNoteActivity;
 import com.example.library.R;
 import com.example.library.data.BookData;
 import com.example.library.data.Notes;
 import com.example.library.data.NotesLab;
+import com.example.library.data.OthersDigestData;
 import com.example.library.fragment.sonfragment.RecommendFragment;
+import com.example.library.view.CircleImageView;
 
+import java.net.HttpURLConnection;
 import java.util.List;
+import java.util.Objects;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class BookDetailsFragment extends Fragment {
     private static final String ARG_BOOK_ID = "book_id";
+    private static final String TAG = "BookDetailsFragment";
     private BookData.DataBean mBook;
     private NoteAdapter mNoteAdapter;
+    private OthersDigestData digestData;
+    private List<OthersDigestData> mDataList;
 
     //以下名字组件前为中文名缩写。例如JJ为简介，JJ2为简介框
     private TextView mXQTextView;
-    private ImageView mImageView;
+    private ImageView mImageView,bookImageView;
     private TextView mSMTextView;
     private TextView mZZTextView;
     private TextView mJJTextView;
@@ -55,6 +72,8 @@ public class BookDetailsFragment extends Fragment {
         int bookId = (int) getArguments().getSerializable(ARG_BOOK_ID);
         //mBook = BookLab.get(getActivity()).getBook(bookId);
         mBook = new BookData().getBook(bookId,RecommendFragment.data);
+
+        getRequest();
     }
 
 /*创建视图*/
@@ -63,6 +82,10 @@ public class BookDetailsFragment extends Fragment {
         View v = inflater.inflate(R.layout.fg_book_detail,container,false);
         //详情
         mXQTextView = (TextView)v.findViewById(R.id.book_detail);
+        //书的图片
+        bookImageView = (ImageView)v.findViewById(R.id.book_detail_pic);
+        Glide.with(Objects.requireNonNull(getActivity())).load(mBook.getBook_picture()).into(bookImageView);
+        Log.d(TAG,"the single pic is>>>>" + mBook.getBook_picture());
         //书名
         mSMTextView = (TextView)v.findViewById(R.id.book_detail_title);
         mSMTextView.setText(mBook.getBook_name());
@@ -85,8 +108,34 @@ public class BookDetailsFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setFocusable(false);
+        getRequest();
 
         return v;
+    }
+
+    private void getRequest(){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://39.102.42.156:10086/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        BookService api = retrofit.create(BookService.class);
+        Call<List<OthersDigestData>> digestDataCall = api.getCall2("1");
+
+        digestDataCall.enqueue(new Callback<List<OthersDigestData>>() {
+            @Override
+            public void onResponse(Call<List<OthersDigestData>> call, Response<List<OthersDigestData>> response) {
+                Log.d(TAG,"onResponse----------" + response.code());
+                if (response.code() == HttpURLConnection.HTTP_OK){
+                    Log.d(TAG,"Json--------" + response.body().toString());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<OthersDigestData>> call, Throwable t) {
+                Log.d(TAG,"error for note!!!!");
+            }
+        });
     }
 
 /*关联RV和adapter*/
@@ -100,7 +149,7 @@ public class BookDetailsFragment extends Fragment {
 
 /*holder*/
     public class NoteHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        private ImageView mNoteImageView;
+        private RoundImageView mNoteImageView;
         private TextView mNoteName;
         private TextView mNoteDate;
         private TextView mNote;
@@ -110,7 +159,7 @@ public class BookDetailsFragment extends Fragment {
             super(inflater.inflate(R.layout.book_notes_list,parent,false));
             itemView.setOnClickListener(this);
 
-            mImageView = (ImageView)itemView.findViewById(R.id.comment_logo);
+            mNoteImageView = (RoundImageView) itemView.findViewById(R.id.comment_logo);
             mNoteName = (TextView)itemView.findViewById(R.id.comment_name);
             mNoteDate = (TextView)itemView.findViewById(R.id.comment_date);
             mNote = (TextView)itemView.findViewById(R.id.comment_content);
@@ -157,21 +206,4 @@ public class BookDetailsFragment extends Fragment {
     }
 }
 
-/*禁止RV滑动
-    public class CustomLinearLayoutManager extends LinearLayoutManager {
-        private boolean isScrollEnabled = false;
-
-        public CustomLinearLayoutManager(Context context) {
-            super(context);
-        }
-
-        public void setScrollEnabled(boolean flag) {
-            this.isScrollEnabled = flag;
-        }
-
-        @Override
-        public boolean canScrollVertically() {
-            return isScrollEnabled && super.canScrollVertically();
-        }
-    }*/
 }

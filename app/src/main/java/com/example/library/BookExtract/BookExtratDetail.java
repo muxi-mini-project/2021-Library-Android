@@ -1,4 +1,4 @@
-package com.example.library;
+package com.example.library.BookExtract;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -13,6 +13,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import com.example.library.AboutSwitch;
+import com.example.library.R;
+
 
 import com.example.library.activity.ChoseBookExtractActivity;
 import com.example.library.fragment.ChoseBookExtract;

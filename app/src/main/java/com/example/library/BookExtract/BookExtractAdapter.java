@@ -1,4 +1,4 @@
-package com.example.library;
+package com.example.library.BookExtract;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,9 +8,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
+import com.example.library.R;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+
+import com.example.library.data.BookExtractLab;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,33 +22,36 @@ import java.util.List;
 public class BookExtractAdapter extends RecyclerView.Adapter<BookExtractAdapter.ViewHolder> {
     public Context context;
     //防止空指针异常
-    private List<BookExtract> mBook_extract_list=new ArrayList<>();
+    private List<BookExtract> mBook_extract_list = new ArrayList<>();
     private OnRecyclerViewItemClickListener mOnRecyclerViewItemClickListener;
 
-    public interface OnRecyclerViewItemClickListener{
+    public BookExtractAdapter(Context context, List<BookExtract> mBook_extract_list) {
+        this.context = context;
+        this.mBook_extract_list = mBook_extract_list;
+    }
+
+    public interface OnRecyclerViewItemClickListener {
         void onRecyclerViewItemClicked(int position);
     }
-    public void setOnRecyclerViewItemClickListener(OnRecyclerViewItemClickListener clickListener){
-        this.mOnRecyclerViewItemClickListener=clickListener;
+
+    public void setOnRecyclerViewItemClickListener(OnRecyclerViewItemClickListener clickListener) {
+        this.mOnRecyclerViewItemClickListener = clickListener;
     }
 
-    public BookExtractAdapter(Context context,List<BookExtract> mBook_extract_list) {
-        this.context=context;
-        this.mBook_extract_list=mBook_extract_list;
-    }
 
-     public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView bookname;
         TextView context;
         TextView date;
-        BookExtract mBookextractLab;
+        BookExtractLab mBookextractLab;
 
-         public ViewHolder(@NonNull View view,final OnRecyclerViewItemClickListener onRecyclerViewItemClickListener) {
-             super(view);
-             bookname = (TextView) view.findViewById(R.id.book_extract_name);
-             context = (TextView) view.findViewById(R.id.book_extract_context);
-             date = (TextView) view.findViewById(R.id.date);
+
+        public ViewHolder(@NonNull View view, final OnRecyclerViewItemClickListener onRecyclerViewItemClickListener) {
+            super(view);
+            bookname = (TextView) view.findViewById(R.id.book_extract_name);
+            context = (TextView) view.findViewById(R.id.book_extract_context);
+            date = (TextView) view.findViewById(R.id.date);
              /*view.setOnClickListener(new View.OnClickListener() {
                  @Override
                  public void onClick(View v) {
@@ -58,14 +64,14 @@ public class BookExtractAdapter extends RecyclerView.Adapter<BookExtractAdapter.
                    }
                  }
              });*/
-         }
+        }
     }
 
     @Override
 
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.book_extract_item, parent, false);
-        ViewHolder holder = new ViewHolder(view,mOnRecyclerViewItemClickListener);
+        ViewHolder holder = new ViewHolder(view, mOnRecyclerViewItemClickListener);
         return holder;
     }
 
@@ -82,10 +88,10 @@ public class BookExtractAdapter extends RecyclerView.Adapter<BookExtractAdapter.
             @Override
             public void onClick(View v) {
                 mOnRecyclerViewItemClickListener.onRecyclerViewItemClicked(position);
-                Intent intent=new Intent(context,BookExtratDetail.class);
-                intent.putExtra("书摘名称",extract.getBook_extract_name().toString());
-                intent.putExtra("书摘内容",extract.getBook_extract_context().toString());
-                intent.putExtra("日期",extract.getBook_extract_date().toString());
+                Intent intent = new Intent(context, BookExtratDetail.class);
+                intent.putExtra("书摘名称", extract.getBook_extract_name().toString());
+                intent.putExtra("书摘内容", extract.getBook_extract_context().toString());
+                intent.putExtra("日期", extract.getBook_extract_date().toString());
                 context.startActivity(intent);
             }
         });
@@ -98,14 +104,11 @@ public class BookExtractAdapter extends RecyclerView.Adapter<BookExtractAdapter.
         });?*/
 
     }
-   //用以返回长度
+
+    //用以返回长度
     @Override
     public int getItemCount() {
         return mBook_extract_list.size();
     }
-
-    /*private void addData(int position){
-      mBook_extract_list.add(position,"我是")
-    }*/
-
 }
+

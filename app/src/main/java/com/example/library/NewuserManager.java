@@ -31,11 +31,16 @@ public class NewuserManager {
     private DataBaseManagementHelper mDatabaseHelper = null;
 
 
+   // public NewuserManager(Sure sure) {
+
+    //}
+
     public  NewuserManager(Context context){
         //super();
         mContext = context;
         Log.i(TAG, "NewuserManager construction!");
     }
+
 
     //打开数据库
     public void openDataBase() throws SQLException {

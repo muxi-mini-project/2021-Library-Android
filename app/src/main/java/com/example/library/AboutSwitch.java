@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.library.BookExtract.BookExtratDetail;
+
 public class AboutSwitch extends AppCompatActivity {
     private Button mBack1;
     private TextView mTi_shi;
@@ -21,7 +23,7 @@ public class AboutSwitch extends AppCompatActivity {
         mBack1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent zm=new Intent(AboutSwitch.this,BookExtratDetail.class);
+                Intent zm=new Intent(AboutSwitch.this, BookExtratDetail.class);
                 startActivity(zm);
             }
         });

@@ -57,7 +57,11 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.0.2'
     // 用Gson解析json的转换器
     implementation 'com.squareup.retrofit2:converter-gson:2.0.2'
-
+    //获取图片
+    implementation 'com.github.bumptech.glide:glide:4.8.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
+    //圆形图片
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 
 
 }

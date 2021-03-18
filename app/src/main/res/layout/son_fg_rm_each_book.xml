@@ -21,10 +21,9 @@
             android:background="@drawable/book_city_bg">
 
             <ImageView
-                app:layout_constraintHorizontal_weight="1"
                 android:id="@+id/rm_book_pic"
-                android:layout_width="92dp"
-                android:layout_height="98dp"
+                android:layout_width="94dp"
+                android:layout_height="111dp"
                 android:layout_marginStart="4dp"
                 android:layout_marginLeft="4dp"
                 android:layout_marginTop="4dp"
@@ -33,20 +32,20 @@
                 android:paddingTop="5dp"
                 android:src="@drawable/default_head_picture_square"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_weight="1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                app:layout_constraintHorizontal_weight="2"
                 android:id="@+id/rm_book_title"
-                android:layout_width="100dp"
+                android:layout_width="wrap_content"
                 android:layout_height="31dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginLeft="12dp"
-                android:layout_marginTop="14dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
                 android:text="书名"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textColor="#497568"
+                android:textColor="#534E4E"
                 app:layout_constraintStart_toEndOf="@+id/rm_book_pic"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -54,16 +53,22 @@
                 android:id="@+id/rm_book_writer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="80dp"
-                android:layout_marginLeft="80dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="100dp"
-                android:layout_marginRight="100dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="70dp"
+                android:layout_marginRight="70dp"
+                android:layout_marginBottom="8dp"
                 android:text="作者"
                 android:textColor="#497568"
+                android:maxEms="14"
+                android:maxLines="1"
+                app:layout_constraintBottom_toTopOf="@+id/rm_book_intro"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/rm_book_title"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/rm_book_pic"
+                app:layout_constraintTop_toBottomOf="@+id/rm_book_title"
+                app:layout_constraintVertical_bias="0.0" />
 
             <TextView
                 android:id="@+id/rm_book_intro"
@@ -76,7 +81,7 @@
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/rm_list_intro_bg"
                 android:text="简介"
-                android:textColor="#497568"
+                android:textColor="#8E8E8E"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/rm_book_pic"

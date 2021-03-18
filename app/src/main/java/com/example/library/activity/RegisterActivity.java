@@ -13,7 +13,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.library.R;
-import com.example.library.Sure;
 import com.example.library.User;
 
 public class RegisterActivity extends AppCompatActivity  implements View.OnClickListener{
@@ -34,8 +33,8 @@ public class RegisterActivity extends AppCompatActivity  implements View.OnClick
         mResign.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(RegisterActivity.this, Sure.class);
-                startActivity(intent);
+                //Intent intent=new Intent(RegisterActivity.this, Sure.class);
+                //startActivity(intent);
             }
         });
     }
