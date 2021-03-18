@@ -36,7 +36,7 @@ public class EditAdpapter extends RecyclerView.Adapter<EditAdpapter.ViewHolder> 
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+               removeData(position);
             }
         });
     }
@@ -54,5 +54,20 @@ public class EditAdpapter extends RecyclerView.Adapter<EditAdpapter.ViewHolder> 
             book_name=itemView.findViewById(R.id.book_name);
             delete=itemView.findViewById(R.id.delete);
         }
+    }
+    //添加数据
+    private void addData(int position){
+        //通知列表添加一条
+        kindlist.add(position,"我是书摘种类"+position);
+        //添加动画
+        notifyItemChanged(position);
+    }
+
+    //删除数据
+    private void removeData(int position){
+        kindlist.remove(position);
+        //删除动画
+        notifyItemRemoved(position);
+        notifyDataSetChanged();
     }
 }

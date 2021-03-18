@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/edit_add"
+    android:layout_width="320dp"
+    android:layout_height="130dp"
+    android:layout_marginLeft="45dp"
+    android:layout_marginTop="180dp"
+    android:orientation="vertical"
+    android:background="@drawable/shu_zhai"
+    >
+    <EditText
+        android:id="@+id/add_text"
+        android:layout_width="300dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:hint="请输入书摘种类名"
+        android:textSize="22sp"
+        />
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="45dp"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+>
+        <Button
+            android:id="@+id/cancer"
+            android:layout_marginLeft="10dp"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:text="取消"
+            android:textSize="20sp"
+            android:textColor="@color/teal_700"
+            android:background="@color/white"
+            android:gravity="center"/>
+
+        <Button
+            android:id="@+id/add_sure"
+            android:layout_marginLeft="5dp"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:text="完成"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:background="@color/white"
+            android:gravity="center"/>
+
+
+
+    </LinearLayout>
+
+</LinearLayout>

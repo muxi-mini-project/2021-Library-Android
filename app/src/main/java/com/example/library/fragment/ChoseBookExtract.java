@@ -96,8 +96,8 @@ public class ChoseBookExtract extends Fragment {
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.setOnRecyclerViewItemClickListener(new BookExtractAdapter.OnRecyclerViewItemClickListener() {
             @Override
-            public void onItemClicked(View view, int position) {
-                Toast.makeText(getContext(),"查看"+position,Toast.LENGTH_SHORT);
+            public void onRecyclerViewItemClicked(int position) {
+
             }
         });
 

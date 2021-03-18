@@ -33,7 +33,7 @@
         />
 </LinearLayout>
 
-    <Button
+    <TextView
         android:id="@+id/book_extract_context"
         android:layout_width="320dp"
         android:layout_height="70dp"
