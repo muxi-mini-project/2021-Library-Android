@@ -33,6 +33,7 @@
         <activity android:name=".Searcher.SearcherMain"/>
         <activity android:name=".AboutSwitch"/>
         <activity android:name=".BookExtratDetail"/>
+        <activity android:name=".activity.ChoseBookExtractActivity"/>
 
 
     </application>

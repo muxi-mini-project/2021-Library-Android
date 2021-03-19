@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.library.activity.ChoseBookExtractActivity;
 import com.example.library.fragment.ChoseBookExtract;
 
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ public class edit extends AppCompatActivity implements View.OnClickListener {
      private Button mAdd_look;
      private RecyclerView mBook_kind_recyclerview;
      private EditAdpapter mEditAdpapter;
-     private Context context;
+     //private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +36,7 @@ public class edit extends AppCompatActivity implements View.OnClickListener {
         mBack_book_extract.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent se=new Intent(edit.this, ChoseBookExtract.class);
+                Intent se=new Intent(edit.this, ChoseBookExtractActivity.class);
                 startActivity(se);
             }
         });
@@ -43,7 +44,7 @@ public class edit extends AppCompatActivity implements View.OnClickListener {
         mFinish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent sf=new Intent(edit.this, ChoseBookExtract.class);
+                Intent sf=new Intent(edit.this, ChoseBookExtractActivity.class);
                 startActivity(sf);
             }
         });
@@ -64,10 +65,10 @@ public class edit extends AppCompatActivity implements View.OnClickListener {
         list.add("文学");
         list.add("诗歌");
         list.add("科幻");
-        LinearLayoutManager mLayoutManager= new LinearLayoutManager(context);
+        LinearLayoutManager mLayoutManager= new LinearLayoutManager(this);
         mBook_kind_recyclerview.setLayoutManager(mLayoutManager);
         mLayoutManager.setOrientation(RecyclerView.VERTICAL);
-        mEditAdpapter=new EditAdpapter(context,list);
+        mEditAdpapter=new EditAdpapter(this,list);
         mBook_kind_recyclerview.setAdapter(mEditAdpapter);
 
     }

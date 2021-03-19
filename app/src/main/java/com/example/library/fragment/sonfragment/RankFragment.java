@@ -51,7 +51,6 @@ public class RankFragment extends BookCityFragment {
 
 
     private void updateUI(){
-
         //BookLab bookLab = BookLab.get(getParentFragment().getActivity());
         //List<DataBean> books = bookLab.getBooks();
         mAdapter = new BookAdapter2(RecommendFragment.data);

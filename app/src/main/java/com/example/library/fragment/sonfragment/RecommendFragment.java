@@ -57,6 +57,7 @@ public class RecommendFragment extends BookCityFragment {
         updateUI();
         mRMRecyclerView.setLayoutManager(new LinearLayoutManager(getParentFragment().getActivity()));
         //getRequest();
+        Log.d(TAG,"RecyclerView is here!!!!");
         return view;
     }
 
@@ -88,7 +89,7 @@ public class RecommendFragment extends BookCityFragment {
                 if (response.code() == HttpURLConnection.HTTP_OK){
                     Log.d(TAG,"Json>>>>>" + response.body().toString());
                     data = response.body().getData();
-                    Log.d(TAG,"data--------------" + data.toString());
+                    //Log.d(TAG,"data--------------" + data.toString());
                 }
             }
 

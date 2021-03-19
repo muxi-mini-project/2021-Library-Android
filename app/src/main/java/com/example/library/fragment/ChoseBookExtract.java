@@ -15,15 +15,12 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import com.example.library.BookExtract.BookExtract;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-
 import com.example.library.BookExtract.BookExtractAdapter;
 import com.example.library.BookExtract.BookExtratDetail;
-import com.example.library.BookExtract.BookExtract;
 import com.example.library.R;
 //import com.example.library.data.Book;
 import com.example.library.data.BookExtractLab;
@@ -46,19 +43,9 @@ public class ChoseBookExtract extends Fragment {
     private static ArrayList<String> list=new ArrayList<>();
     private ArrayAdapter<String> SpinnerAdapter;
     private boolean ture;
-
     private LinearLayoutManager mLayoutManager;
-
-    public ChoseBookExtract(LayoutInflater layoutInflater, ViewGroup parent) {
-    }
-
-    public ChoseBookExtract() {
-
-    }
-
     private FragmentManager getSupportFragment;
-
-//private List<book_extract> book_extractList;
+    //private List<book_extract> book_extractList;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -96,17 +83,22 @@ public class ChoseBookExtract extends Fragment {
 
         //书摘的RecyclerView
         mRecyclerView = (RecyclerView) view.findViewById(R.id.book_extract_recyclerview);
+
         mRecyclerView.setHasFixedSize(ture);
-        mLayoutManager = new LinearLayoutManager(context);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+       // mLayoutManager = new LinearLayoutManager(context);
+        //mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mLayoutManager.setOrientation(RecyclerView.VERTICAL);
         mAdapter = new BookExtractAdapter(getActivity(),mBook_extract_list);
         mRecyclerView.setAdapter(mAdapter);
-        BookExtractLab bookExtractLab = BookExtractLab.get(context);
-        LinearLayoutManager mLayoutManager=new LinearLayoutManager(context);
+        BookExtractLab bookExtractLab = BookExtractLab.get(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mLayoutManager.setOrientation(RecyclerView.VERTICAL);
-        mRecyclerView.setAdapter(mAdapter);
+       // =====
+        LinearLayoutManager mLayoutManager=new LinearLayoutManager(getActivity());
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        //获取数组
+        mBook_extract_list = BookExtractLab.get(getActivity()).getBookExtracters();
+        mAdapter = new BookExtractAdapter(getActivity(),mBook_extract_list);
         mAdapter.setOnRecyclerViewItemClickListener(new BookExtractAdapter.OnRecyclerViewItemClickListener() {
             @Override
             public void onItemClicked(View view, int position) {

@@ -10,6 +10,7 @@ import com.example.library.R;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+
 import com.example.library.data.BookExtractLab;
 
 import java.util.ArrayList;
@@ -34,6 +35,7 @@ public class BookExtractAdapter extends RecyclerView.Adapter<BookExtractAdapter.
     }
 
 
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView bookname;
@@ -41,24 +43,26 @@ public class BookExtractAdapter extends RecyclerView.Adapter<BookExtractAdapter.
         TextView date;
         BookExtractLab mBookextractLab;
 
-        public ViewHolder(@NonNull View view,final OnRecyclerViewItemClickListener onRecyclerViewItemClickListener) {
-            super(view);
-            bookname = (TextView) view.findViewById(R.id.book_extract_name);
-            context = (Button) view.findViewById(R.id.book_extract_context);
-            date = (TextView) view.findViewById(R.id.date);
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(onRecyclerViewItemClickListener!=null){
-                        int position=getBindingAdapterPosition();
-                        //确保position的值有效
-                        if(position!=RecyclerView.NO_POSITION){
-                            onRecyclerViewItemClickListener.onItemClicked(view,position);
-                        }
-                    }
-                }
-            });
-        }
+
+
+         public ViewHolder(@NonNull View view,final OnRecyclerViewItemClickListener onRecyclerViewItemClickListener) {
+             super(view);
+             bookname = (TextView) view.findViewById(R.id.book_extract_name);
+             context = (Button) view.findViewById(R.id.book_extract_context);
+             date = (TextView) view.findViewById(R.id.date);
+             view.setOnClickListener(new View.OnClickListener() {
+                 @Override
+                 public void onClick(View v) {
+                   if(onRecyclerViewItemClickListener!=null){
+                       int position=getBindingAdapterPosition();
+                       //确保position的值有效
+                       if(position!=RecyclerView.NO_POSITION){
+                           onRecyclerViewItemClickListener.onItemClicked(view,position);
+                       }
+                   }
+                 }
+             });
+         }
     }
 
     @Override

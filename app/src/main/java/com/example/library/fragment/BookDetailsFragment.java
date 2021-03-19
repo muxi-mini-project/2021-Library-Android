@@ -43,6 +43,7 @@ public class BookDetailsFragment extends Fragment {
     private BookData.DataBean mBook;
     private NoteAdapter mNoteAdapter;
     private OthersDigestData digestData;
+    private List<OthersDigestData> mDataList;
 
     //以下名字组件前为中文名缩写。例如JJ为简介，JJ2为简介框
     private TextView mXQTextView;
@@ -71,6 +72,8 @@ public class BookDetailsFragment extends Fragment {
         int bookId = (int) getArguments().getSerializable(ARG_BOOK_ID);
         //mBook = BookLab.get(getActivity()).getBook(bookId);
         mBook = new BookData().getBook(bookId,RecommendFragment.data);
+
+        getRequest();
     }
 
 /*创建视图*/
@@ -105,6 +108,7 @@ public class BookDetailsFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setFocusable(false);
+        getRequest();
 
         return v;
     }
@@ -116,20 +120,20 @@ public class BookDetailsFragment extends Fragment {
                 .build();
 
         BookService api = retrofit.create(BookService.class);
-        Call<OthersDigestData> digestDataCall = api.getCall2("1");
+        Call<List<OthersDigestData>> digestDataCall = api.getCall2("1");
 
-        digestDataCall.enqueue(new Callback<OthersDigestData>() {
+        digestDataCall.enqueue(new Callback<List<OthersDigestData>>() {
             @Override
-            public void onResponse(Call<OthersDigestData> call, Response<OthersDigestData> response) {
-                Log.d(TAG,"onResponse>>>>>" + response.code());
+            public void onResponse(Call<List<OthersDigestData>> call, Response<List<OthersDigestData>> response) {
+                Log.d(TAG,"onResponse----------" + response.code());
                 if (response.code() == HttpURLConnection.HTTP_OK){
-                    Log.d(TAG,"Json>>>>>" + response.body().toString());
+                    Log.d(TAG,"Json--------" + response.body().toString());
                 }
             }
 
             @Override
-            public void onFailure(Call<OthersDigestData> call, Throwable t) {
-
+            public void onFailure(Call<List<OthersDigestData>> call, Throwable t) {
+                Log.d(TAG,"error for note!!!!");
             }
         });
     }
