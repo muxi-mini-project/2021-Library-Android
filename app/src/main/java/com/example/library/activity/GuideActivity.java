@@ -14,7 +14,10 @@ import android.widget.TextView;
 import com.example.library.R;
 import com.example.library.fragment.BookCityFragment;
 import com.example.library.fragment.ChoseBookExtract;
+import com.example.library.fragment.mineFragment;
+
 import com.example.library.fragment.MineFragment;
+
 
 
 
@@ -33,7 +36,7 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
     /*底部导航栏对应的Fragment*/
     private BookCityFragment fragment1;
     private ChoseBookExtract fragment2;
-    private MineFragment fragment3;
+    private mineFragment fragment3;
 
 
     @Override
@@ -82,7 +85,7 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
                 linearLayout1.setSelected(true);
                 if(fragment1 == null){
                     fragment1 = new BookCityFragment();
-                    fragmentTransaction.add(R.id.fragment,fragment1);
+                    fragmentTransaction.add(R.id.guide_fragment,fragment1);
                 }
                 else
                 {
@@ -93,7 +96,7 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
                 linearLayout2.setSelected(true);
                 if(fragment2 == null){
                     fragment2 = new ChoseBookExtract();
-                    fragmentTransaction.add(R.id.fragment,fragment2);
+                    fragmentTransaction.add(R.id.guide_fragment,fragment2);
                 }
                 else
                 {
@@ -103,8 +106,8 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
             case R.id.mine_all:
                 linearLayout3.setSelected(true);
                 if(fragment3 == null){
-                    fragment3 = new MineFragment();
-                    fragmentTransaction.add(R.id.fragment,fragment3);
+                    fragment3 = new mineFragment();
+                    fragmentTransaction.add(R.id.guide_fragment,fragment3);
                 }
                 else
                 {

@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.library.R;
+import com.example.library.RoundImageView;
 import com.example.library.activity.SetDetailActivity;
 import com.example.library.data.BookLab;
 import com.example.library.data.MyBook;
@@ -25,7 +26,7 @@ import com.example.library.data.NotesLab;
 import java.util.List;
 
 public class MineFragment extends Fragment {
-    private ImageButton mImageButton_tou;
+    private RoundImageView mImageButton_tou;
     private TextView name;
     private TextView zuoyouming;
     private TextView set;
@@ -47,7 +48,7 @@ public class MineFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_mine_qyh, container, false);
 
         context = getContext();
-        mImageButton_tou = (ImageButton) v.findViewById(R.id.tou_xiang);
+        mImageButton_tou = (RoundImageView) v.findViewById(R.id.tou_xiang);
         mImageButton_tou.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -139,7 +140,7 @@ public class MineFragment extends Fragment {
 
             public void bind(MyBook myBook) {
 
-                textView.setText(myBook.getBook_name());
+                textView.setText(myBook.getBookTitle());
             }
 
         }
