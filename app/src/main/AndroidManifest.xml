@@ -32,7 +32,7 @@
         <activity android:name=".activity.OthersNoteActivity"/>
         <activity android:name=".Searcher.SearcherMain"/>
         <activity android:name=".AboutSwitch"/>
-        <activity android:name=".BookExtratDetail"/>
+        <activity android:name=".BookExtract.BookExtratDetail"/>
         <activity android:name=".activity.ChoseBookExtractActivity"/>
         <activity android:name=".activity.GuideActivity"/>
 
