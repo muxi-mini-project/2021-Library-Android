@@ -17,10 +17,15 @@
     <string name="mine_hint1">昵称</string>
     <string name="mine_hint2">这个人很懒什么都没留下</string>
     <string name="shu_jia">我的书架</string>
+<<<<<<< Updated upstream
     <string name="about_switch">提示：按键打开时，
   此书摘在个人主页、书籍详情页以及摘录页面都可见。
 按键关闭时，
   此书摘在仅摘录页面可见</string>
+=======
+    <string name="select_1">从相册里选择</string>
+    <string name="select_2">拍照选择</string>
+>>>>>>> Stashed changes
     <string-array name="book_kinds">
         <item></item>
         <item>历史</item>
