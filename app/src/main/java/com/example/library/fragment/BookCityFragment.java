@@ -237,6 +237,7 @@ public class BookCityFragment extends Fragment implements SearchView.SearchViewL
         //获得每个页面的下标
         @Override
         public Fragment getItem(int position){
+            Log.d(TAG,"now is"+mFragments.get(position).toString()+"here....");
             return mFragments.get(position);
         }
         //获得List的大小

@@ -30,15 +30,37 @@ public class NewuserManager {
     private SQLiteDatabase mSQLiteDatabase = null;
     private DataBaseManagementHelper mDatabaseHelper = null;
 
-    public NewuserManager(Sure sure) {
 
+   // public NewuserManager(Sure sure) {
+
+    //}
+
+    public  NewuserManager(Context context){
+        //super();
+        mContext = context;
+        Log.i(TAG, "NewuserManager construction!");
     }
 
-    public void openDataBase() {
+
+    //打开数据库
+    public void openDataBase() throws SQLException {
+        mDatabaseHelper = new DataBaseManagementHelper(mContext);
+        mSQLiteDatabase = mDatabaseHelper.getWritableDatabase();
+    }
+    //关闭数据库
+    public void closeDataBase() throws SQLException {
+        mDatabaseHelper.close();
     }
 
-    public void closeDataBase() {
-    }
+   //public NewuserManager(Sure sure) {
+
+    //}
+
+    //public  openDataBase(String ) {
+   // }
+
+    ///public void closeDataBase() {
+    //}
 
     public boolean insertUserData(NewuserData mUser) {
         return false;
@@ -74,20 +96,7 @@ public class NewuserManager {
             onCreate(db);
         }
 
-        public void NewuserManager(Context context){
-            //super();
-            mContext = context;
-            Log.i(TAG, "NewuserManager construction!");
-        }
-        //打开数据库
-        public void openDataBase() throws SQLException {
-            mDatabaseHelper = new DataBaseManagementHelper(mContext);
-            mSQLiteDatabase = mDatabaseHelper.getWritableDatabase();
-        }
-        //关闭数据库
-        public void closeDataBase() throws SQLException {
-            mDatabaseHelper.close();
-        }
+
         //添加新用户，即注册
         public long insertUserData(UserData userData) {
             String userName=userData.toString();

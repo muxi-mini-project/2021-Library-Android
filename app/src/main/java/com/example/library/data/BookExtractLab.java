@@ -2,7 +2,7 @@ package com.example.library.data;
 
 
 import android.content.Context;
-
+import com.example.library.BookExtract.BookExtract;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -10,28 +10,18 @@ import java.util.UUID;
 //模仿队友BookLab创建BookExtractLab数组单例。
 public class BookExtractLab {
     public static BookExtractLab sBookExtractLab;
-    //private final MyBookExtract myBookExtracts;
-    private List<BookExtracter> mBookExtracters;
-    private List<MyBookExtract> mMyBookExtracts;
 
-    private BookExtractLab(Context context) {
+    private List<BookExtract> mBookExtracters;
+
+    public BookExtractLab(Context context) {
         mBookExtracters = new ArrayList<>();
-        mMyBookExtracts = new ArrayList<>();
         //生成临时数据组
         for (int i = 0; i < 100; i++) {
-            BookExtracter bookExtracter = new BookExtracter();
-            bookExtracter.setBookextract_name("BookExtract #" + i);
-            bookExtracter.setBookextract_author("writer" + i);
-            bookExtracter.setBookextract_information("I am bookextract" + i);
+            BookExtract bookExtracter = new BookExtract(context);
+            bookExtracter.setBook_extract_name("BookExtract #" + i);
+            bookExtracter.setBook_extract_context("context" + i);
+            bookExtracter.setBook_extract_date("Date" + i);
             mBookExtracters.add(bookExtracter);
-        }
-
-        for (int j = 0; j < 100; j++) {
-            MyBookExtract myBookExtract = new MyBookExtract();
-            myBookExtract.setBookextract_name("MyBook #" + j);
-            myBookExtract.setBookextract_author("writer" + j);
-            myBookExtract.setBookextract_information("I am mybookextract" + j);
-            mMyBookExtracts.add(myBookExtract);
         }
     }
 
@@ -44,31 +34,16 @@ public class BookExtractLab {
     }
 
     //得到数组
-    public List<BookExtracter> getBookExtracters() {
+    public List<BookExtract> getBookExtracters() {
         return mBookExtracters;
     }
 
-    //暂时测试书城的书，无我的书
-    public BookExtracter getBookextract(UUID id) {
-        for (BookExtracter bookExtracter : mBookExtracters) {
-            if (bookExtracter.getId().equals(id)) {
+    public BookExtract getBookextract(UUID id) {
+        for (BookExtract bookExtracter : mBookExtracters) {
+            if (bookExtracter.getBook_extract_id().equals(id)) {
                 return bookExtracter;
             }
         }
         return null;
     }
-
-    public List<MyBookExtract> getmMyBookextracts() {
-        return mMyBookExtracts;
-    }
-
-    public MyBookExtract getMyBook(UUID Id) {
-        for (MyBookExtract myBookExtract : mMyBookExtracts) {
-            if (myBookExtract.getBookextract_id().equals(Id)) {
-                return myBookExtract;
-            }
-        }
-            return null;
-    }
 }
-

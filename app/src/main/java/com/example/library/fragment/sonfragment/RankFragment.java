@@ -2,6 +2,7 @@ package com.example.library.fragment.sonfragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +19,12 @@ import com.example.library.data.BookData;
 import com.example.library.data.BookLab;
 import com.example.library.fragment.BookCityFragment;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class RankFragment extends BookCityFragment {
+    private static final String TAG = "RankFragment" ;
     private RecyclerView mRankRecyclerView;
     private BookAdapter2 mAdapter;
     private static int itemPosition;
@@ -46,9 +50,8 @@ public class RankFragment extends BookCityFragment {
 
 
     private void updateUI(){
-        BookLab bookLab = BookLab.get(getParentFragment().getActivity());
-        List<BookData.DataBean> books = bookLab.getBooks();
-
+        //BookLab bookLab = BookLab.get(getParentFragment().getActivity());
+        //List<DataBean> books = bookLab.getBooks();
         mAdapter = new BookAdapter2(RecommendFragment.data);
         mRankRecyclerView.setAdapter(mAdapter);
     }
@@ -106,6 +109,13 @@ public class RankFragment extends BookCityFragment {
         public void onBindViewHolder(@NonNull BookHolder2 holder, int position) {
             BookData.DataBean book = mBooks.get(position);
             holder.bind(book);
+            List<String> pics2 = RecommendFragment.getPicData(RecommendFragment.data);
+            if (pics2.size() == 0){
+                Log.d(TAG,"The pics is null!!!!!!");
+            }else {
+                Glide.with(getParentFragment().getActivity()).load(pics2.get(position)).into(holder.mImageView);
+            }
+            //Log.d(TAG,"the gained pic is >>>" + pics2.get(position));
         }
 
         @Override

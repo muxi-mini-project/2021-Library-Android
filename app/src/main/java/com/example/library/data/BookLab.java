@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.UUID;
 
 //模仿CrimeLab创建BookLab数组单例。暂定
-public class BookLab {
+public class BookLab{
     public static BookLab sBookLab;
     private List<BookData.DataBean> mBooks;
     private List<MyBook> mMyBooks;
@@ -26,9 +26,11 @@ public class BookLab {
 
         for(int j = 0; j<100; j++){
             MyBook myBook = new MyBook();
+
             myBook.setBookTitle("MyBook #"+j);
             myBook.setBookWriter("writer"+j);
             myBook.setIntroduction("I am mybook" +j);
+
             mMyBooks.add(myBook);
         }
     }

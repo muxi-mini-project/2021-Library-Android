@@ -9,29 +9,28 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.library.data.MyBookExtract;
+import com.example.library.BookExtract.BookExtract;
+
 
 import java.util.List;
 
 public class BookExtractAdapter extends RecyclerView.Adapter<BookExtractAdapter.ViewHolder> {
-    private List<MyBookExtract> mBook_extract;
+    private List<BookExtract> mBook_extract;
 
-    public BookExtractAdapter(List<book_extract> book_extractList) {
-    }
 
-    public BookExtractAdapter(List<MyBookExtract> myBookExtracts, Context context) {
+    public BookExtractAdapter(List<BookExtract> myBookExtracts, Context context) {
 
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView bookname;
-        Button context;
+        TextView context;
         TextView date;
 
         public ViewHolder(View view) {
             super(view);
             bookname = (TextView) view.findViewById(R.id.book_extract_name);
-            context = (Button) view.findViewById(R.id.book_extract_context);
+            context = (TextView) view.findViewById(R.id.book_extract_context);
             date = (TextView) view.findViewById(R.id.date);
         }
 
