@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.library.BookService;
+import com.example.library.Interface.BookService;
 import com.example.library.RoundImageView;
 import com.example.library.activity.OthersNoteActivity;
 import com.example.library.R;
@@ -25,7 +25,6 @@ import com.example.library.data.Notes;
 import com.example.library.data.NotesLab;
 import com.example.library.data.OthersDigestData;
 import com.example.library.fragment.sonfragment.RecommendFragment;
-import com.example.library.view.CircleImageView;
 
 import java.net.HttpURLConnection;
 import java.util.List;

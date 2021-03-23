@@ -3,8 +3,6 @@ package com.example.library.activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.SystemClock;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,9 +10,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.library.LoginService;
+import com.example.library.Interface.LoginService;
 import com.example.library.R;
-import com.example.library.User;
 import com.example.library.data.Users;
 
 import retrofit2.Call;
@@ -73,6 +70,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 String user = mUsername.getText().toString();
                 String password = mPassword.getText().toString();
                 GET_REQUEST(user, password, FUCK);
+            case R.id.resign:
+                //Intent newIntent = new Intent(RegisterActivity.this,sure.class);
         }
     }
 
@@ -92,8 +91,14 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             public void onResponse(Call<Users> call, Response<Users> response) {
                 if (response.isSuccessful() == true) {
                     token = response.body().getToken();
+                    String user_name = response.body().getUser_name();
+                    String user_motto = response.body().getMotto();
                     Toast.makeText(RegisterActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
-                    System.out.println(token);
+                    Intent intent = new Intent(RegisterActivity.this,GuideActivity.class);
+                    intent.putExtra("GOTTOKEN",token);
+                    intent.putExtra("GOTUSER_Name",user_name);
+                    intent.putExtra("GOTUser_motto",user_motto);
+                    startActivity(intent);
                 } else {
                     Toast.makeText(RegisterActivity.this, "密码错误", Toast.LENGTH_SHORT).show();
                 }
