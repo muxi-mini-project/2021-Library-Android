@@ -11,13 +11,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.service.autofill.UserData;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +35,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -62,6 +63,8 @@ public class mineFragment extends Fragment {
     private Bitmap bitmap;//头像
     private final String path = "/sdcard/Library/Head/";//路径
 
+    public static List<UserData> data = new ArrayList<>();
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -72,8 +75,18 @@ public class mineFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_mine, container, false);
+
+        Intent i = new Intent();
+        String s1 = i.getStringExtra("GOTTOKEN");
+        System.out.println(s1);
+        String s2 = i.getStringExtra("GOTUSER_Name");
+        System.out.println(s2);
+        String s3 = i.getStringExtra("GOTUser_motto");
+
         textView1 = v.findViewById(R.id.mine_textView1);
+        textView1.setText(s1);
         textView2 = v.findViewById(R.id.mine_textView2);
+        textView2.setText(s2);
         textView3 = v.findViewById(R.id.mine_textView3);
         textView4 = v.findViewById(R.id.mine_textView4);
         imageView = v.findViewById(R.id.roundImageView);
@@ -213,9 +226,10 @@ public class mineFragment extends Fragment {
                 if (date != null) {
                     Bundle extras = date.getExtras();
                     if (extras != null) {
+
                         bitmap = extras.getParcelable("data");
-                        imageView.setImageBitmap(bitmap);
                         setPictureView(bitmap);
+                        imageView.setImageBitmap(bitmap);
                         if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                             ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, CODE_RESULT_REQUEST);
                         }

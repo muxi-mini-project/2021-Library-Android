@@ -62,7 +62,6 @@ public class BookData {
         private String book_picture;
         private Integer class_id;
         private Integer click_sum;
-        private Boolean aBoolean;//判断是否是我的书
 
         public Integer getBook_id() {
             return book_id;
