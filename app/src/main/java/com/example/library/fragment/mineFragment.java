@@ -11,13 +11,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.service.autofill.UserData;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +28,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.library.R;
 import com.example.library.RoundImageView;
+import com.example.library.LoginService;
+import com.example.library.data.Users;
 import com.example.library.fragment.minefragment.mineFragment1;
 import com.example.library.fragment.minefragment.mineFragment2;
 
@@ -36,6 +37,15 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -61,6 +71,8 @@ public class mineFragment extends Fragment {
 
     private Bitmap bitmap;//头像
     private final String path = "/sdcard/Library/Head/";//路径
+
+    public static List<UserData> data = new ArrayList<>();
 
 
     @Override
