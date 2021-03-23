@@ -78,6 +78,7 @@ public class mineFragment extends Fragment {
         textView4 = v.findViewById(R.id.mine_textView4);
         imageView = v.findViewById(R.id.roundImageView);
         constraintLayout = v.findViewById(R.id.linearLayout2);
+        //长按显示弹窗
         registerForContextMenu(constraintLayout);
         Bitmap bt = BitmapFactory.decodeFile(path + "head.jpg");
         if (bt != null) {

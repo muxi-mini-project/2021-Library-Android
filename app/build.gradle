@@ -31,6 +31,10 @@ android {
 
 dependencies {
 
+    androidTestCompile('com.android.support:support-annotations:26.1.0') {
+        force = true
+    }
+
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
@@ -62,7 +66,6 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
     //圆形图片
     implementation 'de.hdodenhof:circleimageview:3.1.0'
-
 
 }
 repositories {

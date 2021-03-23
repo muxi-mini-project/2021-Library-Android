@@ -4,13 +4,17 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
@@ -40,12 +44,13 @@ public class ChoseBookExtract extends Fragment {
     private EditText mBook_search;
     private RecyclerView mRecyclerView;
     private Context context;
-    private static ArrayList<String> list=new ArrayList<>();
+    private static ArrayList<String> list = new ArrayList<>();
     private ArrayAdapter<String> SpinnerAdapter;
     private boolean ture;
     private LinearLayoutManager mLayoutManager;
     private FragmentManager getSupportFragment;
-    //private List<book_extract> book_extractList;
+    // private OnRecyclerViewItemClickListener mOnRecyclerViewItemClickListener;
+    private LinearLayout mLinearLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,6 +60,7 @@ public class ChoseBookExtract extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.book_zhai, container, false);
+        mLinearLayout = (LinearLayout) view.findViewById(R.id.book_extract_item);
 
         mChose = (Spinner) view.findViewById(R.id.chose);
         mChose = (Spinner) view.findViewById(R.id.chose);
@@ -85,27 +91,84 @@ public class ChoseBookExtract extends Fragment {
         mRecyclerView = (RecyclerView) view.findViewById(R.id.book_extract_recyclerview);
 
         mRecyclerView.setHasFixedSize(ture);
-       // mLayoutManager = new LinearLayoutManager(context);
+        // mLayoutManager = new LinearLayoutManager(context);
         //mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        LinearLayoutManager mLayoutManager=new LinearLayoutManager(getActivity());
-        mAdapter = new BookExtractAdapter(getActivity(),mBook_extract_list);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        mAdapter = new BookExtractAdapter(getActivity(), mBook_extract_list);
         mRecyclerView.setAdapter(mAdapter);
         BookExtractLab bookExtractLab = BookExtractLab.get(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mLayoutManager.setOrientation(RecyclerView.VERTICAL);
         //获取数组
         mBook_extract_list = BookExtractLab.get(getActivity()).getBookExtracters();
-        mAdapter = new BookExtractAdapter(getActivity(),mBook_extract_list);
-        mAdapter.setOnRecyclerViewItemClickListener(new BookExtractAdapter.OnRecyclerViewItemClickListener() {
+        mAdapter = new BookExtractAdapter(getActivity(), mBook_extract_list);
+        mAdapter.setLongClickLisenter(new BookExtractAdapter.LongClickLisenter() {
+            @Override
+            public void LongClickLisenter(int position) {
+                mAdapter.del(position);
+                Toast.makeText(getActivity(), "删除成功", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+       /* mAdapter.setOnRecyclerViewItemClickListener(new BookExtractAdapter.OnRecyclerViewItemClickListener() {
             @Override
             public void onRecyclerViewItemClicked(int position) {
 
             }
-        });
+        });*/
+
+        /*mAdapter.setOnItemClickListener(new mAdapter.OnItemClickListener() {
+            @Override
+            public void onItemLongClick(final View view, final int pos) {
+                PopupMenu popupMenu = new PopupMenu(getContext(),view);
+                popupMenu.getMenuInflater().inflate(R.menu.,popupMenu.getMenu());
+
+                //弹出式菜单的菜单项点击事件
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        list.remove(pos);	//	删除
+                        mAdapter.notifyItemRemoved(pos);
+                     m = view.findViewById(R.id.tv_time);
+                        str = textView.getText().toString().trim();     //  得到这个item的时间值
+                        deleteSqlList();    //  根据时间值删除数据库中的值
+                        return false;
+                    }
+
+                    private void deleteSqlList() {
+                    }
+                });
+                popupMenu.show();
+            }
+        });*/
 
         return view;
 
     }
+
+    /*  @Override
+      public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo info) {
+          menu.add(0, F1, 0, "删除书摘");
+          menu.add(0, F1, 0, "编辑书摘");
+          menu.setGroupCheckable(0, true, true);
+          menu.setHeaderTitle("编辑内容");
+      }
+      public boolean onContextItemSelected(MenuItem item) {
+          switch (item.getItemId()) {
+              case F1:
+                  Toast.makeText(getContext(), "该书摘已被删除", Toast.LENGTH_SHORT).show();
+                  break;
+              case F2:
+              Intent intent=new Intent(getActivity(), com.example.library.BookExtratDetail.class);
+              startActivity(intent);
+                  break;
+          }
+          return true;
+      }*/
+
+
 
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
