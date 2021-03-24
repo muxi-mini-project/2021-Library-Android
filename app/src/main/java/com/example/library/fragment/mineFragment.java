@@ -75,18 +75,18 @@ public class mineFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_mine, container, false);
+/**
+ *
+ * 无法获取传递的字符串
+ *
+ */
 
-        Intent i = new Intent();
-        String s1 = i.getStringExtra("GOTTOKEN");
-        System.out.println(s1);
-        String s2 = i.getStringExtra("GOTUSER_Name");
-        System.out.println(s2);
-        String s3 = i.getStringExtra("GOTUser_motto");
+
 
         textView1 = v.findViewById(R.id.mine_textView1);
-        textView1.setText(s1);
+        //textView1.setText(s2);
         textView2 = v.findViewById(R.id.mine_textView2);
-        textView2.setText(s2);
+        //textView2.setText(s3);
         textView3 = v.findViewById(R.id.mine_textView3);
         textView4 = v.findViewById(R.id.mine_textView4);
         imageView = v.findViewById(R.id.roundImageView);
@@ -100,12 +100,6 @@ public class mineFragment extends Fragment {
         }
 
 
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
 
         textView3.setOnClickListener(new View.OnClickListener() {
             @Override

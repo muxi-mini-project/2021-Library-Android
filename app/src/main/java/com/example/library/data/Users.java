@@ -16,6 +16,11 @@ public class Users {
         this.motto = motto;
     }
 
+    public Users(String name,String password){
+        this.user_name = name;
+        this.user_password = password;
+    }
+
     public String getUser_name() {
         return user_name;
     }
