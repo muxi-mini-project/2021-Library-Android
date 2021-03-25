@@ -81,8 +81,6 @@ public class mineFragment extends Fragment {
  *
  */
 
-
-
         textView1 = v.findViewById(R.id.mine_textView1);
         //textView1.setText(s2);
         textView2 = v.findViewById(R.id.mine_textView2);

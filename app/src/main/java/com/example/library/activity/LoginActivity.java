@@ -28,6 +28,8 @@ public class LoginActivity extends AppCompatActivity {
     private ProgressDialog mProgressDialog;
     private final String FUCK = "这个人很懒，什么都没留下";
     private String token;
+    private String user_name;
+    private String user_motto;
 
 
     @Override
@@ -86,15 +88,13 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<Users> call, Response<Users> response) {
                 if (response.isSuccessful() == true) {
                     token = response.body().getToken();
-                    String user_name = response.body().getUser_name();
-                    String user_motto = response.body().getMotto();
+                    user_name = response.body().getUser_name();
+                    user_motto = response.body().getMotto();
                     Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(LoginActivity.this,GuideActivity.class);
-                    Bundle bundle = new Bundle();
-
-                    bundle.putString("GOTTOKEN",token);
-                    bundle.putString("GOTUSER_Name",user_name);
-                    bundle.putString("GOTUser_motto",user_motto);
+                    Bundle bundle0 = new Bundle();
+                    bundle0.putString("getToken",token);
+                    intent.putExtras(bundle0);
                     startActivity(intent);
                 } else {
                     Toast.makeText(LoginActivity.this, "密码错误", Toast.LENGTH_SHORT).show();

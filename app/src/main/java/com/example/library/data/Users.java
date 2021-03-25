@@ -5,10 +5,14 @@ import android.service.autofill.UserData;
 import java.util.List;
 
 public class Users {
+    /**
+     * 用于注册和登录的users类
+     */
     private String user_name;
     private String user_password;
     private String motto;
     private String token;
+    private String user_picture;
 
     public Users(String name, String password,String motto){
         this.user_name = name;
@@ -20,6 +24,11 @@ public class Users {
         this.user_name = name;
         this.user_password = password;
     }
+
+    public Users(String token){
+        this.token = token;
+    }
+
 
     public String getUser_name() {
         return user_name;
@@ -50,5 +59,13 @@ public class Users {
     }
     public void setToken(String token){
         this.token = token;
+    }
+
+    public String getPicture(){
+        return user_picture;
+    }
+
+    public void setPicture(String picture){
+        this.user_picture = picture;
     }
 }

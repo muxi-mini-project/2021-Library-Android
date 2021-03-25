@@ -2,6 +2,8 @@ package com.example.library.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -10,15 +12,24 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.library.Interface.LoginService;
+import com.example.library.Interface.UserDate;
 import com.example.library.R;
+import com.example.library.data.User;
+import com.example.library.data.Users;
 import com.example.library.fragment.BookCityFragment;
 import com.example.library.fragment.ChoseBookExtract;
 import com.example.library.fragment.mineFragment;
 
 import com.example.library.fragment.MineFragment;
 
-
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class GuideActivity extends AppCompatActivity implements View.OnClickListener {
@@ -38,6 +49,11 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
     private ChoseBookExtract fragment2;
     private mineFragment fragment3;
 
+    private String user_name;
+    private String user_picture;
+    private String user_motto;
+    private String user_token;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +62,11 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_bottom_guide);//此处为绿色原版
         bindView();
         linearLayout1.performClick();
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        user_token = bundle.getString("getToken");
+        System.out.println(user_token);
+
     }
 
 
@@ -105,6 +126,9 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.mine_all:
                 linearLayout3.setSelected(true);
+                Get_user_Date(user_token);
+                System.out.println(111111);
+                System.out.println(user_token);
                 if(fragment3 == null){
                     fragment3 = new mineFragment();
                     fragmentTransaction.add(R.id.guide_fragment,fragment3);
@@ -130,5 +154,40 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
         }
         if(fragment3 != null)
             fragmentTransaction.hide(fragment3);
+    }
+
+    public void Get_user_Date(String token){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://39.102.42.156:10086")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        UserDate userDate = retrofit.create(UserDate.class);
+
+        /*接收返回的类*/
+
+        Call<Users> user= userDate.getCall(token);
+        user.enqueue(new Callback<Users>() {
+            @Override
+            public void onResponse(Call<Users> call, Response<Users> response) {
+                if (response.isSuccessful() == true) {
+                    user_picture = response.body().getPicture();
+                    user_name = response.body().getUser_name();
+                    user_motto = response.body().getMotto();
+                    Toast.makeText(GuideActivity.this, "成功获取信息", Toast.LENGTH_SHORT).show();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("GotUser_Name",user_name);
+                    bundle.putString("GotUser_Picture",user_picture);
+                    bundle.putString("GotUser_Motto",user_motto);
+                } else {
+                    Toast.makeText(GuideActivity.this, "获取信息失败", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Users> call, Throwable t) {
+                Toast.makeText(GuideActivity.this, "登录失败", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
