@@ -102,12 +102,12 @@ public class BookDetailsFragment extends Fragment {
         //书摘列表
         mRecyclerView = (RecyclerView)v
                 .findViewById(R.id.book_detail_list);//组件
-        updateUI();
+        //updateUI();
         Log.d(TAG,"已经执行updateUI的方法了");
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        mRecyclerView.setLayoutManager(layoutManager);
-        mRecyclerView.setFocusable(false);
+        //LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        //mRecyclerView.setLayoutManager(layoutManager);
+        //mRecyclerView.setFocusable(false);
 
         return v;
     }
@@ -130,6 +130,7 @@ public class BookDetailsFragment extends Fragment {
                     mDataList = response.body();
                     if (mDataList != null){
                         Log.d(TAG,"one of the list is  " + mDataList.get(0).toString());
+                        updateUI();
                     }
                 }
             }
@@ -152,6 +153,9 @@ public class BookDetailsFragment extends Fragment {
 
         mRecyclerView.setAdapter(mNoteAdapter);
         Log.d(TAG,"RecyclerView已经绑定Adapter了");
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setFocusable(false);
     }
 
 /*holder*/

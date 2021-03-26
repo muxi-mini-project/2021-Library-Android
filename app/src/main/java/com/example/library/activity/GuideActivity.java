@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import android.view.Window;
@@ -14,14 +15,21 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.library.Interface.BookService;
 import com.example.library.Interface.LoginService;
 import com.example.library.Interface.UserDate;
 import com.example.library.R;
+import com.example.library.data.BookData;
 import com.example.library.data.User;
 import com.example.library.data.Users;
 import com.example.library.fragment.BookCityFragment;
 import com.example.library.fragment.ChoseBookExtract;
 import com.example.library.fragment.mineFragment;
+import com.example.library.fragment.sonfragment.RecommendFragment;
+
+import java.net.HttpURLConnection;
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,6 +39,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class GuideActivity extends AppCompatActivity implements View.OnClickListener {
+    private static final String TAG = "GuideActivity";
+    //public static List<BookData.DataBean> DATA = new ArrayList<>();
 
     /*底部导航栏的文字部分*/
     private ImageView book_city;//书城
@@ -58,17 +68,49 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bottom_guide);//此处为绿色原版
+        //getRequest();
+        Log.d(TAG,"书城的activity");
         bindView();
         linearLayout1.performClick();
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         user_token = bundle.getString("getToken");
         System.out.println(user_token);
-
+        //Log.d(TAG,"在activity内查看DATA的数据"+DATA.toString());
     }
+    /*public void getRequest(){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://39.102.42.156:10086")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        BookService mApi = retrofit.create(BookService.class);
+        Call<BookData> bookDataCall = mApi.getCall();
+
+        bookDataCall.enqueue(new Callback<BookData>() {
+            //请求成功时回调
+            @Override
+            public void onResponse(Call<BookData> call, Response<BookData> response) {
+                Log.d(TAG,"onResponse>>>>>" + response.code());
+                if (response.code() == HttpURLConnection.HTTP_OK){
+                    Log.d(TAG,"Json>>>>>" + response.body().toString());
+                    DATA = response.body().getData();
+                    Log.d(TAG,"data--------------" + DATA.toString());
+                }
+            }
+
+            //请求失败时回调
+            @Override
+            public void onFailure(Call<BookData> call, Throwable t)
+            {
+                Log.d(TAG,"error ---");
+            }
+        });
+    }*/
 
 
-/*将实例事件与ui视图绑定*/
+
+    /*将实例事件与ui视图绑定*/
     private void bindView() {
         book_city = (ImageView) findViewById(R.id.txt_book_city);
         digest = (ImageView) findViewById(R.id.txt_digest);
@@ -188,4 +230,35 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
             }
         });
     }
+
+    /*public void getRequest(){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://39.102.42.156:10086")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        BookService mApi = retrofit.create(BookService.class);
+        Call<BookData> bookDataCall = mApi.getCall();
+
+        bookDataCall.enqueue(new Callback<BookData>() {
+            //请求成功时回调
+            @Override
+            public void onResponse(Call<BookData> call, Response<BookData> response) {
+                Log.d(TAG,"onResponse>>>>>" + response.code());
+                if (response.code() == HttpURLConnection.HTTP_OK){
+                    Log.d(TAG,"Json>>>>>" + response.body().toString());
+                    DATA = response.body().getData();
+                    Log.d(TAG,"data--------------" + DATA.toString());
+                }
+            }
+
+            //请求失败时回调
+            @Override
+            public void onFailure(Call<BookData> call, Throwable t)
+            {
+                Log.d(TAG,"error ---");
+            }
+        });
+    }*/
+
 }

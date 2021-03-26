@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.example.library.Interface.BookService;
 import com.example.library.R;
 import com.example.library.activity.BookDetailPagerActivity;
+import com.example.library.activity.GuideActivity;
 import com.example.library.data.BookData;
 import com.example.library.fragment.BookCityFragment;
 
@@ -39,29 +40,31 @@ public class RecommendFragment extends BookCityFragment {
     private BookAdapter mAdapter;
     private static int itemPosition;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        getRequest();
+        Log.d(TAG,"推荐");
+        //getRequest();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.son_fg_recycler,container,false);
-        pics = getPicData(data);
+        //pics = getPicData(data);
 
         //实例化RecyclerView视图
         mRMRecyclerView = (RecyclerView) view
                 .findViewById(R.id.son_fg_recycler_view);
-        updateUI();
-        mRMRecyclerView.setLayoutManager(new LinearLayoutManager(getParentFragment().getActivity()));
-        //getRequest();
+        getRequest();
+        //updateUI();
+        //mRMRecyclerView.setLayoutManager(new LinearLayoutManager(getParentFragment().getActivity()));
         Log.d(TAG,"RecyclerView is here!!!!");
         return view;
     }
 
-    private void getRequest(){
+    public void getRequest(){
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://39.102.42.156:10086")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -76,9 +79,11 @@ public class RecommendFragment extends BookCityFragment {
             public void onResponse(Call<BookData> call, Response<BookData> response) {
                 Log.d(TAG,"onResponse>>>>>" + response.code());
                 if (response.code() == HttpURLConnection.HTTP_OK){
-                    //Log.d(TAG,"Json>>>>>" + response.body().toString());
+                    Log.d(TAG,"Json>>>>>" + response.body().toString());
                     data = response.body().getData();
-                    //Log.d(TAG,"data--------------" + data.toString());
+                    Log.d(TAG,"data--------------" + data.toString());
+                    pics = getPicData(data);
+                    updateUI();
                 }
             }
 
@@ -101,12 +106,12 @@ public class RecommendFragment extends BookCityFragment {
 
 /*关联Adapter和RV*/
     private void updateUI(){
-
         //BookLab bookLab = BookLab.get(getParentFragment().getActivity());
         //List<Book> books = bookLab.getBooks();
-
         mAdapter = new BookAdapter(getActivity(),data);
         mRMRecyclerView.setAdapter(mAdapter);
+        mRMRecyclerView.setLayoutManager(new LinearLayoutManager(getParentFragment().getActivity()));
+        Log.d(TAG,"adapter已经设置好了"+mAdapter.toString());
     }
 
     private class BookHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -129,9 +134,7 @@ public class RecommendFragment extends BookCityFragment {
         //@SuppressLint("ResourceType")
         public void bind(BookData.DataBean book){
             mBook = book;
-            //mImageView.setImageResource(R.id.rm_book_pic);
             Log.d(TAG,"user id is aaaaaaaaaaaaa"+book.getBook_auther());
-
             mTTTextView.setText(mBook.getBook_name());
             mWTTextView.setText(mBook.getBook_auther());
             mInTextView.setText(mBook.getBook_information());
@@ -151,7 +154,7 @@ public class RecommendFragment extends BookCityFragment {
         private Context mContext;
 
         public BookAdapter(Context context,List<BookData.DataBean> books){
-            this.mContext = context;
+            mContext = context;
             mBooks = books;
         }
 
@@ -165,6 +168,7 @@ public class RecommendFragment extends BookCityFragment {
          @Override
          public void onBindViewHolder(@NonNull BookHolder holder, int position) {
             BookData.DataBean book = mBooks.get(position);
+            Log.d(TAG,"bind的数据" + book.toString());
             holder.bind(book);
             Log.d(TAG,"the picture is" + pics.get(position));
             Glide.with(mContext).load(pics.get(position)).into(holder.mImageView);
@@ -172,7 +176,10 @@ public class RecommendFragment extends BookCityFragment {
 
          @Override
          public int getItemCount() {
-             return mBooks.size();
+            if (mBooks!=null){
+                return mBooks.size();
+            }
+             return 1;
          }
     }
 

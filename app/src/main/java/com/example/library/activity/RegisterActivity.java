@@ -10,10 +10,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.library.Interface.LoginService;
 import com.example.library.Interface.RegisterService;
 import com.example.library.NewuserData;
-import com.example.library.NewuserManager;
+import com.example.library.NewUserManager;
 import com.example.library.R;
 import com.example.library.data.Users;
 
@@ -25,12 +24,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
-    private Button mSureofregister;
+    private Button mSureOfRegister;
     private Button mBack;
-    private EditText mResigter_username;
-    private EditText mResigter_password;
+    private EditText mRegister_username;
+    private EditText mRegister_password;
     private EditText mPassword_again;
-    private NewuserManager mNewuserManager;
+    private NewUserManager mNewUserManager;
     private SharedPreferences login_sp;
     //private CheckBox mRememberCheck;
     private String userNameValue,passwordValue;
@@ -61,9 +60,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
            // mResigter_password.setText(pwd);
             //mSureofregister.setChecked(true);
        // }
-        if (mNewuserManager == null) {
-            mNewuserManager = new NewuserManager(this);
-            mNewuserManager.openDataBase();                              //建立本地数据库
+        if (mNewUserManager == null) {
+            mNewUserManager = new NewUserManager(this);
+            mNewUserManager.openDataBase();                              //建立本地数据库
         }
         View.OnClickListener m_register_Listener = new View.OnClickListener() {    //不同按钮按下的监听事件选择
             public void onClick(View v) {
@@ -81,11 +80,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     private void register_check() {
         if (isUserNameAndPwdValid()) {
-            String userName = mResigter_username.getText().toString().trim();
-            String userPwd = mResigter_password.getText().toString().trim();
+            String userName = mRegister_username.getText().toString().trim();
+            String userPwd = mRegister_password.getText().toString().trim();
             //String userPwdCheck = mPwdCheck.getText().toString().trim();
             //检查用户是否存在
-            int count=mNewuserManager.findUserByName(userName);
+            int count= mNewUserManager.findUserByName(userName);
             //用户已经存在时返回，给出提示文字
             if(count>0){
                 Toast.makeText(this, getString(R.string.name_already_exist),Toast.LENGTH_SHORT).show();
@@ -97,8 +96,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 return ;
             } else {
                NewuserData mUser = new NewuserData(userName, userPwd);
-                mNewuserManager.openDataBase();
-                boolean flag = mNewuserManager.insertUserData(mUser); //新建用户信息
+                mNewUserManager.openDataBase();
+                boolean flag = mNewUserManager.insertUserData(mUser); //新建用户信息
                 if (flag == false) {
                     Toast.makeText(this, getString(R.string.register_fail),Toast.LENGTH_SHORT).show();
                 }else{
@@ -113,11 +112,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private boolean isUserNameAndPwdValid() {
-        if (mResigter_username.getText().toString().trim().equals("")) {
+        if (mRegister_username.getText().toString().trim().equals("")) {
             Toast.makeText(this, getString(R.string.resigter_empty),
                     Toast.LENGTH_SHORT).show();
             return false;
-        } else if (mResigter_password.getText().toString().trim().equals("")) {
+        } else if (mRegister_password.getText().toString().trim().equals("")) {
             Toast.makeText(this, getString(R.string.resigiter_empty),
                     Toast.LENGTH_SHORT).show();
             return false;
@@ -126,9 +125,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
     @Override
     protected void onResume() {
-        if (mNewuserManager == null) {
-            mNewuserManager = new NewuserManager(this);
-            mNewuserManager.openDataBase();
+        if (mNewUserManager == null) {
+            mNewUserManager = new NewUserManager(this);
+            mNewUserManager.openDataBase();
         }
         super.onResume();
     }
@@ -138,9 +137,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
     @Override
     protected void onPause() {
-        if (mNewuserManager != null) {
-            mNewuserManager.closeDataBase();
-            mNewuserManager = null;
+        if (mNewUserManager != null) {
+            mNewUserManager.closeDataBase();
+            mNewUserManager = null;
         }
         super.onPause();
     }
@@ -151,14 +150,14 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     private void initView() {
         mBack = (Button) findViewById(R.id.back);
-        mResigter_password=(EditText)findViewById(R.id.register_password);
-        mResigter_username=(EditText) findViewById(R.id.register_username);
+        mRegister_password =(EditText)findViewById(R.id.register_password);
+        mRegister_username =(EditText) findViewById(R.id.register_username);
         mPassword_again=(EditText)findViewById(R.id.password_again);
-        mSureofregister = (Button) findViewById(R.id.sureofregister);
-        mSureofregister.setOnClickListener(new View.OnClickListener() {
+        mSureOfRegister = (Button) findViewById(R.id.sureofregister);
+        mSureOfRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                set_date(userNameValue,passwordValue);
             }
         });
         mBack.setOnClickListener(this);

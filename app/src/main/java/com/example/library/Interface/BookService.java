@@ -9,7 +9,9 @@ import com.example.library.data.OthersDigestData;
 import java.util.List;
 
 import okhttp3.ResponseBody;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -22,7 +24,6 @@ public interface BookService {
     @GET("Library/{books_id}/digest")
     Call<List<OthersDigestData>> getCall2(@Path("books_id") String books_id);
 
-    //@GET("/digest/mysummary/:user_id")
-    //Call<>
-
+    @POST("Library/searcher")
+    Call<BookData> getSearchCall(@Body BookData bookData);
 }
