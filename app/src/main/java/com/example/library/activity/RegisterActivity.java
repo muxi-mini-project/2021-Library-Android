@@ -155,7 +155,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         mResigter_username=(EditText) findViewById(R.id.register_username);
         mPassword_again=(EditText)findViewById(R.id.password_again);
         mSureofregister = (Button) findViewById(R.id.sureofregister);
-        mSureofregister.setOnClickListener(this);
+        mSureofregister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         mBack.setOnClickListener(this);
     }
 

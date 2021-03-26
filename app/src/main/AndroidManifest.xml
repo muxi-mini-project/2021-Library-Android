@@ -34,6 +34,7 @@
         <activity android:name=".BookExtract.BookExtratDetail"/>
         <activity android:name=".activity.ChoseBookExtractActivity"/>
         <activity android:name=".activity.GuideActivity"/>
+        <activity android:name=".activity.RegisterActivity"/>
 
 
     </application>
