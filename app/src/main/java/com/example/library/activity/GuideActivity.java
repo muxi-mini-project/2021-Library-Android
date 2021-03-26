@@ -127,8 +127,12 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
             case R.id.mine_all:
                 linearLayout3.setSelected(true);
                 Get_user_Date(user_token);
-                System.out.println(111111);
-                System.out.println(user_token);
+                //fragment3 = mineFragment.newInstance(user_name,user_picture,user_motto);
+
+                /**
+                 *在这里使用newInstance后返回白板
+                 */
+
                 if(fragment3 == null){
                     fragment3 = new mineFragment();
                     fragmentTransaction.add(R.id.guide_fragment,fragment3);
@@ -172,13 +176,12 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
             public void onResponse(Call<Users> call, Response<Users> response) {
                 if (response.isSuccessful() == true) {
                     user_picture = response.body().getPicture();
+                    System.out.println(user_picture);
                     user_name = response.body().getUser_name();
+                    System.out.println(user_name);
                     user_motto = response.body().getMotto();
                     Toast.makeText(GuideActivity.this, "成功获取信息", Toast.LENGTH_SHORT).show();
-                    Bundle bundle = new Bundle();
-                    bundle.putString("GotUser_Name",user_name);
-                    bundle.putString("GotUser_Picture",user_picture);
-                    bundle.putString("GotUser_Motto",user_motto);
+
                 } else {
                     Toast.makeText(GuideActivity.this, "获取信息失败", Toast.LENGTH_SHORT).show();
                 }
@@ -186,7 +189,7 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
 
             @Override
             public void onFailure(Call<Users> call, Throwable t) {
-                Toast.makeText(GuideActivity.this, "登录失败", Toast.LENGTH_SHORT).show();
+                Toast.makeText(GuideActivity.this, "GG", Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -80,16 +80,14 @@ public class mineFragment extends Fragment {
  * 无法获取传递的字符串
  *
  */
-
         textView1 = v.findViewById(R.id.mine_textView1);
-        //textView1.setText(s2);
         textView2 = v.findViewById(R.id.mine_textView2);
-        //textView2.setText(s3);
         textView3 = v.findViewById(R.id.mine_textView3);
         textView4 = v.findViewById(R.id.mine_textView4);
         imageView = v.findViewById(R.id.roundImageView);
         constraintLayout = v.findViewById(R.id.linearLayout2);
         registerForContextMenu(constraintLayout);
+
         Bitmap bt = BitmapFactory.decodeFile(path + "head.jpg");
         if (bt != null) {
             @SuppressWarnings("deprecation")
@@ -133,6 +131,16 @@ public class mineFragment extends Fragment {
         });
         textView3.performClick();
         return v;
+    }
+
+    public void upDateView(){
+        /**
+         * 获取用户姓名和座右铭
+         */
+        String s1 = (String)getArguments().getString("getName","无名之辈");
+        textView1.setText(s1);
+        String s2 = (String)getArguments().getString("getMotto","这个人很懒");
+        textView2.setText(s2);
     }
 
     @Override
@@ -217,7 +225,6 @@ public class mineFragment extends Fragment {
                 if (date != null) {
                     Bundle extras = date.getExtras();
                     if (extras != null) {
-
                         bitmap = extras.getParcelable("data");
                         setPictureView(bitmap);
                         imageView.setImageBitmap(bitmap);
@@ -235,7 +242,7 @@ public class mineFragment extends Fragment {
     }
 
 
-    /*
+    /**
      *
      * 裁剪图片
      *
@@ -294,5 +301,22 @@ public class mineFragment extends Fragment {
     private void setSelect() {
         textView3.setSelected(false);
         textView4.setSelected(false);
+    }
+
+    /**
+     *传输数据用的
+     * @param name
+     * @param picture
+     * @param motto
+     * @return
+     */
+    public static mineFragment newInstance(String name,String picture,String motto){
+        Bundle args = new Bundle();
+        args.putString("getName",name);
+        args.putString("getPicture",picture);
+        args.putString("getMotto",motto);
+        mineFragment Fragment = new mineFragment();
+        Fragment.setArguments(args);
+        return Fragment;
     }
 }

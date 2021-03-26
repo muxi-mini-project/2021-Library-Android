@@ -7,13 +7,16 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface UserDate {
 
-    @GET("/homepage/:user_id")
+    @GET("/homepage/info")
     Call<Users> getCall(
             @Header("token") String token
     );
+
+
 }

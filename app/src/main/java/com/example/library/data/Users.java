@@ -11,7 +11,6 @@ public class Users {
     private String user_name;
     private String user_password;
     private String motto;
-    private String token;
     private String user_picture;
 
     public Users(String name, String password,String motto){
@@ -23,10 +22,6 @@ public class Users {
     public Users(String name,String password){
         this.user_name = name;
         this.user_password = password;
-    }
-
-    public Users(String token){
-        this.token = token;
     }
 
 
@@ -54,12 +49,6 @@ public class Users {
         this.motto = motto;
     }
 
-    public String getToken(){
-        return token;
-    }
-    public void setToken(String token){
-        this.token = token;
-    }
 
     public String getPicture(){
         return user_picture;
