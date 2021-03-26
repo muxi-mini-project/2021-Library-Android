@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.library.BookService;
+import com.example.library.Interface.BookService;
 import com.example.library.RoundImageView;
 import com.example.library.activity.OthersNoteActivity;
 import com.example.library.R;

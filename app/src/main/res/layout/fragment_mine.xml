@@ -25,34 +25,43 @@
             imagecontrol:layout_constraintTop_toTopOf="parent"
             imagecontrol:layout_constraintVertical_bias="0.386" />
 
-        <TextView
-            android:id="@+id/mine_textView1"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:gravity="center_horizontal"
-            android:text="昵称"
-            android:textColor="@color/black"
-            android:textSize="30sp"
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
             imagecontrol:layout_constraintBottom_toBottomOf="parent"
-            imagecontrol:layout_constraintEnd_toEndOf="parent"
-            imagecontrol:layout_constraintHorizontal_bias="1.0"
-            imagecontrol:layout_constraintStart_toStartOf="parent"
-            imagecontrol:layout_constraintTop_toBottomOf="@+id/roundImageView"
-            imagecontrol:layout_constraintVertical_bias="0.111" />
+            imagecontrol:layout_constraintTop_toBottomOf="@+id/roundImageView">
 
 
-        <TextView
-            android:id="@+id/mine_textView2"
-            android:layout_width="fill_parent"
-            android:layout_height="36dp"
-            android:layout_marginTop="50dp"
-            android:text="个性签名"
-            android:gravity="center_horizontal"
-            android:textColor="@color/black"
-            android:textSize="25sp"
-            imagecontrol:layout_constraintEnd_toEndOf="parent"
-            imagecontrol:layout_constraintStart_toStartOf="parent"
-            imagecontrol:layout_constraintTop_toTopOf="@+id/mine_textView1" />
+            <TextView
+                android:id="@+id/mine_textView1"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center_horizontal"
+                android:text="昵称"
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                imagecontrol:layout_constraintBottom_toBottomOf="parent"
+                imagecontrol:layout_constraintEnd_toEndOf="parent"
+                imagecontrol:layout_constraintHorizontal_bias="1.0"
+                imagecontrol:layout_constraintStart_toStartOf="parent"
+                imagecontrol:layout_constraintTop_toBottomOf="@+id/roundImageView"
+                imagecontrol:layout_constraintVertical_bias="0.111" />
+
+            <TextView
+                android:id="@+id/mine_textView2"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:gravity="center_horizontal"
+                android:text="个性签名"
+                android:textColor="@color/black"
+                android:textSize="25sp"
+                imagecontrol:layout_constraintEnd_toEndOf="parent"
+                imagecontrol:layout_constraintStart_toStartOf="parent"
+                imagecontrol:layout_constraintTop_toTopOf="@+id/mine_textView1" />
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

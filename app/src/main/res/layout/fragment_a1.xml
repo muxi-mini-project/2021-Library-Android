@@ -36,7 +36,7 @@
         android:id="@+id/mine_recycle1"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:background="@mipmap/p6"/>
+        android:background="@mipmap/p4"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="60dp" >

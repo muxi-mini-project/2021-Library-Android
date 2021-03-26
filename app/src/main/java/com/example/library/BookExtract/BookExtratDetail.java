@@ -1,7 +1,9 @@
 package com.example.library.BookExtract;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -30,6 +32,14 @@ public class BookExtratDetail extends AppCompatActivity implements View.OnClickL
     private Button mFinish1;
     private Context mContext;
 
+    private DialogInterface.OnClickListener mListener=new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+           // Toast.makeText(BookExtratDetail.this,"Button"+which+"was clicked",Toast.LENGTH_SHORT);
+            dialog.dismiss();
+        }
+    };
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -38,9 +48,9 @@ public class BookExtratDetail extends AppCompatActivity implements View.OnClickL
         mBack_book_extract.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent intent=new Intent(BookExtratDetail.this,ChoseBookExtractActivity.class);
-                //startActivity(intent);
-                ((Activity) mContext).finish();
+                Intent intent=new Intent(BookExtratDetail.this,ChoseBookExtractActivity.class);
+                startActivity(intent);
+                //((Activity) mContext).finish();
             }
         });
         mFinish1.setOnClickListener(new View.OnClickListener() {
@@ -55,8 +65,12 @@ public class BookExtratDetail extends AppCompatActivity implements View.OnClickL
         mSwitch_detail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent zq=new Intent(BookExtratDetail.this, AboutSwitch.class);
-                startActivity(zq);
+                AlertDialog.Builder builder=new AlertDialog.Builder(BookExtratDetail.this);
+                builder.setTitle("提示");
+                builder.setMessage("按键打开时，此书摘在个人主页、书籍详情页以及摘录页面都可见。\n" +
+                        "按键关闭时，此书摘在仅摘录页面可见。");
+                AlertDialog dialog=builder.create();
+                dialog.show();
             }
         });
     }

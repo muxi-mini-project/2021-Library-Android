@@ -9,13 +9,12 @@
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Design.Light.NoActionBar"
-        android:usesCleartextTraffic="true">
 
-        <activity android:name=".activity.MybookActivity"></activity>
+        android:theme="@style/Theme.Design.Light.NoActionBar">
+        <activity android:name=".activity.MybookActivity"/>
         <activity android:name=".activity.SetDetailActivity" />
         <activity
-            android:name=".activity.GuideActivity"
+            android:name=".activity.LoginActivity"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
 
             <intent-filter>
@@ -32,8 +31,9 @@
         <activity android:name=".activity.OthersNoteActivity"/>
         <activity android:name=".Searcher.SearcherMain"/>
         <activity android:name=".AboutSwitch"/>
-        <activity android:name=".BookExtratDetail"/>
+        <activity android:name=".BookExtract.BookExtratDetail"/>
         <activity android:name=".activity.ChoseBookExtractActivity"/>
+        <activity android:name=".activity.GuideActivity"/>
 
 
     </application>
@@ -41,6 +41,10 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
-
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

@@ -87,27 +87,22 @@ public class ChoseBookExtract extends Fragment {
         mRecyclerView.setHasFixedSize(ture);
        // mLayoutManager = new LinearLayoutManager(context);
         //mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mLayoutManager.setOrientation(RecyclerView.VERTICAL);
+        LinearLayoutManager mLayoutManager=new LinearLayoutManager(getActivity());
         mAdapter = new BookExtractAdapter(getActivity(),mBook_extract_list);
         mRecyclerView.setAdapter(mAdapter);
         BookExtractLab bookExtractLab = BookExtractLab.get(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mLayoutManager.setOrientation(RecyclerView.VERTICAL);
-       // =====
-        LinearLayoutManager mLayoutManager=new LinearLayoutManager(getActivity());
-        mRecyclerView.setLayoutManager(mLayoutManager);
         //获取数组
         mBook_extract_list = BookExtractLab.get(getActivity()).getBookExtracters();
         mAdapter = new BookExtractAdapter(getActivity(),mBook_extract_list);
         mAdapter.setOnRecyclerViewItemClickListener(new BookExtractAdapter.OnRecyclerViewItemClickListener() {
             @Override
-            public void onItemClicked(View view, int position) {
-                Toast.makeText(getContext(),"查看"+position,Toast.LENGTH_SHORT);
+            public void onRecyclerViewItemClicked(int position) {
+
             }
         });
 
-        //mRecyclerView.setHasFixedSize(ture);
-        //BookExtractLab bookExtractLab = BookExtractLab.get(context);
         return view;
 
     }

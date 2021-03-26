@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.library.BookService;
+import com.example.library.Interface.BookService;
 import com.example.library.R;
 import com.example.library.activity.BookDetailPagerActivity;
 import com.example.library.data.BookData;

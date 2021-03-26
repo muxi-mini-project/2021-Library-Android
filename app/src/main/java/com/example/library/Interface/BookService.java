@@ -1,4 +1,4 @@
-package com.example.library;
+package com.example.library.Interface;
 
 import retrofit2.Call;
 
@@ -19,8 +19,10 @@ public interface BookService {
     Call<BookData> getCall();
     //getCall（） = 接受 网络请求数据的方法
     //其中返回类型为Call<*>,*是接收数据的类
-
     @GET("Library/{books_id}/digest")
     Call<List<OthersDigestData>> getCall2(@Path("books_id") String books_id);
+
+    //@GET("/digest/mysummary/:user_id")
+    //Call<>
 
 }
