@@ -105,7 +105,7 @@ class GridAdapter extends RecyclerView.Adapter<GridAdapter.Holder>{
             initData();
             currentNumber = getAdapterPosition();
             Intent intent = EachSortActivity.SortIntent(getActivity(),nameList,currentNumber);
-            Log.e(TAG,"the currentNumber>>>>>>>" + currentNumber);
+            //Log.e(TAG,"the currentNumber>>>>>>>" + currentNumber);
             startActivity(intent);
         }
     }//点击后进入相应的列表中。取数据再搞

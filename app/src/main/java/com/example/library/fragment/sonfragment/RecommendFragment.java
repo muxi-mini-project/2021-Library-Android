@@ -62,17 +62,6 @@ public class RecommendFragment extends BookCityFragment {
     }
 
     private void getRequest(){
-        //创建Retrofit对象
-       /* Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://124.71.184.107:10086/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        //创建网络请求接口的实例
-        BookService mApi = retrofit.create(BookService.class);
-        //对发送请求进行封装---<发送请求>
-        Call<BookData> bookDataCall = mApi.getCall();*///所需参数
-        //发送网络请求（异步）
-
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://39.102.42.156:10086")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -87,7 +76,7 @@ public class RecommendFragment extends BookCityFragment {
             public void onResponse(Call<BookData> call, Response<BookData> response) {
                 Log.d(TAG,"onResponse>>>>>" + response.code());
                 if (response.code() == HttpURLConnection.HTTP_OK){
-                    Log.d(TAG,"Json>>>>>" + response.body().toString());
+                    //Log.d(TAG,"Json>>>>>" + response.body().toString());
                     data = response.body().getData();
                     //Log.d(TAG,"data--------------" + data.toString());
                 }
@@ -97,7 +86,6 @@ public class RecommendFragment extends BookCityFragment {
             @Override
             public void onFailure(Call<BookData> call, Throwable t)
             {
-
             Log.d(TAG,"error ---");
             }
         });
@@ -142,6 +130,8 @@ public class RecommendFragment extends BookCityFragment {
         public void bind(BookData.DataBean book){
             mBook = book;
             //mImageView.setImageResource(R.id.rm_book_pic);
+            Log.d(TAG,"user id is aaaaaaaaaaaaa"+book.getBook_auther());
+
             mTTTextView.setText(mBook.getBook_name());
             mWTTextView.setText(mBook.getBook_auther());
             mInTextView.setText(mBook.getBook_information());

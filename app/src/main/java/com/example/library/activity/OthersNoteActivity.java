@@ -24,15 +24,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.library.R;
 import com.example.library.data.CommentData;
 import com.example.library.data.CommentDetail;
-import com.example.library.data.Notes;
 import com.example.library.data.NotesLab;
+import com.example.library.data.OthersDigestData;
 import com.example.library.data.ReplyDetail;
+import com.example.library.fragment.BookDetailsFragment;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.gson.Gson;
 
 import java.util.List;
-import java.util.UUID;
 
 public class OthersNoteActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String EXTRA_NOTE_ID = "com.example.Library.note_id";
@@ -43,7 +43,7 @@ public class OthersNoteActivity extends AppCompatActivity implements View.OnClic
     private ImageView imageView3;
     private RecyclerView rv_comment;
     private TextView textView6;
-    private Notes mNotes;
+    private OthersDigestData mNote;
     private ExpandableListView expandableListView;
     private CommentExpandAdapter adapter;
     private CommentDetail mComment;
@@ -105,21 +105,21 @@ public class OthersNoteActivity extends AppCompatActivity implements View.OnClic
             "\t}\n" +
             "}";
 
-    NotesLab notesLab = NotesLab.get(this);
-    private List<Notes> notes = notesLab.getNotes();
+    //NotesLab notesLab = NotesLab.get(this);
+    //private List<Notes> notes = notesLab.getNotes();
 
 /*intent*/
-    public static Intent newIntent(Context packageContext, UUID noteId) {
+    public static Intent newIntent(Context packageContext, int position) {
         Intent intent = new Intent(packageContext, OthersNoteActivity.class);
-        intent.putExtra(EXTRA_NOTE_ID, noteId);
+        intent.putExtra(EXTRA_NOTE_ID, position);
         return intent;
     }
 /*onCreate*/
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detail_note_content);
-        UUID noteId = (UUID) getIntent().getSerializableExtra(EXTRA_NOTE_ID);
-        mNotes = notesLab.getNotes(noteId);
+        int position = (int) getIntent().getSerializableExtra(EXTRA_NOTE_ID);
+        mNote = BookDetailsFragment.mDataList.get(position);
 
         //getRequest();
         initView();
@@ -128,36 +128,6 @@ public class OthersNoteActivity extends AppCompatActivity implements View.OnClic
         //rv_comment.setLayoutManager(new LinearLayoutManager(OthersNoteActivity.this));
         //rv_comment.setAdapter(new CommentAdapter(notes, OthersNoteActivity.this));
     }
-
-    /*private void getRequest(){
-        //创建Retrofit对象
-        Retrofit retrofit = new Retrofit().Builder()
-                .baseUrl(URL.)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        //创建网络请求接口的实例
-        BookService mApi = retrofit.create(BookService.class);
-        //对发送请求进行封装---<发送请求>
-        Call<CommentData> commentDataCall = mApi.getCall();//所需参数
-        //发送网络请求（异步）
-        commentDataCall.enqueue(new Callback<CommentData>() {
-            //请求成功时回调
-            @Override
-            public void onResponse(Call<CommentData> call, Response<CommentData> response) {
-                Log.d(TAG,"onResponse>>>>>" + response.code());
-                if (response.code() == HttpURLConnection.HTTP_OK){
-                    Log.d(TAG,"Json>>>>>" + response.body().toString());
-
-                }
-            }
-
-            //请求失败时回调
-            @Override
-            public void onFailure(Call<CommentData> call, Throwable t) {
-
-            }
-        });
-    }*/
 
     /*实例化组件*/
     private void initView() {
@@ -178,9 +148,9 @@ public class OthersNoteActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void updateUI() {
-        textView5.setText(mNotes.getNoteWriter());
-        textView3.setText(mNotes.getNoteDate());
-        textView4.setText(mNotes.getNoteContent());
+        textView5.setText(mNote.getUser_id());
+        textView3.setText(mNote.getDate());
+        textView4.setText(mNote.getSummary_information());
     }
 /*初始化评论和回复列表*/
     private void initExpandableListView(final List<CommentDetail> commentList){

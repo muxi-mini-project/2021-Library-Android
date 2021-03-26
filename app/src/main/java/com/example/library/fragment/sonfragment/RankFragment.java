@@ -81,6 +81,8 @@ public class RankFragment extends BookCityFragment {
             mTTTextView.setText(mBook.getBook_name());
             mWTTextView.setText(mBook.getBook_auther());
             mInTextView.setText(mBook.getBook_information());
+            Log.d(TAG,"user id is aaaaaaaaaaaaa"+book.getBook_auther());
+
         }
 
         public void onClick(View view) {
@@ -126,3 +128,4 @@ public class RankFragment extends BookCityFragment {
     }
 
 }
+
