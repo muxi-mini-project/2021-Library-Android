@@ -15,7 +15,8 @@
         <activity android:name=".activity.SetDetailActivity" />
         <activity
             android:name=".activity.LoginActivity"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
+            android:usesCleartextTraffic="true">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,6 +35,7 @@
         <activity android:name=".BookExtract.BookExtratDetail"/>
         <activity android:name=".activity.ChoseBookExtractActivity"/>
         <activity android:name=".activity.GuideActivity"/>
+        <activity android:name=".activity.RegisterActivity"/>
 
 
     </application>

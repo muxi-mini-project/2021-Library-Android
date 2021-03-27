@@ -54,6 +54,7 @@ public class RankFragment extends BookCityFragment {
         //BookLab bookLab = BookLab.get(getParentFragment().getActivity());
         //List<DataBean> books = bookLab.getBooks();
         mAdapter = new BookAdapter2(RecommendFragment.data);
+        Log.d(TAG,"排行的数据有没有得到"+RecommendFragment.data.toString());
         mRankRecyclerView.setAdapter(mAdapter);
     }
 
@@ -81,6 +82,8 @@ public class RankFragment extends BookCityFragment {
             mTTTextView.setText(mBook.getBook_name());
             mWTTextView.setText(mBook.getBook_auther());
             mInTextView.setText(mBook.getBook_information());
+            Log.d(TAG,"排行的user id is "+book.getBook_auther());
+
         }
 
         public void onClick(View view) {
@@ -116,7 +119,7 @@ public class RankFragment extends BookCityFragment {
             }else {
                 Glide.with(getParentFragment().getActivity()).load(pics2.get(position)).into(holder.mImageView);
             }
-            //Log.d(TAG,"the gained pic is >>>" + pics2.get(position));
+            Log.d(TAG,"the gained pic is >>>" + pics2.get(position));
         }
 
         @Override
@@ -126,3 +129,4 @@ public class RankFragment extends BookCityFragment {
     }
 
 }
+

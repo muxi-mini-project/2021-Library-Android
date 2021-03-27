@@ -87,6 +87,7 @@ public class mineFragment extends Fragment {
         imageView = v.findViewById(R.id.roundImageView);
         constraintLayout = v.findViewById(R.id.linearLayout2);
         registerForContextMenu(constraintLayout);
+        upDateView();
 
         Bitmap bt = BitmapFactory.decodeFile(path + "head.jpg");
         if (bt != null) {
@@ -137,9 +138,10 @@ public class mineFragment extends Fragment {
         /**
          * 获取用户姓名和座右铭
          */
-        String s1 = (String)getArguments().getString("getName","无名之辈");
+        Bundle bundle = new Bundle();
+        String s1 = bundle.getString("getName","无名之辈");
         textView1.setText(s1);
-        String s2 = (String)getArguments().getString("getMotto","这个人很懒");
+        String s2 = bundle.getString("getMotto","这个人很懒");
         textView2.setText(s2);
     }
 

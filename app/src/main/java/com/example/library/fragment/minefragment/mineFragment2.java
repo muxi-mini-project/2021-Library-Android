@@ -3,7 +3,6 @@ package com.example.library.fragment.minefragment;
         import android.content.Context;
         import android.os.Bundle;
 
-        import androidx.annotation.NonNull;
         import androidx.fragment.app.Fragment;
         import androidx.recyclerview.widget.LinearLayoutManager;
         import androidx.recyclerview.widget.RecyclerView;
@@ -17,6 +16,7 @@ package com.example.library.fragment.minefragment;
 
         import com.example.library.R;
         import com.example.library.data.MyNotes;
+        import com.example.library.data.Notes;
         import com.example.library.data.NotesLab;
 
         import java.text.SimpleDateFormat;
@@ -77,7 +77,7 @@ public class mineFragment2 extends Fragment {
 
         @Override
         public void onBindViewHolder(mineFragment2.MyNoteAdapter.holder mholder, int position) {
-            MyNotes myNotes = mMyNotes.get(position);
+            Notes myNotes = mMyNotes.get(position);
             mholder.Bind(myNotes);
         }
 
@@ -103,7 +103,7 @@ public class mineFragment2 extends Fragment {
             }
 
 
-            public void Bind(MyNotes myNotes) {
+            public void Bind(Notes myNotes) {
                 textView1.setText(myNotes.getNoteTitle());
                 //textView2.setText(myNotes.getNoteDate());
                 textView3.setText(myNotes.getCMContent());

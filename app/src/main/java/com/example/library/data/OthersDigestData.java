@@ -2,6 +2,8 @@ package com.example.library.data;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class OthersDigestData {
     /**
      * id :
@@ -96,5 +98,14 @@ public class OthersDigestData {
 
     public void setPublicX(Boolean publicX) {
         this.publicX = publicX;
+    }
+
+    public OthersDigestData getNote(String id, List<OthersDigestData> data){
+        for (OthersDigestData note:data){
+            if (note.getId().equals(id)){
+                return note;
+            }
+        }
+        return null;
     }
 }

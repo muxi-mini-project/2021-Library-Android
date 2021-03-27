@@ -21,6 +21,10 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ * 登录页面！！！
+ */
+
 public class LoginActivity extends AppCompatActivity {
     private EditText mUsername;
     private EditText mPassword;
