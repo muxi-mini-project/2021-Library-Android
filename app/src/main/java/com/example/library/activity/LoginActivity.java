@@ -43,6 +43,28 @@ public class LoginActivity extends AppCompatActivity {
         initView();
         //创建一个动态进度条
         mProgressDialog = new ProgressDialog(this);
+        /*mLoading.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String user = mUsername.getText().toString();
+                String password = mPassword.getText().toString();
+                GET_REQUEST(user, password, FUCK);
+            }
+        });
+        mResign.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(intent);
+            }
+        });*/
+    }
+
+    private void initView() {
+        mUsername = (EditText) findViewById(R.id.username);
+        mPassword = (EditText) findViewById(R.id.password);
+        mLoading = (Button) findViewById(R.id.loading);
+        mResign = (Button) findViewById(R.id.resign);
         mLoading.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,13 +80,6 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-    }
-
-    private void initView() {
-        mUsername = (EditText) findViewById(R.id.username);
-        mPassword = (EditText) findViewById(R.id.password);
-        mLoading = (Button) findViewById(R.id.loading);
-        mResign = (Button) findViewById(R.id.resign);
     }
 
     //final String username = mUsername.getText().toString().trim();

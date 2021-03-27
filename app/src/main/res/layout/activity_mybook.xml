@@ -30,7 +30,7 @@
             android:textSize="25sp"/>
     </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/my_book_recyclerView"
+        android:id="@+id/my_book_recyclerView1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 </LinearLayout>

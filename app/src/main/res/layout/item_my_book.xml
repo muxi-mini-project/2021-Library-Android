@@ -5,13 +5,13 @@
     android:layout_height="wrap_content"
     android:background="@drawable/book_border"
     android:orientation="vertical">
-    <ImageButton
-        android:id="@+id/my_book"
+    <ImageView
+        android:id="@+id/mybook_pic"
         android:layout_width="100dp"
         android:layout_height="120dp"
         android:background="@drawable/default_head_mine"/>
     <TextView
-        android:id="@+id/my_book_name"
+        android:id="@+id/mybook_name"
         android:gravity="center_horizontal"
         android:layout_width="100dp"
         android:layout_height="20dp"

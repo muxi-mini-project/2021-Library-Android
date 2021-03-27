@@ -10,13 +10,13 @@ public class Users {
      */
     private String user_name;
     private String user_password;
-    private String motto;
+    private String Motto;
     private String user_picture;
 
     public Users(String name, String password,String motto){
         this.user_name = name;
         this.user_password =password;
-        this.motto = motto;
+        this.Motto = motto;
     }
 
     public Users(String name,String password){
@@ -42,11 +42,11 @@ public class Users {
     }
 
     public String getMotto(){
-        return motto;
+        return Motto;
     }
 
     public void setMotto(String motto){
-        this.motto = motto;
+        this.Motto = motto;
     }
 
 

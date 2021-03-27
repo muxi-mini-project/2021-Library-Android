@@ -214,7 +214,7 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
                     hideAllFragment(fragmentTransaction0);
                     setSelect();
                     if (fragment3 == null) {
-                        fragment3 = mineFragment.newInstance(user_name,user_picture,user_motto);
+                        fragment3 = mineFragment.newInstance(user_name,user_picture,user_motto,token);
                         fragmentTransaction0.add(R.id.guide_fragment, fragment3);
                     } else {
                         fragmentTransaction0.show(fragment3);

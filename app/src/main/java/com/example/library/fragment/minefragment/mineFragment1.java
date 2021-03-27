@@ -7,7 +7,8 @@ import android.os.Bundle;
         import android.view.View;
         import android.view.ViewGroup;
         import android.widget.ImageButton;
-        import android.widget.LinearLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
         import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -99,14 +100,14 @@ public class mineFragment1 extends Fragment {
 
 
         class Holder extends RecyclerView.ViewHolder {
-            private ImageButton imageButton;
+            private ImageView imageView;
             private TextView textView;
 
             public Holder(LayoutInflater inflater, ViewGroup parent) {
                 super(inflater.inflate(R.layout.item_my_book, parent, false));
 
-                imageButton = (ImageButton) itemView.findViewById(R.id.my_book);
-                textView = (TextView) itemView.findViewById(R.id.my_book_name);
+                imageView = (ImageView) itemView.findViewById(R.id.mybook_pic);
+                textView = (TextView) itemView.findViewById(R.id.mybook_name);
             }
 
             public void bind(MyBook myBook) {

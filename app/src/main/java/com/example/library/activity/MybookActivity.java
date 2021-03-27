@@ -1,7 +1,7 @@
 package com.example.library.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,17 +11,17 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.library.R;
-import com.example.library.data.Book;
 import com.example.library.data.BookLab;
 import com.example.library.data.MyBook;
-import com.example.library.fragment.minefragment.mineFragment1;
+import com.example.library.fragment.sonfragment.RecommendFragment;
 
 import java.util.List;
 
@@ -29,17 +29,18 @@ public class MybookActivity extends AppCompatActivity {
 
     private TextView textView1;
     private TextView textView2;
-    private MyBookAdapt myBookAdapt;
     private RecyclerView recyclerView;
     private Context context;
+    private LinearLayoutManager linearLayoutManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mybook);
 
-        textView1 = (TextView)findViewById(R.id.my_book_title);
-        recyclerView = (RecyclerView) findViewById(R.id.my_book_recyclerView);
-        textView2 = (TextView)findViewById(R.id.my_book_change);
+        textView1 = (TextView) findViewById(R.id.my_book_title);
+        recyclerView = (RecyclerView) findViewById(R.id.my_book_recyclerView1);
+        textView2 = (TextView) findViewById(R.id.my_book_change);
         textView2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,24 +48,27 @@ public class MybookActivity extends AppCompatActivity {
             }
         });
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
-        BookLab bookLab = BookLab.get(context);
-        List<MyBook> myBooks = bookLab.getmMyBooks();
-        myBookAdapt = new MyBookAdapt(myBooks,this);
+        recyclerView.setHasFixedSize(true);
+        linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        BookLab bookLab = BookLab.get(MybookActivity.this);
+        List<MyBook> mybook = bookLab.getmMyBooks();
+        recyclerView.setAdapter(new MybookActivity.MybookAdapter(mybook,MybookActivity.this));
 
 
     }
+
     /*显示弹出菜单的方法*/
-    public void MenuShow(View view){
-        PopupMenu popupMenu = new PopupMenu(context,view);
-        popupMenu.getMenuInflater().inflate(R.menu.list,popupMenu.getMenu());
+    public void MenuShow(View view) {
+        PopupMenu popupMenu = new PopupMenu(context, view);
+        popupMenu.getMenuInflater().inflate(R.menu.list, popupMenu.getMenu());
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()){
+                switch (item.getItemId()) {
                     case R.id.list_delete:
-                        Toast.makeText(context,"删除方法",Toast.LENGTH_SHORT);
+                        Toast.makeText(context, "删除方法", Toast.LENGTH_SHORT);
                         break;
                 }
                 return false;
@@ -73,55 +77,52 @@ public class MybookActivity extends AppCompatActivity {
         popupMenu.show();
     }
 
-    class MyBookAdapt extends RecyclerView.Adapter<MybookActivity.MyBookAdapt.Holder> {
+    class MybookAdapter extends RecyclerView.Adapter<MybookActivity.MybookAdapter.ViewHolder> {
+        private Context context;
+        private RecyclerView.OnItemTouchListener listener1;
+        private AdapterView.OnItemClickListener listener;
+        private List<MyBook> myBookList;
 
-        private List<MyBook> mMyBook;
-        private Context mContext;
 
-        public MyBookAdapt(List<MyBook> myBook, Context context) {
-            this.mMyBook = myBook;
-            this.mContext = context;
+        public MybookAdapter(List<MyBook> list,Context context) {
+            this.myBookList = list;
+            this.context = context;
         }
 
         @Override
-        public MybookActivity.MyBookAdapt.Holder onCreateViewHolder(ViewGroup parent, int ViewType) {
-            LayoutInflater layoutInflater = LayoutInflater.from(mContext);
-            return new MyBookAdapt.Holder(layoutInflater, parent);
+        public MybookActivity.MybookAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View v= LayoutInflater.from(parent.getContext()).inflate(R.layout.each_my_book, parent, false);
+            ViewHolder holder = new ViewHolder(v);
+            return holder;
         }
 
         @Override
-        public void onBindViewHolder(MyBookAdapt.Holder holder, int position) {
-            MyBook myBook = mMyBook.get(position);
+        public void onBindViewHolder(ViewHolder holder, int position) {
+            MyBook myBook = myBookList.get(position);
             holder.bind(myBook);
         }
 
         @Override
         public int getItemCount() {
-            return mMyBook.size();
+            return myBookList.size();
         }
 
-
-        class Holder extends RecyclerView.ViewHolder {
+        class ViewHolder extends RecyclerView.ViewHolder {
             private ImageView imageView;
-            private TextView textView1;
-            private TextView textView2;
-            private TextView textView3;
+            private TextView textView;
 
-            public Holder(LayoutInflater inflater, ViewGroup parent) {
-                super(inflater.inflate(R.layout.each_my_book, parent, false));
-
-                imageView = (ImageView) itemView.findViewById(R.id.my_book_pic);
-                textView1 = (TextView) itemView.findViewById(R.id.my_book_title);
-                textView2 = (TextView) itemView.findViewById(R.id.my_book_writer);
-                textView3 = (TextView) itemView.findViewById(R.id.my_book_intro);
+            public ViewHolder(View v) {
+                super(v);
+                imageView = v.findViewById(R.id.mybook_pic);
+                textView = v.findViewById(R.id.mybook_name);
             }
 
-            public void bind(MyBook myBook) {
-                textView1.setText(myBook.getBookTitle());
-                textView2.setText(myBook.getBookWriter());
-                textView3.setText(myBook.getIntroduction());
+            public void bind(MyBook myBook){
+                textView.setText(myBook.getBookTitle());
             }
-
         }
+
     }
+
+
 }

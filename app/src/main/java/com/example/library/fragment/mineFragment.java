@@ -18,6 +18,8 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,8 +29,14 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.library.Interface.UserDate;
 import com.example.library.R;
 import com.example.library.RoundImageView;
+import com.example.library.activity.GuideActivity;
+import com.example.library.activity.LoginActivity;
+import com.example.library.data.Token;
+import com.example.library.data.User;
+import com.example.library.data.Users;
 import com.example.library.fragment.minefragment.mineFragment1;
 import com.example.library.fragment.minefragment.mineFragment2;
 
@@ -38,6 +46,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -66,6 +80,11 @@ public class mineFragment extends Fragment {
 
     public static List<UserData> data = new ArrayList<>();
 
+    private String u_name;
+    private String u_motto;
+    private String u_picture;
+    private String u_token;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -84,15 +103,9 @@ public class mineFragment extends Fragment {
         imageView = v.findViewById(R.id.roundImageView);
         constraintLayout = v.findViewById(R.id.linearLayout2);
         Log.d("mineFragment","这个可以跑");
-        Bundle bundle = getArguments();
-        String s1 = (String) bundle.getString("getUName");
-        textView1.setText(String.valueOf(s1));
-        System.out.println(s1);
-        String s2 = (String) bundle.getString("getUMotto","这个人很懒，什么都没留下");
-        textView2.setText(String.valueOf(s2));
+        UpDate();
         registerForContextMenu(constraintLayout);
         Log.d("mineFragment","这里没有错");
-        //upDateView();
 
         Bitmap bt = BitmapFactory.decodeFile(path + "head.jpg");
         if (bt != null) {
@@ -139,11 +152,15 @@ public class mineFragment extends Fragment {
         return v;
     }
 
-    public void upDateView(){
-        /**
-         * 获取用户姓名和座右铭
-         */
-
+    public void UpDate(){
+        Bundle bundle = getArguments();
+        u_name = (String) bundle.getString("getUName");
+        textView1.setText(String.valueOf(u_name));
+        System.out.println(u_name);
+        u_motto = (String) bundle.getString("getUMotto","这个人很懒，什么都没留下");
+        textView2.setText(String.valueOf(u_motto));
+        u_picture = (String) bundle.getString("getUPicture");
+        u_token = (String) bundle.getString("getUToken");
     }
 
     @Override
@@ -162,13 +179,57 @@ public class mineFragment extends Fragment {
                 Toast.makeText(getContext(), "1", Toast.LENGTH_SHORT).show();
                 break;
             case F2:
-                Toast.makeText(getContext(), "2", Toast.LENGTH_SHORT).show();
+                ChangeName();
+                UpDate();
+                Toast.makeText(getContext(), u_motto, Toast.LENGTH_SHORT).show();
                 break;
             case F3:
+                ChangeMotto();
+                UpDate();
                 Toast.makeText(getContext(), "3", Toast.LENGTH_SHORT).show();
                 break;
         }
         return true;
+    }
+    private void ChangeName(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        final AlertDialog dialog = builder.create();
+        View v = View.inflate(getContext(), R.layout.change_name, null);
+        EditText editText1 =(EditText) v.findViewById(R.id.change_user_name);
+        String use_name = editText1.getText().toString();
+        Button button1 = (Button)v.findViewById(R.id.change_user_name_button1);
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        Button button2 = (Button)v.findViewById(R.id.change_user_name_button2);
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Set_user_Date(u_token,use_name,u_motto,u_picture);
+            }
+        });
+        dialog.setView(v);
+        dialog.show();
+    }
+    private void ChangeMotto(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        final AlertDialog dialog = builder.create();
+        View v = View.inflate(getContext(), R.layout.change_motto, null);
+        EditText editText2 =(EditText) v.findViewById(R.id.change_user_motto);
+        String use_motto = editText2.getText().toString();
+        Button button1 = (Button)v.findViewById(R.id.change_user_motto_button1);
+        Button button2 = (Button)v.findViewById(R.id.change_user_motto_button2);
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Set_user_Date(u_token,u_name,use_motto,u_picture);
+            }
+        });
+        dialog.setView(v);
+        dialog.show();
     }
 
     /*
@@ -313,13 +374,43 @@ public class mineFragment extends Fragment {
      * @param motto
      * @return
      */
-    public static mineFragment newInstance(String name,String picture,String motto){
+    public static mineFragment newInstance(String name,String picture,String motto,String token){
         Bundle args = new Bundle();
         args.putString("getUName",name);
         args.putString("getUPicture",picture);
         args.putString("getUMotto",motto);
+        args.putString("getUToken",token);
         mineFragment Fragment = new mineFragment();
         Fragment.setArguments(args);
         return Fragment;
     }
+
+    public void Set_user_Date(String token,String name ,String motto,String picture) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://39.102.42.156:10086")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        UserDate userDate = retrofit.create(UserDate.class);
+
+        /*接收返回的类*/
+        Call<User> user = userDate.setCall(token,new User(name,motto,picture));
+        user.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if (response.isSuccessful() == true) {
+                    Toast.makeText(getActivity(), "修改成功", Toast.LENGTH_SHORT).show();
+                    Log.d("mineFragment","用户名"+u_name+"座右铭"+u_motto+"图像"+u_picture);
+                } else {
+                    Toast.makeText(getActivity(), "修改失败", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Toast.makeText(getActivity(), "没有网络", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 }
