@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.service.autofill.UserData;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -75,19 +76,23 @@ public class mineFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_mine, container, false);
-/**
- *
- * 无法获取传递的字符串
- *
- */
+
         textView1 = v.findViewById(R.id.mine_textView1);
         textView2 = v.findViewById(R.id.mine_textView2);
         textView3 = v.findViewById(R.id.mine_textView3);
         textView4 = v.findViewById(R.id.mine_textView4);
         imageView = v.findViewById(R.id.roundImageView);
         constraintLayout = v.findViewById(R.id.linearLayout2);
+        Log.d("mineFragment","这个可以跑");
+        Bundle bundle = getArguments();
+        String s1 = (String) bundle.getString("getUName");
+        textView1.setText(String.valueOf(s1));
+        System.out.println(s1);
+        String s2 = (String) bundle.getString("getUMotto","这个人很懒，什么都没留下");
+        textView2.setText(String.valueOf(s2));
         registerForContextMenu(constraintLayout);
-        upDateView();
+        Log.d("mineFragment","这里没有错");
+        //upDateView();
 
         Bitmap bt = BitmapFactory.decodeFile(path + "head.jpg");
         if (bt != null) {
@@ -138,11 +143,7 @@ public class mineFragment extends Fragment {
         /**
          * 获取用户姓名和座右铭
          */
-        Bundle bundle = new Bundle();
-        String s1 = bundle.getString("getName","无名之辈");
-        textView1.setText(s1);
-        String s2 = bundle.getString("getMotto","这个人很懒");
-        textView2.setText(s2);
+
     }
 
     @Override
@@ -314,9 +315,9 @@ public class mineFragment extends Fragment {
      */
     public static mineFragment newInstance(String name,String picture,String motto){
         Bundle args = new Bundle();
-        args.putString("getName",name);
-        args.putString("getPicture",picture);
-        args.putString("getMotto",motto);
+        args.putString("getUName",name);
+        args.putString("getUPicture",picture);
+        args.putString("getUMotto",motto);
         mineFragment Fragment = new mineFragment();
         Fragment.setArguments(args);
         return Fragment;

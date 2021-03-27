@@ -1,6 +1,7 @@
 package com.example.library.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
@@ -69,13 +70,16 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bottom_guide);//此处为绿色原版
         //getRequest();
-        Log.d(TAG,"书城的activity");
+        Log.d(TAG, "书城的activity");
         bindView();
-        linearLayout1.performClick();
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         user_token = bundle.getString("getToken");
         System.out.println(user_token);
+        /**
+         * 在此更换进入的初始页面，linearLayout1代表书城
+         */
+        linearLayout2.performClick();
         //Log.d(TAG,"在activity内查看DATA的数据"+DATA.toString());
     }
     /*public void getRequest(){
@@ -109,7 +113,6 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
     }*/
 
 
-
     /*将实例事件与ui视图绑定*/
     private void bindView() {
         book_city = (ImageView) findViewById(R.id.txt_book_city);
@@ -129,7 +132,7 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
     }
 
     /*重置文本点击状态*/
-    private void setSelect(){
+    private void setSelect() {
         linearLayout1.setSelected(false);
         linearLayout2.setSelected(false);
         linearLayout3.setSelected(false);
@@ -141,66 +144,55 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         hideAllFragment(fragmentTransaction);
         setSelect();
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.booK_city_all:
                 linearLayout1.setSelected(true);
-                if(fragment1 == null){
+                if (fragment1 == null) {
                     fragment1 = new BookCityFragment();
-                    fragmentTransaction.add(R.id.guide_fragment,fragment1);
-                }
-                else
-                {
+                    fragmentTransaction.add(R.id.guide_fragment, fragment1);
+                } else {
                     fragmentTransaction.show(fragment1);
                 }
+                fragmentTransaction.commit();
                 break;
             case R.id.digest_all:
                 linearLayout2.setSelected(true);
-                if(fragment2 == null){
+                if (fragment2 == null) {
                     fragment2 = new ChoseBookExtract();
-                    fragmentTransaction.add(R.id.guide_fragment,fragment2);
-                }
-                else
-                {
+                    fragmentTransaction.add(R.id.guide_fragment, fragment2);
+                } else {
                     fragmentTransaction.show(fragment2);
                 }
+                fragmentTransaction.commit();
                 break;
             case R.id.mine_all:
                 linearLayout3.setSelected(true);
                 Get_user_Date(user_token);
-                fragment3 = mineFragment.newInstance(user_name,user_picture,user_motto);
-
+                Log.d("GuideActivity", "这里是对的");
+                System.out.println(user_name);
                 /**
                  *在这里使用newInstance后返回白板
                  */
-
-                if(fragment3 == null){
-                    fragment3 = new mineFragment();
-                    fragmentTransaction.add(R.id.guide_fragment,fragment3);
-                }
-                else
-                {
-                    fragmentTransaction.show(fragment3);
-                }
                 break;
 
         }
-        fragmentTransaction.commit();
+
+        /*隐藏所有的fragment(目前没想明白干啥用的)*/
 
     }
 
-    /*隐藏所有的fragment(目前没想明白干啥用的)*/
-    private void hideAllFragment(FragmentTransaction fragmentTransaction){
-        if(fragment1 != null) {
+    private void hideAllFragment(FragmentTransaction fragmentTransaction) {
+        if (fragment1 != null) {
             fragmentTransaction.hide(fragment1);
         }
-        if(fragment2 != null) {
+        if (fragment2 != null) {
             fragmentTransaction.hide(fragment2);
         }
-        if(fragment3 != null)
+        if (fragment3 != null)
             fragmentTransaction.hide(fragment3);
     }
 
-    public void Get_user_Date(String token){
+    public void Get_user_Date(String token) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://39.102.42.156:10086")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -210,27 +202,39 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
 
         /*接收返回的类*/
 
-        Call<Users> user= userDate.getCall(token);
+        Call<Users> user = userDate.getCall(token);
         user.enqueue(new Callback<Users>() {
             @Override
             public void onResponse(Call<Users> call, Response<Users> response) {
                 if (response.isSuccessful() == true) {
                     user_picture = response.body().getPicture();
-                    System.out.println(user_picture);
                     user_name = response.body().getUser_name();
-                    System.out.println(user_name);
                     user_motto = response.body().getMotto();
-                    Toast.makeText(GuideActivity.this, "成功获取信息", Toast.LENGTH_SHORT).show();
-
-                } else {
-                    Toast.makeText(GuideActivity.this, "获取信息失败", Toast.LENGTH_SHORT).show();
+                    FragmentTransaction fragmentTransaction0 = getSupportFragmentManager().beginTransaction();
+                    hideAllFragment(fragmentTransaction0);
+                    setSelect();
+                    if (fragment3 == null) {
+                        fragment3 = mineFragment.newInstance(user_name,user_picture,user_motto);
+                        fragmentTransaction0.add(R.id.guide_fragment, fragment3);
+                    } else {
+                        fragmentTransaction0.show(fragment3);
+                    }
+                    fragmentTransaction0.commit();
                 }
+
+                Log.d("GuideActivity", user_name + "还有" + user_motto);
+
+                Toast.makeText(GuideActivity.this, "成功获取信息", Toast.LENGTH_SHORT).show();
+
             }
 
             @Override
             public void onFailure(Call<Users> call, Throwable t) {
-                Toast.makeText(GuideActivity.this, "GG", Toast.LENGTH_SHORT).show();
+
+                Toast.makeText(GuideActivity.this, "获取信息失败", Toast.LENGTH_SHORT).show();
             }
+
+
         });
     }
 

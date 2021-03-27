@@ -82,9 +82,9 @@ public class LoginActivity extends AppCompatActivity {
 
         LoginService login = retrofit.create(LoginService.class);
 
-        /*接收返回的类*/
-
+/*传入数据组*/
         Call<Token> call = login.getCall(new Users(name, password, motto));
+        /*接受返回的数据组*/
         call.enqueue(new Callback<Token>() {
             @Override
             public void onResponse(Call<Token> call, Response<Token> response) {
