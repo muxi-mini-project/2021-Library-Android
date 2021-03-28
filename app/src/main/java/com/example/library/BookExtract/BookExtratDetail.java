@@ -13,12 +13,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.library.AboutSwitch;
+
 import com.example.library.R;
-
-
-import com.example.library.activity.ChoseBookExtractActivity;
-import com.example.library.fragment.ChoseBookExtract;
+import com.example.library.activity.GuideActivity;
 
 public class BookExtratDetail extends AppCompatActivity implements View.OnClickListener {
 
@@ -30,7 +27,6 @@ public class BookExtratDetail extends AppCompatActivity implements View.OnClickL
     private EditText mChapter_context;
     private EditText mIdea;
     private Button mFinish1;
-    private Context mContext;
 
     private DialogInterface.OnClickListener mListener=new DialogInterface.OnClickListener() {
         @Override
@@ -48,18 +44,18 @@ public class BookExtratDetail extends AppCompatActivity implements View.OnClickL
         mBack_book_extract.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(BookExtratDetail.this,ChoseBookExtractActivity.class);
-                startActivity(intent);
-                //((Activity) mContext).finish();
+                //Intent intent=new Intent(BookExtratDetail.this, GuideActivity.class);
+                //startActivity(intent);
+                BookExtratDetail.this.finish();
             }
         });
         mFinish1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(BookExtratDetail.this,"已完成",Toast.LENGTH_SHORT);
-                //Intent intent=new Intent(BookExtratDetail.this, ChoseBookExtractActivity.class);
+                //Intent intent=new Intent(BookExtratDetail.this, GuideActivity.class);
                 //startActivity(intent);
-                ((Activity) mContext).finish();
+                BookExtratDetail.this.finish();
             }
         });
         mSwitch_detail.setOnClickListener(new View.OnClickListener() {
