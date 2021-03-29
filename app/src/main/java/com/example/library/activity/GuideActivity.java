@@ -44,7 +44,7 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bottom_guide);//此处为绿色原版
         bindView();
-        linearLayout1.performClick();
+        linearLayout2.performClick();
     }
 
 

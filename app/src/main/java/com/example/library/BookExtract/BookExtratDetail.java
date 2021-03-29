@@ -14,11 +14,18 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.library.AboutSwitch;
+import com.example.library.Interface.BookExtractInterface;
 import com.example.library.R;
 
 
 import com.example.library.activity.ChoseBookExtractActivity;
 import com.example.library.fragment.ChoseBookExtract;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class BookExtratDetail extends AppCompatActivity implements View.OnClickListener {
 
@@ -45,6 +52,7 @@ public class BookExtratDetail extends AppCompatActivity implements View.OnClickL
 
         setContentView(R.layout.book_extract_detail);
         initView();
+        getRequest();
         mBack_book_extract.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,7 +64,8 @@ public class BookExtratDetail extends AppCompatActivity implements View.OnClickL
         mFinish1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(BookExtratDetail.this,"已完成",Toast.LENGTH_SHORT);
+
+                Toast.makeText(BookExtratDetail.this,"已添加",Toast.LENGTH_SHORT);
                 //Intent intent=new Intent(BookExtratDetail.this, ChoseBookExtractActivity.class);
                 //startActivity(intent);
                 ((Activity) mContext).finish();
@@ -73,6 +82,29 @@ public class BookExtratDetail extends AppCompatActivity implements View.OnClickL
                 dialog.show();
             }
         });
+    }
+
+    private void getRequest() {
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://124.71.184.107:10086/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        BookExtractInterface mApi = retrofit.create(BookExtractInterface.class);
+        Call<BookDigestData>  bookDigestDataCall=mApi.getDigest();
+        bookDigestDataCall.enqueue(new Callback<BookDigestData>() {
+            @Override
+            public void onResponse(Call<BookDigestData> call, Response<BookDigestData> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<BookDigestData> call, Throwable t) {
+
+            }
+        });
+
     }
 
     private void initView() {

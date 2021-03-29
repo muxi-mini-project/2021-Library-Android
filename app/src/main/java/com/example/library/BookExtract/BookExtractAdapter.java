@@ -1,5 +1,6 @@
 package com.example.library.BookExtract;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.os.IResultReceiver;
@@ -32,17 +33,9 @@ public class BookExtractAdapter extends RecyclerView.Adapter<BookExtractAdapter.
     public Context context;
     private LinearLayout mLinearLayout;
     //防止空指针异常
-    private List<BookExtract> mBook_extract_list = new ArrayList<>();
+    private List<BookExtract.BookExtractData> mBook_extract_list = new ArrayList<>();
     private OnRecyclerViewItemClickListener mOnRecyclerViewItemClickListener;
-   /* //长按删除监听接口
-    private OnItemClickListener onItemClickListener;
-    public interface OnItemClickListener{
-        void onItemLongClick(View view , int pos);
-    }
 
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
-        this.onItemClickListener = onItemClickListener;
-    }*/
 
     public interface LongClickLisenter {
         void LongClickLisenter(int position);
@@ -60,7 +53,7 @@ public class BookExtractAdapter extends RecyclerView.Adapter<BookExtractAdapter.
         notifyDataSetChanged();
     }
 
-    public BookExtractAdapter(Context context, List<BookExtract> mBook_extract_list) {
+    public BookExtractAdapter(Context context, List<BookExtract.BookExtractData> mBook_extract_list) {
         this.context = context;
         this.mBook_extract_list = mBook_extract_list;
     }
@@ -79,6 +72,7 @@ public class BookExtractAdapter extends RecyclerView.Adapter<BookExtractAdapter.
         TextView bookname;
         TextView context;
         TextView date;
+        Button lock;
         BookExtractLab mBookextractLab;
 
 
@@ -87,18 +81,7 @@ public class BookExtractAdapter extends RecyclerView.Adapter<BookExtractAdapter.
             bookname = (TextView) view.findViewById(R.id.book_extract_name);
             context = (TextView) view.findViewById(R.id.book_extract_context);
             date = (TextView) view.findViewById(R.id.date);
-             /*view.setOnClickListener(new View.OnClickListener() {
-                 @Override
-                 public void onClick(View v) {
-                   if(onRecyclerViewItemClickListener!=null){
-                       int position=getBindingAdapterPosition();
-                       //确保position的值有效
-                       if(position!=RecyclerView.NO_POSITION){
-                           onRecyclerViewItemClickListener.onItemClicked(view,position);
-                       }
-                   }
-                 }
-             });*/
+            lock = (Button)view.findViewById(R.id.lock);
         }
     }
 
@@ -133,18 +116,8 @@ public class BookExtractAdapter extends RecyclerView.Adapter<BookExtractAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-       /* if(onItemClickListener!=null) {
-            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    onItemClickListener.onItemLongClick(holder.itemView,position    );
-                    return false;
-                }
-            });
-        }*/
-
         //创建前面实体类对象
-        BookExtract extract = mBook_extract_list.get(position);
+        BookExtract.BookExtractData extract =mBook_extract_list .get(position);
         //将具体的值赋予子控件
         holder.bookname.setText(extract.getBook_extract_name());
         holder.date.setText(extract.getBook_extract_date());
@@ -161,13 +134,13 @@ public class BookExtractAdapter extends RecyclerView.Adapter<BookExtractAdapter.
                 context.startActivity(intent);
             }
         });
-       /* holder.context.setOnClickListener(new View.OnClickListener() {
+        holder.lock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent sr=new ();
 
             }
-        });?*/
+        });
+
 
     }
 
@@ -175,6 +148,10 @@ public class BookExtractAdapter extends RecyclerView.Adapter<BookExtractAdapter.
     //用以返回长度
     @Override
     public int getItemCount() {
+        //添加功能，在没有内容的时候显示几条ITEM
+        //if()
+
+
         return mBook_extract_list.size();
     }
 }

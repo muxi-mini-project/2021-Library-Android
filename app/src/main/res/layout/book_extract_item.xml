@@ -29,7 +29,7 @@
         android:layout_marginTop="0.001dp"
         android:layout_marginLeft="35dp"
         android:gravity="center"
-        android:background="@drawable/lock_button"
+        android:background="@drawable/ic_baseline_arrow_drop_down_24"
         />
 </LinearLayout>
 

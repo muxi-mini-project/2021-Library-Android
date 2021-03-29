@@ -56,7 +56,7 @@ public class EditAdpapter extends RecyclerView.Adapter<EditAdpapter.ViewHolder> 
         }
     }
     //添加数据
-    private void addData(int position){
+    public void addData(int position){
         //通知列表添加一条
         kindlist.add(position,"我是书摘种类"+position);
         //添加动画
@@ -64,7 +64,7 @@ public class EditAdpapter extends RecyclerView.Adapter<EditAdpapter.ViewHolder> 
     }
 
     //删除数据
-    private void removeData(int position){
+    public void removeData(int position){
         kindlist.remove(position);
         //删除动画
         notifyItemRemoved(position);

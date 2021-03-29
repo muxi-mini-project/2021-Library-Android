@@ -4,6 +4,7 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -25,20 +26,30 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.library.BookExtract.BookExtractAdapter;
 import com.example.library.BookExtract.BookExtratDetail;
+import com.example.library.Interface.BookExtractInterface;
 import com.example.library.R;
 //import com.example.library.data.Book;
+import com.example.library.data.BookData;
 import com.example.library.data.BookExtractLab;
 import com.example.library.edit;
 
 
+import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class ChoseBookExtract extends Fragment {
+    private static final String TAG = "DQP";
     private Spinner mChose;
     private Button mEdit;
     private Button mAdd;
-    public static List<BookExtract> mBook_extract_list = new ArrayList<>();
+    public static List<BookExtract.BookExtractData> mBook_extract_list = new ArrayList<>();
     private BookExtractAdapter mAdapter;
     private TextView mBook_extract;
     private EditText mBook_search;
@@ -55,7 +66,7 @@ public class ChoseBookExtract extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        getRequest();
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -147,6 +158,48 @@ public class ChoseBookExtract extends Fragment {
         return view;
 
     }
+
+
+    private void getRequest() {
+        //创建Retrofit对象
+       /* Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://124.71.184.107:10086/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        //创建网络请求接口的实例
+        BookService mApi = retrofit.create(BookService.class);
+        //对发送请求进行封装---<发送请求>
+        Call<BookData> bookDataCall = mApi.getCall();*///所需参数
+        //发送网络请求（异步）
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://124.71.184.107:10086/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        BookExtractInterface mApi = retrofit.create(BookExtractInterface.class);
+        Call<BookExtract> bookExtractCall = mApi.getCall("7");
+        bookExtractCall.enqueue(new Callback<BookExtract>() {
+            @Override
+            public void onResponse(Call<BookExtract> call, Response<BookExtract> response) {
+                Log.d(TAG, "------------->>" + response.code());
+                if (response.code() == HttpURLConnection.HTTP_OK) {
+                    Log.d(TAG, "+++=========>" + response.body().toString());
+                    mBook_extract_list = response.body().getBook_extract_list();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<BookExtract> call, Throwable t) {
+                Log.d(TAG,"error ++++++++++" );
+            }
+
+
+        } );
+
+    }
+
 
     /*  @Override
       public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo info) {

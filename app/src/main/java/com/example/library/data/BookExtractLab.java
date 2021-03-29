@@ -11,13 +11,13 @@ import java.util.UUID;
 public class BookExtractLab {
     public static BookExtractLab sBookExtractLab;
 
-    private List<BookExtract> mBookExtracters;
+    private List<BookExtract.BookExtractData> mBookExtracters;
 
     public BookExtractLab(Context context) {
         mBookExtracters = new ArrayList<>();
         //生成临时数据组
         for (int i = 0; i < 100; i++) {
-            BookExtract bookExtracter = new BookExtract(context);
+            BookExtract.BookExtractData bookExtracter = new BookExtract.BookExtractData(context);
             bookExtracter.setBook_extract_name("BookExtract #" + i);
             bookExtracter.setBook_extract_context("context" + i);
             bookExtracter.setBook_extract_date("Date" + i);
@@ -34,12 +34,12 @@ public class BookExtractLab {
     }
 
     //得到数组
-    public List<BookExtract> getBookExtracters() {
+    public List<BookExtract.BookExtractData> getBookExtracters() {
         return mBookExtracters;
     }
 
-    public BookExtract getBookextract(UUID id) {
-        for (BookExtract bookExtracter : mBookExtracters) {
+    public BookExtract.BookExtractData getBookextract(UUID id) {
+        for (BookExtract.BookExtractData bookExtracter : mBookExtracters) {
             if (bookExtracter.getBook_extract_id().equals(id)) {
                 return bookExtracter;
             }
