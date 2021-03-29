@@ -44,8 +44,6 @@ public class BookExtratDetail extends AppCompatActivity implements View.OnClickL
         mBack_book_extract.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent intent=new Intent(BookExtratDetail.this, GuideActivity.class);
-                //startActivity(intent);
                 BookExtratDetail.this.finish();
             }
         });
@@ -53,8 +51,6 @@ public class BookExtratDetail extends AppCompatActivity implements View.OnClickL
             @Override
             public void onClick(View v) {
                 Toast.makeText(BookExtratDetail.this,"已完成",Toast.LENGTH_SHORT);
-                //Intent intent=new Intent(BookExtratDetail.this, GuideActivity.class);
-                //startActivity(intent);
                 BookExtratDetail.this.finish();
             }
         });

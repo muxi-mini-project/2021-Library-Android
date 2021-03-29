@@ -44,8 +44,7 @@ public class RecommendFragment extends BookCityFragment {
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        Log.d(TAG,"推荐");
-        //getRequest();
+
     }
 
     @Override
@@ -58,8 +57,6 @@ public class RecommendFragment extends BookCityFragment {
         mRMRecyclerView = (RecyclerView) view
                 .findViewById(R.id.son_fg_recycler_view);
         getRequest();
-        //updateUI();
-        //mRMRecyclerView.setLayoutManager(new LinearLayoutManager(getParentFragment().getActivity()));
         Log.d(TAG,"RecyclerView is here!!!!");
         return view;
     }

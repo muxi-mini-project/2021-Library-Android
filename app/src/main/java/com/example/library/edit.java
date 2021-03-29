@@ -55,8 +55,6 @@ public class edit extends AppCompatActivity implements View.OnClickListener {
         mBack_book_extract.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent se=new Intent(edit.this, GuideActivity.class);
-                //startActivity(se);
                 com.example.library.edit.this.finish();
             }
         });
@@ -64,8 +62,6 @@ public class edit extends AppCompatActivity implements View.OnClickListener {
         mFinish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent sf=new Intent(edit.this, GuideActivity.class);
-                //startActivity(sf);
                 com.example.library.edit.this.finish();
             }
         });

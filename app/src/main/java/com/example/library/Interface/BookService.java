@@ -24,6 +24,9 @@ public interface BookService {
     @GET("Library/{books_id}/digest")
     Call<List<OthersDigestData>> getCall2(@Path("books_id") String books_id);
 
+    @GET("library/ranking")
+    Call<BookData> getRankCall();
+
     @POST("Library/searcher")
     Call<BookData> getSearchCall(@Body BookData bookData);
 }
