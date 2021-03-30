@@ -102,9 +102,9 @@ public class mineFragment extends Fragment {
         textView4 = v.findViewById(R.id.mine_textView4);
         imageView = v.findViewById(R.id.roundImageView);
         constraintLayout = v.findViewById(R.id.linearLayout2);
-        Log.d("mineFragment","这个可以跑");
         UpDate();
-        registerForContextMenu(constraintLayout);
+        Get_user_Date(u_token);
+        UpUI();
         Log.d("mineFragment","这里没有错");
 
         Bitmap bt = BitmapFactory.decodeFile(path + "head.jpg");
@@ -124,7 +124,7 @@ public class mineFragment extends Fragment {
                 setSelect();
                 textView3.setSelected(true);
                 if (fragment1 == null) {
-                    fragment1 = new mineFragment1();
+                    fragment1 =mineFragment1.newInstance(u_token);
                     fragmentTransaction.add(R.id.mine_fragment, fragment1);
                 } else {
                     fragmentTransaction.show(fragment1);
@@ -155,12 +155,13 @@ public class mineFragment extends Fragment {
     public void UpDate(){
         Bundle bundle = getArguments();
         u_name = (String) bundle.getString("getUName");
-        textView1.setText(String.valueOf(u_name));
-        System.out.println(u_name);
         u_motto = (String) bundle.getString("getUMotto","这个人很懒，什么都没留下");
-        textView2.setText(String.valueOf(u_motto));
         u_picture = (String) bundle.getString("getUPicture");
         u_token = (String) bundle.getString("getUToken");
+    }
+    public void UpUI(){
+        textView1.setText(String.valueOf(u_name));
+        textView2.setText(String.valueOf(u_motto));
     }
 
     @Override
@@ -196,7 +197,6 @@ public class mineFragment extends Fragment {
         final AlertDialog dialog = builder.create();
         View v = View.inflate(getContext(), R.layout.change_name, null);
         EditText editText1 =(EditText) v.findViewById(R.id.change_user_name);
-        String use_name = editText1.getText().toString();
         Button button1 = (Button)v.findViewById(R.id.change_user_name_button1);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -208,7 +208,9 @@ public class mineFragment extends Fragment {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String use_name = editText1.getText().toString();
                 Set_user_Date(u_token,use_name,u_motto,u_picture);
+                System.out.println(use_name);
             }
         });
         dialog.setView(v);
@@ -219,13 +221,15 @@ public class mineFragment extends Fragment {
         final AlertDialog dialog = builder.create();
         View v = View.inflate(getContext(), R.layout.change_motto, null);
         EditText editText2 =(EditText) v.findViewById(R.id.change_user_motto);
-        String use_motto = editText2.getText().toString();
         Button button1 = (Button)v.findViewById(R.id.change_user_motto_button1);
         Button button2 = (Button)v.findViewById(R.id.change_user_motto_button2);
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String use_motto = editText2.getText().toString();
                 Set_user_Date(u_token,u_name,use_motto,u_picture);
+                Log.d("mineFragment","更改的座右铭是"+use_motto);
+
             }
         });
         dialog.setView(v);
@@ -400,7 +404,7 @@ public class mineFragment extends Fragment {
             public void onResponse(Call<User> call, Response<User> response) {
                 if (response.isSuccessful() == true) {
                     Toast.makeText(getActivity(), "修改成功", Toast.LENGTH_SHORT).show();
-                    Log.d("mineFragment","用户名"+u_name+"座右铭"+u_motto+"图像"+u_picture);
+                    Log.d("mineFragment","用户名"+name+"座右铭"+motto+"图像"+picture);
                 } else {
                     Toast.makeText(getActivity(), "修改失败", Toast.LENGTH_SHORT).show();
                 }
@@ -412,5 +416,42 @@ public class mineFragment extends Fragment {
             }
         });
     }
+    public void Get_user_Date(String token) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://39.102.42.156:10086")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        UserDate userDate = retrofit.create(UserDate.class);
+
+        /*接收返回的类*/
+
+        Call<Users> user = userDate.getCall(token);
+        user.enqueue(new Callback<Users>() {
+            @Override
+            public void onResponse(Call<Users> call, Response<Users> response) {
+                if (response.isSuccessful() == true) {
+                    u_picture = response.body().getPicture();
+                    u_name = response.body().getUser_name();
+                    u_motto = response.body().getMotto();
+                    UpUI();
+                }
+
+                Log.d("GuideActivity", u_name + "还有" + u_motto);
+
+                Toast.makeText(getActivity(), "成功获取信息", Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onFailure(Call<Users> call, Throwable t) {
+
+                Toast.makeText(getActivity(), "获取信息失败", Toast.LENGTH_SHORT).show();
+            }
+
+
+        });
+    }
+
 
 }

@@ -1,6 +1,7 @@
 package com.example.library.fragment.minefragment;
 
         import android.content.Context;
+        import android.content.Intent;
         import android.os.Bundle;
 
         import androidx.fragment.app.Fragment;
@@ -15,6 +16,7 @@ package com.example.library.fragment.minefragment;
         import android.widget.TextView;
 
         import com.example.library.R;
+        import com.example.library.activity.MyDigestActivity;
         import com.example.library.data.MyNotes;
         import com.example.library.data.Notes;
         import com.example.library.data.NotesLab;
@@ -46,6 +48,14 @@ public class mineFragment2 extends Fragment {
         textView = (TextView)v.findViewById(R.id.a2_textView1);
 
         context = getContext();
+
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent2 = new Intent(getActivity(), MyDigestActivity.class);
+                startActivity(intent2);
+            }
+        });
 
         RecyclerView nRecyclerView = (RecyclerView) v.findViewById(R.id.mine_recycle2);
         nRecyclerView.setHasFixedSize(true);

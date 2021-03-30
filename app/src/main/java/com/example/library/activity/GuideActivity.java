@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -76,6 +77,13 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
         Bundle bundle = intent.getExtras();
         user_token = bundle.getString("getToken");
         System.out.println(user_token);
+        /**
+         * token保存到本地
+         */
+        SharedPreferences sp = getSharedPreferences("loginToken", 0);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString("This is Token",user_token);
+        editor.commit();
         /**
          * 在此更换进入的初始页面，linearLayout1代表书城
          */
@@ -212,7 +220,6 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
                     user_motto = response.body().getMotto();
                     FragmentTransaction fragmentTransaction0 = getSupportFragmentManager().beginTransaction();
                     hideAllFragment(fragmentTransaction0);
-                    setSelect();
                     if (fragment3 == null) {
                         fragment3 = mineFragment.newInstance(user_name,user_picture,user_motto,token);
                         fragmentTransaction0.add(R.id.guide_fragment, fragment3);

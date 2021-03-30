@@ -1,5 +1,7 @@
 package com.example.library.Interface;
 
+import com.example.library.data.BookData;
+import com.example.library.data.MyBook;
 import com.example.library.data.User;
 import com.example.library.data.Users;
 
@@ -14,7 +16,7 @@ import retrofit2.http.Query;
 
 public interface UserDate {
 
-    @GET("/homepage/:user_id")
+    @GET("/homepage/info")
     Call<Users> getCall(
             @Header("token") String token
     );
@@ -24,6 +26,25 @@ public interface UserDate {
             @Header("token") String token,
             @Body User user
     );
+
+    @GET("/homepage/shelf")
+    Call<MyBook> getBook(
+            @Header("token") String token);
+
+    @PUT()
+    Call<MyBook> setBook(
+            @Header("token") String token
+                           );
+    @GET("/homepage/shelf/:books_id")
+    Call<BookData.DataBean> getABook(
+            @Path(":books_id") int number
+    );
+
+    @PUT("/homepage/shelf/:books_id")
+    Call<BookData.DataBean> deleteABook(
+            @Path(":books_id") int number
+    );
+
 
 
 }

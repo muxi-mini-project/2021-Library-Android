@@ -63,7 +63,7 @@ public class BookLab{
     }
     public MyBook getMyBook(UUID Id) {
         for (MyBook myBook : mMyBooks) {
-            if (myBook.getId().equals(Id)) {
+            if (myBook.getBook_id().equals(Id)) {
                 return myBook;
             }
         }
