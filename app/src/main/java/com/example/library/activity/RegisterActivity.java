@@ -21,6 +21,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+/**
+ *注册页面！！！不是登录
+ */
 
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {

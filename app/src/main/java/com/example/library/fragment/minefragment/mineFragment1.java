@@ -1,12 +1,14 @@
 package com.example.library.fragment.minefragment;
 
 import android.content.Context;
-        import android.os.Bundle;
+import android.content.Intent;
+import android.os.Bundle;
         import android.view.LayoutInflater;
         import android.view.View;
         import android.view.ViewGroup;
         import android.widget.ImageButton;
-        import android.widget.LinearLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
         import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -15,7 +17,8 @@ import androidx.fragment.app.Fragment;
         import androidx.recyclerview.widget.RecyclerView;
 
         import com.example.library.R;
-        import com.example.library.data.BookLab;
+import com.example.library.activity.MybookActivity;
+import com.example.library.data.BookLab;
         import com.example.library.data.MyBook;
 
         import java.util.List;
@@ -26,6 +29,9 @@ public class mineFragment1 extends Fragment {
     private TextView textView2;
     private Context context;
     private LinearLayoutManager linearLayoutManager;
+
+    public mineFragment1(String u_token) {
+    }
 
 
     @Override
@@ -41,7 +47,8 @@ public class mineFragment1 extends Fragment {
         textView1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(getActivity(), MybookActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -96,14 +103,14 @@ public class mineFragment1 extends Fragment {
 
 
         class Holder extends RecyclerView.ViewHolder {
-            private ImageButton imageButton;
+            private ImageView imageView;
             private TextView textView;
 
             public Holder(LayoutInflater inflater, ViewGroup parent) {
                 super(inflater.inflate(R.layout.item_my_book, parent, false));
 
-                imageButton = (ImageButton) itemView.findViewById(R.id.my_book);
-                textView = (TextView) itemView.findViewById(R.id.my_book_name);
+                imageView = (ImageView) itemView.findViewById(R.id.mybook_pic);
+                textView = (TextView) itemView.findViewById(R.id.mybook_name);
             }
 
             public void bind(MyBook myBook) {

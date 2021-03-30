@@ -128,14 +128,14 @@ public class MineFragment extends Fragment {
 
 
         class Holder extends RecyclerView.ViewHolder {
-            private ImageButton imageButton;
+            private ImageView imageView;
             private TextView textView;
 
             public Holder(LayoutInflater inflater, ViewGroup parent) {
                 super(inflater.inflate(R.layout.item_my_book, parent, false));
 
-                imageButton = (ImageButton) itemView.findViewById(R.id.my_book);
-                textView = (TextView) itemView.findViewById(R.id.my_book_name);
+                imageView = (ImageView) itemView.findViewById(R.id.mybook_pic);
+                textView = (TextView) itemView.findViewById(R.id.mybook_name);
             }
 
             public void bind(MyBook myBook) {
