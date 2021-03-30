@@ -149,11 +149,11 @@ public class BookCityFragment extends Fragment implements SearchView.SearchViewL
     }
 
     private void getBookData() {
-        //BookLab bookLab = BookLab.get(getActivity());
-        //List<BookData.DataBean> bookData = bookLab.getBooks();
+        BookLab bookLab = BookLab.get(getActivity());
+        List<BookData.DataBean> bookData = bookLab.getBooks();
         nameList = new ArrayList<>();
-        for (int j = 0 ; j < RecommendFragment.data.size();j++){
-            nameList.add(RecommendFragment.data.get(j).getBook_name());
+        for (int j = 0 ; j < bookData.size();j++){
+            nameList.add(bookData.get(j).getBook_name());
         }
     }
     /*获取搜索结果data和adapter:可暂时忽略*/
@@ -199,7 +199,7 @@ public class BookCityFragment extends Fragment implements SearchView.SearchViewL
     private void getHintData() {
         hintData = new ArrayList<>(hintSize);
         for (int i = 1; i <= hintSize; i++){
-            hintData.add("热搜:" + RecommendFragment.data.get(i).getBook_name());
+            hintData.add("热搜:" +i);
         }
         hintAdapter = new ArrayAdapter<>
                 (getActivity(), android.R.layout.simple_list_item_1,hintData);

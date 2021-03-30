@@ -1,5 +1,6 @@
 package com.example.library.data;
 
+import java.util.List;
 import java.util.UUID;
 
 public class MyBook {
@@ -11,6 +12,7 @@ public class MyBook {
     public String book_picture;
     public int class_id;
     public int click_sum;
+    public List<MyBook> date;
 
 
     public int getBook_id() {
@@ -67,5 +69,9 @@ public class MyBook {
 
     public void setClick_sum(int click_sum) {
         this.click_sum = click_sum;
+    }
+
+    public List<MyBook> getMyBookDate(){
+        return date;
     }
 }

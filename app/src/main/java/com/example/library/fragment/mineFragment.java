@@ -437,7 +437,7 @@ public class mineFragment extends Fragment {
                     UpUI();
                 }
 
-                Log.d("GuideActivity", u_name + "还有" + u_motto);
+                Log.d("GuideActivity", u_name + "还有" + u_motto + "以及" + u_picture);
 
                 Toast.makeText(getActivity(), "成功获取信息", Toast.LENGTH_SHORT).show();
 

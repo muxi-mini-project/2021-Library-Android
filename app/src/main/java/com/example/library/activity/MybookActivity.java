@@ -112,7 +112,7 @@ public class MybookActivity extends AppCompatActivity {
             }
 
             public void bind(MyBook myBook) {
-                textView.setText(myBook.getBookTitle());
+                textView.setText(myBook.getBook_name());
 
             }
         }

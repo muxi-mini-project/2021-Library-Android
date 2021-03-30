@@ -24,6 +24,8 @@ import com.example.library.Interface.UserDate;
 import com.example.library.R;
 import com.example.library.activity.MybookActivity;
 import com.example.library.data.BookData;
+import com.example.library.data.MyBook;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,9 +40,10 @@ public class mineFragment1 extends Fragment {
     private TextView textView1;
     private TextView textView2;
     private MyBookAdapt adapt;
-    private List<BookData.DataBean> date;
+    private List<MyBook> date;
     private RecyclerView mRecyclerView;
     private String token;
+
 
 
     @Override
@@ -75,7 +78,7 @@ public class mineFragment1 extends Fragment {
         Bundle bundle = getArguments();
         token = bundle.getString("mineFragment1");
         System.out.println(token+"     mineFragment1");
-        get_MyBook(token);
+        get_MyBook("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MTcyMDExMzcsImlhdCI6MTYxNjU5NjMzNywidXNlcl9pZCI6IjIiLCJ1c2VyX25hbWUiOiLpgrHkupHosaoiLCJ1c2VyX3Bhc3N3b3JkIjoiNjY2In0.M-xyTBUFJrlDAP5Zjd2yV95jpdrZp5lZJ0hfqnMfu6Y");
         Log.d("mineFragment1","mineFragment1网络请求后");
 
         return v;
@@ -89,10 +92,10 @@ public class mineFragment1 extends Fragment {
 
     class MyBookAdapt extends RecyclerView.Adapter<mineFragment1.MyBookAdapt.Holder> implements View.OnClickListener {
 
-        private List<BookData.DataBean> mMyBook;
+        private List<MyBook> mMyBook;
         private Context mContext;
 
-        public MyBookAdapt(List<BookData.DataBean> myBook, Context context) {
+        public MyBookAdapt(List<MyBook> myBook, Context context) {
             this.mMyBook = myBook;
             this.mContext = context;
         }
@@ -105,7 +108,7 @@ public class mineFragment1 extends Fragment {
 
         @Override
         public void onBindViewHolder(mineFragment1.MyBookAdapt.Holder holder, int position) {
-            BookData.DataBean myBook = mMyBook.get(position);
+            MyBook myBook = mMyBook.get(position);
             holder.bind(myBook);
         }
 
@@ -131,7 +134,7 @@ public class mineFragment1 extends Fragment {
                 textView = (TextView) itemView.findViewById(R.id.mybook_name);
             }
 
-            public void bind(BookData.DataBean myBook) {
+            public void bind(MyBook myBook) {
 
                 textView.setText(myBook.getBook_name());
             }
@@ -148,14 +151,14 @@ public class mineFragment1 extends Fragment {
 
         /*接收返回的类*/
 
-        Call<BookData> myBook = userDate.getBook(token);
+        Call<MyBook> myBook = userDate.getBook(token);
         Log.d("mineFragment1","网络请求在此可运行1");
-        myBook.enqueue(new Callback<BookData>() {
+        myBook.enqueue(new Callback<MyBook>() {
             @Override
-            public void onResponse(Call<BookData> call, Response<BookData> response) {
+            public void onResponse(Call<MyBook> call, Response<MyBook> response) {
                 Log.d("mineFragment1","网络请求在此可运行2");
                 if (response.isSuccessful() == true) {
-                    date = response.body().getData();
+                    date = response.body().getMyBookDate();
                     UpUI();
                 }
                 Log.d("mineFragment1", "mineFragment1网络请求成功");
@@ -164,7 +167,7 @@ public class mineFragment1 extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<BookData> call, Throwable t) {
+            public void onFailure(Call<MyBook> call, Throwable t) {
                 Toast.makeText(getActivity(), "获取书籍失败", Toast.LENGTH_SHORT).show();
                 Log.d("mineFragment1","网络请求失败");
             }
