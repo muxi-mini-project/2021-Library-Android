@@ -17,12 +17,14 @@ import android.widget.Toast;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
         import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.library.Interface.UserDate;
 import com.example.library.R;
 import com.example.library.activity.MybookActivity;
+import com.example.library.data.Book;
 import com.example.library.data.BookData;
 import com.example.library.data.MyBook;
 
@@ -40,7 +42,7 @@ public class mineFragment1 extends Fragment {
     private TextView textView1;
     private TextView textView2;
     private MyBookAdapt adapt;
-    private List<MyBook> date;
+    private List<BookData.DataBean> date = new ArrayList<>();
     private RecyclerView mRecyclerView;
     private String token;
 
@@ -54,7 +56,7 @@ public class mineFragment1 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        get_MyBook("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MTcyMDExMzcsImlhdCI6MTYxNjU5NjMzNywidXNlcl9pZCI6IjIiLCJ1c2VyX25hbWUiOiLpgrHkupHosaoiLCJ1c2VyX3Bhc3N3b3JkIjoiNjY2In0.M-xyTBUFJrlDAP5Zjd2yV95jpdrZp5lZJ0hfqnMfu6Y");
         View v = inflater.inflate(R.layout.fragment_a1, container, false);
         mRecyclerView = (RecyclerView) v.findViewById(R.id.mine_recycle1);
 
@@ -78,24 +80,25 @@ public class mineFragment1 extends Fragment {
         Bundle bundle = getArguments();
         token = bundle.getString("mineFragment1");
         System.out.println(token+"     mineFragment1");
-        get_MyBook("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MTcyMDExMzcsImlhdCI6MTYxNjU5NjMzNywidXNlcl9pZCI6IjIiLCJ1c2VyX25hbWUiOiLpgrHkupHosaoiLCJ1c2VyX3Bhc3N3b3JkIjoiNjY2In0.M-xyTBUFJrlDAP5Zjd2yV95jpdrZp5lZJ0hfqnMfu6Y");
+
         Log.d("mineFragment1","mineFragment1网络请求后");
 
         return v;
     }
     public void UpUI(){
         adapt = new MyBookAdapt(date,getActivity());
-        //mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getParentFragment().getActivity(),RecyclerView.HORIZONTAL,true));
         mRecyclerView.setAdapter(adapt);
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(),DividerItemDecoration.HORIZONTAL));
     }
 
     class MyBookAdapt extends RecyclerView.Adapter<mineFragment1.MyBookAdapt.Holder> implements View.OnClickListener {
 
-        private List<MyBook> mMyBook;
+        private List<BookData.DataBean> mMyBook;
         private Context mContext;
 
-        public MyBookAdapt(List<MyBook> myBook, Context context) {
+        public MyBookAdapt(List<BookData.DataBean> myBook, Context context) {
             this.mMyBook = myBook;
             this.mContext = context;
         }
@@ -108,13 +111,17 @@ public class mineFragment1 extends Fragment {
 
         @Override
         public void onBindViewHolder(mineFragment1.MyBookAdapt.Holder holder, int position) {
-            MyBook myBook = mMyBook.get(position);
+            BookData.DataBean myBook = mMyBook.get(position);
+            Log.d("mineFragment1","mineFragment1中的数据"+myBook.toString());
             holder.bind(myBook);
         }
 
         @Override
         public int getItemCount() {
-            return mMyBook.size();
+            if(mMyBook!= null) {
+                return mMyBook.size();
+            }
+            return 1;
         }
 
         @Override
@@ -126,6 +133,7 @@ public class mineFragment1 extends Fragment {
         class Holder extends RecyclerView.ViewHolder {
             private ImageView imageView;
             private TextView textView;
+            public BookData.DataBean mMyBook;
 
             public Holder(LayoutInflater inflater, ViewGroup parent) {
                 super(inflater.inflate(R.layout.item_my_book, null, false));
@@ -134,7 +142,8 @@ public class mineFragment1 extends Fragment {
                 textView = (TextView) itemView.findViewById(R.id.mybook_name);
             }
 
-            public void bind(MyBook myBook) {
+            public void bind(BookData.DataBean myBook) {
+                mMyBook = myBook;
 
                 textView.setText(myBook.getBook_name());
             }
@@ -151,14 +160,14 @@ public class mineFragment1 extends Fragment {
 
         /*接收返回的类*/
 
-        Call<MyBook> myBook = userDate.getBook(token);
+        Call<BookData> myBook = userDate.getBook(token);
         Log.d("mineFragment1","网络请求在此可运行1");
-        myBook.enqueue(new Callback<MyBook>() {
+        myBook.enqueue(new Callback<BookData>() {
             @Override
-            public void onResponse(Call<MyBook> call, Response<MyBook> response) {
+            public void onResponse(Call<BookData> call, Response<BookData> response) {
                 Log.d("mineFragment1","网络请求在此可运行2");
                 if (response.isSuccessful() == true) {
-                    date = response.body().getMyBookDate();
+                    date = response.body().getData();
                     UpUI();
                 }
                 Log.d("mineFragment1", "mineFragment1网络请求成功");
@@ -167,7 +176,8 @@ public class mineFragment1 extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<MyBook> call, Throwable t) {
+            public void onFailure(Call<BookData> call, Throwable t) {
+                UpUI();
                 Toast.makeText(getActivity(), "获取书籍失败", Toast.LENGTH_SHORT).show();
                 Log.d("mineFragment1","网络请求失败");
             }

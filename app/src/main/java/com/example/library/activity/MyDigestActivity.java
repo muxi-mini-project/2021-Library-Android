@@ -2,6 +2,7 @@ package com.example.library.activity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,15 +16,23 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.library.Interface.UserDate;
 import com.example.library.R;
 import com.example.library.data.BookLab;
 import com.example.library.data.CommentDetail;
 import com.example.library.data.CommentLab;
 import com.example.library.data.MyBook;
+import com.example.library.data.MyDigest;
 
 import org.w3c.dom.Comment;
 
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MyDigestActivity extends AppCompatActivity {
 
@@ -117,5 +126,35 @@ public class MyDigestActivity extends AppCompatActivity {
 
             }
         }
+    }
+
+    public void getDigest(String token, int book_id) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://39.102.42.156:10086")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        UserDate userDate = retrofit.create(UserDate.class);
+
+        Call<MyDigest> user = userDate.getADigest(token, book_id);
+
+        user.enqueue(new Callback<MyDigest>() {
+
+
+            @Override
+            public void onResponse(Call<MyDigest> call, Response<MyDigest> response) {
+                if (response.isSuccessful() == true) {
+
+                }
+                Log.d("MyBookActivity", "获取单一书摘的网络请求成功");
+            }
+
+            @Override
+            public void onFailure(Call<MyDigest> call, Throwable t) {
+                Log.d("MyBookActivity", "获取单一书摘的网络请求失败");
+            }
+
+
+        });
     }
 }

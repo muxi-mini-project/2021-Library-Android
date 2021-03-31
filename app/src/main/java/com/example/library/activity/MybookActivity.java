@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -20,12 +21,21 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.request.transition.Transition;
+import com.example.library.Interface.UserDate;
 import com.example.library.R;
 import com.example.library.data.BookLab;
 import com.example.library.data.MyBook;
+import com.example.library.data.Users;
 import com.example.library.fragment.sonfragment.RecommendFragment;
 
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MybookActivity extends AppCompatActivity {
 
@@ -52,11 +62,11 @@ public class MybookActivity extends AppCompatActivity {
         List<MyBook> mybook = bookLab.getmMyBooks();
         recyclerView.setAdapter(new MybookActivity.MybookAdapter(mybook, MybookActivity.this));
 
-
     }
 
 
-    class MybookAdapter extends RecyclerView.Adapter<MybookActivity.MybookAdapter.ViewHolder> implements View.OnClickListener, View.OnLongClickListener {
+
+  public class MybookAdapter extends RecyclerView.Adapter<ViewHolder> {
         private Context context;
         private RecyclerView.OnItemTouchListener listener1;
         private AdapterView.OnItemClickListener listener;
@@ -69,7 +79,7 @@ public class MybookActivity extends AppCompatActivity {
         }
 
         @Override
-        public MybookActivity.MybookAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater inflate = LayoutInflater.from(MybookActivity.this);
             return new ViewHolder(inflate, parent);
         }
@@ -78,8 +88,6 @@ public class MybookActivity extends AppCompatActivity {
         public void onBindViewHolder(ViewHolder holder, int position) {
             MyBook myBook = myBookList.get(position);
             holder.bind(myBook);
-            holder.imageView.setOnClickListener(this);
-            holder.imageView.setOnLongClickListener(this);
         }
 
         @Override
@@ -87,34 +95,95 @@ public class MybookActivity extends AppCompatActivity {
             return myBookList.size();
         }
 
+
+    }
+
+
+    private class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private ImageView imageView;
+        private TextView textView;
+        private MyBook mMyBook;
+
+
+        public ViewHolder(LayoutInflater inflate, ViewGroup parent) {
+            super(inflate.inflate(R.layout.item_my_book, parent, false));
+            imageView = (ImageView) itemView.findViewById(R.id.mybook_pic);
+            textView = (TextView) itemView.findViewById(R.id.mybook_name);
+            itemView.setOnClickListener(this);
+            Log.d("MyBookActivity", "点击事件设置");
+        }
+
+        public void bind(MyBook myBook) {
+            mMyBook = myBook;
+            textView.setText(mMyBook.getBook_name());
+
+        }
+
         @Override
         public void onClick(View v) {
-            Toast.makeText(MybookActivity.this, "单击", Toast.LENGTH_SHORT);
-        }
-
-        @Override
-        public boolean onLongClick(View v) {
-            Toast.makeText(MybookActivity.this, "长按", Toast.LENGTH_SHORT);
-            return true;
-        }
-
-        class ViewHolder extends RecyclerView.ViewHolder {
-            private ImageView imageView;
-            private TextView textView;
-
-
-            public ViewHolder(LayoutInflater inflate, ViewGroup parent) {
-                super(inflate.inflate(R.layout.item_my_book, parent, false));
-                imageView = itemView.findViewById(R.id.mybook_pic);
-                textView = itemView.findViewById(R.id.mybook_name);
-
-
-            }
-
-            public void bind(MyBook myBook) {
-                textView.setText(myBook.getBook_name());
-
-            }
+            Log.d("MyBookActivity", "成功点击");
+            Toast.makeText(MybookActivity.this, "点击成功", Toast.LENGTH_SHORT);
         }
     }
+
+    public void getBookDetail(String token, int book_id) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://39.102.42.156:10086")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        UserDate userDate = retrofit.create(UserDate.class);
+
+        Call<MyBook> user = userDate.getABook(token, book_id);
+
+        user.enqueue(new Callback<MyBook>() {
+
+
+            @Override
+            public void onResponse(Call<MyBook> call, Response<MyBook> response) {
+                if (response.isSuccessful() == true) {
+
+                }
+                Log.d("MyBookActivity", "获取单一书本的网络请求成功");
+            }
+
+            @Override
+            public void onFailure(Call<MyBook> call, Throwable t) {
+                Log.d("MyBookActivity", "获取单一书本的网络请求失败");
+            }
+
+
+        });
+    }
+
+    public void deleteBookDetail(String token, int book_id) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://39.102.42.156:10086")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        UserDate userDate = retrofit.create(UserDate.class);
+
+        Call<MyBook> user = userDate.deleteABook(token, book_id);
+
+        user.enqueue(new Callback<MyBook>() {
+
+
+            @Override
+            public void onResponse(Call<MyBook> call, Response<MyBook> response) {
+                if (response.isSuccessful() == true) {
+
+                }
+                Log.d("MyBookActivity", "删除单一书本的网络请求成功");
+            }
+
+            @Override
+            public void onFailure(Call<MyBook> call, Throwable t) {
+                Log.d("MyBookActivity", "删除单一书本的网络请求失败");
+            }
+
+
+        });
+    }
+
 }
