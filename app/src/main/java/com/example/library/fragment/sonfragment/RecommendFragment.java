@@ -74,11 +74,11 @@ public class RecommendFragment extends BookCityFragment {
             //请求成功时回调
             @Override
             public void onResponse(Call<BookData> call, Response<BookData> response) {
-                Log.d(TAG,"onResponse>>>>>" + response.code());
+                Log.d(TAG,"推荐的onResponse>>>>>" + response.code());
                 if (response.code() == HttpURLConnection.HTTP_OK){
-                    Log.d(TAG,"Json>>>>>" + response.body().toString());
+                    //Log.d(TAG,"Json>>>>>" + response.body().toString());
                     data = response.body().getData();
-                    Log.d(TAG,"data--------------" + data.toString());
+                    //Log.d(TAG,"data--------------" + data.toString());
                     pics = getPicData(data);
                     updateUI();
                 }

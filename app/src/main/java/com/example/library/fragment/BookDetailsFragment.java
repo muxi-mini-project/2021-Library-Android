@@ -67,11 +67,12 @@ public class BookDetailsFragment extends Fragment {
 
     public void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
-        getRequest();
+        //getRequest();
         /*获取列表的数据,即获得id，得到指定的book对象*/
         int bookId = (int) getArguments().getSerializable(ARG_BOOK_ID);
         //mBook = BookLab.get(getActivity()).getBook(bookId);
         mBook = new BookData().getBook(bookId,RecommendFragment.data);
+        getRequest();
     }
 
 /*创建视图*/
@@ -119,7 +120,7 @@ public class BookDetailsFragment extends Fragment {
                 .build();
 
         BookService api = retrofit.create(BookService.class);
-        Call<List<OthersDigestData>> digestDataCall = api.getCall2("1");
+        Call<List<OthersDigestData>> digestDataCall = api.getCall2("1");//mBook.getBook_id().toString()
 
         digestDataCall.enqueue(new Callback<List<OthersDigestData>>() {
             @Override
@@ -128,9 +129,11 @@ public class BookDetailsFragment extends Fragment {
                 if (response.code() == HttpURLConnection.HTTP_OK){
                     Log.d(TAG,"Json--------" + response.body().toString());
                     mDataList = response.body();
-                    if (mDataList != null){
+                    if (mDataList.size() != 0){
                         Log.d(TAG,"one of the list is  " + mDataList.get(0).toString());
                         updateUI();
+                    }else{
+                        Log.d(TAG,"暂无书摘！！");
                     }
                 }
             }

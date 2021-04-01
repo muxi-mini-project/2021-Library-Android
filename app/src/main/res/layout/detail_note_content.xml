@@ -4,11 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:fitsSystemWindows="true"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/new_hint">
 
     <com.example.library.NestedScrolling.NestedScrollParentView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
         <RelativeLayout
             android:layout_width="match_parent"
@@ -105,6 +106,7 @@
                 android:orientation="vertical">
 
                 <ExpandableListView
+                    android:fillViewport="true"
                     android:id="@+id/expandable_comment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

@@ -32,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button mResign;
     private ProgressDialog mProgressDialog;
     private final String FUCK = "这个人很懒，什么都没留下";
-    private String token;
+    public static String token;
 
 
     @Override
