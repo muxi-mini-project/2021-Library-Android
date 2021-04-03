@@ -65,8 +65,7 @@ public class MybookActivity extends AppCompatActivity {
     }
 
 
-
-  public class MybookAdapter extends RecyclerView.Adapter<ViewHolder> {
+    public class MybookAdapter extends RecyclerView.Adapter<ViewHolder> {
         private Context context;
         private RecyclerView.OnItemTouchListener listener1;
         private AdapterView.OnItemClickListener listener;
@@ -164,21 +163,21 @@ public class MybookActivity extends AppCompatActivity {
 
         UserDate userDate = retrofit.create(UserDate.class);
 
-        Call<MyBook> user = userDate.deleteABook(token, book_id);
+        Call<Response<Void>> user = userDate.deleteABook(token, book_id);
 
-        user.enqueue(new Callback<MyBook>() {
+        user.enqueue(new Callback<Response<Void>>() {
 
 
             @Override
-            public void onResponse(Call<MyBook> call, Response<MyBook> response) {
+            public void onResponse(Call<Response<Void>> call, Response<Response<Void>> response) {
                 if (response.isSuccessful() == true) {
-
+                    Toast.makeText(MybookActivity.this, "删除书本成功", Toast.LENGTH_SHORT).show();
                 }
                 Log.d("MyBookActivity", "删除单一书本的网络请求成功");
             }
 
             @Override
-            public void onFailure(Call<MyBook> call, Throwable t) {
+            public void onFailure(Call<Response<Void>> call, Throwable t) {
                 Log.d("MyBookActivity", "删除单一书本的网络请求失败");
             }
 

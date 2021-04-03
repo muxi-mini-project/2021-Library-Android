@@ -9,15 +9,15 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:background="@mipmap/p11">
+        android:layout_height="450dp"
+        android:background="@mipmap/bg">
 
         <com.example.library.RoundImageView
             android:id="@+id/roundImageView"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:gravity="center_horizontal"
-            android:src="@mipmap/p2"
+            android:src="@mipmap/p11"
             imagecontrol:layout_constraintBottom_toBottomOf="parent"
             imagecontrol:layout_constraintEnd_toEndOf="parent"
             imagecontrol:layout_constraintHorizontal_bias="0.498"
@@ -64,11 +64,14 @@
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="@color/white"/>
+        android:background="@color/white" />
+
     <LinearLayout
+        android:layout_below="@id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal">
@@ -83,9 +86,8 @@
             android:background="@color/new_blue"
             android:textSize="20sp"/>
         <View
-            android:layout_width="1dp"
-            android:layout_height="50dp"
-            android:background="@color/new_blue"/>
+            android:layout_width="2dp"
+            android:layout_height="50dp" />
         <TextView
             android:id="@+id/mine_textView4"
             android:layout_width="0dp"

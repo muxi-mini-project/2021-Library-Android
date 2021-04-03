@@ -14,6 +14,10 @@ public class CommentDetail {
     private String createDate;
     private int replyTotal;
 
+    public CommentDetail(){
+
+    }
+
     public CommentDetail(String commentName, String commentContent,String createDate) {
         this.mCommentName = commentName;
         this.mComment = commentContent;

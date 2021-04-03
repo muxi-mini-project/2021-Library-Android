@@ -7,6 +7,7 @@ import com.example.library.data.User;
 import com.example.library.data.Users;
 
 import retrofit2.Call;
+import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
@@ -42,11 +43,9 @@ public interface UserDate {
             @Path("books_id") int number
     );
 
-    /**
-     * 失败
-     */
+
     @PUT("/homepage/shelf/{books_id}")
-    Call<MyBook> deleteABook(
+    Call<Response<Void>> deleteABook(
             @Header("token") String token,
             @Path("books_id") int number
     );
@@ -63,7 +62,7 @@ public interface UserDate {
     );
 
     @PUT("homepage/mydigest/{digest_id}")
-    Call<MyDigest> deleteADigest(
+    Call<Response<Void>> deleteADigest(
             @Header("token") String token,
             @Path("digest_id") int digest_id
     );

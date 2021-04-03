@@ -10,7 +10,7 @@
         android:id="@+id/linearLayout4"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
-        android:background="@color/new_blue"
+        android:background="#D7E3E5"
         android:orientation="horizontal"
         app:layout_constraintEnd_toStartOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,13 +18,13 @@
 
         <TextView
             android:id="@+id/a1_textView1"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
             android:text="管理"
             android:textSize="24sp"
-            android:gravity="center_vertical"
+            android:gravity="center"
             android:textColor="@color/white"
-            android:background="@color/new_blue"
+            android:background="@drawable/text_border"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.942"
@@ -35,24 +35,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/mine_recycle1"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:background="@mipmap/p4"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp" >
-
-        <TextView
-            android:id="@+id/a1_textView2"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_gravity="center"
-            android:background="@color/new_blue"
-            android:gravity="center"
-            android:padding="5dp"
-            android:text="点击反馈"
-            android:textColor="@drawable/mine_text"
-            android:textSize="24sp" />
-    </LinearLayout>
+        android:layout_height="150dp" />
 
 
 </LinearLayout>
