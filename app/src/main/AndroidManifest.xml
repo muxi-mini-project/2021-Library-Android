@@ -9,14 +9,13 @@
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-
+        android:usesCleartextTraffic="true"
         android:theme="@style/Theme.Design.Light.NoActionBar">
         <activity android:name=".activity.MybookActivity"/>
         <activity android:name=".activity.SetDetailActivity" />
         <activity
             android:name=".activity.LoginActivity"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
-            android:usesCleartextTraffic="true">
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -35,6 +34,7 @@
         <activity android:name=".BookExtract.BookExtratDetail"/>
         <activity android:name=".activity.GuideActivity"/>
         <activity android:name=".activity.RegisterActivity"/>
+        <activity android:name=".activity.MyDigestActivity"/>
 
 
     </application>

@@ -27,9 +27,9 @@ public class BookLab{
         for(int j = 0; j<100; j++){
             MyBook myBook = new MyBook();
 
-            myBook.setBookTitle("MyBook #"+j);
-            myBook.setBookWriter("writer"+j);
-            myBook.setIntroduction("I am mybook" +j);
+            myBook.setBook_name("MyBook #"+j);
+            myBook.setBook_auther("writer"+j);
+            myBook.setBook_information("I am mybook" +j);
 
             mMyBooks.add(myBook);
         }
@@ -61,11 +61,11 @@ public class BookLab{
     public List<MyBook> getmMyBooks(){
         return mMyBooks;
     }
+
     public MyBook getMyBook(UUID Id) {
         for (MyBook myBook : mMyBooks) {
-            if (myBook.getId().equals(Id)) {
                 return myBook;
-            }
+
         }
         return null;
     }

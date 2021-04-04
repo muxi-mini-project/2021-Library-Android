@@ -11,7 +11,7 @@
         android:layout_height="60dp"
         android:orientation="horizontal">
         <TextView
-            android:id="@+id/my_book_title"
+            android:id="@+id/mydigest_title"
             android:layout_width="0dp"
             android:layout_weight="5"
             android:text="我的发布"
@@ -21,7 +21,7 @@
             android:gravity="center"
             android:layout_height="60dp"/>
         <TextView
-            android:id="@+id/my_book_change"
+            android:id="@+id/mydigest_change"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="60dp"
@@ -30,7 +30,7 @@
             android:textSize="25sp"/>
     </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/my_book_recyclerView"
+        android:id="@+id/mydigest_recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 </LinearLayout>

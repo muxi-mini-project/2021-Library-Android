@@ -23,17 +23,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.library.Interface.BookService;
 import com.example.library.R;
-import com.example.library.data.BookData;
 import com.example.library.data.CommentData;
 import com.example.library.data.CommentDetail;
 import com.example.library.data.CommentPut;
-import com.example.library.data.NotesLab;
 import com.example.library.data.OthersDigestData;
-import com.example.library.data.ReplyDetail;
 import com.example.library.fragment.BookDetailsFragment;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.gson.Gson;
 
 import java.net.HttpURLConnection;
 import java.util.List;
@@ -47,7 +43,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class OthersNoteActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String EXTRA_NOTE_ID = "com.example.Library.note_id";
     private static final String TAG = "com.example.library";
-    private TextView textView3;
+    private TextView textView3,mTextView;
     private TextView textView5;
     private TextView textView4;
     private ImageView imageView3;
@@ -77,24 +73,25 @@ public class OthersNoteActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.detail_note_content);
         int position = (int) getIntent().getSerializableExtra(EXTRA_NOTE_ID);
         mNote = BookDetailsFragment.mDataList.get(position);
+        Log.e(TAG,"书摘的id是啥咧"+mNote.getId());
 
         //getRequest();
         initView();
-        getRequest();
+        getComment();
         updateUI();
 
         //rv_comment.setLayoutManager(new LinearLayoutManager(OthersNoteActivity.this));
         //rv_comment.setAdapter(new CommentAdapter(notes, OthersNoteActivity.this));
     }
 
-    public void getRequest(){
+    public void getComment(){
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://39.102.42.156:10086")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         BookService mApi = retrofit.create(BookService.class);
-        Call<List<CommentData>> commentDataCall = mApi.getCommentCall(LoginActivity.token,"1","2");
+        Call<List<CommentData>> commentDataCall = mApi.getCommentCall(LoginActivity.token,mNote.getBook_id(),mNote.getId());
         Log.d(TAG,"the token is+++"+LoginActivity.token);
 
         commentDataCall.enqueue(new Callback<List<CommentData>>() {
@@ -105,9 +102,13 @@ public class OthersNoteActivity extends AppCompatActivity implements View.OnClic
                 if (response.code() == HttpURLConnection.HTTP_OK){
                     Log.d(TAG,"评论的Json>>>>>" + response.body().toString());
                     mCommentList = response.body();
-                    Log.d(TAG,"评论的data--------------" + mCommentList.toString());
-                    //pics = getPicData(data);
-                    initExpandableListView(mCommentList);
+                    if (mCommentList.size() != 0){
+                        Log.d(TAG,"评论的data--------------" + mCommentList.toString());
+                        mTextView.setVisibility(View.GONE);
+                        initExpandableListView(mCommentList);
+                    }else{
+                        mTextView.setVisibility(View.VISIBLE);
+                    }
                 }
             }
 
@@ -152,6 +153,7 @@ public class OthersNoteActivity extends AppCompatActivity implements View.OnClic
         textView3 = (TextView) findViewById(R.id.textView3);
         textView5 = (TextView) findViewById(R.id.textView5);
         textView4 = (TextView) findViewById(R.id.textView4);
+        mTextView = (TextView) findViewById(R.id.empty_comment);
         imageView3 = (ImageView) findViewById(R.id.imageView3);
         textView6 = (TextView) findViewById(R.id.textView6);
         expandableListView = findViewById(R.id.expandable_comment);
@@ -247,7 +249,8 @@ public class OthersNoteActivity extends AppCompatActivity implements View.OnClic
                     CommentData comment = new CommentData("嗯哼",commentContent);//缺时间
                     adapter.addTheCommentData(comment);
                     //请求网络
-                    putComments("1","2",comment.getContent());
+                    putComments(BookDetailsFragment.mBook.getBook_id().toString(),mNote.getId(),comment.getContent());
+                    Log.e(TAG,"书摘的id是  "+mNote.getId()+"书本的id是  "+ BookDetailsFragment.mBook.getBook_id());
                     //toast
                     Toast.makeText(OthersNoteActivity.this,"评论成功",Toast.LENGTH_SHORT).show();
                 }else {

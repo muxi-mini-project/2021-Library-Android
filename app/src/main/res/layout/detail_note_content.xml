@@ -98,7 +98,7 @@
             </LinearLayout>
 
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/detail_page_comment_container"
                 android:layout_below="@+id/layout1"
                 android:layout_width="match_parent"
@@ -106,16 +106,28 @@
                 android:orientation="vertical">
 
                 <ExpandableListView
-                    android:fillViewport="true"
                     android:id="@+id/expandable_comment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="60dp"
                     android:divider="@null"
+                    android:fillViewport="true"
                     android:listSelector="@android:color/transparent"
-                    android:scrollbars="none" />
+                    android:scrollbars="none"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            </LinearLayout>
+                <TextView
+                    android:id="@+id/empty_comment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center"
+                    android:text="该书摘还没有评论噢，快来抢沙发吧~"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </RelativeLayout>
     </com.example.library.NestedScrolling.NestedScrollParentView>
 
