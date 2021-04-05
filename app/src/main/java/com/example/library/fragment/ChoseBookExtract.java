@@ -20,7 +20,8 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.example.library.BookExtract.BookExtract;
+
+import com.example.library.BookExtract.BookDigestData;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,6 +30,8 @@ import com.example.library.BookExtract.BookExtratDetail;
 import com.example.library.Interface.BookExtractInterface;
 import com.example.library.R;
 //import com.example.library.data.Book;
+import com.example.library.Searcher.SearchActivity2;
+import com.example.library.Searcher.SearchView2;
 import com.example.library.data.BookData;
 import com.example.library.data.BookExtractLab;
 import com.example.library.edit;
@@ -49,7 +52,7 @@ public class ChoseBookExtract extends Fragment {
     private Spinner mChose;
     private Button mEdit;
     private Button mAdd;
-    public static List<BookExtract.BookExtractData> mBook_extract_list = new ArrayList<>();
+    public static List<BookDigestData.DataDTO> mBook_extract_list = new ArrayList<>();
     private BookExtractAdapter mAdapter;
     private TextView mBook_extract;
     private EditText mBook_search;
@@ -112,17 +115,84 @@ public class ChoseBookExtract extends Fragment {
         mLayoutManager.setOrientation(RecyclerView.VERTICAL);
         //获取数组
         mBook_extract_list = BookExtractLab.get(getActivity()).getBookExtracters();
-        mAdapter = new BookExtractAdapter(getActivity(), mBook_extract_list);
-        mAdapter.setLongClickLisenter(new BookExtractAdapter.LongClickLisenter() {
+       // mAdapter = new BookExtractAdapter(getActivity(), mBook_extract_list);
+        return view;
+
+    }
+
+
+    private void getRequest() {
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://124.71.184.107:10086/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        BookExtractInterface mApi = retrofit.create(BookExtractInterface.class);
+        Call<BookDigestData> bookExtractCall = mApi.getCall("7");
+        bookExtractCall.enqueue(new Callback<BookDigestData>() {
             @Override
-            public void LongClickLisenter(int position) {
-                mAdapter.del(position);
-                Toast.makeText(getActivity(), "删除成功", Toast.LENGTH_SHORT).show();
+            public void onResponse(Call<BookDigestData> call, Response<BookDigestData> response) {
+                Log.d(TAG, "------------->>" + response.code());
+                if (response.code() == HttpURLConnection.HTTP_OK) {
+                    Log.d(TAG, "+++=========>" + response.body().toString());
+                    mBook_extract_list = response.body().getBook_extract_list();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<BookDigestData> call, Throwable t) {
+                Log.d(TAG,"error ++++++++++" );
+            }
+
+        } );
+
+    }
+
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mAdd = (Button) view.findViewById(R.id.add);
+        mBook_extract = (TextView) view.findViewById(R.id.book_extract);
+        mBook_search = (EditText) view.findViewById(R.id.book_search);
+        mEdit = (Button) view.findViewById(R.id.edit);
+        mAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent ab=new Intent(getActivity(), BookExtratDetail.class);
+                startActivity(ab);
             }
         });
+        mEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent ae=new Intent(getActivity(), edit.class);
+                startActivity(ae);
+
+            }
+        });
+        mBook_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getActivity(), SearchActivity2.class);
+                startActivity(intent);
+            }
+        });
+    }
 
 
-       /* mAdapter.setOnRecyclerViewItemClickListener(new BookExtractAdapter.OnRecyclerViewItemClickListener() {
+        // @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+        }
+
+        //@Override
+        public void onNothingSelected(AdapterView<?> parent) {
+
+
+        }
+    }
+  /* mAdapter.setOnRecyclerViewItemClickListener(new BookExtractAdapter.OnRecyclerViewItemClickListener() {
             @Override
             public void onRecyclerViewItemClicked(int position) {
 
@@ -155,13 +225,7 @@ public class ChoseBookExtract extends Fragment {
             }
         });*/
 
-        return view;
-
-    }
-
-
-    private void getRequest() {
-        //创建Retrofit对象
+//创建Retrofit对象
        /* Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://124.71.184.107:10086/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -170,38 +234,9 @@ public class ChoseBookExtract extends Fragment {
         BookService mApi = retrofit.create(BookService.class);
         //对发送请求进行封装---<发送请求>
         Call<BookData> bookDataCall = mApi.getCall();*///所需参数
-        //发送网络请求（异步）
+//发送网络请求（异步）
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://124.71.184.107:10086/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        BookExtractInterface mApi = retrofit.create(BookExtractInterface.class);
-        Call<BookExtract> bookExtractCall = mApi.getCall("7");
-        bookExtractCall.enqueue(new Callback<BookExtract>() {
-            @Override
-            public void onResponse(Call<BookExtract> call, Response<BookExtract> response) {
-                Log.d(TAG, "------------->>" + response.code());
-                if (response.code() == HttpURLConnection.HTTP_OK) {
-                    Log.d(TAG, "+++=========>" + response.body().toString());
-                    mBook_extract_list = response.body().getBook_extract_list();
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<BookExtract> call, Throwable t) {
-                Log.d(TAG,"error ++++++++++" );
-            }
-
-
-        } );
-
-    }
-
-
-    /*  @Override
+  /*  @Override
       public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo info) {
           menu.add(0, F1, 0, "删除书摘");
           menu.add(0, F1, 0, "编辑书摘");
@@ -223,39 +258,6 @@ public class ChoseBookExtract extends Fragment {
 
 
 
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        mAdd = (Button) view.findViewById(R.id.add);
-        mBook_extract = (TextView) view.findViewById(R.id.book_extract);
-        mBook_search = (EditText) view.findViewById(R.id.book_search);
-        mEdit = (Button) view.findViewById(R.id.edit);
-        mAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent ab=new Intent(getActivity(), BookExtratDetail.class);
-                startActivity(ab);
-            }
-        });
-        mEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent ae=new Intent(getActivity(), edit.class);
-                startActivity(ae);
-
-            }
-        });
-    }
-        // @Override
-        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-        }
-
-        //@Override
-        public void onNothingSelected(AdapterView<?> parent) {
-
-
-        }
-    }
 
 
 

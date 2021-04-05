@@ -1,16 +1,43 @@
 package com.example.library.BookExtract;
 
+import android.content.Context;
+
 import com.google.gson.annotations.SerializedName;
 
-public class BookDigestData {
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.List;
+import java.util.UUID;
 
+public class BookDigestData {
     /**
-     * data : {"id":7,"user_id":0,"book_id":0,"class_id":0,"title":"","chapter":"","summary_information":"","thought":"","date":"2021-03-28 12:34:46","public":false}
+     * data : {"id":7,"user_id":0,"book_id":0,"class_id":0,"title":"",
+     * "chapter":"","summary_information":"",
+     * "thought":"",
+     * "date":"2021-03-28 12:34:46",
+     * "public":false}
      * message : 创建成功
      */
-
     private DataDTO data;
     private String message;
+    public List<DataDTO> mBook_extract_list;
+
+    public List<DataDTO> getBook_extract_list() {
+        return mBook_extract_list;
+    }
+
+    public void setBook_extract_list() {
+        this.mBook_extract_list = mBook_extract_list;
+    }
+    public DataDTO getBook(int id,List<DataDTO> data){
+        for (DataDTO bookextract:data){
+            if (bookextract.Id.equals(id)){
+                return bookextract;
+            }
+        }
+        return null;
+    }
+
 
     public DataDTO getData() {
         return data;
@@ -41,7 +68,7 @@ public class BookDigestData {
          * date : 2021-03-28 12:34:46
          * public : false
          */
-
+        private UUID Id;
         private Integer id;
         private Integer user_id;
         private Integer book_id;
@@ -53,6 +80,20 @@ public class BookDigestData {
         private String date;
         @SerializedName("public")
         private Boolean publicX;
+
+        public DataDTO(Context context) {
+            this.Id = UUID.randomUUID();
+        }
+
+
+
+        public UUID getId1() {
+            return Id;
+        }
+
+        public void setId1(UUID id) {
+            Id = id;
+        }
 
         public Integer getId() {
             return id;
@@ -119,11 +160,14 @@ public class BookDigestData {
         }
 
         public String getDate() {
-            return date;
+            SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+            Calendar c=Calendar.getInstance();
+            String date1=sdf.format(c.getTime());
+            return date1;
         }
 
-        public void setDate(String date) {
-            this.date = date;
+        public void setDate(String date1) {
+            this.date = date1;
         }
 
         public Boolean getPublicX() {

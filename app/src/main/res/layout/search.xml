@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_marginTop="5dp"
+    android:layout_marginLeft="5dp"
+
+    >
+    <LinearLayout
+        android:orientation="horizontal"
+        android:background="@drawable/search"
+        android:layout_width="280dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        >
+        <ImageView
+            android:id="@+id/image_search"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="22dp"
+            android:layout_gravity="center"
+            android:background="@drawable/ic_baseline_search_24"
+            />
+        <EditText
+            android:id="@+id/book_search"
+            android:layout_width="170dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:imeOptions="actionSearch"
+            android:hint="搜索书摘"
+            android:textSize="18sp"
+            android:inputType="text"
+            android:background="@color/white"
+            />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_gravity="right|center_vertical"
+            android:id="@+id/search_delete"
+            android:background="@drawable/ic_baseline_highlight_off_24"
+            />
+
+    </LinearLayout>
+    <ListView
+        android:visibility="gone"
+        android:id="@+id/search_lv_tips"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+    </ListView>
+
+
+</LinearLayout>

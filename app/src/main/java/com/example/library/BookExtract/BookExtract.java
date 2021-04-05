@@ -1,4 +1,4 @@
-package com.example.library.BookExtract;
+/*package com.example.library.BookExtract;
 import android.content.Context;
 
 import java.util.ArrayList;
@@ -105,6 +105,6 @@ public class BookExtract {
             this.click_sum = click_sum;
         }
     }
-}
+}*/
 
 

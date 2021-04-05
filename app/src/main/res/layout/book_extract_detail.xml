@@ -41,20 +41,17 @@
         </LinearLayout>
         
     </LinearLayout>
-    <TextView
+    <EditText
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:text="标题"
-        android:textSize="42sp"
+        android:hint="标题"
+        android:textSize="30sp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:textColor="@color/black"
         />
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/black"/>
+
     <EditText
         android:id="@+id/chapter"
         android:layout_width="match_parent"
@@ -62,6 +59,10 @@
         android:hint="章节"
         android:background="@color/white"
         />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/black"/>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"

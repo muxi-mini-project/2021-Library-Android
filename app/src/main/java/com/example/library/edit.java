@@ -21,7 +21,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.library.BookExtract.BookExtract;
+
 import com.example.library.Interface.BookExtractInterface;
 import com.example.library.activity.ChoseBookExtractActivity;
 import com.example.library.fragment.ChoseBookExtract;
@@ -65,7 +65,8 @@ public class edit extends AppCompatActivity implements View.OnClickListener {
         public void onClick(DialogInterface dialog, int which) {
             Toast.makeText(edit.this,"Button"+which+"was clicked",Toast.LENGTH_SHORT);
             mEditAdpapter.addData(kindlist.size());
-            mBook_name.setText(mAdd_text.getText());
+           // mBook_name.setText(mAdd_text.getText().toString());
+            mEditAdpapter.addData2();
             dialog.dismiss();
         }
     };
