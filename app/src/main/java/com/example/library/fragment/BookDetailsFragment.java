@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -38,7 +39,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class BookDetailsFragment extends Fragment {
     private static final String ARG_BOOK_ID = "book_id";
     private static final String TAG = "BookDetailsFragment";
-    private BookData.DataBean mBook;
+    public static BookData.DataBean mBook;
     private NoteAdapter mNoteAdapter;
     private OthersDigestData digestData;
     public static List<OthersDigestData> mDataList = new ArrayList<>();//一定要记得右边的格式初始化！否则报空
@@ -50,7 +51,7 @@ public class BookDetailsFragment extends Fragment {
     private TextView mSMTextView;
     private TextView mZZTextView;
     private TextView mJJTextView;
-    private TextView mJJ2TextView;
+    private TextView mJJ2TextView,mTextView;
     private Button mButton1;
     private Button mButton2;
     private RecyclerView mRecyclerView;
@@ -67,11 +68,11 @@ public class BookDetailsFragment extends Fragment {
 
     public void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
-        getRequest();
-        /*获取列表的数据,即获得id，得到指定的book对象*/
         int bookId = (int) getArguments().getSerializable(ARG_BOOK_ID);
         //mBook = BookLab.get(getActivity()).getBook(bookId);
         mBook = new BookData().getBook(bookId,RecommendFragment.data);
+        Log.d(TAG,"书的id是"+mBook.getBook_id().toString());
+        getRequest();
     }
 
 /*创建视图*/
@@ -102,9 +103,9 @@ public class BookDetailsFragment extends Fragment {
         //书摘列表
         mRecyclerView = (RecyclerView)v
                 .findViewById(R.id.book_detail_list);//组件
-        //updateUI();
-        Log.d(TAG,"已经执行updateUI的方法了");
 
+        //列表为空时的提示
+        mTextView = (TextView)v.findViewById(R.id.empty_rv);
         //LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         //mRecyclerView.setLayoutManager(layoutManager);
         //mRecyclerView.setFocusable(false);
@@ -119,7 +120,7 @@ public class BookDetailsFragment extends Fragment {
                 .build();
 
         BookService api = retrofit.create(BookService.class);
-        Call<List<OthersDigestData>> digestDataCall = api.getCall2("1");
+        Call<List<OthersDigestData>> digestDataCall = api.getCall2(mBook.getBook_id().toString());//mBook.getBook_id().toString()
 
         digestDataCall.enqueue(new Callback<List<OthersDigestData>>() {
             @Override
@@ -128,9 +129,11 @@ public class BookDetailsFragment extends Fragment {
                 if (response.code() == HttpURLConnection.HTTP_OK){
                     Log.d(TAG,"Json--------" + response.body().toString());
                     mDataList = response.body();
-                    if (mDataList != null){
+                    if (mDataList.size() != 0){
                         Log.d(TAG,"one of the list is  " + mDataList.get(0).toString());
                         updateUI();
+                    }else{
+                        Log.d(TAG,"暂无书摘！！");
                     }
                 }
             }
@@ -144,18 +147,21 @@ public class BookDetailsFragment extends Fragment {
 
 /*关联RV和adapter*/
     private void updateUI(){
-        //NotesLab notesLab = NotesLab.get(getActivity());
-        //List<Notes> notes = notesLab.getNotes();
+        if (mDataList.size() != 0){
+            mTextView.setVisibility(View.GONE);
+            mNoteAdapter = new NoteAdapter(mDataList);
+            mNoteAdapter.notifyDataSetChanged();
+            //Log.d(TAG,"Adapter已经建立了"+mNoteAdapter.toString());
 
-        mNoteAdapter = new NoteAdapter(mDataList);
-        mNoteAdapter.notifyDataSetChanged();
-        Log.d(TAG,"Adapter已经建立了"+mNoteAdapter.toString());
-
-        mRecyclerView.setAdapter(mNoteAdapter);
-        Log.d(TAG,"RecyclerView已经绑定Adapter了");
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        mRecyclerView.setLayoutManager(layoutManager);
-        mRecyclerView.setFocusable(false);
+            mRecyclerView.setAdapter(mNoteAdapter);
+            //Log.d(TAG,"RecyclerView已经绑定Adapter了");
+            LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+            mRecyclerView.setLayoutManager(layoutManager);
+            //mRecyclerView.setFocusable(false);
+        }else{
+            mRecyclerView.setVisibility(View.GONE);
+            mTextView.setVisibility(View.VISIBLE);
+        }
     }
 
 /*holder*/
@@ -179,14 +185,14 @@ public class BookDetailsFragment extends Fragment {
         public void bind(OthersDigestData mNotes){
             notes = mNotes;
             mNoteName.setText(notes.getUser_id());
-            Log.d(TAG,"这里说明bind方法已经被用了"+notes.getUser_id());
+            //Log.d(TAG,"这里说明bind方法已经被用了"+notes.getUser_id());
             mNote.setText(notes.getSummary_information());
             mNoteDate.setText(notes.getDate());
         }
 
         public void onClick(View view){
             currentNumber = getAbsoluteAdapterPosition();
-            Log.d(TAG,"当前被点击的holder为"+currentNumber);
+            //Log.d(TAG,"当前被点击的holder为"+currentNumber);
             Intent intent = OthersNoteActivity.newIntent(getContext(),currentNumber);
             startActivity(intent);
         }
@@ -210,7 +216,7 @@ public class BookDetailsFragment extends Fragment {
     @Override
     public void onBindViewHolder(@NonNull NoteHolder holder, int position) {
         OthersDigestData notes = mNotes.get(position);
-        Log.d(TAG,"看看有没有实行onBindViewHolder方法"+notes.toString());
+        //Log.d(TAG,"看看有没有实行onBindViewHolder方法"+notes.toString());
         holder.bind(notes);
     }
 

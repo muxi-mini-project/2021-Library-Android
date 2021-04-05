@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -74,11 +75,11 @@ public class RecommendFragment extends BookCityFragment {
             //请求成功时回调
             @Override
             public void onResponse(Call<BookData> call, Response<BookData> response) {
-                Log.d(TAG,"onResponse>>>>>" + response.code());
+                Log.d(TAG,"推荐的onResponse>>>>>" + response.code());
                 if (response.code() == HttpURLConnection.HTTP_OK){
-                    Log.d(TAG,"Json>>>>>" + response.body().toString());
+                    //Log.d(TAG,"Json>>>>>" + response.body().toString());
                     data = response.body().getData();
-                    Log.d(TAG,"data--------------" + data.toString());
+                    //Log.d(TAG,"data--------------" + data.toString());
                     pics = getPicData(data);
                     updateUI();
                 }
@@ -142,6 +143,7 @@ public class RecommendFragment extends BookCityFragment {
         public void onClick(View view){
             Intent intent = BookDetailPagerActivity.newIntent(getActivity(),mBook.getBook_id());
             itemPosition = getBindingAdapterPosition();
+            Toast.makeText(getActivity(),"可左右滑动切换书籍",Toast.LENGTH_SHORT);
             startActivity(intent);
         }
     }
