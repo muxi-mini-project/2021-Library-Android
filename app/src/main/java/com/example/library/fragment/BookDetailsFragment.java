@@ -69,7 +69,6 @@ public class BookDetailsFragment extends Fragment {
     public void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
         int bookId = (int) getArguments().getSerializable(ARG_BOOK_ID);
-        //mBook = BookLab.get(getActivity()).getBook(bookId);
         mBook = new BookData().getBook(bookId,RecommendFragment.data);
         Log.d(TAG,"书的id是"+mBook.getBook_id().toString());
         getRequest();
