@@ -14,8 +14,10 @@ public class CommentLab {
     private CommentLab(Context context){
         mCommentDetailList = new ArrayList<>();
         for (int j = 0 ; j < 50 ; j ++){
-            mCommentDetail.setCommentName("Commenter " + j );
-            mCommentDetail.setComment("I think you are right.");
+            CommentDetail commentDetail = new CommentDetail();
+            commentDetail.setCommentName("Commenter " + j );
+            commentDetail.setComment("I think you are right.");
+            mCommentDetailList.add(commentDetail);
         }
     }
 //获取单例。没有就创建一个

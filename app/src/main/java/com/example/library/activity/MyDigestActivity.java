@@ -11,20 +11,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.library.Interface.UserDate;
 import com.example.library.R;
-import com.example.library.data.BookLab;
 import com.example.library.data.CommentDetail;
 import com.example.library.data.CommentLab;
-import com.example.library.data.MyBook;
 import com.example.library.data.MyDigest;
-
-import org.w3c.dom.Comment;
 
 import java.util.List;
 
@@ -57,32 +53,33 @@ public class MyDigestActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         CommentLab commentLab = CommentLab.get(MyDigestActivity.this);
         List<CommentDetail> commentDetails = commentLab.getCommentDetailList();
-        recyclerView.setAdapter(new MyDigestActivity.MybookAdapter(commentDetails, MyDigestActivity.this));
+        recyclerView.setAdapter(new MyDigestActivity.MyDigestAdapter(commentDetails, MyDigestActivity.this));
 
 
     }
 
 
-    class MybookAdapter extends RecyclerView.Adapter<MyDigestActivity.MybookAdapter.ViewHolder> implements View.OnClickListener, View.OnLongClickListener {
+    public class MyDigestAdapter extends RecyclerView.Adapter<MyDigestActivity.MyDigestAdapter.ViewHolder> implements View.OnClickListener, View.OnLongClickListener {
         private Context context;
         private RecyclerView.OnItemTouchListener listener1;
         private AdapterView.OnItemClickListener listener;
         private List<CommentDetail> CommentDetail;
 
 
-        public MybookAdapter(List<CommentDetail> list, Context context) {
+        public MyDigestAdapter(List<CommentDetail> list, Context context) {
             this.CommentDetail = list;
             this.context = context;
         }
 
         @Override
-        public MyDigestActivity.MybookAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public MyDigestActivity.MyDigestAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater inflate = LayoutInflater.from(MyDigestActivity.this);
             return new ViewHolder(inflate, parent);
         }
 
         @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
+        public void onBindViewHolder(@NonNull MyDigestActivity.MyDigestAdapter.ViewHolder holder, int position) {
+
             CommentDetail commentDetail =CommentDetail.get(position);
             holder.bind(commentDetail);
             holder.imageView.setOnClickListener(this);
@@ -110,6 +107,7 @@ public class MyDigestActivity extends AppCompatActivity {
             private TextView textView1;
             private TextView textView2;
             private TextView textView3;
+            private CommentDetail commentDetails;
 
 
             public ViewHolder(LayoutInflater inflate, ViewGroup parent) {
@@ -122,7 +120,10 @@ public class MyDigestActivity extends AppCompatActivity {
             }
 
             public void bind(CommentDetail commentDetail) {
-                textView1.setText(commentDetail.getCommentName());
+                commentDetails = commentDetail;
+                textView1.setText(commentDetails.getCommentName());
+                textView2.setText(commentDetails.getCommentDate());
+                textView3.setText(commentDetails.getCommentDate());
 
             }
         }
@@ -152,6 +153,36 @@ public class MyDigestActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<MyDigest> call, Throwable t) {
                 Log.d("MyBookActivity", "获取单一书摘的网络请求失败");
+            }
+
+
+        });
+    }
+
+    public void deleteDigest(String token,int digest_id){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://39.102.42.156:10086")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        UserDate userDate = retrofit.create(UserDate.class);
+
+        Call<Response<Void>> user = userDate.deleteADigest(token, digest_id);
+
+        user.enqueue(new Callback<Response<Void>>() {
+
+
+            @Override
+            public void onResponse(Call<Response<Void>> call, Response<Response<Void>> response) {
+                if (response.isSuccessful() == true) {
+                    Toast.makeText(MyDigestActivity.this,"删除书摘成功",Toast.LENGTH_SHORT).show();
+                }
+                Log.d("MyDigestActivity", "删除单一书摘的网络请求成功");
+            }
+
+            @Override
+            public void onFailure(Call<Response<Void>> call, Throwable t) {
+                Log.d("MyBookActivity", "删除单一书摘的网络请求失败");
             }
 
 

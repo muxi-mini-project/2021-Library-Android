@@ -3,6 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_marginTop="6dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginLeft="5dp"
     android:layout_height="wrap_content"
     android:background="@drawable/book_border"
     android:orientation="vertical">
@@ -34,7 +37,7 @@
             android:layout_marginTop="36dp"
             android:paddingLeft="0dp"
             android:text="昵称"
-            android:textColor="#008129"
+            android:textColor="#6E848E"
             android:textSize="25sp"
             app:layout_constraintStart_toEndOf="@+id/book_detail_note_pic"
             app:layout_constraintTop_toTopOf="parent" />
@@ -46,7 +49,7 @@
             android:layout_marginTop="36dp"
             android:layout_marginLeft="120dp"
             android:text="2021.1.30"
-            android:textColor="#AAC95D"
+            android:textColor="#6E848E"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -60,8 +63,8 @@
 
         <TextView
             android:id="@+id/myNote_content"
-            android:layout_width="392dp"
-            android:layout_height="76dp"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
             android:layout_marginStart="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginEnd="9dp"

@@ -56,7 +56,15 @@ public class mineFragment1 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        get_MyBook("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MTcyMDExMzcsImlhdCI6MTYxNjU5NjMzNywidXNlcl9pZCI6IjIiLCJ1c2VyX25hbWUiOiLpgrHkupHosaoiLCJ1c2VyX3Bhc3N3b3JkIjoiNjY2In0.M-xyTBUFJrlDAP5Zjd2yV95jpdrZp5lZJ0hfqnMfu6Y");
+        Log.d("mineFragment1","mineFragment1使用前没有错误");
+        Bundle bundle = getArguments();
+        token = bundle.getString("mineFragment1");
+        System.out.println(token+"     mineFragment1");
+
+        Log.d("mineFragment1","mineFragment1网络请求后");
+
+        get_MyBook(token);
+
         View v = inflater.inflate(R.layout.fragment_a1, container, false);
         mRecyclerView = (RecyclerView) v.findViewById(R.id.mine_recycle1);
 
@@ -69,19 +77,6 @@ public class mineFragment1 extends Fragment {
             }
         });
 
-        textView2 = (TextView) v.findViewById(R.id.a1_textView2);
-        textView2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-        Log.d("mineFragment1","mineFragment1使用前没有错误");
-        Bundle bundle = getArguments();
-        token = bundle.getString("mineFragment1");
-        System.out.println(token+"     mineFragment1");
-
-        Log.d("mineFragment1","mineFragment1网络请求后");
 
         return v;
     }
