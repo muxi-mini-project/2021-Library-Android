@@ -6,15 +6,15 @@ import com.example.library.data.MyDigest;
 import com.example.library.data.User;
 import com.example.library.data.Users;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
-import retrofit2.http.Headers;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
-import retrofit2.http.Query;
 
 public interface UserDate {
 
@@ -30,11 +30,8 @@ public interface UserDate {
     );
 
 
-/**
- * 失败
- */
     @GET("/homepage/shelf")
-    Call<BookData> getBook(
+    Call<List<MyBook>> getBook(
             @Header("token") String token);
 
     @GET("/homepage/shelf/{books_id}")
@@ -51,7 +48,7 @@ public interface UserDate {
     );
 
     @GET("/homepage/mydigest")
-    Call<MyDigest> getDigest(
+    Call <List<MyDigest>> getDigest(
             @Header("token") String token
     );
 

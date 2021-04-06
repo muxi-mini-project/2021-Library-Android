@@ -10,11 +10,11 @@ import java.util.UUID;
 public class BookLab{
     public static BookLab sBookLab;
     private List<BookData.DataBean> mBooks;
-    private List<MyBook> mMyBooks;
+    private List<MyBook> mMIES;
 
     private BookLab(Context context){
         mBooks = new ArrayList<>();
-        mMyBooks = new ArrayList<>();
+        mMIES = new ArrayList<>();
         //生成临时数据组
         for (int i = 0; i < 100; i++){
             BookData.DataBean book = new BookData.DataBean();
@@ -31,7 +31,7 @@ public class BookLab{
             myBook.setBook_auther("writer"+j);
             myBook.setBook_information("I am mybook" +j);
 
-            mMyBooks.add(myBook);
+            mMIES.add(myBook);
         }
     }
 
@@ -58,12 +58,12 @@ public class BookLab{
         return null;
     }
 
-    public List<MyBook> getmMyBooks(){
-        return mMyBooks;
+    public List<MyBook> getmMIES(){
+        return mMIES;
     }
 
     public MyBook getMyBook(UUID Id) {
-        for (MyBook myBook : mMyBooks) {
+        for (MyBook myBook : mMIES) {
                 return myBook;
 
         }

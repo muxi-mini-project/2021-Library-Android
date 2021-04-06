@@ -1,33 +1,26 @@
 package com.example.library.activity;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.request.transition.Transition;
 import com.example.library.Interface.UserDate;
 import com.example.library.R;
 import com.example.library.data.BookLab;
 import com.example.library.data.MyBook;
-import com.example.library.data.Users;
-import com.example.library.fragment.sonfragment.RecommendFragment;
 
 import java.util.List;
 
@@ -59,7 +52,7 @@ public class MybookActivity extends AppCompatActivity {
         linearLayoutManager = new GridLayoutManager(MybookActivity.this, 4);
         recyclerView.setLayoutManager(linearLayoutManager);
         BookLab bookLab = BookLab.get(MybookActivity.this);
-        List<MyBook> mybook = bookLab.getmMyBooks();
+        List<MyBook> mybook = bookLab.getmMIES();
         recyclerView.setAdapter(new MybookActivity.MybookAdapter(mybook, MybookActivity.this));
 
     }
@@ -120,7 +113,10 @@ public class MybookActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
-            Log.d("MyBookActivity", "成功点击");
+            Intent i1 = BookDetailPagerActivity.newIntent(MybookActivity.this, mMyBook.getBook_id());
+            //itemPosition =getBindingAdapterPosition();
+            startActivity(i1);
+            Log.d("MyBookActivity", "成功点击"+ mMyBook.getBook_name());
             Toast.makeText(MybookActivity.this, "点击成功", Toast.LENGTH_SHORT);
         }
     }

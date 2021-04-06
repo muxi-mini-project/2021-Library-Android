@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -78,7 +77,7 @@ public class MineFragment extends Fragment {
         mLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
         BookLab bookLab = BookLab.get(context);
-        List<MyBook> mybook = bookLab.getmMyBooks();
+        List<MyBook> mybook = bookLab.getmMIES();
         mRecyclerView.setAdapter(new MyBookAdapt(mybook, context));
 
 

@@ -109,6 +109,7 @@ public class LoginActivity extends AppCompatActivity {
                     Intent intent = new Intent(LoginActivity.this, GuideActivity.class);
                     Bundle bundle0 = new Bundle();
                     bundle0.putString("getToken", token);
+                    bundle0.putString("getPassword",password);
                     intent.putExtras(bundle0);
                     startActivity(intent);
                 } else {

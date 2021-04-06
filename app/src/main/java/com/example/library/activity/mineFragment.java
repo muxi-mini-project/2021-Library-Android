@@ -44,6 +44,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -84,6 +85,7 @@ public class mineFragment extends Fragment {
     private String u_motto;
     private String u_picture;
     private String u_token;
+    private String u_password;
 
 
     @Override
@@ -102,6 +104,7 @@ public class mineFragment extends Fragment {
         textView4 = v.findViewById(R.id.mine_textView4);
         imageView = v.findViewById(R.id.roundImageView);
         constraintLayout = v.findViewById(R.id.linearLayout2);
+        registerForContextMenu(constraintLayout);
         UpDate();
         Get_user_Date(u_token);
         UpUI();
@@ -158,6 +161,8 @@ public class mineFragment extends Fragment {
         u_motto = (String) bundle.getString("getUMotto","这个人很懒，什么都没留下");
         u_picture = (String) bundle.getString("getUPicture");
         u_token = (String) bundle.getString("getUToken");
+        u_password = (String) bundle.getString("getUPassword");
+        System.out.println("密码是"+u_password);
     }
     public void UpUI(){
         textView1.setText(String.valueOf(u_name));
@@ -209,7 +214,7 @@ public class mineFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String use_name = editText1.getText().toString();
-                Set_user_Date(u_token,use_name,u_motto,u_picture);
+                Set_user_Date(u_token,use_name,u_motto,u_password,u_picture);
                 System.out.println(use_name);
             }
         });
@@ -227,7 +232,7 @@ public class mineFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String use_motto = editText2.getText().toString();
-                Set_user_Date(u_token,u_name,use_motto,u_picture);
+                Set_user_Date(u_token,u_name,use_motto,u_password,u_picture);
                 Log.d("mineFragment","更改的座右铭是"+use_motto);
 
             }
@@ -378,18 +383,19 @@ public class mineFragment extends Fragment {
      * @param motto
      * @return
      */
-    public static mineFragment newInstance(String name,String picture,String motto,String token){
+    public static mineFragment newInstance(String name,String password,String picture,String motto,String token){
         Bundle args = new Bundle();
         args.putString("getUName",name);
         args.putString("getUPicture",picture);
         args.putString("getUMotto",motto);
         args.putString("getUToken",token);
+        args.putString("getUPassword",password);
         mineFragment Fragment = new mineFragment();
         Fragment.setArguments(args);
         return Fragment;
     }
 
-    public void Set_user_Date(String token,String name ,String motto,String picture) {
+    public void Set_user_Date(String token,String name ,String motto,String password,String picture) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://39.102.42.156:10086")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -398,11 +404,11 @@ public class mineFragment extends Fragment {
         UserDate userDate = retrofit.create(UserDate.class);
 
         /*接收返回的类*/
-        Call<User> user = userDate.setCall(token,new User(name,motto,picture));
+        Call<User> user = userDate.setCall(token,new User(name,motto,password,picture));
         user.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                if (response.isSuccessful() == true) {
+                if (response.code() == HttpURLConnection.HTTP_OK) {
                     Toast.makeText(getActivity(), "修改成功", Toast.LENGTH_SHORT).show();
                     Log.d("mineFragment","用户名"+name+"座右铭"+motto+"图像"+picture);
                 } else {
