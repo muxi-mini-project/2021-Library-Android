@@ -33,7 +33,11 @@ public interface BookService {
     Call<BookData> getRankCall();
 //返回评论
     @GET("Library/{books_id}/digest/{digest_id}")
-    Call<List<CommentData>> getCommentCall(@Header ("token")String token,@Path("books_id") String books_id, @Path("digest_id") String digest_id);
+    Call<List<CommentData>> getCommentCall(
+            @Header ("token")String token,
+            @Path("books_id") String books_id,
+            @Path("digest_id") String digest_id
+    );
 
     @PUT("Library/{books_id}/digest/{digest_id}/review")
     Call<CommentPut> putComment(

@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
-        android:layout_height="450dp"
+        android:layout_height="425dp"
         android:background="@mipmap/bg">
 
         <com.example.library.RoundImageView

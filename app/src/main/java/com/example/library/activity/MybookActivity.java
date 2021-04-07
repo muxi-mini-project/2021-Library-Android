@@ -1,12 +1,12 @@
 package com.example.library.activity;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -16,19 +16,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.request.transition.Transition;
 import com.example.library.Interface.UserDate;
 import com.example.library.R;
 import com.example.library.data.BookLab;
 import com.example.library.data.MyBook;
-import com.example.library.data.Users;
-import com.example.library.fragment.sonfragment.RecommendFragment;
+import com.example.library.fragment.minefragment.mineFragment1;
 
+import java.net.HttpURLConnection;
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -44,8 +43,12 @@ public class MybookActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private Context context;
     private LinearLayoutManager linearLayoutManager;
+    private MybookAdapter adapter;
 
-    public final static int F1 = 0xeff;
+    private List<MyBook> date = new ArrayList<>();
+
+    public final static int F1 = 0xefc;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,20 +58,56 @@ public class MybookActivity extends AppCompatActivity {
         textView1 = (TextView) findViewById(R.id.my_book_title);
         recyclerView = (RecyclerView) findViewById(R.id.my_book_recyclerView1);
         textView2 = (TextView) findViewById(R.id.my_book_change);
-        recyclerView.setHasFixedSize(true);
-        linearLayoutManager = new GridLayoutManager(MybookActivity.this, 4);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        BookLab bookLab = BookLab.get(MybookActivity.this);
-        List<MyBook> mybook = bookLab.getmMyBooks();
-        recyclerView.setAdapter(new MybookActivity.MybookAdapter(mybook, MybookActivity.this));
+        get_MyBookList();
+
 
     }
 
+    public void UpDateUI() {
+        recyclerView.setHasFixedSize(true);
+        linearLayoutManager = new GridLayoutManager(MybookActivity.this, 4);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        adapter = new MybookAdapter(date, MybookActivity.this);
+        adapter.setOnItemClickListener(new MybookAdapter.OnItemClickListener() {
+                                           @Override
+            /**
+             *长按弹出“删除”
+             */
 
-    public class MybookAdapter extends RecyclerView.Adapter<ViewHolder> {
+            public void onItemLongClick(final View view, final int pos) {
+                                               PopupMenu popupMenu = new PopupMenu(MybookActivity.this, view);
+                                               popupMenu.getMenuInflater().inflate(R.menu.delete, popupMenu.getMenu());
+
+                                               //弹出式菜单的菜单项点击事件
+                                               popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+
+                                                   @Override
+                                                   public boolean onMenuItemClick(MenuItem item) {
+                                                       /**
+                                                        * 删除的网络请求：（）里要填相应的是的id
+                                                        */
+                                                       deleteBookDetail(item.getItemId());
+                                                       return true;
+                                                   }
+                                               });
+                                               popupMenu.show();
+                                           }
+
+            /**
+             * 单击跳转，与上面问题相同
+             * @param position
+             */
+            @Override
+            public void omItemClick(int position) {
+                                               Intent intent = BookDetailPagerActivity.newIntent(MybookActivity.this,position);
+                                               startActivity(intent);
+                                           }
+                                       });
+        recyclerView.setAdapter(adapter);
+    }
+
+    public static class MybookAdapter extends RecyclerView.Adapter<ViewHolder> {
         private Context context;
-        private RecyclerView.OnItemTouchListener listener1;
-        private AdapterView.OnItemClickListener listener;
         private List<MyBook> myBookList;
 
 
@@ -79,7 +118,7 @@ public class MybookActivity extends AppCompatActivity {
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            LayoutInflater inflate = LayoutInflater.from(MybookActivity.this);
+            LayoutInflater inflate = LayoutInflater.from(parent.getContext());
             return new ViewHolder(inflate, parent);
         }
 
@@ -87,6 +126,22 @@ public class MybookActivity extends AppCompatActivity {
         public void onBindViewHolder(ViewHolder holder, int position) {
             MyBook myBook = myBookList.get(position);
             holder.bind(myBook);
+
+            if(onItemClickListener!=null) {
+                holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        onItemClickListener.onItemLongClick(holder.itemView,position);
+                        return true;
+                    }
+                });
+                holder.itemView.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v) {
+                        onItemClickListener.omItemClick(position);
+                    }
+                });
+            }
         }
 
         @Override
@@ -94,11 +149,21 @@ public class MybookActivity extends AppCompatActivity {
             return myBookList.size();
         }
 
+        private OnItemClickListener onItemClickListener;
 
+        public interface OnItemClickListener {
+            void onItemLongClick(View v, int position);
+
+            void omItemClick(int position);
+        }
+
+        public void setOnItemClickListener(OnItemClickListener clickListener) {
+            this.onItemClickListener = clickListener;
+        }
     }
 
 
-    private class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    private static class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView imageView;
         private TextView textView;
         private MyBook mMyBook;
@@ -108,7 +173,6 @@ public class MybookActivity extends AppCompatActivity {
             super(inflate.inflate(R.layout.item_my_book, parent, false));
             imageView = (ImageView) itemView.findViewById(R.id.mybook_pic);
             textView = (TextView) itemView.findViewById(R.id.mybook_name);
-            itemView.setOnClickListener(this);
             Log.d("MyBookActivity", "点击事件设置");
         }
 
@@ -118,11 +182,6 @@ public class MybookActivity extends AppCompatActivity {
 
         }
 
-        @Override
-        public void onClick(View v) {
-            Log.d("MyBookActivity", "成功点击");
-            Toast.makeText(MybookActivity.this, "点击成功", Toast.LENGTH_SHORT);
-        }
     }
 
     public void getBookDetail(String token, int book_id) {
@@ -155,7 +214,7 @@ public class MybookActivity extends AppCompatActivity {
         });
     }
 
-    public void deleteBookDetail(String token, int book_id) {
+    public void deleteBookDetail(int book_id) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://39.102.42.156:10086")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -163,7 +222,7 @@ public class MybookActivity extends AppCompatActivity {
 
         UserDate userDate = retrofit.create(UserDate.class);
 
-        Call<Response<Void>> user = userDate.deleteABook(token, book_id);
+        Call<Response<Void>> user = userDate.deleteABook(LoginActivity.token, book_id);
 
         user.enqueue(new Callback<Response<Void>>() {
 
@@ -185,4 +244,37 @@ public class MybookActivity extends AppCompatActivity {
         });
     }
 
+    public void get_MyBookList() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://39.102.42.156:10086")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        UserDate userDate = retrofit.create(UserDate.class);
+
+        /*接收返回的类*/
+
+        Call<List<MyBook>> myBook = userDate.getBook(LoginActivity.token);
+        myBook.enqueue(new Callback<List<MyBook>>() {
+            @Override
+            public void onResponse(Call<List<MyBook>> call, Response<List<MyBook>> response) {
+                if (response.code() == HttpURLConnection.HTTP_OK) {
+                    //date = response.body().getData();
+                    date = response.body();
+                    Log.d("MyBookActivity", date.toString());
+                    UpDateUI();
+                }
+                Toast.makeText(MybookActivity.this, "成功获取书籍", Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onFailure(Call<List<MyBook>> call, Throwable t) {
+                Toast.makeText(MybookActivity.this, "获取书籍失败", Toast.LENGTH_SHORT).show();
+            }
+
+
+        });
+
+    }
 }

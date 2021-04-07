@@ -62,6 +62,7 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
     private String user_picture;
     private String user_motto;
     private String user_token;
+    private String user_password;
 
 
     @Override
@@ -75,6 +76,7 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         user_token = bundle.getString("getToken");
+        user_password = bundle.getString("getPassword");
         System.out.println(user_token);
         /**
          * token保存到本地
@@ -220,7 +222,7 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
                     FragmentTransaction fragmentTransaction0 = getSupportFragmentManager().beginTransaction();
                     hideAllFragment(fragmentTransaction0);
                     if (fragment3 == null) {
-                        fragment3 = mineFragment.newInstance(user_name,user_picture,user_motto,token);
+                        fragment3 = mineFragment.newInstance(user_name,user_password,user_picture,user_motto,token);
                         fragmentTransaction0.add(R.id.guide_fragment, fragment3);
                     } else {
                         fragmentTransaction0.show(fragment3);

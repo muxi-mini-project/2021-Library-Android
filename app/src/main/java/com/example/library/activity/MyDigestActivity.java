@@ -22,6 +22,8 @@ import com.example.library.data.CommentDetail;
 import com.example.library.data.CommentLab;
 import com.example.library.data.MyDigest;
 
+import java.net.HttpURLConnection;
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -37,6 +39,7 @@ public class MyDigestActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private Context context;
     private LinearLayoutManager linearLayoutManager;
+    private List<MyDigest> myDigestList = new ArrayList<>();
 
 
     @Override
@@ -47,87 +50,73 @@ public class MyDigestActivity extends AppCompatActivity {
         textView1 = (TextView) findViewById(R.id.mydigest_title);
         recyclerView = (RecyclerView) findViewById(R.id.mydigest_recyclerView);
         textView2 = (TextView) findViewById(R.id.mydigest_change);
+        get_DigestList();
+
+    }
+
+    public void UPDateUI() {
         recyclerView.setHasFixedSize(true);
         linearLayoutManager = new LinearLayoutManager(context);
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
-        CommentLab commentLab = CommentLab.get(MyDigestActivity.this);
-        List<CommentDetail> commentDetails = commentLab.getCommentDetailList();
-        recyclerView.setAdapter(new MyDigestActivity.MyDigestAdapter(commentDetails, MyDigestActivity.this));
-
-
+        recyclerView.setAdapter(new MyDigestAdapter(myDigestList, MyDigestActivity.this));
     }
 
 
-    public class MyDigestAdapter extends RecyclerView.Adapter<MyDigestActivity.MyDigestAdapter.ViewHolder> implements View.OnClickListener, View.OnLongClickListener {
+    public class MyDigestAdapter extends RecyclerView.Adapter<ViewHolder> {
         private Context context;
         private RecyclerView.OnItemTouchListener listener1;
         private AdapterView.OnItemClickListener listener;
-        private List<CommentDetail> CommentDetail;
+        private List<MyDigest> myDigests;
 
 
-        public MyDigestAdapter(List<CommentDetail> list, Context context) {
-            this.CommentDetail = list;
+        public MyDigestAdapter(List<MyDigest> list, Context context) {
+            this.myDigests = list;
             this.context = context;
         }
 
         @Override
-        public MyDigestActivity.MyDigestAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater inflate = LayoutInflater.from(MyDigestActivity.this);
             return new ViewHolder(inflate, parent);
         }
 
         @Override
-        public void onBindViewHolder(@NonNull MyDigestActivity.MyDigestAdapter.ViewHolder holder, int position) {
-
-            CommentDetail commentDetail =CommentDetail.get(position);
-            holder.bind(commentDetail);
-            holder.imageView.setOnClickListener(this);
-            holder.imageView.setOnLongClickListener(this);
+        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+            MyDigest myDigest = myDigests.get(position);
+            holder.bind(myDigest);
         }
 
         @Override
         public int getItemCount() {
-            return CommentDetail.size();
-        }
-
-        @Override
-        public void onClick(View v) {
-            Toast.makeText(MyDigestActivity.this, "单击", Toast.LENGTH_SHORT);
-        }
-
-        @Override
-        public boolean onLongClick(View v) {
-            Toast.makeText(MyDigestActivity.this, "长按", Toast.LENGTH_SHORT);
-            return true;
-        }
-
-        class ViewHolder extends RecyclerView.ViewHolder {
-            private ImageView imageView;
-            private TextView textView1;
-            private TextView textView2;
-            private TextView textView3;
-            private CommentDetail commentDetails;
-
-
-            public ViewHolder(LayoutInflater inflate, ViewGroup parent) {
-                super(inflate.inflate(R.layout.item_my_publication, parent, false));
-                imageView = itemView.findViewById(R.id.mybook_pic);
-                textView1 = itemView.findViewById(R.id.mybook_name);
-
-
-
-            }
-
-            public void bind(CommentDetail commentDetail) {
-                commentDetails = commentDetail;
-                textView1.setText(commentDetails.getCommentName());
-                textView2.setText(commentDetails.getCommentDate());
-                textView3.setText(commentDetails.getCommentDate());
-
-            }
+            return myDigests.size();
         }
     }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        private ImageView imageView;
+        private TextView textView1;
+        private TextView textView2;
+        private TextView textView3;
+        private MyDigest MyDigest;
+
+
+        public ViewHolder(LayoutInflater inflate, ViewGroup parent) {
+            super(inflate.inflate(R.layout.item_my_publication, parent, false));
+            imageView = itemView.findViewById(R.id.mybook_pic);
+            textView1 = itemView.findViewById(R.id.mybook_name);
+
+
+        }
+
+        public void bind(MyDigest myDigest) {
+            MyDigest = myDigest;
+            textView1.setText(MyDigest.getUser_id());
+            textView3.setText(MyDigest.getSummary_information());
+
+        }
+    }
+
 
     public void getDigest(String token, int book_id) {
         Retrofit retrofit = new Retrofit.Builder()
@@ -159,7 +148,7 @@ public class MyDigestActivity extends AppCompatActivity {
         });
     }
 
-    public void deleteDigest(String token,int digest_id){
+    public void deleteDigest(String token, int digest_id) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://39.102.42.156:10086")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -175,7 +164,7 @@ public class MyDigestActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Response<Void>> call, Response<Response<Void>> response) {
                 if (response.isSuccessful() == true) {
-                    Toast.makeText(MyDigestActivity.this,"删除书摘成功",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MyDigestActivity.this, "删除书摘成功", Toast.LENGTH_SHORT).show();
                 }
                 Log.d("MyDigestActivity", "删除单一书摘的网络请求成功");
             }
@@ -188,4 +177,37 @@ public class MyDigestActivity extends AppCompatActivity {
 
         });
     }
+
+    public void get_DigestList() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://39.102.42.156:10086")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        UserDate userDate = retrofit.create(UserDate.class);
+
+        /*接收返回的类*/
+
+        Call<List<MyDigest>> mydigest = userDate.getDigest(LoginActivity.token);
+        mydigest.enqueue(new Callback<List<MyDigest>>() {
+            @Override
+            public void onResponse(Call<List<MyDigest>> call, Response<List<MyDigest>> response) {
+                if (response.code() == HttpURLConnection.HTTP_OK) {
+                    myDigestList = response.body();
+                    Log.d("MyDigestActivity", myDigestList.toString());
+                    UPDateUI();
+                }
+                Toast.makeText(MyDigestActivity.this, "成功获取书摘", Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onFailure(Call<List<MyDigest>> call, Throwable t) {
+                Toast.makeText(MyDigestActivity.this, "获取书摘失败", Toast.LENGTH_SHORT).show();
+            }
+
+
+        });
+    }
+
 }
