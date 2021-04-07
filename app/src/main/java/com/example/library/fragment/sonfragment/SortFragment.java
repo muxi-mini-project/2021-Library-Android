@@ -67,7 +67,7 @@ class GridAdapter extends RecyclerView.Adapter<GridAdapter.Holder>{
         holder.mTextView2.setText("共" + position + "本");
         holder.mTextView1.setText(nameList.get(position).toString());
         currentNumber = position;
-        Log.e(TAG,"the currentNumber>>>>>>>" + currentNumber + "<<<<<<");
+        //Log.e(TAG,"the currentNumber>>>>>>>" + currentNumber + "<<<<<<");
     }
 
     @Override
@@ -105,7 +105,7 @@ class GridAdapter extends RecyclerView.Adapter<GridAdapter.Holder>{
             initData();
             currentNumber = getAdapterPosition();
             Intent intent = EachSortActivity.SortIntent(getActivity(),nameList,currentNumber);
-            Log.e(TAG,"the currentNumber>>>>>>>" + currentNumber);
+            //Log.e(TAG,"the currentNumber>>>>>>>" + currentNumber);
             startActivity(intent);
         }
     }//点击后进入相应的列表中。取数据再搞

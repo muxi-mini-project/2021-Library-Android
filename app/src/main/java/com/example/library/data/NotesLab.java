@@ -1,7 +1,6 @@
 package com.example.library.data;
 
 import android.content.Context;
-import android.provider.ContactsContract;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +24,7 @@ public class NotesLab {
 
         MyNotes = new ArrayList<>();
         for (int j = 0; j < 100; j++) {
-            MyNotes myNotes = new MyNotes();
+            com.example.library.data.MyNotes myNotes = new MyNotes();
             myNotes.setNoteTitle("书名" + j);
             myNotes.setNoteContent("评论是" + j);
             myNotes.setNoteWriter("作者是" + j);
@@ -54,12 +53,12 @@ public class NotesLab {
         return null;
     }
 
-    public List<MyNotes> getMyNotes() {
+    public List<com.example.library.data.MyNotes> getMyNotes() {
         return MyNotes;
     }
 
-    public MyNotes getMyNotes(UUID Id) {
-        for (MyNotes myNotes : MyNotes) {
+    public com.example.library.data.MyNotes getMyNotes(UUID Id) {
+        for (com.example.library.data.MyNotes myNotes : MyNotes) {
             if (myNotes.getNoteId().equals(Id)) {
                 return myNotes;
             }

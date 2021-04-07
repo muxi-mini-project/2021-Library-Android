@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.library.Interface.LoginService;
 import com.example.library.R;
+import com.example.library.data.Token;
 import com.example.library.data.Users;
 
 import retrofit2.Call;
@@ -20,6 +21,10 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ * 登录页面！！！
+ */
+
 public class LoginActivity extends AppCompatActivity {
     private EditText mUsername;
     private EditText mPassword;
@@ -27,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button mResign;
     private ProgressDialog mProgressDialog;
     private final String FUCK = "这个人很懒，什么都没留下";
-    private String token;
+    public static String token;
 
 
     @Override
@@ -38,6 +43,28 @@ public class LoginActivity extends AppCompatActivity {
         initView();
         //创建一个动态进度条
         mProgressDialog = new ProgressDialog(this);
+        /*mLoading.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String user = mUsername.getText().toString();
+                String password = mPassword.getText().toString();
+                GET_REQUEST(user, password, FUCK);
+            }
+        });
+        mResign.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(intent);
+            }
+        });*/
+    }
+
+    private void initView() {
+        mUsername = (EditText) findViewById(R.id.username);
+        mPassword = (EditText) findViewById(R.id.password);
+        mLoading = (Button) findViewById(R.id.loading);
+        mResign = (Button) findViewById(R.id.resign);
         mLoading.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,26 +76,18 @@ public class LoginActivity extends AppCompatActivity {
         mResign.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(LoginActivity.this, RegisterActivity.class);
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(intent);
             }
         });
     }
 
-    private void initView() {
-        mUsername = (EditText) findViewById(R.id.username);
-        mPassword = (EditText) findViewById(R.id.password);
-        mLoading = (Button) findViewById(R.id.loading);
-        mResign = (Button) findViewById(R.id.resign);
-    }
+    //final String username = mUsername.getText().toString().trim();
+    //final String password = mPassword.getText().toString().trim();
 
-                //final String username = mUsername.getText().toString().trim();
-                //final String password = mPassword.getText().toString().trim();
-
-                /**
-                 *
-                 * qyh写的登录接口部分
-                 */
+    /**
+     * qyh写的登录接口部分
+     */
 
     public void GET_REQUEST(String name, String password, String motto) {
         Retrofit retrofit = new Retrofit.Builder()
@@ -78,23 +97,20 @@ public class LoginActivity extends AppCompatActivity {
 
         LoginService login = retrofit.create(LoginService.class);
 
-        /*接收返回的类*/
-
-        Call<Users> userCall = login.getCall(new Users(name, password, motto));
-        userCall.enqueue(new Callback<Users>() {
+/*传入数据组*/
+        Call<Token> call = login.getCall(new Users(name, password, motto));
+        /*接受返回的数据组*/
+        call.enqueue(new Callback<Token>() {
             @Override
-            public void onResponse(Call<Users> call, Response<Users> response) {
+            public void onResponse(Call<Token> call, Response<Token> response) {
                 if (response.isSuccessful() == true) {
                     token = response.body().getToken();
-                    String user_name = response.body().getUser_name();
-                    String user_motto = response.body().getMotto();
                     Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(LoginActivity.this,GuideActivity.class);
-                    Bundle bundle = new Bundle();
-
-                    bundle.putString("GOTTOKEN",token);
-                    bundle.putString("GOTUSER_Name",user_name);
-                    bundle.putString("GOTUser_motto",user_motto);
+                    Intent intent = new Intent(LoginActivity.this, GuideActivity.class);
+                    Bundle bundle0 = new Bundle();
+                    bundle0.putString("getToken", token);
+                    bundle0.putString("getPassword",password);
+                    intent.putExtras(bundle0);
                     startActivity(intent);
                 } else {
                     Toast.makeText(LoginActivity.this, "密码错误", Toast.LENGTH_SHORT).show();
@@ -102,7 +118,7 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<Users> call, Throwable t) {
+            public void onFailure(Call<Token> call, Throwable t) {
                 Toast.makeText(LoginActivity.this, "登录失败", Toast.LENGTH_SHORT).show();
             }
         });
@@ -112,14 +128,9 @@ public class LoginActivity extends AppCompatActivity {
 }
 
 
-
-
-
-
-
-                /**
-                 * dqp写的登录接口部分
-                 */
+/**
+ * dqp写的登录接口部分
+ */
 
                 /*User user = new User();
                 //user.username = username;
@@ -164,7 +175,7 @@ public class LoginActivity extends AppCompatActivity {
                 break;
         }*/
 
-        //对用户的输入进行非空判断
+//对用户的输入进行非空判断
     /*private boolean submit(User user) {
         if (TextUtils.isEmpty(user.username) || TextUtils.isEmpty(user.password)) {
             Toast.makeText(RegisterActivity.this, "输入不能为空", Toast.LENGTH_SHORT).show();

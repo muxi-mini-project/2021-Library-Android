@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.service.autofill.UserData;
 import android.util.Log;
 
-public class NewuserManager {
+public class NewUserManager {
     private static final String TAG="NewuserMaganer";
     private static final String DB_NAME = "user_data";
     private static final String TABLE_NAME = "users";
@@ -35,7 +35,7 @@ public class NewuserManager {
 
     //}
 
-    public  NewuserManager(Context context){
+    public NewUserManager(Context context){
         //super();
         mContext = context;
         Log.i(TAG, "NewuserManager construction!");

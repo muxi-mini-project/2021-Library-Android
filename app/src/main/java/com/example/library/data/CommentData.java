@@ -1,54 +1,53 @@
 package com.example.library.data;
 
-import java.util.List;
-
 public class CommentData {
-    private int code;
-    private String message;
-    private Data data;//自定义的Data类
 
-    public int getCode() {
-        return code;
+    /**
+     * review_id : 5
+     * user_id : 7
+     * summary_id : 12
+     * content : 这是一本好书啊，您说的真的好对。
+     */
+
+    private Integer review_id;
+    private String user_id;
+    private String summary_id;
+    private String content;
+
+    public CommentData(String name, String commentContent) {
+        user_id = name;
+        content = commentContent;
     }
 
-    public void setCode(int code) {
-        this.code = code;
+    public Integer getReview_id() {
+        return review_id;
     }
 
-    public String getMessage() {
-        return message;
+    public void setReview_id(Integer review_id) {
+        this.review_id = review_id;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public String getUser_id() {
+        return user_id;
     }
 
-    public Data getData() {
-        return data;
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
     }
 
-    public void setData(Data data) {
-        this.data = data;
+    public String getSummary_id() {
+        return summary_id;
     }
 
-    public class Data{
-        private int total;
-        private List<CommentDetail> list;
+    public void setSummary_id(String summary_id) {
+        this.summary_id = summary_id;
+    }
 
-        public int getTotal() {
-            return total;
-        }
+    public String getContent() {
+        return content;
+    }
 
-        public void setTotal(int total) {
-            this.total = total;
-        }
-
-        public List<CommentDetail> getList() {
-            return list;
-        }
-
-        public void setList(List<CommentDetail> list) {
-            this.list = list;
-        }
+    public void setContent(String content) {
+        this.content = content;
     }
 }

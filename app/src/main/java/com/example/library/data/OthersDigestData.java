@@ -3,15 +3,16 @@ package com.example.library.data;
 import com.google.gson.annotations.SerializedName;
 
 public class OthersDigestData {
+
     /**
      * id :
-     * user_id : 1
-     * book_id : 1
-     * class_id : 1
-     * title : 离散数学
-     * summary_information : 123
-     * thought : 123
-     * date : 2021-03-16T23:51:18+08:00
+     * user_id : 0
+     * book_id : 88
+     * class_id : 0
+     * title : 向着少女与光
+     * summary_information : 最近读过的一本书，觉得很不错，同时感到挺可惜的
+     * thought : 感想1
+     * date : 2021-04-04T17:42:14+08:00
      * public : true
      */
 

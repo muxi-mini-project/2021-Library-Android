@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.library.AboutSwitch;
@@ -20,7 +21,9 @@ import com.example.library.Interface.BookExtractInterface;
 import com.example.library.R;
 
 
-import com.example.library.activity.ChoseBookExtractActivity;
+
+import com.example.library.R;
+import com.example.library.activity.GuideActivity;
 import com.example.library.fragment.ChoseBookExtract;
 
 import java.util.ArrayList;
@@ -50,6 +53,7 @@ public class BookExtratDetail extends AppCompatActivity implements View.OnClickL
     private BookExtractAdapter mAdapter;
     public static List<BookDigestData.DataDTO> mBook_extract_list = new ArrayList<>();
 
+
     private DialogInterface.OnClickListener mListener=new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
@@ -69,9 +73,7 @@ public class BookExtratDetail extends AppCompatActivity implements View.OnClickL
         mBack_book_extract.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(BookExtratDetail.this,ChoseBookExtractActivity.class);
-                startActivity(intent);
-                //((Activity) mContext).finish();
+                BookExtratDetail.this.finish();
             }
         });
         mFinish1.setOnClickListener(new View.OnClickListener() {
@@ -79,8 +81,11 @@ public class BookExtratDetail extends AppCompatActivity implements View.OnClickL
             public void onClick(View v) {
 
                 makeText(BookExtratDetail.this,"已添加", LENGTH_SHORT);
-                Intent intent=new Intent(BookExtratDetail.this, ChoseBookExtractActivity.class);
+                Intent intent=new Intent(BookExtratDetail.this, ChoseBookExtract.class);
                 startActivity(intent);
+
+                Toast.makeText(BookExtratDetail.this,"已完成",Toast.LENGTH_SHORT);
+                BookExtratDetail.this.finish();
 
             }
         });
@@ -115,7 +120,7 @@ public class BookExtratDetail extends AppCompatActivity implements View.OnClickL
                         mAdapter = new BookExtractAdapter(BookExtratDetail.this, mBook_extract_list);
                         mAdapter.addData(mBook_extract_list.size());
                         makeText(BookExtratDetail.this,"已添加", LENGTH_SHORT).show();
-                        Intent intent=new Intent(BookExtratDetail.this, ChoseBookExtractActivity.class);
+                        Intent intent=new Intent(BookExtratDetail.this, ChoseBookExtract.class);
                         //((Activity) mContext).finish();
                         Bundle bundle = new Bundle();
                         bundle.putString("Bookname",title.getText().toString());
@@ -169,7 +174,7 @@ public class BookExtratDetail extends AppCompatActivity implements View.OnClickL
 
     private void initView() {
         mBack_book_extract=(Button)findViewById(R.id.back_book_extract);
-        mSwitch_detail=(Button)findViewById(R.id.switch_detail);
+        mSwitch_detail=(Button) findViewById(R.id.switch_detail);
         mSwitch_look=(Button)findViewById(R.id.switch_look);
         title=(EditText) findViewById(R.id.title);
         chapter=(EditText)findViewById(R.id.chapter);

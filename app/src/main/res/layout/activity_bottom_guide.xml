@@ -36,7 +36,7 @@
                 android:layout_marginLeft="40dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/book_city_pic"
-                android:text="@string/my"
+                android:text="@string/myBook"
                 android:textColor="@android:color/holo_purple"
                 android:textSize="16sp"
                 app:drawableTopCompat="@drawable/mine_pic" />
@@ -64,7 +64,7 @@
                 android:layout_height="50dp"
                 android:layout_marginLeft="40dp"
                 android:layout_marginTop="10dp"
-                android:text="@string/my"
+                android:text="@string/myBook"
                 android:textColor="@android:color/holo_purple"
                 android:textSize="16sp"
                 android:background="@drawable/digest_pic"
@@ -94,14 +94,14 @@
                 android:layout_marginLeft="50dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/mine_pic"
-                android:text="@string/my"
+                android:text="@string/myBook"
                 android:textSize="16sp"
                 app:drawableTopCompat="@drawable/mine_pic" />
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="20dp"
                 android:layout_marginLeft="60dp"
-                android:text="@string/my"
+                android:text="@string/myBook"
                 android:textSize="16sp"
                 android:textColor="@drawable/mine_text"/>
         </LinearLayout>

@@ -2,6 +2,7 @@ package com.example.library.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -21,12 +23,12 @@ import com.example.library.RoundImageView;
 import com.example.library.activity.OthersNoteActivity;
 import com.example.library.R;
 import com.example.library.data.BookData;
-import com.example.library.data.Notes;
-import com.example.library.data.NotesLab;
 import com.example.library.data.OthersDigestData;
+import com.example.library.fragment.sonfragment.RankFragment;
 import com.example.library.fragment.sonfragment.RecommendFragment;
 
 import java.net.HttpURLConnection;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -39,10 +41,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class BookDetailsFragment extends Fragment {
     private static final String ARG_BOOK_ID = "book_id";
     private static final String TAG = "BookDetailsFragment";
-    private BookData.DataBean mBook;
+    public static BookData.DataBean mBook;
     private NoteAdapter mNoteAdapter;
     private OthersDigestData digestData;
-    private List<OthersDigestData> mDataList;
+    public static List<OthersDigestData> mDataList = new ArrayList<>();//一定要记得右边的格式初始化！否则报空
+    private int currentNumber;
+    protected boolean isInit = false;
+    protected boolean isLoad = false;
+    private View view;
 
     //以下名字组件前为中文名缩写。例如JJ为简介，JJ2为简介框
     private TextView mXQTextView;
@@ -50,15 +56,15 @@ public class BookDetailsFragment extends Fragment {
     private TextView mSMTextView;
     private TextView mZZTextView;
     private TextView mJJTextView;
-    private TextView mJJ2TextView;
+    private TextView mJJ2TextView,mTextView;
     private Button mButton1;
     private Button mButton2;
     private RecyclerView mRecyclerView;
 
 /*接收列表的数据并创建fragment，封装成方法*/
-    public static BookDetailsFragment newInstance(int bookId){
+    public static BookDetailsFragment newInstance(int position){
         Bundle args = new Bundle();
-        args.putSerializable(ARG_BOOK_ID,bookId);
+        args.putSerializable(ARG_BOOK_ID,position);
 
         BookDetailsFragment fragment = new BookDetailsFragment();
         fragment.setArguments(args);
@@ -67,11 +73,13 @@ public class BookDetailsFragment extends Fragment {
 
     public void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
-/*获取列表的数据,即获得id，得到指定的book对象*/
         int bookId = (int) getArguments().getSerializable(ARG_BOOK_ID);
-        //mBook = BookLab.get(getActivity()).getBook(bookId);
-        mBook = new BookData().getBook(bookId,RecommendFragment.data);
-
+        if (bookId > 50){
+            mBook =  new BookData().getBook(bookId,RecommendFragment.data);
+        }else {
+            mBook =  new BookData().getBook(bookId,RankFragment.data2);
+        }
+        Log.e(TAG,"书的id是"+bookId);
         getRequest();
     }
 
@@ -88,6 +96,7 @@ public class BookDetailsFragment extends Fragment {
         //书名
         mSMTextView = (TextView)v.findViewById(R.id.book_detail_title);
         mSMTextView.setText(mBook.getBook_name());
+        Log.e(TAG,"到这里书的名字是"+mBook.getBook_name()+"--------"+mBook.getBook_id());
         //作者
         mZZTextView = (TextView)v.findViewById(R.id.book_detail_writer);
         mZZTextView.setText(mBook.getBook_auther());
@@ -103,11 +112,9 @@ public class BookDetailsFragment extends Fragment {
         //书摘列表
         mRecyclerView = (RecyclerView)v
                 .findViewById(R.id.book_detail_list);//组件
-        updateUI();
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        mRecyclerView.setLayoutManager(layoutManager);
-        mRecyclerView.setFocusable(false);
-        getRequest();
+
+        //列表为空时的提示
+        mTextView = (TextView)v.findViewById(R.id.empty_rv);
 
         return v;
     }
@@ -119,7 +126,7 @@ public class BookDetailsFragment extends Fragment {
                 .build();
 
         BookService api = retrofit.create(BookService.class);
-        Call<List<OthersDigestData>> digestDataCall = api.getCall2("1");
+        Call<List<OthersDigestData>> digestDataCall = api.getCall2(mBook.getBook_id().toString());//mBook.getBook_id().toString()
 
         digestDataCall.enqueue(new Callback<List<OthersDigestData>>() {
             @Override
@@ -127,6 +134,13 @@ public class BookDetailsFragment extends Fragment {
                 Log.d(TAG,"onResponse----------" + response.code());
                 if (response.code() == HttpURLConnection.HTTP_OK){
                     Log.d(TAG,"Json--------" + response.body().toString());
+                    mDataList = response.body();
+                    if (mDataList.size() != 0){
+                        Log.d(TAG,"one of the list is  " + mDataList.get(0).toString());
+                        updateUI();
+                    }else{
+                        Log.d(TAG,"暂无书摘！！");
+                    }
                 }
             }
 
@@ -139,11 +153,21 @@ public class BookDetailsFragment extends Fragment {
 
 /*关联RV和adapter*/
     private void updateUI(){
-        NotesLab notesLab = NotesLab.get(getActivity());
-        List<Notes> notes = notesLab.getNotes();
+        if (mDataList.size() != 0){
+            mTextView.setVisibility(View.GONE);
+            mNoteAdapter = new NoteAdapter(mDataList);
+            mNoteAdapter.notifyDataSetChanged();
+            //Log.d(TAG,"Adapter已经建立了"+mNoteAdapter.toString());
 
-        mNoteAdapter = new NoteAdapter(notes);
-        mRecyclerView.setAdapter(mNoteAdapter);
+            mRecyclerView.setAdapter(mNoteAdapter);
+            //Log.d(TAG,"RecyclerView已经绑定Adapter了");
+            LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+            mRecyclerView.setLayoutManager(layoutManager);
+            //mRecyclerView.setFocusable(false);
+        }else{
+            mRecyclerView.setVisibility(View.GONE);
+            mTextView.setVisibility(View.VISIBLE);
+        }
     }
 
 /*holder*/
@@ -152,7 +176,7 @@ public class BookDetailsFragment extends Fragment {
         private TextView mNoteName;
         private TextView mNoteDate;
         private TextView mNote;
-        private Notes notes;
+        private OthersDigestData notes;
 
         public NoteHolder(LayoutInflater inflater,ViewGroup parent) {
             super(inflater.inflate(R.layout.book_notes_list,parent,false));
@@ -164,15 +188,18 @@ public class BookDetailsFragment extends Fragment {
             mNote = (TextView)itemView.findViewById(R.id.comment_content);
         }
 
-        public void bind(Notes mNotes){
+        public void bind(OthersDigestData mNotes){
             notes = mNotes;
-            mNoteName.setText(notes.getNoteWriter());
-            mNote.setText(notes.getNoteContent());
-            mNoteDate.setText(notes.getNoteDate());
+            mNoteName.setText(notes.getUser_id());
+            //Log.d(TAG,"这里说明bind方法已经被用了"+notes.getUser_id());
+            mNote.setText(notes.getSummary_information());
+            mNoteDate.setText(notes.getDate());
         }
 
         public void onClick(View view){
-            Intent intent = OthersNoteActivity.newIntent(getContext(),notes.getNoteId());
+            currentNumber = getAbsoluteAdapterPosition();
+            //Log.d(TAG,"当前被点击的holder为"+currentNumber);
+            Intent intent = OthersNoteActivity.newIntent(getContext(),currentNumber);
             startActivity(intent);
         }
 
@@ -180,13 +207,12 @@ public class BookDetailsFragment extends Fragment {
 
 /*adapter*/
     private class NoteAdapter extends RecyclerView.Adapter<NoteHolder>{
-        private List<Notes> mNotes;
+        private List<OthersDigestData> mNotes;
 
-        public NoteAdapter(List<Notes> notes){
+        public NoteAdapter(List<OthersDigestData> notes){
             mNotes = notes;
         }
-
-//要去理解一下是什么意思了
+        
     @Override
     public NoteHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
@@ -195,7 +221,8 @@ public class BookDetailsFragment extends Fragment {
 
     @Override
     public void onBindViewHolder(@NonNull NoteHolder holder, int position) {
-        Notes notes = mNotes.get(position);
+        OthersDigestData notes = mNotes.get(position);
+        //Log.d(TAG,"看看有没有实行onBindViewHolder方法"+notes.toString());
         holder.bind(notes);
     }
 

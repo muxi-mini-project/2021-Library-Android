@@ -31,6 +31,8 @@
                 android:paddingTop="2dp"
                 android:textColorHint="#8F9786"
                 android:textSize="20sp"
+                android:imeOptions="actionSearch"
+                android:singleLine="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

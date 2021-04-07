@@ -87,6 +87,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView.Sear
         for (int j = 0 ; j < bookData.size();j++){
             nameList.add(bookData.get(j).getBook_name());
         }
+        Log.d(TAG,"namelist!!!!"+nameList.get(0));
     }
 /*获取搜索结果data和adapter:可暂时忽略*/
     private void getResultData(String text) {
@@ -131,8 +132,9 @@ public class SearchActivity extends AppCompatActivity implements SearchView.Sear
     private void getHintData() {
         hintData = new ArrayList<>(hintSize);
         for (int i = 1; i <= hintSize; i++){
-            hintData.add("热搜" + i );
+            hintData.add(RecommendFragment.data.get(i).getBook_name());
         }
+        Log.d(TAG,"热搜的数据：" + hintData.get(0));
         hintAdapter = new ArrayAdapter<>
                 (this, android.R.layout.simple_list_item_1,hintData);
     }
@@ -141,19 +143,9 @@ public class SearchActivity extends AppCompatActivity implements SearchView.Sear
         getAutoCompleteData(text);
     }
 /*点击搜索键时edit text触发的回调*/
-    @Override
-    public void onSearch(String text) {
-        //更新result数据
+ public void onSearch(String text) {
         getResultData(text);
-        /*RvResult.setVisibility(View.VISIBLE);
-        //第一次获取结果 还未配置适配器
-        if (RvResult.getAdapter() == null) {
-            //获取搜索数据 设置适配器
-            RvResult.setAdapter(resultAdapter);
-        } else {
-            //更新搜索数据
-            resultAdapter.notifyDataSetChanged();
-        }*/
+
         int id = 1;
         for ( int j = 0; j < nameList.size(); j++){
             if (text.equals(nameList.get(j))){
