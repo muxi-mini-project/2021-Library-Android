@@ -181,7 +181,7 @@ public class SearchActivity2 extends AppCompatActivity implements SearchView2.Se
     private void getHintData() {
         hintData = new ArrayList<>(hintSize);
         for (int i = 1; i <= hintSize; i++) {
-            hintData.add("已搜查" + i + "：Android自定义View");
+            hintData.add("书摘" + i);
         }
         hintAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, hintData);
     }

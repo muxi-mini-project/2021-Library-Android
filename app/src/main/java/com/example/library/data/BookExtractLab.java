@@ -20,9 +20,9 @@ public class BookExtractLab {
         //生成临时数据组
         for (int i = 0; i < 100; i++) {
             BookDigestData.DataDTO bookExtracter = new BookDigestData.DataDTO(context);
-            bookExtracter.setTitle("BookExtract #" + i);
-            bookExtracter.setSummary_information("context" + i);
-            bookExtracter.setDate("Date" + i);
+            bookExtracter.setTitle(bookExtracter.getTitle());
+            bookExtracter.setSummary_information(bookExtracter.getSummary_information());
+            bookExtracter.setDate(bookExtracter.getDate());
             mBookExtracters.add(bookExtracter);
         }
     }

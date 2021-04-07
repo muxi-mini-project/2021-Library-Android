@@ -127,7 +127,6 @@ public class ChoseBookExtract extends Fragment {
                 .baseUrl("http://124.71.184.107:10086/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-
         BookExtractInterface mApi = retrofit.create(BookExtractInterface.class);
         Call<BookDigestData> bookExtractCall = mApi.getCall("7");
         bookExtractCall.enqueue(new Callback<BookDigestData>() {

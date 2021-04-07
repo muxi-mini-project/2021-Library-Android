@@ -1,12 +1,8 @@
 package com.example.library.BookExtract;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.os.IResultReceiver;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -14,7 +10,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.library.Interface.BookExtractInterface;
 import com.example.library.R;
@@ -22,13 +17,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-import com.example.library.activity.MainActivity;
 import com.example.library.data.BookExtractLab;
-import com.example.library.fragment.ChoseBookExtract;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import retrofit2.Call;
@@ -55,6 +46,7 @@ public class BookExtractAdapter extends RecyclerView.Adapter<BookExtractAdapter.
     //防止空指针异常
     private List<BookDigestData.DataDTO> mBook_extract_list = new ArrayList<>();
     private OnRecyclerViewItemClickListener mOnRecyclerViewItemClickListener;
+    private int position;
 
     public BookExtractAdapter(Context context, List<BookDigestData.DataDTO> mBook_extract_list) {
         this.context = context;
@@ -79,16 +71,16 @@ public class BookExtractAdapter extends RecyclerView.Adapter<BookExtractAdapter.
         BookExtractLab mBookextractLab;
 
 
-        public ViewHolder(@NonNull View view, final OnRecyclerViewItemClickListener onRecyclerViewItemClickListener) {
+        public ViewHolder(@NonNull View view, final OnRecyclerViewItemClickListener onRecyclerViewItemClickListener,int position1) {
             super(view);
             bookname = (TextView) view.findViewById(R.id.book_extract_name);
             context1 = (TextView) view.findViewById(R.id.book_extract_context);
             date = (TextView) view.findViewById(R.id.date);
             lock = (Button)view.findViewById(R.id.lock);
-            getrequest();
+            getrequest(position1);
         }
 
-        private void getrequest() {
+        private void getrequest(int position1) {
 
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl("http://124.71.184.107:10086/")
@@ -100,9 +92,25 @@ public class BookExtractAdapter extends RecyclerView.Adapter<BookExtractAdapter.
             bookDigestDataCall.enqueue(new Callback<BookDigestData>() {
                 @Override
                 public void onResponse(Call<BookDigestData> call, Response<BookDigestData> response) {
-
+                    PopupWindow mPopWindow;
+                    List<BookDigestData.DataDTO> mBook_extract_list = new ArrayList<>();
+                    BookDigestData.DataDTO extract = mBook_extract_list.get(position1);
+                    Context context = null;
+                    View contentView = LayoutInflater.from(context).inflate(R.layout.delete, null);
+                    mPopWindow = new PopupWindow(contentView,
+                            ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+                    TextView tv1 = (TextView) contentView.findViewById(R.id.edit_digest);
+                    tv1.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(context, BookExtratDetail.class);
+                            intent.putExtra("书摘名称", extract.getTitle().toString());
+                            intent.putExtra("书摘内容", extract.getSummary_information().toString());
+                            intent.putExtra("日期", extract.getDate().toString());
+                            context.startActivity(intent);
+                        }
+                    });
                 }
-
                 @Override
                 public void onFailure(Call<BookDigestData> call, Throwable t) {
 
@@ -115,7 +123,7 @@ public class BookExtractAdapter extends RecyclerView.Adapter<BookExtractAdapter.
 
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.book_extract_item, parent, false);
-        ViewHolder holder = new ViewHolder(view, mOnRecyclerViewItemClickListener);
+        ViewHolder holder = new ViewHolder(view, mOnRecyclerViewItemClickListener,position);
         mLinearLayout=(LinearLayout)view.findViewById(R.id.book_extract_item);
         //长按显示弹窗
      /*   registerForContextMenu(mLinearLayout);
@@ -138,7 +146,7 @@ public class BookExtractAdapter extends RecyclerView.Adapter<BookExtractAdapter.
         //创建前面实体类对象
        BookDigestData.DataDTO extract = mBook_extract_list.get(position);
         //将具体的值赋予子控件
-        holder.bookname.setText(extract.getBook_id());
+        holder.bookname.setText(extract.getTitle());
         holder.date.setText(extract.getDate());
         holder.context1.setText(extract.getSummary_information());
         //设置条目中的点击监听
@@ -147,7 +155,7 @@ public class BookExtractAdapter extends RecyclerView.Adapter<BookExtractAdapter.
             public void onClick(View v) {
                 mOnRecyclerViewItemClickListener.onRecyclerViewItemClicked(position);
                 Intent intent = new Intent(context, BookExtratDetail.class);
-                intent.putExtra("书摘名称", extract.getBook_id().toString());
+                intent.putExtra("书摘名称", extract.getTitle().toString());
                 intent.putExtra("书摘内容", extract.getSummary_information().toString());
                 intent.putExtra("日期", extract.getDate().toString());
                 context.startActivity(intent);
@@ -161,7 +169,10 @@ public class BookExtractAdapter extends RecyclerView.Adapter<BookExtractAdapter.
         });
 
     }
-        private void showPopupWindow (@NonNull ViewHolder holder,int position1) {
+
+
+
+    private void showPopupWindow (@NonNull ViewHolder holder,int position1) {
             BookDigestData.DataDTO extract = mBook_extract_list.get(position1);
             View contentView = LayoutInflater.from(context).inflate(R.layout.delete, null);
             mPopWindow = new PopupWindow(contentView,
@@ -172,7 +183,7 @@ public class BookExtractAdapter extends RecyclerView.Adapter<BookExtractAdapter.
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context, BookExtratDetail.class);
-                    intent.putExtra("书摘名称", extract.getBook_id().toString());
+                    intent.putExtra("书摘名称", extract.getTitle().toString());
                     intent.putExtra("书摘内容", extract.getSummary_information().toString());
                     intent.putExtra("日期", extract.getDate().toString());
                     context.startActivity(intent);
@@ -193,7 +204,6 @@ public class BookExtractAdapter extends RecyclerView.Adapter<BookExtractAdapter.
             //删除动画
             notifyItemRemoved(position2);
             notifyDataSetChanged();
-
         }
 
     //添加数据
@@ -207,20 +217,16 @@ public class BookExtractAdapter extends RecyclerView.Adapter<BookExtractAdapter.
         //添加动画
         notifyItemChanged(position);
     }
-
-
-
-
-    //用以返回长度
     @Override
     public int getItemCount() {
-        //添加功能，在没有内容的时候显示几条ITEM
-        if(mBook_extract_list.size()==0){
-
-        }
-
-
         return mBook_extract_list.size();
     }
+
+    //用以返回长度
+   /* @Override
+    public int getItemCount() {
+      mOnRecyclerViewItemClickListener.onRecyclerViewItemClicked(position);
+        return mBook_extract_list.size();
+    }*/
 }
 

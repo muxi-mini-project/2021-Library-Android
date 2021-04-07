@@ -1,6 +1,7 @@
 package com.example.library.BookExtract;
 
 import android.content.Context;
+import android.widget.EditText;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -18,17 +19,17 @@ public class BookDigestData {
      * "public":false}
      * message : 创建成功
      */
-    private DataDTO data;
     private String message;
-    public List<DataDTO> mBook_extract_list;
+    public List<DataDTO> data;
 
     public List<DataDTO> getBook_extract_list() {
-        return mBook_extract_list;
+        return data;
     }
 
-    public void setBook_extract_list() {
-        this.mBook_extract_list = mBook_extract_list;
+    public void setBook_extract_list(List<DataDTO> data) {
+        this.data=data;
     }
+
     public DataDTO getBook(int id,List<DataDTO> data){
         for (DataDTO bookextract:data){
             if (bookextract.Id.equals(id)){
@@ -36,15 +37,6 @@ public class BookDigestData {
             }
         }
         return null;
-    }
-
-
-    public DataDTO getData() {
-        return data;
-    }
-
-    public void setData(DataDTO data) {
-        this.data = data;
     }
 
     public String getMessage() {
@@ -85,13 +77,7 @@ public class BookDigestData {
             this.Id = UUID.randomUUID();
         }
 
-
-
-        public UUID getId1() {
-            return Id;
-        }
-
-        public void setId1(UUID id) {
+        public void setId(UUID id) {
             Id = id;
         }
 
@@ -152,6 +138,8 @@ public class BookDigestData {
         }
 
         public String getThought() {
+
+
             return thought;
         }
 

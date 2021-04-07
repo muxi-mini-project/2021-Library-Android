@@ -3,14 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context=".Searcher.SearchActivity2"
     android:orientation="vertical">
 
-    <com.yetwish.customsearchdemo.activity.widge.SearchView
+    <com.example.library.Searcher.SearchView2
         android:id="@+id/searcher_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-    </com.yetwish.customsearchdemo.activity.widge.SearchView>
+    </com.example.library.Searcher.SearchView2>
 
     <ListView
         android:visibility="gone"

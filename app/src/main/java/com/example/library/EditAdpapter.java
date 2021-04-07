@@ -65,12 +65,10 @@ public class EditAdpapter extends RecyclerView.Adapter<EditAdpapter.ViewHolder> 
     public void addData(int position){
         //通知列表添加一条
         kindlist.add(position,"我是书摘种类"+position);
+        mBook_name.setText((String)mAdd_text.getText().toString());
         //mBook_name.setText(mAdd_text.getText().toString());
         //添加动画
         notifyItemChanged(position);
-    }
-    public void addData2(){
-        mBook_name.setText((String)mAdd_text.getText().toString());
     }
 
     //删除数据

@@ -25,6 +25,7 @@ import com.example.library.fragment.ChoseBookExtract;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -61,7 +62,7 @@ public class BookExtratDetail extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.book_extract_detail);
-        mAdapter = new BookExtractAdapter(this, mBook_extract_list);
+        mAdapter = new BookExtractAdapter(BookExtratDetail.this, mBook_extract_list);
         initView();
         getRequest();
        getRequest1();
@@ -104,13 +105,14 @@ public class BookExtratDetail extends AppCompatActivity implements View.OnClickL
                 .build();
 
         BookExtractInterface mApi = retrofit.create(BookExtractInterface.class);
-        Call<BookDigestData>  bookDigestDataCall=mApi.getDigest();
-        bookDigestDataCall.enqueue(new Callback<BookDigestData>() {
+        Call<BookDigestData.DataDTO>  bookDigestDataCall=mApi.getDigest(new BookDigestData());
+        bookDigestDataCall.enqueue(new Callback<BookDigestData.DataDTO>() {
             @Override
-            public void onResponse(Call<BookDigestData> call, Response<BookDigestData> response) {
+            public void onResponse(Call<BookDigestData.DataDTO> call, Response<BookDigestData.DataDTO> response) {
                 mFinish1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        mAdapter = new BookExtractAdapter(BookExtratDetail.this, mBook_extract_list);
                         mAdapter.addData(mBook_extract_list.size());
                         makeText(BookExtratDetail.this,"已添加", LENGTH_SHORT).show();
                         Intent intent=new Intent(BookExtratDetail.this, ChoseBookExtractActivity.class);
@@ -124,14 +126,16 @@ public class BookExtratDetail extends AppCompatActivity implements View.OnClickL
                     }
                 });
             }
-
             @Override
-            public void onFailure(Call<BookDigestData> call, Throwable t) {
-
-               Toast.makeText(BookExtratDetail.this,"添加失败", LENGTH_SHORT).show();
+            public void onFailure(Call<BookDigestData.DataDTO> call, Throwable t) {
+             mFinish1.setOnClickListener(new View.OnClickListener() {
+                 @Override
+                 public void onClick(View v) {
+                     Toast.makeText(BookExtratDetail.this,"添加失败", LENGTH_SHORT).show();
+                 }
+             });
             }
         });
-
     }
 
     private void getRequest1() {
@@ -147,17 +151,16 @@ public class BookExtratDetail extends AppCompatActivity implements View.OnClickL
                 mSwitch_look.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(BookExtratDetail.this,"公开成功", LENGTH_SHORT);
+                        Toast.makeText(BookExtratDetail.this,"公开成功", LENGTH_SHORT).show();
                     }
                 });
             }
-
             @Override
             public void onFailure(Call<BookDigestData> call, Throwable t) {
                 mSwitch_look.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                     Toast.makeText(BookExtratDetail.this,"公开失败", LENGTH_SHORT);
+                     Toast.makeText(BookExtratDetail.this,"公开失败", LENGTH_SHORT).show();
                     }
                 });
             }

@@ -66,7 +66,6 @@ public class edit extends AppCompatActivity implements View.OnClickListener {
             Toast.makeText(edit.this,"Button"+which+"was clicked",Toast.LENGTH_SHORT);
             mEditAdpapter.addData(kindlist.size());
            // mBook_name.setText(mAdd_text.getText().toString());
-            mEditAdpapter.addData2();
             dialog.dismiss();
         }
     };
@@ -167,7 +166,7 @@ public class edit extends AppCompatActivity implements View.OnClickListener {
 
             @Override
             public void onFailure(Call<edit_item_java> call, Throwable t) {
-                Log.d(TAG,"error ++++++++++" );
+                System.out.println("连接失败");
             }
         });
     }*/

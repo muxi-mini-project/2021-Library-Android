@@ -10,12 +10,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     </com.example.library.Searcher.SearchView2>
+
     <ListView
+        android:layout_below="@+id/search_layout2"
         android:visibility="gone"
         android:id="@+id/main_lv_search_results"
+        android:background="@drawable/lv_search_list"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
+        android:layout_height="200dp">
     </ListView>
 
 </LinearLayout>
