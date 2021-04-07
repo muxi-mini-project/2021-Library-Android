@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/book_extract_item"
+    android:layout_marginLeft="45dp"
+    android:layout_marginTop="30dp"
+    android:layout_width="320dp"
+    android:layout_height="150dp"
+    android:orientation="vertical"
+    android:background="@drawable/shu_zhai"
+    >
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="50dp">
+    <TextView
+        android:id="@+id/book_extract_name"
+        android:layout_marginLeft="20dp"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:text="书摘名称"
+        android:textColor="@color/new_blue"
+        android:gravity="center"
+        android:textSize="24sp"
+        />
+    <Button
+        android:id="@+id/lock"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="0.001dp"
+        android:layout_marginLeft="35dp"
+        android:gravity="center"
+        android:background="@drawable/lock_button"
+        />
+</LinearLayout>
+
+    <TextView
+        android:id="@+id/book_extract_context"
+        android:layout_width="320dp"
+        android:layout_height="70dp"
+        android:text="这条书摘等你查看哦"
+        android:layout_below="@id/book_extract_name"
+        android:textSize="12sp"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:background="#BED5EEF3"
+        />
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:text="2003.3.16"
+        android:layout_below="@id/book_extract_context"
+        android:textSize="20sp"
+        />
+
+</LinearLayout>

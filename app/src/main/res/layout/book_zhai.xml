@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@color/yellow"
+    android:fillViewport="true"
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+ <LinearLayout
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="90dp"
-        android:background="@color/basic_green"
+        android:background="@color/new_blue"
         android:orientation="horizontal"
         >
         <TextView
@@ -22,16 +26,16 @@
             android:text="全部书摘"
             android:textSize="38sp"
             android:gravity="center"
-            android:textColor="@color/deep_green"
+            android:textColor="@color/black"
             />
-        <Button
+        <Spinner
             android:id="@+id/chose"
             android:layout_width="20dp"
             android:layout_height="70dp"
             android:background="@drawable/ic_baseline_arrow_drop_down_24"
-            android:gravity="center"
-            android:layout_marginTop="5dp"
-            android:onClick="chose_book_extract"
+           android:layout_marginTop="4dp"
+            android:entries="@array/book_kinds"
+            android:spinnerMode="dropdown"
             />
 
         <Button
@@ -43,8 +47,8 @@
             android:text="编辑"
             android:gravity="center"
             android:textSize="14sp"
-            android:textColor="@color/deep_green"
-            android:background="#FFFFFF"
+            android:textColor="@color/black"
+            android:background="@drawable/edit_look"
             />
 
         <Button
@@ -60,7 +64,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:background="@color/basic_green"
+        android:background="@color/new_blue"
         android:orientation="horizontal"
         android:gravity="center"
         >
@@ -80,66 +84,47 @@
                 />
             <EditText
                 android:id="@+id/book_search"
-                android:layout_width="200dp"
+                android:layout_width="170dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
+                android:imeOptions="actionSearch"
                 android:hint="搜索书摘"
+                android:textSize="18sp"
+                android:inputType="text"
                 android:background="@color/white"
                 />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_gravity="right|center_vertical"
+                android:id="@+id/search_delete"
+                android:background="@drawable/ic_baseline_highlight_off_24"
+                />
+
         </LinearLayout>
+
+        <ListView
+            android:visibility="gone"
+            android:id="@+id/search_lv_tips"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="200dp">
+        </ListView>
+
     </LinearLayout>
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/book_select"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        >
-        <TextView
-            android:id="@+id/book_extract_name"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:text="书摘名称"
-            android:layout_gravity="start"
-            android:textColor="@color/deep_green"
-            android:gravity="center"
-            android:textSize="24sp"
-            />
-        <Button
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginLeft="270dp"
-            android:background="@drawable/lock_button"
+ <androidx.recyclerview.widget.RecyclerView
+     android:id="@+id/book_extract_recyclerview"
+     android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+     android:background="@color/new_hint"
+    >
+ </androidx.recyclerview.widget.RecyclerView>
+ </LinearLayout>
 
-            />
-        <Button
-            android:id="@+id/book_extract_context"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:text="点击查看详细内容"
-            android:layout_below="@id/book_extract_name"
-            android:textSize="15sp"
-            android:textColor="@color/black"
-            android:gravity="center"
-            />
-        <TextView
-            android:id="@+id/date"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:textColor="@color/basic_green"
-            android:text="2003.3.16"
-            android:layout_below="@id/book_extract_context"
-            android:textSize="20sp"
-            />
-
-
-    </androidx.recyclerview.widget.RecyclerView>
-
-
-
-
-</LinearLayout>
+</androidx.core.widget.NestedScrollView>
 

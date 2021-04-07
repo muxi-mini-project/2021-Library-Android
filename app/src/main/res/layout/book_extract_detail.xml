@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="horizontal"
+        android:background="@color/yellow"
+        >
+
+        <Button
+            android:id="@+id/back_book_extract"
+            android:layout_width="43dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/ic_baseline_arrow_back_ios_24" />
+        <LinearLayout
+            android:id="@+id/about_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="230dp"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:id="@+id/switch_detail"
+                android:layout_width="81dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:text="@string/switch_detail" />
+            <Button
+                android:id="@+id/switch_look"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/about_lock"
+                />
+            
+        </LinearLayout>
+        
+    </LinearLayout>
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="标题"
+        android:textSize="25sp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:textColor="#335151"
+        />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/black"/>
+    <EditText
+        android:id="@+id/chapter"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="章节"
+        android:background="@color/white"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/dotted_line_bg"
+        android:layerType="software"/>
+    <EditText
+        android:id="@+id/chapter_context"
+        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="摘录内容"
+        android:background="@color/white"/>
+    <ImageView
+        android:layout_marginTop="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/black"
+        />
+    <EditText
+        android:id="@+id/idea"
+        android:layout_marginTop="70dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="想法"
+
+        />
+
+    <Button
+        android:id="@+id/finish1"
+        android:layout_marginTop="180dp"
+        android:layout_width="280dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:text="完成"
+        android:textSize="28sp"
+        android:background="@color/yellow"
+        />
+    
+
+</LinearLayout>

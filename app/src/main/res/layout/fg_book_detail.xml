@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.library.NestedScrolling.NestedScrollParentView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/new_hint">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="@color/new_blue">
+
+            <TextView
+                android:id="@+id/book_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="详情"
+                android:textSize="25sp"
+                android:paddingTop="20dp"
+                android:paddingLeft="20dp"/>
+
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="159dp">
+
+            <ImageView
+                android:id="@+id/book_detail_pic"
+                android:layout_width="108dp"
+                android:layout_height="128dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/default_head_picture_square" />
+
+            <TextView
+                android:id="@+id/book_detail_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginTop="28dp"
+                android:maxEms="6"
+                android:text="书名"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="#514F4F"
+                app:layout_constraintStart_toEndOf="@+id/book_detail_pic"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/book_detail_writer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="28dp"
+                android:text="作者"
+                android:textColor="@color/deep_blue"
+                android:textSize="15sp"
+                android:maxEms="8"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                app:layout_constraintStart_toEndOf="@+id/book_detail_pic"
+                app:layout_constraintTop_toBottomOf="@+id/book_detail_title" />
+
+            <Button
+                android:id="@+id/book_detail_shelf"
+                android:background="@color/new_blue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:text="加入书架"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/book_detail_add_note"
+                android:background="@color/new_blue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_weight="1"
+                android:text="添加书摘"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/book_detail_shelf" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/book_detail_intro"
+                android:layout_width="313dp"
+                android:layout_height="49dp"
+                android:layout_marginTop="4dp"
+                android:layout_weight="1"
+                android:paddingLeft="30dp"
+                android:paddingBottom="10dp"
+                android:text="简介"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/book_detail_intro2"
+                android:layout_width="fill_parent"
+                android:layout_height="86dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:background="@drawable/rm_list_intro_bg"
+                android:text="TextView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="100dp"
+                android:layout_height="44dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="124dp"
+                android:layout_weight="1"
+                android:paddingLeft="30dp"
+                android:paddingTop="10dp"
+                android:text="书摘"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <TextView
+                android:id="@+id/empty_rv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="68dp"
+                android:layout_marginLeft="68dp"
+                android:layout_marginTop="150dp"
+                android:gravity="center"
+                android:text="这本书还没有书摘哦，快来创建一个吧~~"
+                app:layout_constraintStart_toStartOf="@+id/textView2"
+                app:layout_constraintTop_toTopOf="@+id/book_detail_intro2" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/book_detail_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+
+</com.example.library.NestedScrolling.NestedScrollParentView>

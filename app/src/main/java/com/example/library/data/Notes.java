@@ -1,16 +1,51 @@
 package com.example.library.data;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 
 public class Notes {
+    public UUID mNoteId;
     public String mNoteTitle;
     public String mNoteContent;
+    public String mCMContent;
+    public String mNoteWriter;
     public Date mNoteDate;
 
-    public Notes(String noteTitle, String noteContent, Date noteDate) {
+    public Notes(){
+        mNoteId = UUID.randomUUID();
+        mNoteDate = new Date();//现在时间
+    }
+
+    public Notes(String noteTitle, String noteContent) {
+        mNoteId = UUID.randomUUID();
         mNoteTitle = noteTitle;
         mNoteContent = noteContent;
-        mNoteDate = noteDate;
+        mNoteDate = new Date();
+
+    }
+
+    public String getCMContent() {
+        return mCMContent;
+    }
+
+    public void setCMContent(String CMContent) {
+        mCMContent = CMContent;
+    }
+
+    public Notes(String noteTitle, String noteContent, Date noteDate) {
+    }
+
+    public String getNoteWriter() {
+        return mNoteWriter;
+    }
+
+    public void setNoteWriter(String noteWriter) {
+        mNoteWriter = noteWriter;
+    }
+
+    public UUID getNoteId() {
+        return mNoteId;
     }
 
     public String getNoteTitle() {
@@ -29,8 +64,10 @@ public class Notes {
         mNoteContent = noteContent;
     }
 
-    public Date getNoteDate() {
-        return mNoteDate;
+    public String getNoteDate() {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd");
+        String t=format.format(mNoteDate);
+        return t;
     }
 
     public void setNoteDate(Date noteDate) {
