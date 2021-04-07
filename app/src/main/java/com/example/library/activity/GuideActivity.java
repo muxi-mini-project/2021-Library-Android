@@ -9,15 +9,10 @@ import android.view.Window;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.example.library.R;
 import com.example.library.fragment.BookCityFragment;
 import com.example.library.fragment.ChoseBookExtract;
-import com.example.library.fragment.mineFragment;
-
-
-
 
 
 public class GuideActivity extends AppCompatActivity implements View.OnClickListener {
@@ -35,7 +30,7 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
     /*底部导航栏对应的Fragment*/
     private BookCityFragment fragment1;
     private ChoseBookExtract fragment2;
-    private mineFragment fragment3;
+    private mineFraggittment fragment3;
 
 
     @Override
