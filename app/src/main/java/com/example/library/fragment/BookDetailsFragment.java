@@ -2,6 +2,7 @@ package com.example.library.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,7 @@ import com.example.library.activity.OthersNoteActivity;
 import com.example.library.R;
 import com.example.library.data.BookData;
 import com.example.library.data.OthersDigestData;
+import com.example.library.fragment.sonfragment.RankFragment;
 import com.example.library.fragment.sonfragment.RecommendFragment;
 
 import java.net.HttpURLConnection;
@@ -44,6 +46,9 @@ public class BookDetailsFragment extends Fragment {
     private OthersDigestData digestData;
     public static List<OthersDigestData> mDataList = new ArrayList<>();//一定要记得右边的格式初始化！否则报空
     private int currentNumber;
+    protected boolean isInit = false;
+    protected boolean isLoad = false;
+    private View view;
 
     //以下名字组件前为中文名缩写。例如JJ为简介，JJ2为简介框
     private TextView mXQTextView;
@@ -57,9 +62,9 @@ public class BookDetailsFragment extends Fragment {
     private RecyclerView mRecyclerView;
 
 /*接收列表的数据并创建fragment，封装成方法*/
-    public static BookDetailsFragment newInstance(int bookId){
+    public static BookDetailsFragment newInstance(int position){
         Bundle args = new Bundle();
-        args.putSerializable(ARG_BOOK_ID,bookId);
+        args.putSerializable(ARG_BOOK_ID,position);
 
         BookDetailsFragment fragment = new BookDetailsFragment();
         fragment.setArguments(args);
@@ -69,8 +74,12 @@ public class BookDetailsFragment extends Fragment {
     public void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
         int bookId = (int) getArguments().getSerializable(ARG_BOOK_ID);
-        mBook = new BookData().getBook(bookId,RecommendFragment.data);
-        Log.d(TAG,"书的id是"+mBook.getBook_id().toString());
+        if (bookId > 50){
+            mBook =  new BookData().getBook(bookId,RecommendFragment.data);
+        }else {
+            mBook =  new BookData().getBook(bookId,RankFragment.data2);
+        }
+        Log.e(TAG,"书的id是"+bookId);
         getRequest();
     }
 
@@ -87,6 +96,7 @@ public class BookDetailsFragment extends Fragment {
         //书名
         mSMTextView = (TextView)v.findViewById(R.id.book_detail_title);
         mSMTextView.setText(mBook.getBook_name());
+        Log.e(TAG,"到这里书的名字是"+mBook.getBook_name()+"--------"+mBook.getBook_id());
         //作者
         mZZTextView = (TextView)v.findViewById(R.id.book_detail_writer);
         mZZTextView.setText(mBook.getBook_auther());
@@ -105,9 +115,6 @@ public class BookDetailsFragment extends Fragment {
 
         //列表为空时的提示
         mTextView = (TextView)v.findViewById(R.id.empty_rv);
-        //LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        //mRecyclerView.setLayoutManager(layoutManager);
-        //mRecyclerView.setFocusable(false);
 
         return v;
     }

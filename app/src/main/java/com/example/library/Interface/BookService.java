@@ -6,6 +6,7 @@ import com.example.library.data.BookData;
 import com.example.library.data.CommentData;
 import com.example.library.data.CommentPut;
 import com.example.library.data.OthersDigestData;
+import com.example.library.data.PostSearch;
 
 import java.util.List;
 
@@ -43,6 +44,6 @@ public interface BookService {
     );
 
     @POST("Library/searcher")
-    Call<BookData> getSearchCall(@Body BookData bookData);
+    Call<BookData> getSearchCall(@Body PostSearch postSearch);
 
 }
