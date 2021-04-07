@@ -3,6 +3,7 @@ package com.example.library.fragment.minefragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.renderscript.Sampler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +33,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import static java.lang.Integer.valueOf;
 
 public class mineFragment1 extends Fragment {
 
@@ -129,6 +132,7 @@ public class mineFragment1 extends Fragment {
         public void bind(MyBook myBook) {
             mMyBook = myBook;
             textView.setText(mMyBook.getBook_name());
+//            imageView.setImageResource(Integer.parseInt(mMyBook.getBook_picture()));
         }
 
         @Override
@@ -158,6 +162,7 @@ public class mineFragment1 extends Fragment {
                     //date = response.body().getData();
                     date = response.body();
                     Log.d("mineFragment1", date.toString());
+                    getPicData(date);
                     UpUI();
                 }
                 Log.d("mineFragment1", "mineFragment1网络请求成功");
@@ -183,6 +188,7 @@ public class mineFragment1 extends Fragment {
         }
         return pics;
     }
+
 
     public static mineFragment1 newInstance(String token) {
 

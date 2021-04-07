@@ -206,7 +206,7 @@ public class mineFragment extends Fragment {
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                dialog.dismiss();
             }
         });
         Button button2 = (Button)v.findViewById(R.id.change_user_name_button2);
@@ -215,7 +215,9 @@ public class mineFragment extends Fragment {
             public void onClick(View v) {
                 String use_name = editText1.getText().toString();
                 Set_user_Date(u_token,use_name,u_motto,u_password,u_picture);
-                System.out.println(use_name);
+                textView1.setText(use_name);
+                System.out.println("用户名是"+use_name);
+                dialog.dismiss();
             }
         });
         dialog.setView(v);
@@ -227,13 +229,21 @@ public class mineFragment extends Fragment {
         View v = View.inflate(getContext(), R.layout.change_motto, null);
         EditText editText2 =(EditText) v.findViewById(R.id.change_user_motto);
         Button button1 = (Button)v.findViewById(R.id.change_user_motto_button1);
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
         Button button2 = (Button)v.findViewById(R.id.change_user_motto_button2);
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String use_motto = editText2.getText().toString();
                 Set_user_Date(u_token,u_name,use_motto,u_password,u_picture);
-                Log.d("mineFragment","更改的座右铭是"+use_motto);
+                textView2.setText(use_motto);
+                Log.d("mineFragment","更改的座右铭是"+use_motto+"更改的密码是"+u_password);
+                dialog.dismiss();
 
             }
         });

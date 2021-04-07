@@ -5,6 +5,13 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@drawable/book_border">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="更换姓名"
+        android:gravity="center"
+        android:textColor="@color/new_blue"
+        android:textSize="30sp"/>
     <EditText
         android:id="@+id/change_user_name"
         android:layout_width="match_parent"
