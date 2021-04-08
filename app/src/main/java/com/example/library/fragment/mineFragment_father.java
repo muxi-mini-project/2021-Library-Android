@@ -1,4 +1,4 @@
-package com.example.library.activity;
+package com.example.library.fragment;
 
 import android.Manifest;
 import android.content.Intent;

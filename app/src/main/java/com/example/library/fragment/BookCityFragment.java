@@ -1,5 +1,6 @@
 package com.example.library.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,9 +19,11 @@ import com.example.library.Interface.BookService;
 import com.example.library.R;
 import com.example.library.Search.SearchAdapter;
 import com.example.library.Search.SearchView;
+import com.example.library.activity.BookDetailPagerActivity;
 import com.example.library.activity.GuideActivity;
 import com.example.library.data.BookData;
 import com.example.library.data.BookLab;
+import com.example.library.data.PostSearch;
 import com.example.library.fragment.sonfragment.RankFragment;
 import com.example.library.fragment.sonfragment.RecommendFragment;
 import com.example.library.fragment.sonfragment.SortFragment;
@@ -38,8 +41,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class BookCityFragment extends Fragment implements SearchView.SearchViewListener{
     private static final String TAG = "BookCityFragment";
-    //public static List<BookData.DataBean> DATA = new ArrayList<>();
-    //暂时考虑子类会用到，用public
     public TextView mEditText;
     private ArrayAdapter<String> mArrayAdapter;
     TabLayout mTableLayout;
@@ -65,6 +66,8 @@ public class BookCityFragment extends Fragment implements SearchView.SearchViewL
     //自动补全数据
     private List<String> autoCompleteData;
     //结果数据
+    private List<BookData.DataBean> bookData = new ArrayList<>();
+
     private List<String> resultData;
     //默认提示框显示项个数
     private static int DEFAULT_HINT_SIZE = 4;
@@ -79,8 +82,6 @@ public class BookCityFragment extends Fragment implements SearchView.SearchViewL
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        //getRequest();
-        Log.d(TAG,"书城");
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -104,10 +105,8 @@ public class BookCityFragment extends Fragment implements SearchView.SearchViewL
         titles.add("排行");
 
         init();
-        initData();
-        initViews();
-        Log.e(TAG,">>>>>>>>>>>>>>" + nameList.get(0) + "<<<<<<<<<<<");
-        //Log.d(TAG,"在书城内查看DATA的数据"+DATA.toString());
+        getRequest();
+        //initViews();
         return v;
     }
 
@@ -138,22 +137,53 @@ public class BookCityFragment extends Fragment implements SearchView.SearchViewL
         getResultData(null);
     }
 
-    private void getRequest(){
+    public void getRequest(){
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://39.102.42.156:10086/")
+                .baseUrl("http://39.102.42.156:10086")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        BookService api = retrofit.create(BookService.class);
-        Call<BookData> searchCall = api.getSearchCall(new BookData());
+        BookService mApi = retrofit.create(BookService.class);
+        Call<BookData> bookDataCall = mApi.getCall();
+
+        bookDataCall.enqueue(new Callback<BookData>() {
+            //请求成功时回调
+            @Override
+            public void onResponse(Call<BookData> call, Response<BookData> response) {
+                Log.e(TAG,"搜索的onResponse>>>>>" + response.code());
+                if (response.code() == HttpURLConnection.HTTP_OK){
+                    Log.d(TAG,"Json>>>>>" + response.body().toString());
+                    bookData = response.body().getData();
+                    Log.d(TAG,"data--------------" + bookData.toString());
+                    initData();
+                    initViews();
+                    if (nameList.size()!=0){
+                        Log.e(TAG,">>>>>>>>>>>>>>" + nameList.get(0) + "<<<<<<<<<<<");
+
+                    }else{
+                        Log.e(TAG,"it is null!!!" );
+                    }
+                }
+            }
+
+            //请求失败时回调
+            @Override
+            public void onFailure(Call<BookData> call, Throwable t)
+            {
+                Log.d(TAG,"error ---");
+            }
+        });
     }
 
     private void getBookData() {
-        BookLab bookLab = BookLab.get(getActivity());
-        List<BookData.DataBean> bookData = bookLab.getBooks();
         nameList = new ArrayList<>();
         for (int j = 0 ; j < bookData.size();j++){
             nameList.add(bookData.get(j).getBook_name());
+        }
+        if (nameList.size() != 0){
+            Log.d(TAG,"是否有nameList的数据"+nameList.get(0));
+        }else {
+            Log.e(TAG,"No nameList!!!!");
         }
     }
     /*获取搜索结果data和adapter:可暂时忽略*/
@@ -197,12 +227,12 @@ public class BookCityFragment extends Fragment implements SearchView.SearchViewL
     }
     /*获取热搜版data和adapter*/
     private void getHintData() {
-        hintData = new ArrayList<>(hintSize);
+        /*hintData = new ArrayList<>(hintSize);
         for (int i = 1; i <= hintSize; i++){
-            hintData.add("热搜:" +i);
-        }
+            hintData.add(bookData.get(i).getBook_name());
+        }*/
         hintAdapter = new ArrayAdapter<>
-                (getActivity(), android.R.layout.simple_list_item_1,hintData);
+                (getActivity(), android.R.layout.simple_list_item_1,nameList);
     }
     /*当搜索框 文本改变时 触发的回调 ,更新自动补全数据*/
     public void onRefreshAutoComplete(String text){
@@ -222,7 +252,20 @@ public class BookCityFragment extends Fragment implements SearchView.SearchViewL
             //更新搜索数据
             resultAdapter.notifyDataSetChanged();
         }*/
-        Toast.makeText(getActivity(), "完成搜索", Toast.LENGTH_SHORT).show();
+        int id = 0;
+        for ( int j = 0; j < nameList.size(); j++){
+            if (text.equals(nameList.get(j))){
+                id = bookData.get(j).getBook_id();
+            }
+        }
+        if (id != 0){
+            Intent intent = BookDetailPagerActivity.newIntent(getActivity(), id);
+            startActivity(intent);
+            //Log.e(TAG,"text is ~~~~~~" + text +"~~~~~" + "intent is " + intent.toString());
+            Toast.makeText(getActivity(), "完成搜索", Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(getActivity(), "不在搜索范围内", Toast.LENGTH_SHORT).show();
+        }
     }
 
     //创建适配器
@@ -249,35 +292,5 @@ public class BookCityFragment extends Fragment implements SearchView.SearchViewL
         }
 
     }
-    /*public void getRequest(){
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://39.102.42.156:10086")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        BookService mApi = retrofit.create(BookService.class);
-        Call<BookData> bookDataCall = mApi.getCall();
-
-        bookDataCall.enqueue(new Callback<BookData>() {
-            //请求成功时回调
-            @Override
-            public void onResponse(Call<BookData> call, Response<BookData> response) {
-                Log.d(TAG,"onResponse>>>>>" + response.code());
-                if (response.code() == HttpURLConnection.HTTP_OK){
-                    Log.d(TAG,"Json>>>>>" + response.body().toString());
-                    DATA = response.body().getData();
-                    Log.d(TAG,"data--------------" + DATA.toString());
-                }
-            }
-
-            //请求失败时回调
-            @Override
-            public void onFailure(Call<BookData> call, Throwable t)
-            {
-                Log.d(TAG,"error ---");
-            }
-        });
-    }*/
-
 
 }

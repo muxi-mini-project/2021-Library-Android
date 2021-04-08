@@ -39,7 +39,7 @@ public class RankFragment extends BookCityFragment {
     private RecyclerView mRankRecyclerView;
     private BookAdapter2 mAdapter;
     private static int itemPosition;
-    private List<BookData.DataBean> data2;
+    public static List<BookData.DataBean> data2 = new ArrayList<>();
     private List<String> pics2;
 
 
@@ -132,6 +132,7 @@ public class RankFragment extends BookCityFragment {
 
         public void onClick(View view) {
             Intent intent = BookDetailPagerActivity.newIntent(getActivity(), mBook.getBook_id());
+            Log.e(TAG,"排行的    "+mBook.getBook_id());
             itemPosition =getBindingAdapterPosition();
             startActivity(intent);
         }
@@ -157,7 +158,6 @@ public class RankFragment extends BookCityFragment {
         public void onBindViewHolder(@NonNull BookHolder2 holder, int position) {
             BookData.DataBean book = mBooks.get(position);
             holder.bind(book);
-            //pics2 = getPicData(RecommendFragment.data);
             if (pics2.size() == 0){
                 Log.d(TAG,"The pics is null!!!!!!");
             }else {

@@ -109,7 +109,7 @@ public class RecommendFragment extends BookCityFragment {
         mAdapter = new BookAdapter(getActivity(),data);
         mRMRecyclerView.setAdapter(mAdapter);
         mRMRecyclerView.setLayoutManager(new LinearLayoutManager(getParentFragment().getActivity()));
-        Log.d(TAG,"adapter已经设置好了"+mAdapter.toString());
+        //Log.d(TAG,"adapter已经设置好了"+mAdapter.toString());
     }
 
     private class BookHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -132,7 +132,7 @@ public class RecommendFragment extends BookCityFragment {
         //@SuppressLint("ResourceType")
         public void bind(BookData.DataBean book){
             mBook = book;
-            Log.d(TAG,"user id is aaaaaaaaaaaaa"+book.getBook_auther());
+            //Log.d(TAG,"user id is aaaaaaaaaaaaa"+book.getBook_auther());
             mTTTextView.setText(mBook.getBook_name());
             mWTTextView.setText(mBook.getBook_auther());
             mInTextView.setText(mBook.getBook_information());
@@ -143,7 +143,8 @@ public class RecommendFragment extends BookCityFragment {
         public void onClick(View view){
             Intent intent = BookDetailPagerActivity.newIntent(getActivity(),mBook.getBook_id());
             itemPosition = getBindingAdapterPosition();
-            Toast.makeText(getActivity(),"可左右滑动切换书籍",Toast.LENGTH_SHORT);
+            Log.e(TAG,"传过去的书的id是！！！"+mBook.getBook_id());
+            Toast.makeText(getActivity(),"可左右滑动切换书籍",Toast.LENGTH_SHORT).show();
             startActivity(intent);
         }
     }
@@ -167,9 +168,9 @@ public class RecommendFragment extends BookCityFragment {
          @Override
          public void onBindViewHolder(@NonNull BookHolder holder, int position) {
             BookData.DataBean book = mBooks.get(position);
-            Log.d(TAG,"bind的数据" + book.toString());
+            //Log.d(TAG,"bind的数据" + book.toString());
             holder.bind(book);
-            Log.d(TAG,"the picture is" + pics.get(position));
+            //Log.d(TAG,"the picture is" + pics.get(position));
             Glide.with(mContext).load(pics.get(position)).into(holder.mImageView);
          }
 

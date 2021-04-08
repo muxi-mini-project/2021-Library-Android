@@ -143,19 +143,9 @@ public class SearchActivity extends AppCompatActivity implements SearchView.Sear
         getAutoCompleteData(text);
     }
 /*点击搜索键时edit text触发的回调*/
-    @Override
-    public void onSearch(String text) {
-        //更新result数据
+ public void onSearch(String text) {
         getResultData(text);
-        /*RvResult.setVisibility(View.VISIBLE);
-        //第一次获取结果 还未配置适配器
-        if (RvResult.getAdapter() == null) {
-            //获取搜索数据 设置适配器
-            RvResult.setAdapter(resultAdapter);
-        } else {
-            //更新搜索数据
-            resultAdapter.notifyDataSetChanged();
-        }*/
+
         int id = 1;
         for ( int j = 0; j < nameList.size(); j++){
             if (text.equals(nameList.get(j))){
