@@ -222,9 +222,6 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
                 }
 
                 Log.d("GuideActivity", user_name + "还有" + user_motto);
-
-                Toast.makeText(GuideActivity.this, "成功获取信息", Toast.LENGTH_SHORT).show();
-
             }
 
             @Override

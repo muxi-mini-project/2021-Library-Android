@@ -1,8 +1,15 @@
 package com.example.library.fragment.minefragment_son;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.renderscript.Sampler;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +23,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.library.Interface.UserDate;
 import com.example.library.R;
 import com.example.library.activity.BookDetailPagerActivity;
@@ -23,7 +31,11 @@ import com.example.library.activity.LoginActivity;
 import com.example.library.activity.MybookActivity;
 import com.example.library.data.MyBook;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,6 +55,8 @@ public class mineFragment1 extends Fragment {
     private List<MyBook> date = new ArrayList<>();
     private RecyclerView mRecyclerView;
     private String token;
+    private List<String> pics = new ArrayList<>();
+    private Bitmap pic;
 
 
     @Override
@@ -75,7 +89,7 @@ public class mineFragment1 extends Fragment {
         //mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getParentFragment().getActivity(), RecyclerView.HORIZONTAL, true));
         mRecyclerView.setAdapter(adapt);
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.HORIZONTAL));
+        //mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.HORIZONTAL));
     }
 
     public class MyBookAdapt extends RecyclerView.Adapter<Holder> implements View.OnClickListener {
@@ -99,7 +113,45 @@ public class mineFragment1 extends Fragment {
             MyBook myBook = mMyBook.get(position);
             Log.d("mineFragment1", "mineFragment1中的数据" + myBook.toString());
             holder.bind(myBook);
+
+/**
+ * 导入图片
+ */
+            Handler handler = new Handler() {
+                @SuppressLint("HandlerLeak")
+                @Override
+                public void handleMessage(Message msg) {
+                    super.handleMessage(msg);
+                    if (msg.what == 0x1234) {
+                        holder.imageView.setImageBitmap(pic);
+                    }
+                }
+            };
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+
+                    URL url = null;
+                    try {
+                        url = new URL(String.valueOf(myBook.getBook_picture()));
+                    } catch (MalformedURLException e) {
+                        e.printStackTrace();
+                    }
+                    InputStream is = null;
+                    try {
+                        is = url.openStream();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    pic = BitmapFactory.decodeStream(is);
+                    handler.sendEmptyMessage(0x1234);
+                }
+            }).start();
         }
+
+        // Glide.with(mContext).load(pics.get(position)).into(holder.imageView);
+
 
         @Override
         public int getItemCount() {
@@ -131,14 +183,18 @@ public class mineFragment1 extends Fragment {
         public void bind(MyBook myBook) {
             mMyBook = myBook;
             textView.setText(mMyBook.getBook_name());
-//            imageView.setImageResource(Integer.parseInt(mMyBook.getBook_picture()));
+            //imageView.setImageResource(Integer.parseInt(String.valueOf(mMyBook.getBook_picture())));
+            //imageView.setImageBitmap(stringToBitmap(mMyBook.getBook_picture()));
+            System.out.println(mMyBook.getBook_picture());
         }
 
         @Override
         public void onClick(View v) {
-            Intent i2 = BookDetailPagerActivity.newIntent(getActivity(),mMyBook.getBook_id());
+            Intent i2 = BookDetailPagerActivity.newIntent(getActivity(), mMyBook.getBook_id());
+            Log.e("mineFragment1","传过去的书的id是！！！"+mMyBook.getBook_id());
             startActivity(i2);
         }
+
     }
 
 
@@ -159,14 +215,13 @@ public class mineFragment1 extends Fragment {
             public void onResponse(Call<List<MyBook>> call, Response<List<MyBook>> response) {
                 Log.d("mineFragment1", "网络请求在此可运行2");
                 if (response.code() == HttpURLConnection.HTTP_OK) {
-                    //date = response.body().getData();
                     date = response.body();
+                    //pic = BitmapFactory.decodeStream(date);
                     Log.d("mineFragment1", date.toString());
-                    getPicData(date);
+                    //getPicData(date);
                     UpUI();
                 }
                 Log.d("mineFragment1", "mineFragment1网络请求成功");
-                Toast.makeText(getActivity(), "成功获取书籍", Toast.LENGTH_SHORT).show();
 
             }
 
@@ -199,4 +254,5 @@ public class mineFragment1 extends Fragment {
         Log.d("mineFragment", "可以传递");
         return fragment;
     }
+
 }
