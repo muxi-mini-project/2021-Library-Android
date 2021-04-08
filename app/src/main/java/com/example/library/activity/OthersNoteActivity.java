@@ -145,7 +145,6 @@ public class OthersNoteActivity extends AppCompatActivity implements View.OnClic
         });
     }
 
-
     /*实例化组件*/
     private void initView() {
         textView3 = (TextView) findViewById(R.id.textView3);
