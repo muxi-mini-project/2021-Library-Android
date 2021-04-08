@@ -1,13 +1,16 @@
 package com.example.library.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +43,7 @@ public class MyDigestActivity extends AppCompatActivity {
     private Context context;
     private LinearLayoutManager linearLayoutManager;
     private List<MyDigest> myDigestList = new ArrayList<>();
+    private MyDigestAdapter adapter;
 
 
     @Override
@@ -59,11 +63,43 @@ public class MyDigestActivity extends AppCompatActivity {
         linearLayoutManager = new LinearLayoutManager(context);
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
+        adapter = new MyDigestAdapter(myDigestList,MyDigestActivity.this);
+        /*adapter.setOnItemClickListener(new MyDigestActivity.MyDigestAdapter.OnItemClickListener() {
+            @Override
+            /**
+             *长按弹出“删除”
+
+
+            public void onItemLongClick(final View view, final int pos,final int id) {
+                PopupMenu popupMenu = new PopupMenu(MyDigestActivity.this, view);
+                popupMenu.getMenuInflater().inflate(R.menu.delete, popupMenu.getMenu());
+
+                //弹出式菜单的菜单项点击事件
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+
+                        adapter.notifyItemRemoved(pos);
+                        //deleteDigest(id);
+                        return true;
+                    }
+                });
+                popupMenu.show();
+            }
+
+
+            @Override
+            public void omItemClick(final View view,final int position,int id) {
+                Intent intent = BookDetailPagerActivity.newIntent(MyDigestActivity.this,title);
+                startActivity(intent);
+            }
+        });*/
         recyclerView.setAdapter(new MyDigestAdapter(myDigestList, MyDigestActivity.this));
     }
 
 
-    public class MyDigestAdapter extends RecyclerView.Adapter<ViewHolder> {
+    public static class MyDigestAdapter extends RecyclerView.Adapter<ViewHolder> {
         private Context context;
         private RecyclerView.OnItemTouchListener listener1;
         private AdapterView.OnItemClickListener listener;
@@ -77,7 +113,7 @@ public class MyDigestActivity extends AppCompatActivity {
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            LayoutInflater inflate = LayoutInflater.from(MyDigestActivity.this);
+            LayoutInflater inflate = LayoutInflater.from(parent.getContext());
             return new ViewHolder(inflate, parent);
         }
 
@@ -85,15 +121,43 @@ public class MyDigestActivity extends AppCompatActivity {
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
             MyDigest myDigest = myDigests.get(position);
             holder.bind(myDigest);
+
+            if(onItemClickListener!=null) {
+                holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        //onItemClickListener.onItemLongClick(holder.itemView,position,myDigest.getId());
+                        return true;
+                    }
+                });
+                holder.itemView.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v) {
+                        //onItemClickListener.omItemClick(holder.itemView,position,myDigest.getId());
+                    }
+                });
+            }
         }
 
         @Override
         public int getItemCount() {
             return myDigests.size();
         }
+
+        private MybookActivity.MybookAdapter.OnItemClickListener onItemClickListener;
+
+        public interface OnItemClickListener {
+            void onItemLongClick(View v, int position,int id);
+
+            void omItemClick(View v,int position,String title);
+        }
+
+        public void setOnItemClickListener(MybookActivity.MybookAdapter.OnItemClickListener clickListener) {
+            this.onItemClickListener = clickListener;
+        }
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView imageView;
         private TextView textView1;
         private TextView textView2;
@@ -148,7 +212,7 @@ public class MyDigestActivity extends AppCompatActivity {
         });
     }
 
-    public void deleteDigest(String token, int digest_id) {
+    public void deleteDigest(int digest_id) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://39.102.42.156:10086")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -156,7 +220,7 @@ public class MyDigestActivity extends AppCompatActivity {
 
         UserDate userDate = retrofit.create(UserDate.class);
 
-        Call<Response<Void>> user = userDate.deleteADigest(token, digest_id);
+        Call<Response<Void>> user = userDate.deleteADigest(LoginActivity.token, digest_id);
 
         user.enqueue(new Callback<Response<Void>>() {
 

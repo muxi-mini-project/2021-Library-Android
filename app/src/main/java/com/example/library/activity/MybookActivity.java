@@ -9,12 +9,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -22,9 +20,7 @@ import android.widget.Toast;
 
 import com.example.library.Interface.UserDate;
 import com.example.library.R;
-import com.example.library.data.BookLab;
 import com.example.library.data.MyBook;
-import com.example.library.fragment.minefragment.mineFragment1;
 
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
@@ -74,7 +70,7 @@ public class MybookActivity extends AppCompatActivity {
              *长按弹出“删除”
              */
 
-            public void onItemLongClick(final View view, final int pos) {
+            public void onItemLongClick(final View view, final int pos,final int id) {
                                                PopupMenu popupMenu = new PopupMenu(MybookActivity.this, view);
                                                popupMenu.getMenuInflater().inflate(R.menu.delete, popupMenu.getMenu());
 
@@ -86,7 +82,8 @@ public class MybookActivity extends AppCompatActivity {
                                                        /**
                                                         * 删除的网络请求：（）里要填相应的是的id
                                                         */
-                                                       deleteBookDetail(item.getItemId());
+                                                       adapter.notifyItemRemoved(pos);
+                                                       deleteBookDetail(id);
                                                        return true;
                                                    }
                                                });
@@ -98,8 +95,8 @@ public class MybookActivity extends AppCompatActivity {
              * @param position
              */
             @Override
-            public void omItemClick(int position) {
-                                               Intent intent = BookDetailPagerActivity.newIntent(MybookActivity.this,position);
+            public void omItemClick(final View view,final int position,final int id) {
+                                               Intent intent = BookDetailPagerActivity.newIntent(MybookActivity.this,id);
                                                startActivity(intent);
                                            }
                                        });
@@ -131,14 +128,14 @@ public class MybookActivity extends AppCompatActivity {
                 holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
-                        onItemClickListener.onItemLongClick(holder.itemView,position);
+                        onItemClickListener.onItemLongClick(holder.itemView,position,myBook.getBook_id());
                         return true;
                     }
                 });
                 holder.itemView.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View v) {
-                        onItemClickListener.omItemClick(position);
+                        onItemClickListener.omItemClick(holder.itemView,position,myBook.getBook_id());
                     }
                 });
             }
@@ -152,9 +149,9 @@ public class MybookActivity extends AppCompatActivity {
         private OnItemClickListener onItemClickListener;
 
         public interface OnItemClickListener {
-            void onItemLongClick(View v, int position);
+            void onItemLongClick(View v, int position,int id);
 
-            void omItemClick(int position);
+            void omItemClick(View v,int position,int id);
         }
 
         public void setOnItemClickListener(OnItemClickListener clickListener) {
@@ -173,7 +170,6 @@ public class MybookActivity extends AppCompatActivity {
             super(inflate.inflate(R.layout.item_my_book, parent, false));
             imageView = (ImageView) itemView.findViewById(R.id.mybook_pic);
             textView = (TextView) itemView.findViewById(R.id.mybook_name);
-            Log.d("MyBookActivity", "点击事件设置");
         }
 
         public void bind(MyBook myBook) {
@@ -232,7 +228,7 @@ public class MybookActivity extends AppCompatActivity {
                 if (response.isSuccessful() == true) {
                     Toast.makeText(MybookActivity.this, "删除书本成功", Toast.LENGTH_SHORT).show();
                 }
-                Log.d("MyBookActivity", "删除单一书本的网络请求成功");
+                Log.d("MyBookActivity", "删除单一书本的网络请求成功"+",删除的书本id是"+book_id);
             }
 
             @Override
