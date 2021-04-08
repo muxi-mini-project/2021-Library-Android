@@ -14,7 +14,7 @@
         <activity android:name=".activity.MybookActivity"/>
         <activity android:name=".activity.SetDetailActivity" />
         <activity
-            android:name=".activity.GuideActivity"
+            android:name=".activity.LoginActivity"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
 
             <intent-filter>
@@ -23,6 +23,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity.GuideActivity"/>
         <activity android:name=".activity.MainActivity"/>
         <activity android:name=".Search.SearchActivity"/>
         <activity android:name=".activity.EachSortActivity"/>

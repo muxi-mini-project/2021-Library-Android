@@ -35,11 +35,7 @@
                 android:layout_height="50dp"
                 android:layout_marginLeft="40dp"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/book_city_pic"
-                android:text="@string/myBook"
-                android:textColor="@android:color/holo_purple"
-                android:textSize="16sp"
-                app:drawableTopCompat="@drawable/mine_pic" />
+                android:background="@drawable/book_city_pic" />
 
             <TextView
                 android:layout_width="100dp"
@@ -64,9 +60,6 @@
                 android:layout_height="50dp"
                 android:layout_marginLeft="40dp"
                 android:layout_marginTop="10dp"
-                android:text="@string/myBook"
-                android:textColor="@android:color/holo_purple"
-                android:textSize="16sp"
                 android:background="@drawable/digest_pic"
                 android:drawablePadding="3dp"
                 android:gravity="center"
