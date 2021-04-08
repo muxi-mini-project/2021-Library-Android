@@ -10,6 +10,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
@@ -19,7 +20,9 @@ public interface BookExtractInterface {
     //书摘主界面
     @GET("digest/mysummary/{user_id}")
    // Call<BookExtract> getCall();
-     Call<BookDigestData> getCall(@Path("user_id")String user_id);
+     Call<BookDigestData> getCall(
+             @Path("user_id")String user_id
+    );
 
     //getCall（） = 接受 网络请求数据的方法
     //其中返回类型为Call<*>,*是接收数据的类
@@ -30,7 +33,10 @@ public interface BookExtractInterface {
 
     //是否公开
     @PUT("/digest/mysummary/{user_id}")
-    Call<BookDigestData> getPut(@Path ("user_id") String user_id);
+    Call<BookDigestData> getPut(
+            @Path ("user_id") String user_id,
+           @Header("token")String token
+    );
 
     //获取书摘分类
     @GET("/digest/mysummary/{user_id}/classes_edit")
@@ -42,14 +48,25 @@ public interface BookExtractInterface {
 
     //编辑书摘
     @PUT("/digest/person/{summary_id}")
-    Call<BookDigestData> putdigest(@Path("summary_id")String summary_id);
+    Call<BookDigestData> putdigest(
+            @Path("summary_id")String summary_id,
+            @Header("token")String token
+           // @Body("summaryInfo")Object summaryInfo
+    );
 
     //添加书摘
     @POST("/digest")
-    Call<BookDigestData.DataDTO> getDigest(@Body BookDigestData bookDigestData);
+    Call<BookDigestData.DataDTO> getDigest(
+            @Body BookDigestData bookDigestData
+            //@Body("summaryInfo")Object summaryInfo
+    );
 
     //搜索
     @POST("/digest/mysummary/{user_id}")
-    Call<SearchView2> getpost(@Path("user_id")String user_id);
+    Call<SearchView2> getpost(
+            @Path("user_id")String user_id,
+              @Header("token")String token
+            //@Body("search")Object search
+    );
 
 }

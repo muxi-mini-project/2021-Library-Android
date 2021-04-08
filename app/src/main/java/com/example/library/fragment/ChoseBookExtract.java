@@ -49,6 +49,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ChoseBookExtract extends Fragment {
     private static final String TAG = "DQP";
+    BookDigestData mData =new BookDigestData();
     private Spinner mChose;
     private Button mEdit;
     private Button mAdd;
@@ -69,13 +70,12 @@ public class ChoseBookExtract extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getRequest();
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.book_zhai, container, false);
         mLinearLayout = (LinearLayout) view.findViewById(R.id.book_extract_item);
-
+        getRequest();
         mChose = (Spinner) view.findViewById(R.id.chose);
         mChose = (Spinner) view.findViewById(R.id.chose);
         context = getContext();
@@ -132,21 +132,39 @@ public class ChoseBookExtract extends Fragment {
         bookExtractCall.enqueue(new Callback<BookDigestData>() {
             @Override
             public void onResponse(Call<BookDigestData> call, Response<BookDigestData> response) {
+
                 Log.d(TAG, "------------->>" + response.code());
                 if (response.code() == HttpURLConnection.HTTP_OK) {
                     Log.d(TAG, "+++=========>" + response.body().toString());
                     mBook_extract_list = response.body().getBook_extract_list();
+                    //updateUI();
+                    //mData=response.body();
                 }
-
+                if(mBook_extract_list==null){
+                    Toast.makeText(getActivity(),"这里空空如也，快来添加吧！",Toast.LENGTH_LONG).show();
+                }
+                else {
+                    updateUI();
+                    mData=response.body();
+                }
             }
 
             @Override
             public void onFailure(Call<BookDigestData> call, Throwable t) {
                 Log.d(TAG,"error ++++++++++" );
             }
-
         } );
 
+    }
+
+    private void updateUI() {
+        mAdapter=new BookExtractAdapter(getActivity(),mBook_extract_list);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mLayoutManager.setOrientation(RecyclerView.VERTICAL);
+        mBook_extract_list = BookExtractLab.get(getActivity()).getBookExtracters();
     }
 
     public void onViewCreated(View view, Bundle savedInstanceState) {

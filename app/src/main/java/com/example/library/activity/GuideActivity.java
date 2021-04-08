@@ -59,7 +59,7 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
     /*底部导航栏对应的Fragment*/
     private BookCityFragment fragment1;
     private ChoseBookExtract fragment2;
-    private mineFraggittment fragment3;
+    private mineFragment fragment3;
 
     private String user_name;
     private String user_picture;

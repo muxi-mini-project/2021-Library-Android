@@ -63,7 +63,7 @@ public class BookDigestData {
         private UUID Id;
         private Integer id;
         private Integer user_id;
-        private Integer book_id;
+        private String book_id;
         private Integer class_id;
         private String title;
         private String chapter;
@@ -97,11 +97,11 @@ public class BookDigestData {
             this.user_id = user_id;
         }
 
-        public Integer getBook_id() {
+        public String getBook_id() {
             return book_id;
         }
 
-        public void setBook_id(Integer book_id) {
+        public void setBook_id(String book_id) {
             this.book_id = book_id;
         }
 

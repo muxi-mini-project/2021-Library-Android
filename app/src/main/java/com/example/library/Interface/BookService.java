@@ -29,9 +29,7 @@ public interface BookService {
     @GET("Library/{books_id}/digest")
     Call<List<OthersDigestData>> getCall2(@Path("books_id") String books_id);
 
-<<<<<<< HEAD
 
-=======
     @GET("library/ranking")
     Call<BookData> getRankCall();
 //返回评论
@@ -52,6 +50,6 @@ public interface BookService {
 
     @POST("Library/searcher")
     Call<BookData> getSearchCall(@Body PostSearch postSearch);
->>>>>>> e4f6784e781b1eb6e1176b7690b9ea04ee8a2f1e
+
 
 }

@@ -14,7 +14,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-<<<<<<< HEAD
 import androidx.appcompat.widget.AlertDialogLayout;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,14 +21,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.example.library.Interface.BookExtractInterface;
-import com.example.library.activity.ChoseBookExtractActivity;
 import com.example.library.fragment.ChoseBookExtract;
-=======
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.library.activity.GuideActivity;
->>>>>>> e4f6784e781b1eb6e1176b7690b9ea04ee8a2f1e
 
 import java.net.HttpURLConnection;
 import java.util.ArrayList;

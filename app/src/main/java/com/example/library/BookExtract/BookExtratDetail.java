@@ -24,6 +24,7 @@ import com.example.library.R;
 
 import com.example.library.R;
 import com.example.library.activity.GuideActivity;
+import com.example.library.activity.LoginActivity;
 import com.example.library.fragment.ChoseBookExtract;
 
 import java.util.ArrayList;
@@ -52,7 +53,8 @@ public class BookExtratDetail extends AppCompatActivity implements View.OnClickL
     private Context mContext;
     private BookExtractAdapter mAdapter;
     public static List<BookDigestData.DataDTO> mBook_extract_list = new ArrayList<>();
-
+    Context context;
+    BookDigestData.DataDTO mData =new BookDigestData.DataDTO(context);
 
     private DialogInterface.OnClickListener mListener=new DialogInterface.OnClickListener() {
         @Override
@@ -79,12 +81,13 @@ public class BookExtratDetail extends AppCompatActivity implements View.OnClickL
         mFinish1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                makeText(BookExtratDetail.this,"已添加", LENGTH_SHORT);
+                if(mData.getTitle()==null &&  mData.getSummary_information()==null && mData.getChapter()==null && mData.getThought()==null){
+                    Toast.makeText(BookExtratDetail.this,"书摘不能为空", LENGTH_LONG).show();
+                }
+                else
+               Toast.makeText(BookExtratDetail.this,"已添加", LENGTH_SHORT).show();
                 Intent intent=new Intent(BookExtratDetail.this, ChoseBookExtract.class);
                 startActivity(intent);
-
-                Toast.makeText(BookExtratDetail.this,"已完成",Toast.LENGTH_SHORT);
                 BookExtratDetail.this.finish();
 
             }
@@ -117,17 +120,22 @@ public class BookExtratDetail extends AppCompatActivity implements View.OnClickL
                 mFinish1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mAdapter = new BookExtractAdapter(BookExtratDetail.this, mBook_extract_list);
-                        mAdapter.addData(mBook_extract_list.size());
-                        makeText(BookExtratDetail.this,"已添加", LENGTH_SHORT).show();
-                        Intent intent=new Intent(BookExtratDetail.this, ChoseBookExtract.class);
-                        //((Activity) mContext).finish();
-                        Bundle bundle = new Bundle();
-                        bundle.putString("Bookname",title.getText().toString());
-                        bundle.putString("Context",summary_information.getText().toString());
-                        intent.putExtras(bundle);
-                        finish();
-                        startActivity(intent);
+                        if (mData.getTitle() == null && mData.getSummary_information() == null && mData.getChapter() == null && mData.getThought() == null) {
+                            Toast.makeText(BookExtratDetail.this, "书摘不能为空", LENGTH_LONG).show();
+                        } else {
+                            mAdapter = new BookExtractAdapter(BookExtratDetail.this, mBook_extract_list);
+                            makeText(BookExtratDetail.this, "已添加", LENGTH_SHORT).show();
+                            Intent intent = new Intent(BookExtratDetail.this, ChoseBookExtract.class);
+                            //((Activity) mContext).finish();
+                            Bundle bundle = new Bundle();
+                            bundle.putString("Bookname", title.getText().toString());
+                            bundle.putString("Context", summary_information.getText().toString());
+                            intent.putExtras(bundle);
+                            finish();
+                            startActivity(intent);
+                            mAdapter.addData(mBook_extract_list.size());
+                           mData= response.body();
+                        }
                     }
                 });
             }
@@ -149,7 +157,7 @@ public class BookExtratDetail extends AppCompatActivity implements View.OnClickL
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         BookExtractInterface mApi = retrofit.create(BookExtractInterface.class);
-        Call<BookDigestData> bookDigestData = mApi.getPut("7");
+        Call<BookDigestData> bookDigestData = mApi.getPut(LoginActivity.token,mData.getBook_id());
         bookDigestData.enqueue(new Callback<BookDigestData>() {
             @Override
             public void onResponse(Call<BookDigestData> call, Response<BookDigestData> response) {

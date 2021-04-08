@@ -4,6 +4,8 @@ package com.example.library.data;
 import android.content.Context;
 
 import com.example.library.BookExtract.BookDigestData;
+import com.example.library.BookExtract.BookExtractAdapter;
+import com.example.library.BookExtract.BookExtratDetail;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,13 +14,13 @@ import java.util.UUID;
 //模仿队友BookLab创建BookExtractLab数组单例。
 public class BookExtractLab {
     public static BookExtractLab sBookExtractLab;
-
+    private BookExtractAdapter mAdapter;
     private List<BookDigestData.DataDTO> mBookExtracters;
 
     public BookExtractLab(Context context) {
         mBookExtracters = new ArrayList<>();
         //生成临时数据组
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < mAdapter.getItemCount(); i++) {
             BookDigestData.DataDTO bookExtracter = new BookDigestData.DataDTO(context);
             bookExtracter.setTitle(bookExtracter.getTitle());
             bookExtracter.setSummary_information(bookExtracter.getSummary_information());
@@ -30,6 +32,7 @@ public class BookExtractLab {
     //创建单例
     public static BookExtractLab get(Context context) {
         if (sBookExtractLab == null) {
+            System.out.println("这里空空如也，快来添加书摘");
             sBookExtractLab = new BookExtractLab(context);
         }
         return sBookExtractLab;
