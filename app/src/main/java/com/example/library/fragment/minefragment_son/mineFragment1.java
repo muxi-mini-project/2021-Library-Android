@@ -1,9 +1,8 @@
-package com.example.library.fragment.minefragment;
+package com.example.library.fragment.minefragment_son;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.renderscript.Sampler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,9 +18,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.library.Interface.UserDate;
 import com.example.library.R;
+import com.example.library.activity.BookDetailPagerActivity;
 import com.example.library.activity.LoginActivity;
 import com.example.library.activity.MybookActivity;
-import com.example.library.data.BookData;
 import com.example.library.data.MyBook;
 
 import java.net.HttpURLConnection;
@@ -137,7 +136,8 @@ public class mineFragment1 extends Fragment {
 
         @Override
         public void onClick(View v) {
-
+            Intent i2 = BookDetailPagerActivity.newIntent(getActivity(),mMyBook.getBook_id());
+            startActivity(i2);
         }
     }
 

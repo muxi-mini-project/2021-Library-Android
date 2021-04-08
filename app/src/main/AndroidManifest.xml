@@ -23,17 +23,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity.GuideActivity"/>
         <activity android:name=".activity.MainActivity"/>
         <activity android:name=".Search.SearchActivity"/>
         <activity android:name=".activity.EachSortActivity"/>
         <activity android:name=".activity.BookDetailPagerActivity"/>
         <activity android:name=".edit"/>
         <activity android:name=".activity.OthersNoteActivity"/>
-        <activity android:name=".Searcher.SearcherMain"/>
         <activity android:name=".AboutSwitch"/>
         <activity android:name=".BookExtract.BookExtratDetail"/>
-        <activity android:name=".activity.GuideActivity"/>
         <activity android:name=".activity.RegisterActivity"/>
+        <activity android:name=".Searcher.SearchActivity2"/>
         <activity android:name=".activity.MyDigestActivity"/>
 
 

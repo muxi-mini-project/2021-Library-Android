@@ -1,7 +1,6 @@
 package com.example.library.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
@@ -14,24 +13,15 @@ import android.view.Window;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.library.Interface.BookService;
-import com.example.library.Interface.LoginService;
 import com.example.library.Interface.UserDate;
 import com.example.library.R;
-import com.example.library.data.BookData;
-import com.example.library.data.User;
 import com.example.library.data.Users;
 import com.example.library.fragment.BookCityFragment;
 import com.example.library.fragment.ChoseBookExtract;
-import com.example.library.fragment.sonfragment.RecommendFragment;
 
-import java.net.HttpURLConnection;
-import java.util.ArrayList;
-import java.util.List;
-
+import com.example.library.fragment.mineFragment_father;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -56,7 +46,7 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
     /*底部导航栏对应的Fragment*/
     private BookCityFragment fragment1;
     private ChoseBookExtract fragment2;
-    private mineFragment fragment3;
+    private mineFragment_father fragment3;
 
     private String user_name;
     private String user_picture;
@@ -69,14 +59,13 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bottom_guide);//此处为绿色原版
+        setContentView(R.layout.activity_bottom_guide);
         //getRequest();
         Log.d(TAG, "书城的activity");
-        bindView();
-        Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
-        user_token = bundle.getString("getToken");
-        user_password = bundle.getString("getPassword");
+        Intent intent_qyh = getIntent();
+        Bundle bundle1 = intent_qyh.getExtras();
+        user_token = bundle1.getString("getToken_Login");
+        user_password = bundle1.getString("getPassword_Login");
         System.out.println(user_token);
         /**
          * token保存到本地
@@ -88,8 +77,10 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
         /**
          * 在此更换进入的初始页面，linearLayout1代表书城
          */
-        linearLayout2.performClick();
+        bindView();
+        linearLayout1.performClick();
         //Log.d(TAG,"在activity内查看DATA的数据"+DATA.toString());
+
     }
     /*public void getRequest(){
         Retrofit retrofit = new Retrofit.Builder()
@@ -222,7 +213,7 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
                     FragmentTransaction fragmentTransaction0 = getSupportFragmentManager().beginTransaction();
                     hideAllFragment(fragmentTransaction0);
                     if (fragment3 == null) {
-                        fragment3 = mineFragment.newInstance(user_name,user_password,user_picture,user_motto,token);
+                        fragment3 = mineFragment_father.newInstance(user_name,user_password,user_picture,user_motto,token);
                         fragmentTransaction0.add(R.id.guide_fragment, fragment3);
                     } else {
                         fragmentTransaction0.show(fragment3);

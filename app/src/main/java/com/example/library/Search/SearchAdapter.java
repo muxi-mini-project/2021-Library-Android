@@ -4,7 +4,7 @@ import android.content.Context;
 import android.widget.TextView;
 
 import com.example.library.R;
-import com.example.library.Searcher.SearcherMain;
+import com.example.library.Searcher.SearchBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,7 @@ public class SearchAdapter extends CommonAdapter<String>{
         this.mBookList = data;
     }
 
-    public SearchAdapter(SearcherMain context, List<String> resultData, int searcher) {
+    public SearchAdapter(Context context, List<String> resultData, int searcher) {
         super(context, resultData, searcher);
     }
 

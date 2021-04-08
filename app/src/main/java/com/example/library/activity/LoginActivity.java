@@ -108,8 +108,8 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(LoginActivity.this, GuideActivity.class);
                     Bundle bundle0 = new Bundle();
-                    bundle0.putString("getToken", token);
-                    bundle0.putString("getPassword",password);
+                    bundle0.putString("getToken_Login", token);
+                    bundle0.putString("getPassword_Login",password);
                     intent.putExtras(bundle0);
                     startActivity(intent);
                 } else {

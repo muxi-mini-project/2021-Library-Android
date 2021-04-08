@@ -1,4 +1,4 @@
-package com.example.library.fragment.minefragment;
+package com.example.library.fragment.minefragment_son;
 
 import android.content.Context;
 import android.content.Intent;
@@ -21,11 +21,7 @@ import com.example.library.Interface.UserDate;
 import com.example.library.R;
 import com.example.library.activity.LoginActivity;
 import com.example.library.activity.MyDigestActivity;
-import com.example.library.data.MyBook;
 import com.example.library.data.MyDigest;
-import com.example.library.data.MyNotes;
-import com.example.library.data.Notes;
-import com.example.library.data.NotesLab;
 
 import java.net.HttpURLConnection;
 import java.text.SimpleDateFormat;

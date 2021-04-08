@@ -28,16 +28,16 @@
             android:orientation="vertical"
             >
 
-            <TextView
+            <Button
                 android:id="@+id/switch_detail"
                 android:layout_width="81dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
+                android:layout_marginTop="5dp"
                 android:text="@string/switch_detail" />
             <Button
                 android:id="@+id/switch_look"
                 android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_height="30dp"
                 android:layout_marginLeft="10dp"
                 android:background="@drawable/about_lock"
                 />
@@ -45,20 +45,19 @@
         </LinearLayout>
         
     </LinearLayout>
-    <TextView
+    <EditText
         android:id="@+id/title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+
+        android:layout_height="60dp"
+        android:hint="标题"
         android:text="标题"
         android:textSize="25sp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:textColor="#335151"
         />
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/black"/>
+
     <EditText
         android:id="@+id/chapter"
         android:layout_width="match_parent"
@@ -66,6 +65,10 @@
         android:hint="章节"
         android:background="@color/white"
         />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/black"/>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
