@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.library.Interface.BookService;
 import com.example.library.RoundImageView;
+import com.example.library.activity.LoginActivity;
 import com.example.library.activity.OthersNoteActivity;
 import com.example.library.R;
 import com.example.library.data.BookData;
@@ -106,6 +107,12 @@ public class BookDetailsFragment extends Fragment {
         mJJ2TextView.setText(mBook.getBook_information());
         //添加书架
         mButton1 = (Button)v.findViewById(R.id.book_detail_shelf);
+        mButton1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addBook();
+            }
+        });
         //添加书摘
         mButton2 = (Button)v.findViewById(R.id.book_detail_add_note);
         //书摘列表
@@ -118,7 +125,7 @@ public class BookDetailsFragment extends Fragment {
         return v;
     }
 
-    private void getRequest(){
+    private void getRequest() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://39.102.42.156:10086/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -148,6 +155,32 @@ public class BookDetailsFragment extends Fragment {
                 Log.d(TAG,"error for note!!!!");
             }
         });
+    }
+
+    private void addBook(){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://39.102.42.156:10086/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        BookService api2 = retrofit.create(BookService.class);
+        Call<BookData> addCall = api2.postAddBook(LoginActivity.token,mBook.getBook_id().toString());
+
+        addCall.enqueue(new Callback<BookData>() {
+            @Override
+            public void onResponse(Call<BookData> call, Response<BookData> response) {
+                Log.d(TAG,"添加书架的onResponse----------" + response.code());
+                if (response.code() == HttpURLConnection.HTTP_OK){
+                    Log.d(TAG,"添加书架的Json--------" + response.body().toString());
+                    Toast.makeText(getActivity(),"添加成功",Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BookData> call, Throwable t) {
+                Log.d(TAG,"error!!!!");
+            }
+        });
+
     }
 
 /*关联RV和adapter*/
