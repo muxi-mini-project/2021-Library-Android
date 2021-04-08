@@ -41,10 +41,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class BookDetailsFragment extends Fragment {
     private static final String ARG_BOOK_ID = "book_id";
     private static final String TAG = "BookDetailsFragment";
-    public static BookData.DataBean mBook;
+    public  BookData.DataBean mBook;
     private NoteAdapter mNoteAdapter;
     private OthersDigestData digestData;
-    public static List<OthersDigestData> mDataList = new ArrayList<>();//一定要记得右边的格式初始化！否则报空
+    private List<OthersDigestData> mDataList = new ArrayList<>();//一定要记得右边的格式初始化！否则报空
+    private OthersDigestData note;
     private int currentNumber;
     protected boolean isInit = false;
     protected boolean isLoad = false;
@@ -79,7 +80,6 @@ public class BookDetailsFragment extends Fragment {
         }else {
             mBook =  new BookData().getBook(bookId,RankFragment.data2);
         }
-        Log.e(TAG,"书的id是"+bookId);
         getRequest();
     }
 
@@ -87,16 +87,15 @@ public class BookDetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,Bundle savedInstanceState){
         View v = inflater.inflate(R.layout.fg_book_detail,container,false);
+
         //详情
         mXQTextView = (TextView)v.findViewById(R.id.book_detail);
         //书的图片
         bookImageView = (ImageView)v.findViewById(R.id.book_detail_pic);
         Glide.with(Objects.requireNonNull(getActivity())).load(mBook.getBook_picture()).into(bookImageView);
-        Log.d(TAG,"the single pic is>>>>" + mBook.getBook_picture());
         //书名
         mSMTextView = (TextView)v.findViewById(R.id.book_detail_title);
         mSMTextView.setText(mBook.getBook_name());
-        Log.e(TAG,"到这里书的名字是"+mBook.getBook_name()+"--------"+mBook.getBook_id());
         //作者
         mZZTextView = (TextView)v.findViewById(R.id.book_detail_writer);
         mZZTextView.setText(mBook.getBook_auther());
@@ -199,7 +198,12 @@ public class BookDetailsFragment extends Fragment {
         public void onClick(View view){
             currentNumber = getAbsoluteAdapterPosition();
             //Log.d(TAG,"当前被点击的holder为"+currentNumber);
-            Intent intent = OthersNoteActivity.newIntent(getContext(),currentNumber);
+            //Intent intent = OthersNoteActivity.newIntent(getContext(),currentNumber);
+            Intent intent = new Intent(getContext(),OthersNoteActivity.class);
+            Bundle bundle = new Bundle();
+            Log.e(TAG,"note被绑定时的id是"+notes.getId());
+            bundle.putSerializable("note",notes);
+            intent.putExtras(bundle);
             startActivity(intent);
         }
 
@@ -221,9 +225,9 @@ public class BookDetailsFragment extends Fragment {
 
     @Override
     public void onBindViewHolder(@NonNull NoteHolder holder, int position) {
-        OthersDigestData notes = mNotes.get(position);
-        //Log.d(TAG,"看看有没有实行onBindViewHolder方法"+notes.toString());
-        holder.bind(notes);
+        note = mNotes.get(position);
+        Log.e(TAG,"note当前的位置是"+note.getId());
+        holder.bind(note);
     }
 
     @Override
