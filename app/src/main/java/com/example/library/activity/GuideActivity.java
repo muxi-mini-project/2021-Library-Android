@@ -1,7 +1,6 @@
 package com.example.library.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
@@ -14,23 +13,13 @@ import android.view.Window;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.library.Interface.BookService;
-import com.example.library.Interface.LoginService;
 import com.example.library.Interface.UserDate;
 import com.example.library.R;
-import com.example.library.data.BookData;
-import com.example.library.data.User;
 import com.example.library.data.Users;
 import com.example.library.fragment.BookCityFragment;
 import com.example.library.fragment.ChoseBookExtract;
-import com.example.library.fragment.sonfragment.RecommendFragment;
-
-import java.net.HttpURLConnection;
-import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -56,7 +45,7 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
     /*底部导航栏对应的Fragment*/
     private BookCityFragment fragment1;
     private ChoseBookExtract fragment2;
-    private mineFragment fragment3;
+    private mineFragment_father fragment3;
 
     private String user_name;
     private String user_picture;
@@ -222,7 +211,7 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
                     FragmentTransaction fragmentTransaction0 = getSupportFragmentManager().beginTransaction();
                     hideAllFragment(fragmentTransaction0);
                     if (fragment3 == null) {
-                        fragment3 = mineFragment.newInstance(user_name,user_password,user_picture,user_motto,token);
+                        fragment3 = mineFragment_father.newInstance(user_name,user_password,user_picture,user_motto,token);
                         fragmentTransaction0.add(R.id.guide_fragment, fragment3);
                     } else {
                         fragmentTransaction0.show(fragment3);

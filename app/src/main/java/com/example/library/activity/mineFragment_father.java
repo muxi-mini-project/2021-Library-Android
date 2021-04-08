@@ -32,13 +32,10 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.library.Interface.UserDate;
 import com.example.library.R;
 import com.example.library.RoundImageView;
-import com.example.library.activity.GuideActivity;
-import com.example.library.activity.LoginActivity;
-import com.example.library.data.Token;
 import com.example.library.data.User;
 import com.example.library.data.Users;
-import com.example.library.fragment.minefragment.mineFragment1;
-import com.example.library.fragment.minefragment.mineFragment2;
+import com.example.library.fragment.minefragment_son.mineFragment1;
+import com.example.library.fragment.minefragment_son.mineFragment2;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -56,7 +53,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import static android.app.Activity.RESULT_OK;
 
-public class mineFragment extends Fragment {
+public class mineFragment_father extends Fragment {
 
     private TextView textView1;
     private TextView textView2;
@@ -71,6 +68,7 @@ public class mineFragment extends Fragment {
     private final int F1 = 0x886;
     private final int F2 = 0x887;
     private final int F3 = 0x888;
+    private final int F4 = 0x889;
 
     private static final int CODE_GALLERY_REQUEST = 0xa0;
     private static final int CODE_CAMERA_REQUEST = 0xa1;
@@ -174,6 +172,7 @@ public class mineFragment extends Fragment {
         menu.add(0, F1, 0, "更换头像");
         menu.add(0, F2, 0, "更换姓名");
         menu.add(0, F3, 0, "更换签名");
+        menu.add(0, F4, 0,"修改密码");
         menu.setGroupCheckable(0, true, true);
         menu.setHeaderTitle("编辑内容");
     }
@@ -194,6 +193,10 @@ public class mineFragment extends Fragment {
                 UpDate();
                 Toast.makeText(getContext(), "3", Toast.LENGTH_SHORT).show();
                 break;
+            case F4:
+                ChangePassword();
+                UpDate();
+                Toast.makeText(getContext(),"4",Toast.LENGTH_SHORT).show();
         }
         return true;
     }
@@ -245,6 +248,32 @@ public class mineFragment extends Fragment {
                 Log.d("mineFragment","更改的座右铭是"+use_motto+"更改的密码是"+u_password);
                 dialog.dismiss();
 
+            }
+        });
+        dialog.setView(v);
+        dialog.show();
+    }
+    private void ChangePassword() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        final AlertDialog dialog = builder.create();
+        View v = View.inflate(getContext(), R.layout.change_password, null);
+        EditText editText3 = (EditText) v.findViewById(R.id.change_user_password);
+        Button button1 = (Button) v.findViewById(R.id.change_user_password_button1);
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        Button button2 = (Button) v.findViewById(R.id.change_user_password_button2);
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String use_password = editText3.getText().toString();
+                Set_user_Date(u_token, u_name, u_motto, use_password, u_picture);
+                textView1.setText(use_password);
+                System.out.println("密码是" + use_password);
+                dialog.dismiss();
             }
         });
         dialog.setView(v);
@@ -393,14 +422,14 @@ public class mineFragment extends Fragment {
      * @param motto
      * @return
      */
-    public static mineFragment newInstance(String name,String password,String picture,String motto,String token){
+    public static mineFragment_father newInstance(String name, String password, String picture, String motto, String token){
         Bundle args = new Bundle();
         args.putString("getUName",name);
         args.putString("getUPicture",picture);
         args.putString("getUMotto",motto);
         args.putString("getUToken",token);
         args.putString("getUPassword",password);
-        mineFragment Fragment = new mineFragment();
+        mineFragment_father Fragment = new mineFragment_father();
         Fragment.setArguments(args);
         return Fragment;
     }
