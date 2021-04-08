@@ -37,6 +37,7 @@ public class RecommendFragment extends BookCityFragment {
     private static final String TAG = "RF";
     public static List<BookData.DataBean> data = new ArrayList<>();
     public static List<String> pics = new ArrayList<>();
+    public static BookData.DataBean book;
     private RecyclerView mRMRecyclerView;
     private BookAdapter mAdapter;
     private static int itemPosition;
@@ -58,7 +59,6 @@ public class RecommendFragment extends BookCityFragment {
         mRMRecyclerView = (RecyclerView) view
                 .findViewById(R.id.son_fg_recycler_view);
         getRequest();
-        Log.d(TAG,"RecyclerView is here!!!!");
         return view;
     }
 
@@ -104,8 +104,6 @@ public class RecommendFragment extends BookCityFragment {
 
 /*关联Adapter和RV*/
     private void updateUI(){
-        //BookLab bookLab = BookLab.get(getParentFragment().getActivity());
-        //List<Book> books = bookLab.getBooks();
         mAdapter = new BookAdapter(getActivity(),data);
         mRMRecyclerView.setAdapter(mAdapter);
         mRMRecyclerView.setLayoutManager(new LinearLayoutManager(getParentFragment().getActivity()));
@@ -132,7 +130,6 @@ public class RecommendFragment extends BookCityFragment {
         //@SuppressLint("ResourceType")
         public void bind(BookData.DataBean book){
             mBook = book;
-            //Log.d(TAG,"user id is aaaaaaaaaaaaa"+book.getBook_auther());
             mTTTextView.setText(mBook.getBook_name());
             mWTTextView.setText(mBook.getBook_auther());
             mInTextView.setText(mBook.getBook_information());
@@ -167,10 +164,9 @@ public class RecommendFragment extends BookCityFragment {
 
          @Override
          public void onBindViewHolder(@NonNull BookHolder holder, int position) {
-            BookData.DataBean book = mBooks.get(position);
-            //Log.d(TAG,"bind的数据" + book.toString());
+            book = mBooks.get(position);
             holder.bind(book);
-            //Log.d(TAG,"the picture is" + pics.get(position));
+            Log.d(TAG,"推荐的书的id是" +book.getBook_id());
             Glide.with(mContext).load(pics.get(position)).into(holder.mImageView);
          }
 
