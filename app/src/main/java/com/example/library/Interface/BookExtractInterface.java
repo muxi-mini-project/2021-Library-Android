@@ -2,6 +2,7 @@ package com.example.library.Interface;
 
 import com.example.library.BookExtract.BookDigestData;
 import com.example.library.Searcher.SearchView2;
+import com.example.library.data.GetDigest;
 import com.example.library.edit_item_java;
 
 import java.util.List;
@@ -18,9 +19,10 @@ import retrofit2.http.Path;
 public interface BookExtractInterface {
     //@GET注解：采用Get方法发送网络请求
     //书摘主界面
-    @GET("digest/mysummary/{user_id}")
+    @GET("/digest/mysummary/{user_id}")
    // Call<BookExtract> getCall();
-     Call<BookDigestData> getCall(
+     Call<GetDigest> getCall(
+             @Header("token") String token,
              @Path("user_id")String user_id
     );
 
@@ -57,8 +59,9 @@ public interface BookExtractInterface {
     //添加书摘
     @POST("/digest")
     Call<BookDigestData.DataDTO> getDigest(
-            @Body BookDigestData bookDigestData
-            //@Body("summaryInfo")Object summaryInfo
+            @Header("token") String token,
+            @Body BookDigestData.DataDTO bookDigestData
+
     );
 
     //搜索
@@ -66,7 +69,6 @@ public interface BookExtractInterface {
     Call<SearchView2> getpost(
             @Path("user_id")String user_id,
               @Header("token")String token
-            //@Body("search")Object search
     );
 
 }

@@ -1,6 +1,7 @@
 package com.example.library;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -51,26 +52,38 @@ public class edit extends AppCompatActivity implements View.OnClickListener {
      private EditText edit;
      private TextView mBook_name;
      private EditText mAdd_text;
-    public List<edit_item_java.String> kindlist=new ArrayList<>();
-    private DialogInterface.OnClickListener mListener=new DialogInterface.OnClickListener() {
-        @Override
-        public void onClick(DialogInterface dialog, int which) {
-            Toast.makeText(edit.this,"Button"+which+"was clicked",Toast.LENGTH_SHORT);
-            dialog.dismiss();
-           // Intent intent=new Intent(,edit.class);
-          //  startActivity(intent);
-        }
+    public List<String> kindlist=new ArrayList<>();
+    private String message;
+
+    private DialogInterface.OnClickListener mListener= (dialog, which) -> {
+        Toast.makeText(edit.this,"Button"+which+"was clicked",Toast.LENGTH_SHORT);
+        dialog.dismiss();
+       // Intent intent=new Intent(,edit.class);
+      //  startActivity(intent);
     };
 
     private DialogInterface.OnClickListener  mListener1=new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
-            Toast.makeText(edit.this,"Button"+which+"was clicked",Toast.LENGTH_SHORT);
-            mEditAdpapter.addData(kindlist.size());
-           // mBook_name.setText(mAdd_text.getText().toString());
+            Toast.makeText(edit.this,"Button"+which+"was clicked",Toast.LENGTH_SHORT).show();
+            addData(kindlist.size()+1);
             dialog.dismiss();
         }
     };
+    //添加数据
+    public void addData(int position){
+        message = mAdd_text.getText().toString();
+        //通知列表添加一条
+        kindlist.add(message);
+        if (kindlist.size() == 6){
+            Log.e(TAG,"是否添加了"+kindlist.get(5));
+        }else{
+            Log.e(TAG,"!!!!!!!11");
+        }
+        // mBook_name.setText(message);
+        //添加动画
+        mEditAdpapter.notifyItemChanged(position);
+    }
 
 
 
@@ -82,6 +95,8 @@ public class edit extends AppCompatActivity implements View.OnClickListener {
         initView();
         LayoutInflater factory= LayoutInflater.from(edit.this);
         final View view=factory.inflate(R.layout.edit_add2,null);
+        mAdd_text=(EditText)view.findViewById(R.id.add_text);
+
         final EditText edit=(EditText)view.findViewById(R.id.add_text);
        // getRequest();
 
@@ -109,7 +124,6 @@ public class edit extends AppCompatActivity implements View.OnClickListener {
                 builder.setNegativeButton("取消",mListener);
                AlertDialog dialog=builder.create();
                dialog.show();
-
             }
         });
 
@@ -121,17 +135,14 @@ public class edit extends AppCompatActivity implements View.OnClickListener {
         mBack_book_extract=(Button)findViewById(R.id.back_book_extract);
         mFinish=(Button)findViewById(R.id.finish);
         mBook_name=(TextView)findViewById(R.id.book_name);
-        mAdd_text=(EditText)findViewById(R.id.add_text);
        /* mAdd_look.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                   editkindadd();
             }
         });*/
-
         //书摘种类的RecyclerView
         mBook_kind_recyclerview=(RecyclerView)findViewById(R.id.book_kind_recyclerview);
-        List<String> kindlist=new ArrayList<>();
         kindlist.add("小说");
         kindlist.add("历史");
         kindlist.add("文学");

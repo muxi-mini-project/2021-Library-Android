@@ -20,8 +20,8 @@ public class BookExtractLab {
     public BookExtractLab(Context context) {
         mBookExtracters = new ArrayList<>();
         //生成临时数据组
-        for (int i = 0; i < mAdapter.getItemCount(); i++) {
-            BookDigestData.DataDTO bookExtracter = new BookDigestData.DataDTO(context);
+        for (int i = 0; i < 100; i++) {
+            BookDigestData.DataDTO bookExtracter = new BookDigestData.DataDTO();
             bookExtracter.setTitle(bookExtracter.getTitle());
             bookExtracter.setSummary_information(bookExtracter.getSummary_information());
             bookExtracter.setDate(bookExtracter.getDate());

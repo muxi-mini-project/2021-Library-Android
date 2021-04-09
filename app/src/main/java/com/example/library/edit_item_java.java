@@ -2,7 +2,6 @@ package com.example.library;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -57,16 +56,15 @@ public class edit_item_java extends AppCompatActivity {
             Id = id;
         }
 
-        public String(String kind) {
-            this.kind = kind;
-        }
-
         public String getKind() {
             return kind;
         }
 
         public void setKind(String kind) {
             this.kind = kind;
+        }
+
+        public void setKind(java.lang.String kind, java.lang.String toString) {
         }
     }
 }
