@@ -183,9 +183,6 @@ public class mineFragment1 extends Fragment {
         public void bind(MyBook myBook) {
             mMyBook = myBook;
             textView.setText(mMyBook.getBook_name());
-            //imageView.setImageResource(Integer.parseInt(String.valueOf(mMyBook.getBook_picture())));
-            //imageView.setImageBitmap(stringToBitmap(mMyBook.getBook_picture()));
-            System.out.println(mMyBook.getBook_picture());
         }
 
         @Override
