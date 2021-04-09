@@ -12,12 +12,14 @@
         android:id="@+id/mybook_pic"
         android:layout_width="100dp"
         android:layout_height="120dp"
+        android:gravity="center"
         android:background="@drawable/default_head_mine"/>
     <TextView
         android:id="@+id/mybook_name"
         android:gravity="center_horizontal"
         android:layout_width="100dp"
         android:layout_height="20dp"
-        android:text="书名"/>
+        android:text="书名"
+        android:textColor="@color/black"/>
 
 </LinearLayout>

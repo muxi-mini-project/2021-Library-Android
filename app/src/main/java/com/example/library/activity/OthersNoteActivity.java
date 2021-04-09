@@ -23,11 +23,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.library.Interface.BookService;
 import com.example.library.R;
+import com.example.library.data.BookData;
 import com.example.library.data.CommentData;
 import com.example.library.data.CommentDetail;
 import com.example.library.data.CommentPut;
 import com.example.library.data.OthersDigestData;
 import com.example.library.fragment.BookDetailsFragment;
+import com.example.library.fragment.sonfragment.RecommendFragment;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
@@ -43,23 +45,21 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class OthersNoteActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String EXTRA_NOTE_ID = "com.example.Library.note_id";
     private static final String TAG = "com.example.library";
+    //
     private TextView textView3,mTextView;
     private TextView textView5;
     private TextView textView4;
     private ImageView imageView3;
     private RecyclerView rv_comment;
     private TextView textView6;
+    //
     private OthersDigestData mNote;
     private ExpandableListView expandableListView;
     private CommentExpandAdapter adapter;
-    private CommentDetail mComment;
-    private CommentData commentData;
     private List<CommentData> mCommentList;
     private BottomSheetDialog dialog;
     private TextView bt_comment;
 
-    //NotesLab notesLab = NotesLab.get(this);
-    //private List<Notes> notes = notesLab.getNotes();
 
 /*intent*/
     public static Intent newIntent(Context packageContext, int position) {
@@ -71,17 +71,14 @@ public class OthersNoteActivity extends AppCompatActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detail_note_content);
-        int position = (int) getIntent().getSerializableExtra(EXTRA_NOTE_ID);
-        mNote = BookDetailsFragment.mDataList.get(position);
+        //int position = (int) getIntent().getSerializableExtra(EXTRA_NOTE_ID);
+        mNote = (OthersDigestData) getIntent().getSerializableExtra("note");
         Log.e(TAG,"书摘的id是啥咧"+mNote.getId());
 
-        //getRequest();
         initView();
         getComment();
         updateUI();
 
-        //rv_comment.setLayoutManager(new LinearLayoutManager(OthersNoteActivity.this));
-        //rv_comment.setAdapter(new CommentAdapter(notes, OthersNoteActivity.this));
     }
 
     public void getComment(){
@@ -92,6 +89,7 @@ public class OthersNoteActivity extends AppCompatActivity implements View.OnClic
 
         BookService mApi = retrofit.create(BookService.class);
         Call<List<CommentData>> commentDataCall = mApi.getCommentCall(LoginActivity.token,mNote.getBook_id(),mNote.getId());
+        Log.e(TAG,"书本的id是"+mNote.getBook_id()+"书摘的id是"+mNote.getId());
         Log.d(TAG,"the token is+++"+LoginActivity.token);
 
         commentDataCall.enqueue(new Callback<List<CommentData>>() {
@@ -146,7 +144,6 @@ public class OthersNoteActivity extends AppCompatActivity implements View.OnClic
             }
         });
     }
-
 
     /*实例化组件*/
     private void initView() {
@@ -249,8 +246,8 @@ public class OthersNoteActivity extends AppCompatActivity implements View.OnClic
                     CommentData comment = new CommentData("嗯哼",commentContent);//缺时间
                     adapter.addTheCommentData(comment);
                     //请求网络
-                    putComments(BookDetailsFragment.mBook.getBook_id().toString(),mNote.getId(),comment.getContent());
-                    Log.e(TAG,"书摘的id是  "+mNote.getId()+"书本的id是  "+ BookDetailsFragment.mBook.getBook_id());
+                    putComments(RecommendFragment.book.getBook_id().toString(),mNote.getId(),comment.getContent());
+                    Log.e(TAG,"书摘的id是  "+mNote.getId()+"书本的id是  "+ RecommendFragment.book.getBook_id());
                     //toast
                     Toast.makeText(OthersNoteActivity.this,"评论成功",Toast.LENGTH_SHORT).show();
                 }else {

@@ -5,9 +5,14 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -22,7 +27,11 @@ import com.example.library.Interface.UserDate;
 import com.example.library.R;
 import com.example.library.data.MyBook;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +49,7 @@ public class MybookActivity extends AppCompatActivity {
     private Context context;
     private LinearLayoutManager linearLayoutManager;
     private MybookAdapter adapter;
-
+    private static Bitmap pic2;
     private List<MyBook> date = new ArrayList<>();
 
     public final static int F1 = 0xefc;
@@ -123,7 +132,49 @@ public class MybookActivity extends AppCompatActivity {
         public void onBindViewHolder(ViewHolder holder, int position) {
             MyBook myBook = myBookList.get(position);
             holder.bind(myBook);
+            /**
+             * 导入图片
+             */
+            Handler handler = new Handler() {
+                @SuppressLint("HandlerLeak")
+                @Override
+                public void handleMessage(Message msg) {
+                    super.handleMessage(msg);
+                    if (msg.what == 0x1234) {
+                        holder.imageView.setImageBitmap(pic2);
+                    }
+                }
+            };
 
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+
+                    URL url = null;
+                    try {
+                        url = new URL(String.valueOf(myBook.getBook_picture()));
+                    } catch (MalformedURLException e) {
+                        e.printStackTrace();
+                    }
+                    InputStream is = null;
+                    try {
+                        is = url.openStream();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    pic2 = BitmapFactory.decodeStream(is);
+                    handler.sendEmptyMessage(0x1234);
+                }
+            }).start();
+
+
+
+
+
+
+/**
+ * 监听器设置
+ */
             if(onItemClickListener!=null) {
                 holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override

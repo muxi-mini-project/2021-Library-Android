@@ -2,7 +2,9 @@ package com.example.library.data;
 
 import com.google.gson.annotations.SerializedName;
 
-public class OthersDigestData {
+import java.io.Serializable;
+
+public class OthersDigestData implements Serializable {
 
     /**
      * id :

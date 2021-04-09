@@ -39,7 +39,7 @@ public interface BookService {
             @Path("books_id") String books_id,
             @Path("digest_id") String digest_id
     );
-
+//创建评论
     @PUT("Library/{books_id}/digest/{digest_id}/review")
     Call<CommentPut> putComment(
             @Header("token") String token,
@@ -50,6 +50,12 @@ public interface BookService {
 
     @POST("Library/searcher")
     Call<BookData> getSearchCall(@Body PostSearch postSearch);
+//添加书架
+    @POST("Library/addbook/{books_id}")
+    Call<BookData> postAddBook(
+            @Header("token") String token,
+            @Path("books_id") String books_id
+    );
 
 
 }
