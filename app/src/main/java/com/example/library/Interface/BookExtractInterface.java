@@ -46,18 +46,18 @@ public interface BookExtractInterface {
 
     //删除书摘分类
     @DELETE("/digest/mysummary/{user_id}/clasees_edit")
-    Call<edit_item_java> getDelete(@Path("user_id")String user_id);
+    Call getDelete(@Path("user_id")String user_id);
 
     //编辑书摘
     @PUT("/digest/person/{summary_id}")
-    Call<BookDigestData> putdigest(
+    Call<BookDigestData.DataDTO> putdigest(
             @Path("summary_id")String summary_id,
             @Header("token")String token
            // @Body("summaryInfo")Object summaryInfo
     );
 
-    //添加书摘
-    @POST("/digest")
+    //添加书摘class_id
+    @POST("/digest/?user_id & claass_id")
     Call<BookDigestData.DataDTO> getDigest(
             @Header("token") String token,
             @Body BookDigestData.DataDTO bookDigestData
@@ -69,6 +69,13 @@ public interface BookExtractInterface {
     Call<SearchView2> getpost(
             @Path("user_id")String user_id,
               @Header("token")String token
+    );
+
+    //删除书摘
+    @DELETE("/digest/mysummary/{user_id}/delete/{digest_id}")
+    Call delete(
+            @Header("token")String token,
+            @Path("digest_id")String digest_id
     );
 
 }

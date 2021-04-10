@@ -26,6 +26,7 @@ import com.example.library.data.BookExtractLab;
 import com.example.library.data.GetDigest;
 import com.example.library.fragment.ChoseBookExtract;
 
+import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,9 +37,11 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static android.widget.Toast.LENGTH_SHORT;
+
 //将数据与每一个条目的界面进行绑定
 public class BookExtractAdapter extends RecyclerView.Adapter<BookExtractAdapter.ViewHolder> {
-
+      private static final String TAG="编辑书摘";
     public Context context;
     private LinearLayout mLinearLayout;
     private PopupWindow mPopWindow;
@@ -51,6 +54,9 @@ public class BookExtractAdapter extends RecyclerView.Adapter<BookExtractAdapter.
     public EditText summary_information;
     public BookDigestData mData;
     public EditText thought;
+    public BookDigestData.DataDTO mDataDTO;
+    private GetDigest.DataDTO getdigest;
+    private String name;
     //防止空指针异常
     private List<GetDigest.DataDTO> mBook_extract_list = new ArrayList<>();
     //private OnRecyclerViewItemClickListener mOnRecyclerViewItemClickListener;
@@ -83,8 +89,9 @@ public class BookExtractAdapter extends RecyclerView.Adapter<BookExtractAdapter.
         BookExtractLab mBookextractLab;
         PopupWindow mPopWindow;
         private static final String TAG = "com.example.library";
+        private Context context;
 
-        public ViewHolder(@NonNull View view, int position1) {
+    public ViewHolder(@NonNull View view, int position1) {
             super(view);
             //listener？？position？？
             bookname = (TextView) view.findViewById(R.id.book_extract_name);
@@ -95,45 +102,6 @@ public class BookExtractAdapter extends RecyclerView.Adapter<BookExtractAdapter.
             chapter=(EditText)view.findViewById(R.id.chapter);
             summary_information=(EditText)view.findViewById(R.id.chapter_context);
 
-        }
-
-        private void getrequest(int position1) {
-
-
-            Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("http://124.71.184.107:10086/")
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
-
-            BookExtractInterface mApi = retrofit.create(BookExtractInterface.class);
-            Call<BookDigestData> bookDigestDataCall=mApi.putdigest(LoginActivity.token,mData1.getBook_id());
-            bookDigestDataCall.enqueue(new Callback<BookDigestData>() {
-                @Override
-                public void onResponse(Call<BookDigestData> call, Response<BookDigestData> response) {
-                    List<BookDigestData.DataDTO> mBook_extract_list = new ArrayList<>();
-                    BookDigestData.DataDTO extract = mBook_extract_list.get(position1);
-                    Context context = null;
-                    View contentView = LayoutInflater.from(context).inflate(R.layout.delete, null);
-                    mPopWindow = new PopupWindow(contentView,
-                            ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
-                    TextView tv1 = (TextView) contentView.findViewById(R.id.edit_digest);
-                    tv1.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent intent = new Intent(context, BookExtratDetail.class);
-                            /*intent.putExtra("书摘名称", extract.getTitle().toString());
-                            intent.putExtra("书摘内容", extract.getSummary_information().toString());
-                            intent.putExtra("日期", extract.getDate().toString());*/
-                            context.startActivity(intent);
-                        }
-                    });
-                 mData=response.body();
-                }
-                @Override
-                public void onFailure(Call<BookDigestData> call, Throwable t) {
-                    Log.d(TAG,"编辑书摘失败");
-                }
-            });
         }
     }
 
@@ -160,7 +128,7 @@ public class BookExtractAdapter extends RecyclerView.Adapter<BookExtractAdapter.
     }
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.getrequest(position);
+        //holder.getrequest(position);
         //创建前面实体类对象
        GetDigest.DataDTO extract = mBook_extract_list.get(position);
         //将具体的值赋予子控件
@@ -201,16 +169,73 @@ public class BookExtractAdapter extends RecyclerView.Adapter<BookExtractAdapter.
                 public void onClick(View v) {
                     Intent intent = new Intent(context, BookExtratDetail.class);
                     intent.putExtra("书摘名称", extract.getTitle().toString());
-                    //intent.putExtra("书摘内容", extract.getSummary_information().toString());
-                    intent.putExtra("日期", extract.getDate().toString());
+                    intent.putExtra("书摘内容", extract.getSummary_information().toString());
+                    intent.putExtra("书摘思考", extract.getThought().toString());
+                    intent.putExtra("书摘章节",extract.getChapter().toString());
                     context.startActivity(intent);
+                    getrequest();
+                }
+                private void getrequest() {
+
+
+                    Retrofit retrofit = new Retrofit.Builder()
+                            .baseUrl("http://39.102.42.156:10086")
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .build();
+
+                    BookExtractInterface mApi = retrofit.create(BookExtractInterface.class);
+                    name=getdigest.getId().toString();
+                    Call<BookDigestData.DataDTO> bookDigestDataCall=mApi.putdigest(LoginActivity.token,name);
+                    bookDigestDataCall.enqueue(new Callback<BookDigestData.DataDTO>() {
+                        @Override
+                        public void onResponse(Call<BookDigestData.DataDTO> call, Response<BookDigestData.DataDTO> response) {
+                            Log.e(TAG,"========"+response.code());
+                            if (response.code() == HttpURLConnection.HTTP_OK) {
+                                Toast.makeText(context, "编辑成功", LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(context, "编辑失败", LENGTH_SHORT).show();
+                            }
+                            //mData=response.body();
+                        }
+                        @Override
+                        public void onFailure(Call<BookDigestData.DataDTO> call, Throwable t) {
+                            Toast.makeText(context,"无网络链接",Toast.LENGTH_LONG).show();
+                        }
+                    });
                 }
             });
             tv2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     removeDigest(position1);
+                    getrequest();
                     mPopWindow.dismiss();
+                }
+
+                private void getrequest() {
+                    Retrofit retrofit = new Retrofit.Builder()
+                            .baseUrl("http://39.102.42.156:10086")
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .build();
+
+                    BookExtractInterface mApi = retrofit.create(BookExtractInterface.class);
+
+                    Call delete_extract=mApi.delete(LoginActivity.token,name);
+                    delete_extract.enqueue(new Callback() {
+                        @Override
+                        public void onResponse(Call call, Response response) {
+                            if (response.code() == HttpURLConnection.HTTP_OK){
+                                Toast.makeText(context,"删除成功",Toast.LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(context,"删除失败",Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call call, Throwable t) {
+                            Toast.makeText(context,"无网络链接",Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
             });
             mPopWindow.showAsDropDown(holder.lock);

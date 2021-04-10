@@ -5,9 +5,10 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class GetDigest {
+
     /**
-     * data : [{"id":2,"title":"离散数学","date":"2021-03-22","public":true},{"id":5,"title":"","date":"2021-03-23","public":false},{"id":6,"title":"","date":"2021-03-28","public":false},{"id":7,"title":"","date":"2021-03-28","public":false},{"id":8,"title":"","date":"2021-03-28","public":false},{"id":9,"title":"离散数学","date":"2021-03-28","public":true},{"id":11,"title":"幸福关系的7段旅程","date":"2021-03-28","public":true},{"id":13,"title":"幸福关系的7段旅程","date":"2021-04-03","public":true},{"id":14,"title":"书摘标题1","date":"2021-04-04","public":true},{"id":15,"title":"人鼠之间","date":"2021-04-04","public":true},{"id":16,"title":"向着少女与光","date":"2021-04-04","public":true},{"id":17,"title":"向着少女与光","date":"2021-04-04","public":true},{"id":18,"title":"向着少女与光","date":"2021-04-04","public":true},{"id":19,"title":"向着少女与光","date":"2021-04-04","public":true},{"id":20,"title":"向着少女与光","date":"2021-04-08","public":true},{"id":21,"title":"波斯之剑","date":"2021-04-08","public":true},{"id":22,"title":"波斯之剑","date":"2021-04-08","public":true},{"id":23,"title":"偏见","date":"2021-04-08","public":true},{"id":24,"title":"偏见","date":"2021-04-08","public":true},{"id":25,"title":"","date":"2021-04-09","public":false},{"id":26,"title":"撒旦解放和","date":"2021-04-09","public":true},{"id":27,"title":"撒旦解放和","date":"2021-04-09","public":true}]
-     * message : 获取成功
+     * data : {"id":31,"user_id":9,"book_id":0,"class_id":1,"title":"fu","chapter":"text","summary_information":"kjsdfhkffsfsf","thought":"omg","date":"2021-04-10 14:42:01","public":"ture"}
+     * message : 创建成功
      */
 
     private List<DataDTO> data;
@@ -31,17 +32,29 @@ public class GetDigest {
 
     public static class DataDTO {
         /**
-         * id : 2
-         * title : 离散数学
-         * date : 2021-03-22
-         * public : true
+         * id : 31
+         * user_id : 9
+         * book_id : 0
+         * class_id : 1
+         * title : fu
+         * chapter : text
+         * summary_information : kjsdfhkffsfsf
+         * thought : omg
+         * date : 2021-04-10 14:42:01
+         * public : ture
          */
 
         private Integer id;
+        private Integer user_id;
+        private Integer book_id;
+        private Integer class_id;
         private String title;
+        private String chapter;
+        private String summary_information;
+        private String thought;
         private String date;
         @SerializedName("public")
-        private Boolean publicX;
+        private String publicX;
 
         public Integer getId() {
             return id;
@@ -49,6 +62,30 @@ public class GetDigest {
 
         public void setId(Integer id) {
             this.id = id;
+        }
+
+        public Integer getUser_id() {
+            return user_id;
+        }
+
+        public void setUser_id(Integer user_id) {
+            this.user_id = user_id;
+        }
+
+        public Integer getBook_id() {
+            return book_id;
+        }
+
+        public void setBook_id(Integer book_id) {
+            this.book_id = book_id;
+        }
+
+        public Integer getClass_id() {
+            return class_id;
+        }
+
+        public void setClass_id(Integer class_id) {
+            this.class_id = class_id;
         }
 
         public String getTitle() {
@@ -59,6 +96,30 @@ public class GetDigest {
             this.title = title;
         }
 
+        public String getChapter() {
+            return chapter;
+        }
+
+        public void setChapter(String chapter) {
+            this.chapter = chapter;
+        }
+
+        public String getSummary_information() {
+            return summary_information;
+        }
+
+        public void setSummary_information(String summary_information) {
+            this.summary_information = summary_information;
+        }
+
+        public String getThought() {
+            return thought;
+        }
+
+        public void setThought(String thought) {
+            this.thought = thought;
+        }
+
         public String getDate() {
             return date;
         }
@@ -67,11 +128,11 @@ public class GetDigest {
             this.date = date;
         }
 
-        public Boolean getPublicX() {
+        public String getPublicX() {
             return publicX;
         }
 
-        public void setPublicX(Boolean publicX) {
+        public void setPublicX(String publicX) {
             this.publicX = publicX;
         }
     }

@@ -1,5 +1,6 @@
 package com.example.library.fragment;
 
+import android.animation.ObjectAnimator;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +9,7 @@ import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -25,6 +27,8 @@ import com.example.library.BookExtract.BookDigestData;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.example.library.BookExtract.BookExtractAdapter;
 import com.example.library.BookExtract.BookExtratDetail;
 import com.example.library.Interface.BookExtractInterface;
@@ -51,7 +55,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ChoseBookExtract extends Fragment {
     private static final String TAG = "DQP";
-    BookDigestData mData =new BookDigestData();
+    private SwipeRefreshLayout refresh;
+    BookDigestData mData = new BookDigestData();
     private Spinner mChose;
     private Button mEdit;
     private Button mAdd;
@@ -76,7 +81,15 @@ public class ChoseBookExtract extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.book_zhai, container, false);
+        //书摘的RecyclerView
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.book_extract_recyclerview);
         mLinearLayout = (LinearLayout) view.findViewById(R.id.book_extract_item);
+        refresh=(SwipeRefreshLayout) view.findViewById(R.id.swiperefresh);
+        //设置进度大小
+        refresh.setSize(SwipeRefreshLayout.DEFAULT);
+        //触发下拉的距离
+        refresh.setDistanceToTriggerSync(300);
+
         getRequest();
         mChose = (Spinner) view.findViewById(R.id.chose);
         mChose = (Spinner) view.findViewById(R.id.chose);
@@ -103,13 +116,15 @@ public class ChoseBookExtract extends Fragment {
             }
         });
 
-        //书摘的RecyclerView
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.book_extract_recyclerview);
-
+        refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getRequest();
+            }
+        });
         return view;
 
     }
-
 
     private void getRequest() {
 
@@ -119,41 +134,40 @@ public class ChoseBookExtract extends Fragment {
                 .build();
 
         BookExtractInterface mApi = retrofit.create(BookExtractInterface.class);
-        Call<GetDigest> bookExtractCall = mApi.getCall(LoginActivity.token,"0");
+        Call<GetDigest> bookExtractCall = mApi.getCall(LoginActivity.token, "0");
 
         bookExtractCall.enqueue(new Callback<GetDigest>() {
             @Override
             public void onResponse(Call<GetDigest> call, Response<GetDigest> response) {
 
                 Log.d(TAG, "获得书摘" + response.code());
-                if (response.code() == HttpURLConnection.HTTP_OK ) {
+                if (response.code() == HttpURLConnection.HTTP_OK) {
                     //mAdapter = new BookExtractAdapter(getActivity(), mBook_extract_list);
                     Log.d(TAG, "+++=========>" + response.body().toString());
                     mBook_extract_list = response.body().getData();
-                   // mData=response.body();
+                    // mData=response.body();
                     updateUI();
-                }
-                else if(mBook_extract_list==null){
-                   Toast.makeText(getActivity(),"这里空空如也，快来添加书摘吧~~",Toast.LENGTH_LONG).show();
+                } else if (mBook_extract_list == null) {
+                    Toast.makeText(getActivity(), "这里空空如也，快来添加书摘吧~~", Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onFailure(Call<GetDigest> call, Throwable t) {
-                Log.d(TAG,"error ++++++++++" );
+                Log.d(TAG, "error ++++++++++");
             }
-        } );
+        });
 
     }
 
     private void updateUI() {
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         mAdapter = new BookExtractAdapter(getActivity(), mBook_extract_list);
-        if (mBook_extract_list.size()!=0){
-            Log.e(TAG,"有数据"+mBook_extract_list.get(0));
+        if (mBook_extract_list.size() != 0) {
+            Log.e(TAG, "有数据" + mBook_extract_list.get(0));
 
-        }else {
-            Log.e(TAG,"!!!!!!!!!!!!!!!!!!!!!!111");
+        } else {
+            Log.e(TAG, "!!!!!!!!!!!!!!!!!!!!!!111");
         }
 
         mRecyclerView.setHasFixedSize(true);
@@ -172,14 +186,14 @@ public class ChoseBookExtract extends Fragment {
         mAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent ab=new Intent(getActivity(), BookExtratDetail.class);
+                Intent ab = new Intent(getActivity(), BookExtratDetail.class);
                 startActivity(ab);
             }
         });
         mEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent ae=new Intent(getActivity(), edit.class);
+                Intent ae = new Intent(getActivity(), edit.class);
                 startActivity(ae);
 
             }
@@ -187,90 +201,10 @@ public class ChoseBookExtract extends Fragment {
         mBook_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getActivity(), SearchActivity2.class);
+                Intent intent = new Intent(getActivity(), SearchActivity2.class);
                 startActivity(intent);
             }
         });
     }
-
-
-        // @Override
-        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-        }
-
-        //@Override
-        public void onNothingSelected(AdapterView<?> parent) {
-
-
-        }
-    }
-  /* mAdapter.setOnRecyclerViewItemClickListener(new BookExtractAdapter.OnRecyclerViewItemClickListener() {
-            @Override
-            public void onRecyclerViewItemClicked(int position) {
-
-            }
-        });*/
-
-        /*mAdapter.setOnItemClickListener(new mAdapter.OnItemClickListener() {
-            @Override
-            public void onItemLongClick(final View view, final int pos) {
-                PopupMenu popupMenu = new PopupMenu(getContext(),view);
-                popupMenu.getMenuInflater().inflate(R.menu.,popupMenu.getMenu());
-
-                //弹出式菜单的菜单项点击事件
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        list.remove(pos);	//	删除
-                        mAdapter.notifyItemRemoved(pos);
-                     m = view.findViewById(R.id.tv_time);
-                        str = textView.getText().toString().trim();     //  得到这个item的时间值
-                        deleteSqlList();    //  根据时间值删除数据库中的值
-                        return false;
-                    }
-
-                    private void deleteSqlList() {
-                    }
-                });
-                popupMenu.show();
-            }
-        });*/
-
-//创建Retrofit对象
-       /* Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://124.71.184.107:10086/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        //创建网络请求接口的实例
-        BookService mApi = retrofit.create(BookService.class);
-        //对发送请求进行封装---<发送请求>
-        Call<BookData> bookDataCall = mApi.getCall();*///所需参数
-//发送网络请求（异步）
-
-  /*  @Override
-      public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo info) {
-          menu.add(0, F1, 0, "删除书摘");
-          menu.add(0, F1, 0, "编辑书摘");
-          menu.setGroupCheckable(0, true, true);
-          menu.setHeaderTitle("编辑内容");
-      }
-      public boolean onContextItemSelected(MenuItem item) {
-          switch (item.getItemId()) {
-              case F1:
-                  Toast.makeText(getContext(), "该书摘已被删除", Toast.LENGTH_SHORT).show();
-                  break;
-              case F2:
-              Intent intent=new Intent(getActivity(), com.example.library.BookExtratDetail.class);
-              startActivity(intent);
-                  break;
-          }
-          return true;
-      }*/
-
-
-
-
-
+}
 

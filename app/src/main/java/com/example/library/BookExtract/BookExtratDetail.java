@@ -59,7 +59,8 @@ public class BookExtratDetail extends AppCompatActivity implements View.OnClickL
     BookDigestData.DataDTO mData =new BookDigestData.DataDTO();
     private String name;
     private String summary;
-
+    private String thoughtdetail;
+   private String chapterdetail;
 
     private DialogInterface.OnClickListener mListener=new DialogInterface.OnClickListener() {
         @Override
@@ -73,7 +74,9 @@ public class BookExtratDetail extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
 
         name = getIntent().getStringExtra("书摘名称");
-        //summary=getIntent().getStringExtra("书摘内容");
+        summary=getIntent().getStringExtra("书摘内容");
+        chapterdetail=getIntent().getStringExtra("书摘章节");
+        thoughtdetail=getIntent().getStringExtra("书摘思考");
 
         setContentView(R.layout.book_extract_detail);
         mAdapter = new BookExtractAdapter(BookExtratDetail.this, mBook_extract_list);
@@ -113,12 +116,7 @@ public class BookExtratDetail extends AppCompatActivity implements View.OnClickL
                     public void onResponse(Call<BookDigestData.DataDTO> call, Response<BookDigestData.DataDTO> response) {
 
                         Log.d(TAG, "创建书摘" + response.code());
-
-                        //mAdapter = new BookExtractAdapter(BookExtratDetail.this, mBook_extract_list);
                         makeText(BookExtratDetail.this, "已添加", LENGTH_SHORT).show();
-                       /* Intent intent = new Intent(BookExtratDetail.this, ChoseBookExtract.class);
-                        startActivity(intent);*/
-                       // mAdapter.addData(mBook_extract_list.size() + 1);
                         mData = response.body();
                         finish();
                     }
@@ -156,16 +154,21 @@ public class BookExtratDetail extends AppCompatActivity implements View.OnClickL
                                 .addConverterFactory(GsonConverterFactory.create())
                                 .build();
                         BookExtractInterface mApi = retrofit.create(BookExtractInterface.class);
+
                         Call<BookDigestData> bookDigestData = mApi.getPut(LoginActivity.token, mData.getBook_id());
                         bookDigestData.enqueue(new Callback<BookDigestData>() {
                             @Override
                             public void onResponse(Call<BookDigestData> call, Response<BookDigestData> response) {
-                                Toast.makeText(BookExtratDetail.this, "公开成功", LENGTH_SHORT).show();
+                                if (response.code() == HttpURLConnection.HTTP_OK) {
+                                    Toast.makeText(BookExtratDetail.this, "公开成功", LENGTH_SHORT).show();
+                                }else{
+                                    Toast.makeText(BookExtratDetail.this, "公开失败", LENGTH_SHORT).show();
+                                }
                             }
 
                             @Override
                             public void onFailure(Call<BookDigestData> call, Throwable t) {
-                                Toast.makeText(BookExtratDetail.this, "公开失败", LENGTH_SHORT).show();
+                                Toast.makeText(BookExtratDetail.this, "无网络链接", LENGTH_SHORT).show();
                             }
                         });
                     }
@@ -181,9 +184,11 @@ public class BookExtratDetail extends AppCompatActivity implements View.OnClickL
         title=(EditText) findViewById(R.id.title);
         title.setText(name);
         chapter=(EditText)findViewById(R.id.chapter);
+        chapter.setText(chapterdetail);
         summary_information=(EditText)findViewById(R.id.chapter_context);
-        // summary_information.setText(summary);
+         summary_information.setText(summary);
         thought=(EditText)findViewById(R.id.idea);
+        thought.setText(thoughtdetail);
         mFinish1=(Button)findViewById(R.id.finish1);
     }
 

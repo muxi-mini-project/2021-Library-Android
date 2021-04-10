@@ -184,29 +184,6 @@ public class edit extends AppCompatActivity implements View.OnClickListener {
 
 
 
-
-    //为按钮绑定监听事件
-    private void editkindadd(){
-        //没有实例化一个对话框
-        AlertDialog builder=new AlertDialog.Builder(AddDialog.getContext())
-                .setTitle("请输入书摘种类")
-                .setView(new EditText(context))
-                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                }).create();
-
-        builder.show();
-    }
-
-
     @Override
     public void onClick(View v) {
 
