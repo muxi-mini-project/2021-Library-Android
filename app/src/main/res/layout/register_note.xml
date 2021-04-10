@@ -58,7 +58,6 @@
                     android:hint="请设置您的密码"
                     android:gravity="center"
                     android:layout_gravity="center"
-                    android:inputType="textPassword"
                     />
 
                 <EditText
@@ -69,7 +68,6 @@
                     android:hint="请确认您的密码"
                     android:gravity="center"
                     android:layout_gravity="center"
-                    android:inputType="textPassword"
                     />
             </LinearLayout>
        </LinearLayout>

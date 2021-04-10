@@ -272,7 +272,6 @@ public class mineFragment_father extends Fragment {
             public void onClick(View v) {
                 String use_password = editText3.getText().toString();
                 Set_user_Date(u_token, u_name, u_motto, use_password, u_picture);
-                textView1.setText(use_password);
                 System.out.println("密码是" + use_password);
                 dialog.dismiss();
             }
