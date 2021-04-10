@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-        <ScrollView
+        <com.example.library.NestedScrolling.NestedScrollParentView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -127,7 +127,7 @@
 
                 </LinearLayout>
             </RelativeLayout>
-        </ScrollView>
+        </com.example.library.NestedScrolling.NestedScrollParentView>
 
 
     <LinearLayout

@@ -49,8 +49,6 @@ public class BookCityFragment extends Fragment implements SearchView.SearchViewL
     private List<String> titles;//推荐/分类/排行
     private List<Fragment> mFragments;
 
-    //搜索结果列表
-    //private RecyclerView RvResult;
     //搜索view
     private SearchView searchView;
     //热搜框adapter
@@ -227,12 +225,12 @@ public class BookCityFragment extends Fragment implements SearchView.SearchViewL
     }
     /*获取热搜版data和adapter*/
     private void getHintData() {
-        /*hintData = new ArrayList<>(hintSize);
-        for (int i = 1; i <= hintSize; i++){
-            hintData.add(bookData.get(i).getBook_name());
-        }*/
+        hintData = new ArrayList<>(hintSize);
+        for (int i = 16; i <= 19; i++){
+            hintData.add(nameList.get(i));
+        }
         hintAdapter = new ArrayAdapter<>
-                (getActivity(), android.R.layout.simple_list_item_1,nameList);
+                (getActivity(), android.R.layout.simple_list_item_1,hintData);
     }
     /*当搜索框 文本改变时 触发的回调 ,更新自动补全数据*/
     public void onRefreshAutoComplete(String text){
@@ -264,7 +262,7 @@ public class BookCityFragment extends Fragment implements SearchView.SearchViewL
             //Log.e(TAG,"text is ~~~~~~" + text +"~~~~~" + "intent is " + intent.toString());
             Toast.makeText(getActivity(), "完成搜索", Toast.LENGTH_SHORT).show();
         }else {
-            Toast.makeText(getActivity(), "不在搜索范围内", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "查询无结果", Toast.LENGTH_SHORT).show();
         }
     }
 
