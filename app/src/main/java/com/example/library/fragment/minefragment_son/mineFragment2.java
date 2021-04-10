@@ -133,8 +133,8 @@ public class mineFragment2 extends Fragment {
         public void Bind(MyDigest myNotes) {
             this.digest = myNotes;
             textView1.setText(digest.getTitle());
-            textView3.setText(digest.getSummary_information());
             handler.post(updateTime);
+            textView3.setText(digest.getThought());
         }
 
         /*实现日期读取*/
@@ -152,7 +152,7 @@ public class mineFragment2 extends Fragment {
         @Override
         public void onClick(View v) {
             FragmentTransaction fragmentTransaction =((AppCompatActivity)getContext()).getSupportFragmentManager().beginTransaction();
-            Fragment fragment = BookExtratDetail.newInstance(digest.getTitle());
+            Fragment fragment = BookExtratDetail.newInstance(digest.getId());
             fragmentTransaction.add(R.id.guide_fragment,fragment);
             fragmentTransaction.commit();
         }

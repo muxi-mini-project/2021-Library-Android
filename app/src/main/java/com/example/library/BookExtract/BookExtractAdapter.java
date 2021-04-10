@@ -176,7 +176,7 @@ public class BookExtractAdapter extends RecyclerView.Adapter<BookExtractAdapter.
             @Override
             public void onClick(View v) {
                 FragmentTransaction fragmentTransaction =((AppCompatActivity)context).getSupportFragmentManager().beginTransaction();
-                Fragment fragment = BookExtratDetail.newInstance(extract.getTitle());
+                Fragment fragment = BookExtratDetail.newInstance(extract.getId());
                 fragmentTransaction.add(R.id.guide_fragment,fragment);
                 fragmentTransaction.commit();
             }

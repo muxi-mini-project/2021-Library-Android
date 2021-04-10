@@ -183,9 +183,9 @@ public class BookExtratDetail extends Fragment implements View.OnClickListener {
         return v;
     }
 
-    public static BookExtratDetail newInstance( String digest_title) {
+    public static BookExtratDetail newInstance(int id) {
         Bundle arg = new Bundle();
-        arg.putString("get_DigestTitle", digest_title);
+        arg.putInt("get_DigestId", id);
         BookExtratDetail bookExtratDetail = new BookExtratDetail();
         bookExtratDetail.setArguments(arg);
         return bookExtratDetail;

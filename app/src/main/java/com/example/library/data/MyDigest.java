@@ -2,7 +2,7 @@ package com.example.library.data;
 
 public class MyDigest {
 
-    private String id;
+    private int id;
     private String user_id;
     private String book_id;
     private String class_id;
@@ -13,7 +13,7 @@ public class MyDigest {
     private String date;
     private Boolean Public;
 
-    public String getId(){
+    public int getId(){
         return id;
     }
 
