@@ -2,7 +2,9 @@ package com.example.library.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.icu.text.Edits;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,7 +28,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 
-public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
+public class RegisterActivity extends AppCompatActivity {
     private Button mSureOfRegister;
     private Button mBack;
     private EditText mRegister_username;
@@ -43,89 +45,41 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.register_note);
+        mRegister_username = (EditText)findViewById(R.id.register_username);
+        mRegister_password = (EditText)findViewById(R.id.register_password);
+        mPassword_again = (EditText)findViewById(R.id.password_again);
+        mSureOfRegister = (Button)findViewById(R.id.sureofregister);
         //对控件初始化
-        initView();
-        mBack.setOnClickListener(new View.OnClickListener() {
+
+        mSureOfRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent c=new Intent(RegisterActivity.this, LoginActivity.class);
-                startActivity(c);
+                String name = mRegister_username.getText().toString();
+                String password1 = mRegister_password.getText().toString();
+                String password2 = mPassword_again.getText().toString();
+                Log.d("RegisterActivity","用户名"+name+"第一次输入密码"+password1+"第二次输入密码"+password2);
+                Register(name,password1,password2);
             }
         });
-        login_sp = getSharedPreferences("userInfo", 0);
-        String name=login_sp.getString("USER_NAME", "");
-        String pwd =login_sp.getString("PASSWORD", "");
-        boolean choseRemember =login_sp.getBoolean("mRememberCheck", false);
-        boolean choseAutoLogin =login_sp.getBoolean("mAutologinCheck", false);
-        //如果上次选了记住密码，那进入登录页面也自动勾选记住密码，并填上用户名和密码
-        //if(choseRemember){
-            //mResigter_username.setText(name);
-           // mResigter_password.setText(pwd);
-            //mSureofregister.setChecked(true);
-       // }
-        if (mNewUserManager == null) {
-            mNewUserManager = new NewUserManager(this);
-            mNewUserManager.openDataBase();                              //建立本地数据库
-        }
-        View.OnClickListener m_register_Listener = new View.OnClickListener() {    //不同按钮按下的监听事件选择
-            public void onClick(View v) {
-                switch (v.getId()) {
-                    case R.id.sureofregister:                       //确认按钮的监听事件
-                        register_check();
-                        break;
-                    //case R.id.register_btn_cancel:                     //取消按钮的监听事件,由注册界面返回登录界面
-                        //Intent intent_Register_to_Login = new Intent(Register.this,Login.class) ;    //切换User Activity至Login Activity
-                        //startActivity(intent_Register_to_Login);
-                }
-            }
-        };
     }
 
-    private void register_check() {
-        if (isUserNameAndPwdValid()) {
-            String userName = mRegister_username.getText().toString().trim();
-            String userPwd = mRegister_password.getText().toString().trim();
-            //String userPwdCheck = mPwdCheck.getText().toString().trim();
-            //检查用户是否存在
-            int count= mNewUserManager.findUserByName(userName);
-            //用户已经存在时返回，给出提示文字
-            if(count>0){
-                Toast.makeText(this, getString(R.string.name_already_exist),Toast.LENGTH_SHORT).show();
-                return ;
-            }
-
-            if(userPwd.equals(userPwd)==false){     //两次密码输入不一样
-                Toast.makeText(this, getString(R.string.different),Toast.LENGTH_SHORT).show();
-                return ;
-            } else {
-               NewuserData mUser = new NewuserData(userName, userPwd);
-                mNewUserManager.openDataBase();
-                boolean flag = mNewUserManager.insertUserData(mUser); //新建用户信息
-                if (flag == false) {
-                    Toast.makeText(this, getString(R.string.register_fail),Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(this, getString(R.string.register_success),Toast.LENGTH_SHORT).show();
-                    Intent intent_Register_to_Login = new Intent(RegisterActivity.this, LoginActivity.class) ;    //切换User Activity至Login Activity
-                    startActivity(intent_Register_to_Login);
-                    finish();
-                }
-            }
+    public void Register(String s1,String s2,String s3){
+        if(s1.length()!=0&&s2.length()!=0&&s2.equals(s3)==true) {
+            set_date(s1, s2);
+        }
+        else if(s2.length()==0){
+            Toast.makeText(RegisterActivity.this,"密码不能为空",Toast.LENGTH_SHORT);
+        }
+        else if(s2.equals(s3)==false){
+            Toast.makeText(RegisterActivity.this,"两次密码输入不同",Toast.LENGTH_SHORT).show();
+            Log.d("RegisterActivity","用户名"+s1+"第一次输入密码"+s2+"第二次输入密码"+s3);
+        }else {
+            Toast.makeText(RegisterActivity.this,"用户名不能为空",Toast.LENGTH_SHORT).show();
         }
 
     }
 
-    private boolean isUserNameAndPwdValid() {
-        if (mRegister_username.getText().toString().trim().equals("")) {
-            Toast.makeText(this, getString(R.string.resigter_empty),
-                    Toast.LENGTH_SHORT).show();
-            return false;
-        } else if (mRegister_password.getText().toString().trim().equals("")) {
-            Toast.makeText(this, getString(R.string.resigiter_empty),
-                    Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        return true;
-    }
+
     @Override
     protected void onResume() {
         if (mNewUserManager == null) {
@@ -148,28 +102,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
 
-    // private void register_check() {
-    //}
-
-    private void initView() {
-        mBack = (Button) findViewById(R.id.back);
-        mRegister_password =(EditText)findViewById(R.id.register_password);
-        mRegister_username =(EditText) findViewById(R.id.register_username);
-        mPassword_again=(EditText)findViewById(R.id.password_again);
-        mSureOfRegister = (Button) findViewById(R.id.sureofregister);
-        mSureOfRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                set_date(userNameValue,passwordValue);
-            }
-        });
-        mBack.setOnClickListener(this);
-    }
-
-    @Override
-    public void onClick(View v) {
-
-    }
 
     public void set_date(String name,String password){
         Retrofit retrofit = new Retrofit.Builder()
@@ -188,16 +120,15 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 if (response.isSuccessful() == true) {
                     String user_name = response.body().getUser_name();
                     String user_motto = response.body().getMotto();
-                    Toast.makeText(RegisterActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(RegisterActivity.this,GuideActivity.class);
+                    Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(RegisterActivity.this, "密码错误", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "用户名已存在", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Users> call, Throwable t) {
-                Toast.makeText(RegisterActivity.this, "登录失败", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegisterActivity.this, "注册失败", Toast.LENGTH_SHORT).show();
             }
         });
     }

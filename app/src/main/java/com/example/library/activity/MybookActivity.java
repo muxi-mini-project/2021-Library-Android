@@ -74,41 +74,40 @@ public class MybookActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         adapter = new MybookAdapter(date, MybookActivity.this);
         adapter.setOnItemClickListener(new MybookAdapter.OnItemClickListener() {
-                                           @Override
+            @Override
             /**
              *长按弹出“删除”
              */
 
-            public void onItemLongClick(final View view, final int pos,final int id) {
-                                               PopupMenu popupMenu = new PopupMenu(MybookActivity.this, view);
-                                               popupMenu.getMenuInflater().inflate(R.menu.delete, popupMenu.getMenu());
+            public void onItemLongClick(final View view, final int pos, final int id) {
+                PopupMenu popupMenu = new PopupMenu(MybookActivity.this, view);
+                popupMenu.getMenuInflater().inflate(R.menu.delete, popupMenu.getMenu());
+                //弹出式菜单的菜单项点击事件
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
 
-                                               //弹出式菜单的菜单项点击事件
-                                               popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-
-                                                   @Override
-                                                   public boolean onMenuItemClick(MenuItem item) {
-                                                       /**
-                                                        * 删除的网络请求：（）里要填相应的是的id
-                                                        */
-                                                       adapter.notifyItemRemoved(pos);
-                                                       deleteBookDetail(id);
-                                                       return true;
-                                                   }
-                                               });
-                                               popupMenu.show();
-                                           }
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        /**
+                         * 删除的网络请求：（）里要填相应的是的id
+                         */
+                        adapter.notifyItemRemoved(pos);
+                        deleteBookDetail(id);
+                        return true;
+                    }
+                });
+                popupMenu.show();
+            }
 
             /**
              * 单击跳转，与上面问题相同
              * @param position
              */
             @Override
-            public void omItemClick(final View view,final int position,final int id) {
-                                               Intent intent = BookDetailPagerActivity.newIntent(MybookActivity.this,id);
-                                               startActivity(intent);
-                                           }
-                                       });
+            public void omItemClick(final View view, final int position, final int id) {
+                Intent intent = BookDetailPagerActivity.newIntent(MybookActivity.this, id);
+                startActivity(intent);
+            }
+        });
         recyclerView.setAdapter(adapter);
     }
 
@@ -168,25 +167,21 @@ public class MybookActivity extends AppCompatActivity {
             }).start();
 
 
-
-
-
-
 /**
  * 监听器设置
  */
-            if(onItemClickListener!=null) {
+            if (onItemClickListener != null) {
                 holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
-                        onItemClickListener.onItemLongClick(holder.itemView,position,myBook.getBook_id());
+                        onItemClickListener.onItemLongClick(holder.itemView, position, myBook.getBook_id());
                         return true;
                     }
                 });
-                holder.itemView.setOnClickListener(new View.OnClickListener(){
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        onItemClickListener.omItemClick(holder.itemView,position,myBook.getBook_id());
+                        onItemClickListener.omItemClick(holder.itemView, position, myBook.getBook_id());
                     }
                 });
             }
@@ -200,9 +195,9 @@ public class MybookActivity extends AppCompatActivity {
         private OnItemClickListener onItemClickListener;
 
         public interface OnItemClickListener {
-            void onItemLongClick(View v, int position,int id);
+            void onItemLongClick(View v, int position, int id);
 
-            void omItemClick(View v,int position,int id);
+            void omItemClick(View v, int position, int id);
         }
 
         public void setOnItemClickListener(OnItemClickListener clickListener) {
@@ -226,7 +221,6 @@ public class MybookActivity extends AppCompatActivity {
         public void bind(MyBook myBook) {
             mMyBook = myBook;
             textView.setText(mMyBook.getBook_name());
-
         }
 
     }
@@ -279,7 +273,7 @@ public class MybookActivity extends AppCompatActivity {
                 if (response.isSuccessful() == true) {
                     Toast.makeText(MybookActivity.this, "删除书本成功", Toast.LENGTH_SHORT).show();
                 }
-                Log.d("MyBookActivity", "删除单一书本的网络请求成功"+",删除的书本id是"+book_id);
+                Log.d("MyBookActivity", "删除单一书本的网络请求成功" + ",删除的书本id是" + book_id);
             }
 
             @Override

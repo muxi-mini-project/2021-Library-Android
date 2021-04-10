@@ -26,6 +26,7 @@ import com.example.library.R;
 import com.example.library.R;
 import com.example.library.activity.GuideActivity;
 import com.example.library.activity.LoginActivity;
+import com.example.library.data.BookDigestData;
 import com.example.library.data.GetDigest;
 import com.example.library.fragment.ChoseBookExtract;
 

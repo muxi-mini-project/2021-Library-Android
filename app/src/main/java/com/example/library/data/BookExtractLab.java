@@ -3,9 +3,7 @@ package com.example.library.data;
 
 import android.content.Context;
 
-import com.example.library.BookExtract.BookDigestData;
 import com.example.library.BookExtract.BookExtractAdapter;
-import com.example.library.BookExtract.BookExtratDetail;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -8,6 +8,7 @@ public class Users {
     /**
      * 用于注册和登录的users类
      */
+    private String user_id;
     private String user_name;
     private String user_password;
     private String Motto;
@@ -56,5 +57,13 @@ public class Users {
 
     public void setPicture(String picture){
         this.user_picture = picture;
+    }
+
+    public String getUser_id(){
+        return user_id;
+    }
+
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
     }
 }

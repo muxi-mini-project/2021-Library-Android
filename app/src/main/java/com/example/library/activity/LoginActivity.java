@@ -33,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
     private ProgressDialog mProgressDialog;
     private final String FUCK = "这个人很懒，什么都没留下";
     public static String token;
+    public static String user_id;
 
 
     @Override
@@ -110,6 +111,7 @@ public class LoginActivity extends AppCompatActivity {
                     Bundle bundle0 = new Bundle();
                     bundle0.putString("getToken_Login", token);
                     bundle0.putString("getPassword_Login",password);
+                    bundle0.putString("getId_Login",user_id);
                     intent.putExtras(bundle0);
                     startActivity(intent);
                 } else {

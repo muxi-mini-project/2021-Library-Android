@@ -1,11 +1,9 @@
 package com.example.library.Interface;
 
-import com.example.library.BookExtract.BookDigestData;
+import com.example.library.data.BookDigestData;
 import com.example.library.Searcher.SearchView2;
 import com.example.library.data.GetDigest;
 import com.example.library.edit_item_java;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;

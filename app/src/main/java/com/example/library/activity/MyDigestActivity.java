@@ -16,9 +16,12 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.library.BookExtract.BookExtratDetail;
 import com.example.library.Interface.UserDate;
 import com.example.library.R;
 import com.example.library.data.CommentDetail;
@@ -55,7 +58,6 @@ public class MyDigestActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.mydigest_recyclerView);
         textView2 = (TextView) findViewById(R.id.mydigest_change);
         get_DigestList();
-
     }
 
     public void UPDateUI() {
@@ -63,39 +65,37 @@ public class MyDigestActivity extends AppCompatActivity {
         linearLayoutManager = new LinearLayoutManager(context);
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
-        adapter = new MyDigestAdapter(myDigestList,MyDigestActivity.this);
-        /*adapter.setOnItemClickListener(new MyDigestActivity.MyDigestAdapter.OnItemClickListener() {
+        adapter = new MyDigestAdapter(myDigestList, MyDigestActivity.this);
+        adapter.setOnItemClickListener(new MyDigestAdapter.OnItemClickListener() {
             @Override
-            /**
-             *长按弹出“删除”
-
-
-            public void onItemLongClick(final View view, final int pos,final int id) {
-                PopupMenu popupMenu = new PopupMenu(MyDigestActivity.this, view);
+            public void onItemLongClick(View v, int position, int id) {
+                PopupMenu popupMenu = new PopupMenu(MyDigestActivity.this, v);
                 popupMenu.getMenuInflater().inflate(R.menu.delete, popupMenu.getMenu());
-
                 //弹出式菜单的菜单项点击事件
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
 
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
-
-                        adapter.notifyItemRemoved(pos);
-                        //deleteDigest(id);
+                        /**
+                         * 删除的网络请求：（）里要填相应的是的id
+                         */
+                        adapter.notifyItemRemoved(position);
+                        deleteDigest(id);
                         return true;
                     }
                 });
                 popupMenu.show();
             }
 
-
             @Override
-            public void omItemClick(final View view,final int position,int id) {
-                Intent intent = BookDetailPagerActivity.newIntent(MyDigestActivity.this,title);
-                startActivity(intent);
+            public void onItemClick(View v, int position, int id) {
+                FragmentTransaction fragmentTransaction  = getSupportFragmentManager().beginTransaction();
+                Fragment fragment  = BookExtratDetail.newInstance(id);
+                fragmentTransaction.add(R.id.guide_fragment,fragment);
+                fragmentTransaction.commit();
             }
-        });*/
-        recyclerView.setAdapter(new MyDigestAdapter(myDigestList, MyDigestActivity.this));
+        });
+        recyclerView.setAdapter(adapter);
     }
 
 
@@ -122,18 +122,18 @@ public class MyDigestActivity extends AppCompatActivity {
             MyDigest myDigest = myDigests.get(position);
             holder.bind(myDigest);
 
-            if(onItemClickListener!=null) {
+            if (onItemClickListener != null) {
                 holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
-                        //onItemClickListener.onItemLongClick(holder.itemView,position,myDigest.getId());
+                        onItemClickListener.onItemLongClick(holder.itemView, position, myDigest.getId());
                         return true;
                     }
                 });
-                holder.itemView.setOnClickListener(new View.OnClickListener(){
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        //onItemClickListener.omItemClick(holder.itemView,position,myDigest.getId());
+                        onItemClickListener.onItemClick(holder.itemView, position, myDigest.getId());
                     }
                 });
             }
@@ -144,18 +144,19 @@ public class MyDigestActivity extends AppCompatActivity {
             return myDigests.size();
         }
 
-        private MybookActivity.MybookAdapter.OnItemClickListener onItemClickListener;
+        private MyDigestAdapter.OnItemClickListener onItemClickListener;
 
         public interface OnItemClickListener {
-            void onItemLongClick(View v, int position,int id);
+            void onItemLongClick(View v, int position, int id);
 
-            void omItemClick(View v,int position,String title);
+            void onItemClick(View v, int position, int id);
         }
 
-        public void setOnItemClickListener(MybookActivity.MybookAdapter.OnItemClickListener clickListener) {
+        public void setOnItemClickListener(OnItemClickListener clickListener) {
             this.onItemClickListener = clickListener;
         }
     }
+
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView imageView;
@@ -164,21 +165,22 @@ public class MyDigestActivity extends AppCompatActivity {
         private TextView textView3;
         private MyDigest MyDigest;
 
-
         public ViewHolder(LayoutInflater inflate, ViewGroup parent) {
             super(inflate.inflate(R.layout.item_my_publication, parent, false));
-            imageView = itemView.findViewById(R.id.mybook_pic);
-            textView1 = itemView.findViewById(R.id.mybook_name);
-
-
+            imageView = itemView.findViewById(R.id.myNote_pic);
+            textView1 = itemView.findViewById(R.id.myNote_name);
+            textView2 = itemView.findViewById(R.id.myNote_Date);
+            textView3 = itemView.findViewById(R.id.myNote_content);
         }
 
         public void bind(MyDigest myDigest) {
             MyDigest = myDigest;
-            textView1.setText(MyDigest.getUser_id());
-            textView3.setText(MyDigest.getSummary_information());
+            textView1.setText(MyDigest.getTitle());
+            textView2.setText(MyDigest.getSummary_information());
+            textView3.setText(MyDigest.getThought());
 
         }
+
     }
 
 
@@ -228,7 +230,9 @@ public class MyDigestActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Response<Void>> call, Response<Response<Void>> response) {
                 if (response.isSuccessful() == true) {
-                    Toast.makeText(MyDigestActivity.this, "删除书摘成功", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MyDigestActivity.this,
+                            "删除书摘成功",
+                            Toast.LENGTH_SHORT).show();
                 }
                 Log.d("MyDigestActivity", "删除单一书摘的网络请求成功");
             }
@@ -262,16 +266,11 @@ public class MyDigestActivity extends AppCompatActivity {
                     UPDateUI();
                 }
                 Toast.makeText(MyDigestActivity.this, "成功获取书摘", Toast.LENGTH_SHORT).show();
-
             }
-
             @Override
             public void onFailure(Call<List<MyDigest>> call, Throwable t) {
                 Toast.makeText(MyDigestActivity.this, "获取书摘失败", Toast.LENGTH_SHORT).show();
             }
-
-
         });
     }
-
 }

@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:orientation="horizontal"
-        android:background="@color/yellow"
+        android:background="@color/new_blue"
         >
 
         <Button
@@ -104,7 +104,7 @@
         android:layout_gravity="center"
         android:text="完成"
         android:textSize="28sp"
-        android:background="@color/yellow"
+        android:background="@color/new_blue"
         />
     
 

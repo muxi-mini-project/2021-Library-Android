@@ -53,6 +53,7 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
     private String user_motto;
     private String user_token;
     private String user_password;
+    private String user_id;
 
 
     @Override
@@ -66,6 +67,7 @@ public class GuideActivity extends AppCompatActivity implements View.OnClickList
         Bundle bundle1 = intent_qyh.getExtras();
         user_token = bundle1.getString("getToken_Login");
         user_password = bundle1.getString("getPassword_Login");
+        user_id = bundle1.getString("getId_Login");
         System.out.println(user_token);
         /**
          * token保存到本地

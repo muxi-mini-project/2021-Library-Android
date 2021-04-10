@@ -63,6 +63,7 @@
 
         <TextView
             android:id="@+id/myNote_content"
+            android:text="123"
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_marginStart="10dp"

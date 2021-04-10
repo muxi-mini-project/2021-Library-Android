@@ -84,6 +84,7 @@ public class mineFragment_father extends Fragment {
     private String u_picture;
     private String u_token;
     private String u_password;
+    private String u_id;
 
 
     @Override
@@ -271,7 +272,6 @@ public class mineFragment_father extends Fragment {
             public void onClick(View v) {
                 String use_password = editText3.getText().toString();
                 Set_user_Date(u_token, u_name, u_motto, use_password, u_picture);
-                textView1.setText(use_password);
                 System.out.println("密码是" + use_password);
                 dialog.dismiss();
             }
@@ -479,10 +479,11 @@ public class mineFragment_father extends Fragment {
                     u_picture = response.body().getPicture();
                     u_name = response.body().getUser_name();
                     u_motto = response.body().getMotto();
+                    u_id = response.body().getUser_id();
                     UpUI();
                 }
 
-                Log.d("GuideActivity", u_name + "还有" + u_motto);
+                Log.d("GuideActivity", u_name + "还有" + u_motto+"id是:"+u_id);
 
                 Toast.makeText(getActivity(), "成功获取信息", Toast.LENGTH_SHORT).show();
 
