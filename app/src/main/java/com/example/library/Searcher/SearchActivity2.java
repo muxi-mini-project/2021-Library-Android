@@ -11,24 +11,12 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.library.BookExtract.BookDigestData;
-import com.example.library.BookExtract.BookExtractAdapter;
-import com.example.library.Interface.BookExtractInterface;
 import com.example.library.R;
-import com.example.library.Search.SearchAdapter;
-import com.example.library.Search.SearchView;
-import com.example.library.activity.MainActivity;
 import com.example.library.data.GetDigest;
 import com.example.library.fragment.ChoseBookExtract;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SearchActivity2 extends AppCompatActivity implements SearchView2.SearchViewListener  {
 

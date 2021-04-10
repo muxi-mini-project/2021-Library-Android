@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,10 +19,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.library.BookExtract.BookExtratDetail;
 import com.example.library.Interface.UserDate;
 import com.example.library.R;
 import com.example.library.activity.LoginActivity;
 import com.example.library.activity.MyDigestActivity;
+import com.example.library.data.GetDigest;
 import com.example.library.data.MyDigest;
 
 import java.net.HttpURLConnection;
@@ -108,12 +112,13 @@ public class mineFragment2 extends Fragment {
         }
     }
 
-    public class holder extends RecyclerView.ViewHolder {
+    public class holder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private ImageView imageView;
         private TextView textView1;
         private TextView textView2;
         private TextView textView3;
+        private MyDigest digest;
 
 
         public holder(LayoutInflater inflater, ViewGroup parent) {
@@ -126,8 +131,9 @@ public class mineFragment2 extends Fragment {
 
 
         public void Bind(MyDigest myNotes) {
-            textView1.setText(myNotes.getTitle());
-            textView3.setText(myNotes.getSummary_information());
+            this.digest = myNotes;
+            textView1.setText(digest.getTitle());
+            textView3.setText(digest.getSummary_information());
             handler.post(updateTime);
         }
 
@@ -142,6 +148,14 @@ public class mineFragment2 extends Fragment {
                 textView2.setText(time);
             }
         };
+
+        @Override
+        public void onClick(View v) {
+            FragmentTransaction fragmentTransaction =((AppCompatActivity)getContext()).getSupportFragmentManager().beginTransaction();
+            Fragment fragment = BookExtratDetail.newInstance(digest.getTitle());
+            fragmentTransaction.add(R.id.guide_fragment,fragment);
+            fragmentTransaction.commit();
+        }
     }
 
     public void get_Digest(){

@@ -1,38 +1,31 @@
 package com.example.library.BookExtract;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
-
-import com.example.library.AboutSwitch;
 import com.example.library.Interface.BookExtractInterface;
 import com.example.library.R;
 
 
-
-import com.example.library.R;
-import com.example.library.activity.GuideActivity;
 import com.example.library.activity.LoginActivity;
+import com.example.library.data.BookDigestData;
 import com.example.library.data.GetDigest;
-import com.example.library.fragment.ChoseBookExtract;
 
-import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -42,7 +35,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import static android.widget.Toast.*;
 
-public class BookExtratDetail extends AppCompatActivity implements View.OnClickListener {
+public class BookExtratDetail extends Fragment implements View.OnClickListener {
     private static final String TAG = "DQP";
     private Button mBack_book_extract;
     private Button mSwitch_detail;
@@ -56,44 +49,60 @@ public class BookExtratDetail extends AppCompatActivity implements View.OnClickL
     private BookExtractAdapter mAdapter;
     public static List<GetDigest.DataDTO> mBook_extract_list = new ArrayList<>();
     Context context;
-    BookDigestData.DataDTO mData =new BookDigestData.DataDTO();
+    BookDigestData.DataDTO mData = new BookDigestData.DataDTO();
     private String name;
     private String summary;
 
 
-    private DialogInterface.OnClickListener mListener=new DialogInterface.OnClickListener() {
+    private DialogInterface.OnClickListener mListener = new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
-           // Toast.makeText(BookExtratDetail.this,"Button"+which+"was clicked",Toast.LENGTH_SHORT);
+            // Toast.makeText(BookExtratDetail.this,"Button"+which+"was clicked",Toast.LENGTH_SHORT);
             dialog.dismiss();
         }
     };
 
-    protected void onCreate(Bundle savedInstanceState) {
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
 
-        name = getIntent().getStringExtra("书摘名称");
-        //summary=getIntent().getStringExtra("书摘内容");
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.book_extract_detail, container, false);
+        Bundle bundle = getArguments();
 
-        setContentView(R.layout.book_extract_detail);
-        mAdapter = new BookExtractAdapter(BookExtratDetail.this, mBook_extract_list);
-        initView();
+        name = bundle.getString("get_DigestTitle");
+
+        mBack_book_extract = (Button) v.findViewById(R.id.back_book_extract);
+        mSwitch_detail = (Button) v.findViewById(R.id.switch_detail);
+        mSwitch_look = (Button) v.findViewById(R.id.switch_look);
+        title = (EditText) v.findViewById(R.id.title);
+        title.setText(name);
+        chapter = (EditText) v.findViewById(R.id.chapter);
+        summary_information = (EditText) v.findViewById(R.id.chapter_context);
+        // summary_information.setText(summary);
+        thought = (EditText) v.findViewById(R.id.idea);
+        mFinish1 = (Button) v.findViewById(R.id.finish1);
+
+        mAdapter = new BookExtractAdapter(getContext(), mBook_extract_list);
         inputData();
         mBack_book_extract.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BookExtratDetail.this.finish();
+                getActivity().finish();
             }
         });
 
         mFinish1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mData.getTitle()==""){
-                    Log.e(TAG,"==========>>");
+                if (mData.getTitle() == "") {
+                    Log.e(TAG, "==========>>");
                 }
                 if (mData.getTitle() == "" && mData.getSummary_information() == "" && mData.getChapter() == "" && mData.getThought() == "") {
-                    Toast.makeText(BookExtratDetail.this, "书摘不能为空", LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "书摘不能为空", LENGTH_LONG).show();
                 } else {
                     getRequest();
                 }
@@ -107,7 +116,7 @@ public class BookExtratDetail extends AppCompatActivity implements View.OnClickL
                         .build();
 
                 BookExtractInterface mApi = retrofit.create(BookExtractInterface.class);
-                Call<BookDigestData.DataDTO> bookDigestDataCall = mApi.getDigest(LoginActivity.token,mData);
+                Call<BookDigestData.DataDTO> bookDigestDataCall = mApi.getDigest(LoginActivity.token, mData);
                 bookDigestDataCall.enqueue(new Callback<BookDigestData.DataDTO>() {
                     @Override
                     public void onResponse(Call<BookDigestData.DataDTO> call, Response<BookDigestData.DataDTO> response) {
@@ -115,18 +124,17 @@ public class BookExtratDetail extends AppCompatActivity implements View.OnClickL
                         Log.d(TAG, "创建书摘" + response.code());
 
                         //mAdapter = new BookExtractAdapter(BookExtratDetail.this, mBook_extract_list);
-                        makeText(BookExtratDetail.this, "已添加", LENGTH_SHORT).show();
+                        makeText(getActivity(), "已添加", LENGTH_SHORT).show();
                        /* Intent intent = new Intent(BookExtratDetail.this, ChoseBookExtract.class);
                         startActivity(intent);*/
-                       // mAdapter.addData(mBook_extract_list.size() + 1);
+                        // mAdapter.addData(mBook_extract_list.size() + 1);
                         mData = response.body();
-                        finish();
                     }
 
                     @Override
                     public void onFailure(Call<BookDigestData.DataDTO> call, Throwable t) {
 
-                        Toast.makeText(BookExtratDetail.this, "添加失败", LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "添加失败", LENGTH_SHORT).show();
                     }
 
                 });
@@ -134,7 +142,7 @@ public class BookExtratDetail extends AppCompatActivity implements View.OnClickL
                 mSwitch_detail.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(BookExtratDetail.this);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                         builder.setTitle("提示");
                         builder.setMessage("按键打开时，此书摘在个人主页、书籍详情页以及摘录页面都可见。\n" +
                                 "按键关闭时，此书摘在仅摘录页面可见。");
@@ -160,36 +168,33 @@ public class BookExtratDetail extends AppCompatActivity implements View.OnClickL
                         bookDigestData.enqueue(new Callback<BookDigestData>() {
                             @Override
                             public void onResponse(Call<BookDigestData> call, Response<BookDigestData> response) {
-                                Toast.makeText(BookExtratDetail.this, "公开成功", LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "公开成功", LENGTH_SHORT).show();
                             }
 
                             @Override
                             public void onFailure(Call<BookDigestData> call, Throwable t) {
-                                Toast.makeText(BookExtratDetail.this, "公开失败", LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "公开失败", LENGTH_SHORT).show();
                             }
                         });
                     }
                 });
             }
         });
+        return v;
     }
 
-    private void initView() {
-        mBack_book_extract=(Button)findViewById(R.id.back_book_extract);
-        mSwitch_detail=(Button) findViewById(R.id.switch_detail);
-        mSwitch_look=(Button)findViewById(R.id.switch_look);
-        title=(EditText) findViewById(R.id.title);
-        title.setText(name);
-        chapter=(EditText)findViewById(R.id.chapter);
-        summary_information=(EditText)findViewById(R.id.chapter_context);
-        // summary_information.setText(summary);
-        thought=(EditText)findViewById(R.id.idea);
-        mFinish1=(Button)findViewById(R.id.finish1);
+    public static BookExtratDetail newInstance( String digest_title) {
+        Bundle arg = new Bundle();
+        arg.putString("get_DigestTitle", digest_title);
+        BookExtratDetail bookExtratDetail = new BookExtratDetail();
+        bookExtratDetail.setArguments(arg);
+        return bookExtratDetail;
     }
 
-    private void inputData(){
+
+    private void inputData() {
         mData.setTitle(title.getText().toString());
-        Log.e(TAG,">>>?>>.../...."+mData.getTitle());
+        Log.e(TAG, ">>>?>>.../...." + mData.getTitle());
         mData.setChapter(chapter.getText().toString());
         mData.setSummary_information(summary_information.getText().toString());
         mData.setThought(thought.getText().toString());

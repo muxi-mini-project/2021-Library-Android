@@ -5,9 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -15,13 +13,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.PopupMenu;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.library.BookExtract.BookDigestData;
+import com.example.library.data.BookDigestData;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,10 +28,7 @@ import com.example.library.Interface.BookExtractInterface;
 import com.example.library.R;
 //import com.example.library.data.Book;
 import com.example.library.Searcher.SearchActivity2;
-import com.example.library.Searcher.SearchView2;
 import com.example.library.activity.LoginActivity;
-import com.example.library.data.BookData;
-import com.example.library.data.BookExtractLab;
 import com.example.library.data.GetDigest;
 import com.example.library.edit;
 
@@ -111,6 +105,10 @@ public class ChoseBookExtract extends Fragment {
     }
 
 
+
+
+
+
     private void getRequest() {
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -128,7 +126,7 @@ public class ChoseBookExtract extends Fragment {
                 Log.d(TAG, "获得书摘" + response.code());
                 if (response.code() == HttpURLConnection.HTTP_OK ) {
                     //mAdapter = new BookExtractAdapter(getActivity(), mBook_extract_list);
-                    Log.d(TAG, "+++=========>" + response.body().toString());
+                    Log.d(TAG, "here+++=========>" + response.body().toString());
                     mBook_extract_list = response.body().getData();
                    // mData=response.body();
                     updateUI();

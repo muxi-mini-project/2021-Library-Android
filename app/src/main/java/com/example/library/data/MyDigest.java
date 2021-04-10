@@ -48,6 +48,6 @@ public class MyDigest {
 
 
     public Boolean getPublic() {
-        return Public;
+        return true;
     }
 }
