@@ -5,12 +5,14 @@ import android.widget.EditText;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+import java.io.SerializablePermission;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 import java.util.UUID;
 
-public class BookDigestData {
+public class BookDigestData implements Serializable {
     /**
      * data : {"id":7,"user_id":0,"book_id":0,"class_id":0,"title":"",
      * "chapter":"","summary_information":"",
@@ -47,7 +49,7 @@ public class BookDigestData {
         this.message = message;
     }
 
-    public static class DataDTO {
+    public static class DataDTO implements Serializable {
         /**
          * id : 7
          * user_id : 0
@@ -73,7 +75,7 @@ public class BookDigestData {
         @SerializedName("public")
         private Boolean publicX;
 
-        public DataDTO(Context context) {
+        public DataDTO() {
             this.Id = UUID.randomUUID();
         }
 
@@ -148,7 +150,7 @@ public class BookDigestData {
         }
 
         public String getDate() {
-            SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
             Calendar c=Calendar.getInstance();
             String date1=sdf.format(c.getTime());
             return date1;

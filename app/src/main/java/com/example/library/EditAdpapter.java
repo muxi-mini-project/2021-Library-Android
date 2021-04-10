@@ -1,6 +1,8 @@
 package com.example.library;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +18,13 @@ import java.util.List;
 
 public class EditAdpapter extends RecyclerView.Adapter<EditAdpapter.ViewHolder> {
 
+    private static final String TAG ="EditAdapter" ;
     public Context context;
-    public List<String> kindlist=new ArrayList<String>();
+    public List<String> kindlist;
     private TextView mBook_name;
     private EditText mAdd_text;
+    private EditData mEditData;
+    String message;
 
     public EditAdpapter(Context context,List<String> kindlist){
         this.context=context;
@@ -57,18 +62,8 @@ public class EditAdpapter extends RecyclerView.Adapter<EditAdpapter.ViewHolder> 
             super(itemView);
             book_name=itemView.findViewById(R.id.book_name);
             delete=itemView.findViewById(R.id.delete);
-            mBook_name=(TextView)itemView.findViewById(R.id.book_name);
-            mAdd_text=(EditText)itemView.findViewById(R.id.add_text);
+
         }
-    }
-    //添加数据
-    public void addData(int position){
-        //通知列表添加一条
-        kindlist.add(position,"我是书摘种类"+position);
-        mBook_name.setText((String)mAdd_text.getText().toString());
-        //mBook_name.setText(mAdd_text.getText().toString());
-        //添加动画
-        notifyItemChanged(position);
     }
 
     //删除数据

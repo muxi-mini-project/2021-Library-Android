@@ -18,6 +18,7 @@ import com.example.library.R;
 import com.example.library.Search.SearchAdapter;
 import com.example.library.Search.SearchView;
 import com.example.library.activity.MainActivity;
+import com.example.library.data.GetDigest;
 import com.example.library.fragment.ChoseBookExtract;
 
 import java.util.ArrayList;
@@ -60,7 +61,7 @@ public class SearchActivity2 extends AppCompatActivity implements SearchView2.Se
     /**
      * 数据库数据，总数据
      */
-    private List<BookDigestData.DataDTO> dbData;
+    private List<GetDigest.DataDTO> dbData;
     private List<String> searchData;
 
     /**

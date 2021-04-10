@@ -37,6 +37,7 @@
         <activity android:name=".activity.RegisterActivity"/>
         <activity android:name=".Searcher.SearchActivity2"/>
         <activity android:name=".activity.MyDigestActivity"/>
+        <activity android:name=".activity.GuideActivity"/>
 
 
     </application>
