@@ -115,6 +115,13 @@ public class BookDetailsFragment extends Fragment {
         });
         //添加书摘
         mButton2 = (Button)v.findViewById(R.id.book_detail_add_note);
+        mButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),ChoseBookExtract.class);
+                startActivity(intent);
+            }
+        });
         //书摘列表
         mRecyclerView = (RecyclerView)v
                 .findViewById(R.id.book_detail_list);//组件
